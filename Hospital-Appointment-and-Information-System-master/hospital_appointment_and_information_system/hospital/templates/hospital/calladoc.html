@@ -38,7 +38,56 @@
 
         Tip 2: you can also add an image using data-image tag
     -->
-    {% include "hospital/nav_patient.html" %}
+    <div class="logo"><a href="#" class="simple-text logo-normal">
+      <img src="https://www.iasplus.com/en/images/responsive/badges/g20/@@images/465e1ae9-46a0-4131-b3d0-984fcbb8233a.png">
+      <br> 
+      GROUP 20
+      </a></div>
+    <div class="sidebar-wrapper">
+      <ul class="nav">
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'dashboard.html' %}">
+            <i class="material-icons">dashboard</i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'profile.html' %}">
+            <i class="material-icons">person</i>
+            <p>Profile</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'bookapp.html' %}">
+            <i class="material-icons">content_paste</i>
+            <p>Book Appointment</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'yourhealth.html' %}">
+            <i class="material-icons">favorite</i>
+            <p>Your Health</p>
+          </a>
+        </li>
+        <li class="nav-item active  ">
+          <a class="nav-link" href="{% url 'calladoc.html' %}">
+            <i class="material-icons">library_books</i>
+            <p>Call A Doc</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'medicalreport.html' %}">
+            <i class="material-icons">favorite</i>
+            <p>Medical Reports</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'feedback.html' %}">
+            <i class="material-icons">bubble_chart</i>
+            <p>Feedback</p>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
     <div class="main-panel">
