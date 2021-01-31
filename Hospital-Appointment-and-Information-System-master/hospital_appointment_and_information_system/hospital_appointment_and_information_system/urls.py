@@ -18,13 +18,21 @@ from django.urls import include, path
 from hospital import views
 
 urlpatterns = [
+    
     path('admin/', admin.site.urls),
     path('',views.home_view,name=''),
-    path('about/',views.about_view,name='about.html'),
-    path('login/',views.login_view,name='login.html'),
+    path('dash/',views.dash_view,name='dashboard.html'),
+    path('bookapp/',views.bookapp_view,name='bookapp.html'),
+    path('calladoc/',views.calladoc_view,name='calladoc.html'),
+    path('feedback/',views.feedback_view,name='feedback.html'),
+    path('medicalreport/',views.medicalreport_view,name='medicalreport.html'),
+    path('profile/',views.profile_view,name='profile.html'),
+    path('yourhealth/',views.yourhealth_view,name='yourhealth.html'),
+    path('home/',views.home_view,name='home.html'),
+    path('services/',views.services_view,name='services.html'),
+    path('contactus/',views.contactus_view,name='contactus.html'),
     path('news/',views.news_view,name='news.html'),
-    path('signup/',views.signup_view,name='signup.html'),
-    path('contact_us/',views.contact_us_view,name='contact_us.html'),
+    path('login/',views.login_view,name='login.html'),
     #path('hospital/', include('hospital.urls')),
     
 ]
