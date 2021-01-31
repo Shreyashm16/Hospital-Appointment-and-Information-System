@@ -63,13 +63,13 @@
             <p>Book Appointment</p>
           </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item active  ">
           <a class="nav-link" href="{% url 'yourhealth.html' %}">
             <i class="material-icons">favorite</i>
             <p>Your Health</p>
           </a>
         </li>
-        <li class="nav-item active  ">
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'calladoc.html' %}">
             <i class="material-icons">library_books</i>
             <p>Call A Doc</p>
@@ -127,7 +127,7 @@
       </nav>
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
-      {% include "hospital/footer.html" %}
+      {% include "hospital/Patient/footer.html" %}
     </div>
   </div>
   <!--   Core JS Files   -->

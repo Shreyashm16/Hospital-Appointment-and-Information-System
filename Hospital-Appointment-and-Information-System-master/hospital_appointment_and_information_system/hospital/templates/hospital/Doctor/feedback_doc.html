@@ -32,7 +32,7 @@
 
 <body class="dark-edition">
   <div class="wrapper ">
-    <div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static 'assets/img/sidebar-2.jpg'%}">
+    <div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static 'assets/img/sidebar-1.jpg'%}">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -51,7 +51,7 @@
             <p>Dashboard</p>
           </a>
         </li>
-        <li class="nav-item active  ">
+        <li class="nav-item ">
           <a class="nav-link" href="{% url 'profile.html' %}">
             <i class="material-icons">person</i>
             <p>Profile</p>
@@ -81,7 +81,7 @@
             <p>Medical Reports</p>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active  ">
           <a class="nav-link" href="{% url 'feedback.html' %}">
             <i class="material-icons">bubble_chart</i>
             <p>Feedback</p>
@@ -127,7 +127,7 @@
       </nav>
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
-      {% include "hospital/footer.html" %}
+      {% include "hospital//Doctor/footer.html" %}
     </div>
   </div>
   <!--   Core JS Files   -->

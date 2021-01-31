@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+    <div class="logo">
+        <a href="#" class="simple-text logo-normal">
+            <img src="https://www.iasplus.com/en/images/responsive/badges/g20/@@images/465e1ae9-46a0-4131-b3d0-984fcbb8233a.png">
+            <br> GROUP 20
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li class="nav-item active  ">
+                <a class="nav-link" href="{% url 'dashboard_doc.html' %}">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'profile_doc.html' %}">
+                    <i class="material-icons">person</i>
+                    <p>Profile</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'bookapp_doc.html' %}">
+                    <i class="material-icons">content_paste</i>
+                    <p>Book Appointment</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'yourhealth_doc.html' %}">
+                    <i class="material-icons">favorite</i>
+                    <p>Your Health</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'calladoc_doc.html' %}">
+                    <i class="material-icons">library_books</i>
+                    <p>Call A Doc</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'medicalreport_doc.html' %}">
+                    <i class="material-icons">favorite</i>
+                    <p>Medical Reports</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'feedback_doc.html' %}">
+                    <i class="material-icons">bubble_chart</i>
+                    <p>Feedback</p>
+                </a>
+            </li>
+        </ul>
+</body>
+
+</html>
