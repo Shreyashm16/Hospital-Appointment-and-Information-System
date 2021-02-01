@@ -23,30 +23,20 @@
   <!-- Navbar -->
   {% include "hospital/Home/nav_main.html" %}
   <!-- End Navbar -->
-  <br><br><br><br><br><h1><center>Login / Sign Up</center></h1>
-  <div class="page-header clear-filter">
-    <div class="page-header-image" style="background-image: url('../../assets/img/sidebar-1.jpg');"></div>
-    <div class="content-center">
-      <div class="col-md-8 ml-auto mr-auto">
-        <div class="brand">
-          <h3 class="description">Work to be done...</h3>
-          <h3 class="description" style="text-align:center;color:red;">Anyways, free login for all!!</h3>
-          <br>
-          <a href="{% url 'dashboard.html' %}" class="btn btn-primary btn-round btn-lg" style="margin-left:-30px;margin-right:10px;">Patient Login</a>
-          
-           <a href="{% url 'dashboard.html' %}" class="btn btn-primary btn-round btn-lg"style="margin-left:100px;">Admin Login</a>
-            <a href="{% url 'dashboard_doc.html' %}" class="btn btn-primary btn-round btn-lg"style="margin-left:100px;">Doctor Login</a>
-         
-         
-          
-          
-        </div>
-        
-         
-      </div>
-    </div>
+  <div style="padding-top: 50px;position: relative;">
+  <img style="position: absolute;left: 0;top: 0;width: 100%;height:85%;opacity: 0.3;" src="https://images.unsplash.com/photo-1470219556762-1771e7f9427d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8OHx8fGVufDB8fHw%3D&w=1000&q=80">
+  <br><br><br><h1 style="position: relative;z-index: 10;color: #a9afbbd1"><center>Login / Sign Up</center></h1><br><br>
+  <div class="brand">
+        <h3 style="position: relative;z-index: 10;text-align: center;color: #a9afbbd1" class="description">Work to be done...</h3>
+        <br>
+        <div align="center" style="padding-bottom: 100px;position: relative;z-index: 10;">
+        	<a href="{% url 'dashboard.html' %}" class="btn btn-primary btn-round btn-lg" style="margin-left:-30px;margin-right:10px;">Patient Login</a>  
+        	<a href="{% url 'dashboard.html' %}" class="btn btn-primary btn-round btn-lg"style="margin-left:100px;">Admin Login</a>
+        	<a href="{% url 'dashboard_doc.html' %}" class="btn btn-primary btn-round btn-lg"style="margin-left:100px;">Doctor Login</a>   
+   		</div>
+   </div>
+  <br><br><br><br>
   </div>
-  <br><br><br><br><br><br><br><br><br>
   {% include "hospital/Home/footer.html" %}
   <!--   Core JS Files   -->
   <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
@@ -63,7 +53,7 @@
  <!--  Notifications Plugin    -->
  <script src="{% static 'assets/js/plugins/bootstrap-notify.js' %}"></script>
  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
- <script src="{% static 'assets/js/material-dashboard.js?v=2.1.0' %}"></script>
+ <script src="{% static 'assets/js/material-dashboard.js' %}"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
