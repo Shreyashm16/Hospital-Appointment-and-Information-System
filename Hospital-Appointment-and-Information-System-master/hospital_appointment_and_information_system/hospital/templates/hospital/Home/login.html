@@ -17,26 +17,66 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <style type="text/css">
+  
+    .flex-container 
+    {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+
+
+    /* Responsive layout - makes a one column layout instead of a two-column layout */
+    @media (max-width: 800px) 
+    {
+      .flex-container 
+      {
+        flex-direction: column;
+        justify-content: center;
+        /* align-self: center;    <---- REMOVE */
+        align-items: center;
+      }
+    }
+  
+  .brand
+  {
+    padding-bottom: 200px;  
+  }
+
+  .btn-primary
+  {
+    max-width: 100px;
+  }
+  
+  </style>
 </head>
 
 <body class="offline-doc dark-edition">
   <!-- Navbar -->
   {% include "hospital/Home/nav_main.html" %}
   <!-- End Navbar -->
-  <div style="padding-top: 50px;position: relative;">
-  <img style="position: absolute;left: 0;top: 0;width: 100%;height:85%;opacity: 0.3;" src="https://images.unsplash.com/photo-1470219556762-1771e7f9427d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8OHx8fGVufDB8fHw%3D&w=1000&q=80">
-  <br><br><br><h1 style="position: relative;z-index: 10;color: #a9afbbd1"><center>Login / Sign Up</center></h1><br><br>
-  <div class="brand">
-        <h3 style="position: relative;z-index: 10;text-align: center;color: #a9afbbd1" class="description">Work to be done...</h3>
-        <br>
-        <div align="center" style="padding-bottom: 100px;position: relative;z-index: 10;">
-        	<a href="{% url 'dashboard.html' %}" class="btn btn-primary btn-round btn-lg" style="margin-left:-30px;margin-right:10px;">Patient Login</a>  
-        	<a href="{% url 'dashboard.html' %}" class="btn btn-primary btn-round btn-lg"style="margin-left:100px;">Admin Login</a>
-        	<a href="{% url 'dashboard_doc.html' %}" class="btn btn-primary btn-round btn-lg"style="margin-left:100px;">Doctor Login</a>   
-   		</div>
-   </div>
-  <br><br><br><br>
-  </div>
+  
+  <div class="container" style="position: relative">
+    <!-- <div class="page-header-image" style="background-image: url('https://images.unsplash.com/photo-1470219556762-1771e7f9427d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8OHx8fGVufDB8fHw%3D&w=1000&q=80');"></div> -->
+      <div class="container mx-auto">
+        <div class="brand">
+          <h1 style="color: white"><center>Login / Sign Up</center></h1><br><br><br>
+          <h3 class="description" style="color: white"><center>Work to be done...</center></h3>
+          <br>
+          <br>
+          
+          <div class="flex-container">
+          <a href="{% url 'dashboard.html' %}" class="btn btn-primary btn-round btn-lg">Patient Login</a><!-- </div> -->
+          <!-- <div class="col-md-4 col-sm-12"> -->
+          <a href="{% url 'dashboard.html' %}" class="btn btn-primary btn-round btn-lg">Admin Login</a><!-- </div> -->
+          <!-- <div class="col-md-4 col-sm-12"> -->
+          <a href="{% url 'dashboard.html' %}" class="btn btn-primary btn-round btn-lg">Doctor Login</a></div>          
+          
+        </div>         
+      </div>
+    </div>
+  <br><br>
   {% include "hospital/Home/footer.html" %}
   <!--   Core JS Files   -->
   <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
@@ -53,7 +93,7 @@
  <!--  Notifications Plugin    -->
  <script src="{% static 'assets/js/plugins/bootstrap-notify.js' %}"></script>
  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
- <script src="{% static 'assets/js/material-dashboard.js' %}"></script>
+ <script src="{% static 'assets/js/material-dashboard.js?v=2.1.0' %}"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
