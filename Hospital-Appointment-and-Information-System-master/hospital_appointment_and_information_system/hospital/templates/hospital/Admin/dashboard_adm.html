@@ -28,6 +28,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
 </head>
 
 <body class="dark-edition">
@@ -45,44 +47,44 @@
       </a></div>
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'dashboard_doc.html' %}">
+        <li class="nav-item active  ">
+          <a class="nav-link" href="{% url 'dashboard_adm.html' %}">
             <i class="material-icons">dashboard</i>
             <p>Dashboard</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="{% url 'profile_doc.html' %}">
+          <a class="nav-link" href="{% url 'profile_adm.html' %}">
             <i class="material-icons">person</i>
             <p>Profile</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="{% url 'bookapp_doc.html' %}">
+          <a class="nav-link" href="{% url 'bookapp_adm.html' %}">
             <i class="material-icons">content_paste</i>
             <p>Book Appointment</p>
           </a>
         </li>
-        <li class="nav-item active  ">
-          <a class="nav-link" href="{% url 'yourhealth_doc.html' %}">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'yourhealth_adm.html' %}">
             <i class="material-icons">favorite</i>
             <p>Your Health</p>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'calladoc_doc.html' %}">
+          <a class="nav-link" href="{% url 'calladoc_adm.html' %}">
             <i class="material-icons">library_books</i>
             <p>Call A Doc</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="{% url 'medicalreport_doc.html' %}">
+          <a class="nav-link" href="{% url 'medicalreport_adm.html' %}">
             <i class="material-icons">favorite</i>
             <p>Medical Reports</p>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'feedback_doc.html' %}">
+          <a class="nav-link" href="{% url 'feedback_adm.html' %}">
             <i class="material-icons">bubble_chart</i>
             <p>Feedback</p>
           </a>
@@ -127,7 +129,7 @@
       </nav>
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
-      {% include "hospital/Doctor/footer.html" %}
+      {% include "hospital/Admin/footer.html" %}
     </div>
   </div>
   <!--   Core JS Files   -->

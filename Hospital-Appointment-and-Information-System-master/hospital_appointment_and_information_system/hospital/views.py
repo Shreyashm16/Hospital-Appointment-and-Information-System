@@ -32,19 +32,19 @@ def profile_doc_view(request):
 def yourhealth_doc_view(request):
     return render(request,'hospital/Doctor/yourhealth_doc.html')
 def dash_adm_view(request):
-    return render(request,'hospital/Admin/dashboard_doc.html')
+    return render(request,'hospital/Admin/dashboard_adm.html')
 def bookapp_adm_view(request):
-    return render(request,'hospital/Admin/bookapp_doc.html')
+    return render(request,'hospital/Admin/bookapp_adm.html')
 def calladoc_adm_view(request):
-    return render(request,'hospital/Admin/calladoc_doc.html')
+    return render(request,'hospital/Admin/calladoc_adm.html')
 def feedback_adm_view(request):
-    return render(request,'hospital/Admin/feedback_doc.html')
+    return render(request,'hospital/Admin/feedback_adm.html')
 def medicalreport_adm_view(request):
-    return render(request,'hospital/Admin/medicalreport_doc.html')
+    return render(request,'hospital/Admin/medicalreport_adm.html')
 def profile_adm_view(request):
-    return render(request,'hospital/Admin/profile_doc.html')
+    return render(request,'hospital/Admin/profile_adm.html')
 def yourhealth_adm_view(request):
-    return render(request,'hospital/Admin/yourhealth_doc.html')
+    return render(request,'hospital/Admin/yourhealth_adm.html')
 def home_view(request):
     return render(request,'hospital/Home/home.html')
 #def services_view(request):
