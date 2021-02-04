@@ -87,12 +87,18 @@
             <p>Feedback</p>
           </a>
         </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url '' %}">
+            <i class="material-icons">logout</i>
+            <p>Logout</p>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
+      <!-- <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
             <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
@@ -124,7 +130,7 @@
             </ul>
           </div>
         </div>
-      </nav>
+      </nav> -->
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
       {% include "hospital/Patient/footer.html" %}

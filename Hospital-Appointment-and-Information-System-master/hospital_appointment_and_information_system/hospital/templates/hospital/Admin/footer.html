@@ -8,12 +8,19 @@
     <style>
         .footer {
             position: fixed;
-            left: 0;
+            left: 0px;
+            margin-left: 135px;
             bottom: 0;
             width: 100%;
             background-color: inherit;
             z-index: 100;
-        
+        }
+        @media (max-width: 700px){
+            .footer{
+                width: 100vw;
+                margin-left: 0px;
+                background-color: #1a2035;
+            }
         }
     </style>
      </head>
@@ -21,21 +28,15 @@
         <body>
             <footer class="footer">
                 <div class="container-fluid">
-                    <nav class="float-left">
+                    <nav style="text-align: center;">
                         <ul>
                             <li>
-                                <a href="#">
-                          Group 20
+                                <a style="color: white;margin-left: -70px" href="#">
+                          Copyright: Group 20
                         </a>
                             </li>
                         </ul>
                     </nav>
-                    <div class="copyright float-right">
-                        &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>, made with <i class="material-icons">favorite</i> by Group 20 for a healthy world.
-                    </div>
                     <!-- your footer here -->
                 </div>
             </footer>
