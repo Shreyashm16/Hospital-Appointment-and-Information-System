@@ -28,9 +28,18 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $("#checkbox").click(function(){
+        console.log($('#checkbox').checked);
+        $("#jhamela").toggleClass("darkEdition");
+      });
+    });
+  </script>
 </head>
 
-<body class="dark-edition">
+<body id="jhamela" class="darkEdition lightEdition">
   <div class="wrapper ">
     <div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static 'assets/img/sidebar-1.jpg'%}">
       <!--

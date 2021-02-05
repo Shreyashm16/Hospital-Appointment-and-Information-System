@@ -12,14 +12,14 @@
             margin-left: 0px;
             bottom: 0;
             width: 100%;
-            background-color: inherit;
+
             z-index: 100;
         }
         @media (max-width: 700px){
             .footer{
                 width: 100vw;
                 margin-left: 0px;
-                background-color: #1a2035;
+    
             }
         }
     </style>
@@ -29,22 +29,24 @@
             <footer class="footer">
                 <div class="container-fluid">
                     <nav style="text-align: center;">
-                        <ul>
+                        <ul type="none">
                             <li>
-                                <a style="color: white;margin-left: -70px" href="#">
-                          Copyright: Group 20
+                                <a class="sps" style="margin-left: -70px" href="#">
+                          &copy;Group 20
                         </a>
                             </li>
                         </ul>
                     </nav>
                     <!-- your footer here -->
                 </div>
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="checkbox">
+                        <input type="checkbox" id="checkbox"/>
+                        <div class="slider round"></div>
+                    </label>
+                </div>
             </footer>
-            <script>
-                const x = new Date().getFullYear();
-                let date = document.getElementById('date');
-                date.innerHTML = '&copy; ' + x + date.innerHTML;
-            </script>
+            
         </body>
 
 </html>

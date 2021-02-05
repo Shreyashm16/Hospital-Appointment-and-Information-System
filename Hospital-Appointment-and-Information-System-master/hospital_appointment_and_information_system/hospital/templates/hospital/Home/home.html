@@ -17,16 +17,27 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $("#checkbox").click(function(){
+        console.log($('#checkbox').checked);
+        $("#jhamela").toggleClass("darkEdition");
+      });
+    });
+  </script>
 </head>
 
-<body class="offline-doc dark-edition">
+<body id="jhamela" class="darkEdition lightEdition">
   <!-- Navbar -->
   {% include "hospital/Home/nav_main.html" %}
   <!-- End Navbar -->
-  <br><br><br><br><br><h1 style="color: white"><center>Home</center></h1><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    
+  <br><br><h1 class="sps"><center>Home</center></h1><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
   {% include "hospital/Home/footer.html" %}
   <!--   Core JS Files   -->
   <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
+  
   <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
   <script src="{% static 'assets/js/core/bootstrap-material-design.min.js' %}"></script>
   <script src="https://unpkg.com/default-passive-events"></script>
@@ -34,13 +45,14 @@
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  
  <!-- Chartist JS -->
  <script src="{% static 'assets/js/plugins/chartist.min.js' %}"></script>
  <!--  Notifications Plugin    -->
  <script src="{% static 'assets/js/plugins/bootstrap-notify.js' %}"></script>
  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
  <script src="{% static 'assets/js/material-dashboard.js' %}"></script>
+  
   <script>
     $(document).ready(function() {
       $().ready(function() {

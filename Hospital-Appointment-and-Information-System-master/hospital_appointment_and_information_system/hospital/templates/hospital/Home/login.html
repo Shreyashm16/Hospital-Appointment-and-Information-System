@@ -17,6 +17,15 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $("#checkbox").click(function(){
+        console.log($('#checkbox').checked);
+        $("#jhamela").toggleClass("darkEdition");
+      });
+    });
+  </script>
   <style type="text/css">
   
     .flex-container 
@@ -52,7 +61,7 @@
   </style>
 </head>
 
-<body class="offline-doc dark-edition">
+<body id="jhamela" class="darkEdition lightEdition">
   <!-- Navbar -->
   {% include "hospital/Home/nav_main.html" %}
   <!-- End Navbar -->
@@ -61,8 +70,8 @@
     <!-- <div class="page-header-image" style="background-image: url('https://images.unsplash.com/photo-1470219556762-1771e7f9427d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8OHx8fGVufDB8fHw%3D&w=1000&q=80');"></div> -->
       <div class="container mx-auto">
         <div class="brand">
-          <h1 style="color: white"><center>Login / Sign Up</center></h1><br><br><br>
-          <h3 class="description" style="color: white"><center>Work to be done...</center></h3>
+          <h1 class="sps"><center>Login / Sign Up</center></h1><br><br><br>
+          <h3 class="sps"><center>Work to be done...</center></h3>
           <br>
           <br>
           
