@@ -2098,7 +2098,7 @@ h2, .h2 {
 }
 
 .sidebar[data-background-color="black"] .nav .nav-item i {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8) !important;
 }
 
 .sidebar[data-background-color="black"] .nav .nav-item.active [data-toggle="collapse"],
@@ -2147,6 +2147,15 @@ h2, .h2 {
   color: #00bcd4 !important;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
 }
+
+.lightEdition .sidebar[data-background-color="black"] .nav .nav-item.active i {
+  color: #00bcd4 !important;
+}
+
+.darkEdition .sidebar[data-background-color="black"] .nav .nav-item.active i {
+  color: white !important;
+}
+
 
 .darkEdition .sidebar[data-color="azure"] li.active>a {
   background: linear-gradient(60deg, #029eb1, #25b1c3);
