@@ -128,7 +128,7 @@ STATIC_URL = '/static/'
 EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
-EMAIL_PORT = 
+EMAIL_PORT = 465
 EMAIL_HOST_USER = 'hospital20host@gmail.com' # this email will be used to send emails
 EMAIL_HOST_PASSWORD = '20hospital' # host email password required
 # now sign in with your host gmail account in your browser
