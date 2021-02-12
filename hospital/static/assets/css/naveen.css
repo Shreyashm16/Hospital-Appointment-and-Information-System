@@ -1,0 +1,42 @@
+body{
+   
+   
+   background-image:url(/Downloads/naveen);
+   background-repeat:n0-repeat;
+   background-size:cover;
+}
+h2{
+  margin:10px;
+
+}
+.para{
+  padding:10px 10px 10px 10px;
+  text-align:justify;
+  margin:10px;	
+  border-width:2px ;
+  border-style:solid;
+  border-color:black;
+  border-radius:3px;
+
+}
+
+footer{
+	font-weight:bold;
+	font-size:23px;
+}
+
+#one{
+	width:370px;
+	height:280px;
+	
+}
+#two{
+	width:370px;
+	height:280px;
+	
+}
+#three{
+	width:370px;
+	height:280px;
+	
+}
