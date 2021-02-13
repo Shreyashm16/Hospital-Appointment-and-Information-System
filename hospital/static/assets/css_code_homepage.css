@@ -4,8 +4,18 @@
 	font-family: Century Gothic;
 }
 
+#choms{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(bg.jpg);
+	z-index: -1;
+}
+
 header{
-	background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(../bg.jfif);
+	background-color: rgba(255,255,255,0.60);
 	height: 100vh;
 	background-size: cover;
 	background-position: center;
@@ -20,19 +30,19 @@ ul li{
 }
 ul li a{
 	text-decoration: none;
-	color: #fff;
+	color: #000;
 	padding: 4px 16px;
-	border: 1px solid #fff;
+	border: 1px solid #000;
 	transition: 0.6s ease;
 }
 
 ul li a:hover{
-	background-color: #fff;
+	background-color: #000;
 	color: #000;
 }
 
 ul li.active a{
-	background-color: #fff;
+	background-color: #000;
 	color: #000;
 }
 
@@ -49,7 +59,7 @@ ul li.active a{
 }
 
 .title h1{
-	color: #fff;
+	color: #000;
 	font-size: 85px;
 }
 
@@ -61,15 +71,15 @@ ul li.active a{
 }
 
 .btn{
-	border: 1px solid #fff;
+	border: 1px solid #000;
 	padding: 13px 39px;
-	color: #fff;
+	color: #000;
 	text-decoration: none; 
 	transition: 0.6s ease;
 
 }
 .btn:hover{
-	background-color: #fff;
+	background-color: #000;
 	color: #000;
 }
 
@@ -81,12 +91,12 @@ ul li.active a{
 }
 .log{
 	padding: 20px 60px;
-	color: #fff;
+	color: #000;
 	text-decoration: none; 
 	transition: 0.6s ease;
 
 }
 .log:hover{
-	background-color: #fff;
+	background-color: #000;
 	color: #000;
 }
