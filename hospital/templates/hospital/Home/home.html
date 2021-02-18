@@ -26,43 +26,40 @@
       });
     });
   </script>
-  <style>
-  .glow {
-      font-size: 40px;
-      color: red;
-      text-align: center;
-      -webkit-animation: glow 1s ease-in-out infinite alternate;
-      -moz-animation: glow 1s ease-in-out infinite alternate;
-      animation: glow 1s ease-in-out infinite alternate;
-    }
-
-    @-webkit-keyframes glow {
-      from {
-        text-shadow: 0 0 10px #eeeeee, 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 0 0 50px #9554b3, 0 0 60px #9554b3, 0 0 70px #9554b3;
-      }
-
-      to {
-        text-shadow: 0 0 20px #eeeeee, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
-      }
-    }</style>
 </head>
 
 <body id="jhamela" class="darkEdition lightEdition">
   <!-- Navbar -->
   {% include "hospital/Home/nav_main.html" %}
   <!-- End Navbar -->
-    
-  <center><h1 class="sps">Home</h1>
-  <br>
+  
+  <div style="text-align: center;position: relative;">
+  <div style="z-index: -1;position: absolute;left:-180px;margin-left: 50%">
+    <img src="{% static 'assets/img/hoslogo.png' %}" style="opacity: 0.15;width:360px">  
+  </div>
+  <br><br><br>
+  <h1 class="sps" style="font-weight: bolder;">G20 SARKARI ASPATAL</h1>
   <!-- <h5 class="sps glow">You’ll Love the Way We Care for You</h5> -->
+  <h3 class="sps" style="font-weight: bolder;">Est. 1678</h3><br>
   <br>
-  <br>
-  <br>
-  <h3 class="sps">Emergency ?</h3><br>
-  <br>
-  <div class="flex-container">
+  <br><br><br><br><br>
+  <div class="container">
     <a href="{% url 'signup_pat.html' %}" class="btn btn-primary btn-round btn-lg">Take Appointment</a>
-  </div></center><br><br>
+  </div><br><br>
+  <div style="align-items: center;">
+    <div class="mainbox l">
+      Priyam bajpai
+    </div>
+    <div class="mainbox r">
+    </div>
+    <div class="mainbox l">
+    </div>
+    <div class="mainbox r" style="margin-bottom: 100px">
+    </div>
+  </div>
+  </div>
+ 
+
   {% include "hospital/Home/footer.html" %}
   <!--   Core JS Files   -->
   <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>

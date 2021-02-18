@@ -19,7 +19,7 @@ body::-webkit-scrollbar {
 }
  
 body::-webkit-scrollbar-thumb {
-  background-color: #a9afbbd1;
+  background-color: #ff0066;
   border-radius: 5px;
 }
 
@@ -72,8 +72,6 @@ a {
 
 .container-fluid {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -529,7 +527,7 @@ button.bg-success:focus {
 }
 
 .bg-info {
-  background-color: #ff0038 !important;
+  background-color: #ff0066 !important;
 }
 
 a.bg-info:hover,
@@ -644,7 +642,7 @@ button.bg-dark:focus {
 }
 
 .border-info {
-  border-color: #ff0038 !important;
+  border-color: #ff0066 !important;
 }
 
 .border-warning {
@@ -1595,12 +1593,12 @@ button.bg-dark:focus {
 
 .btn.btn-primary {
   color: #fff;
-  background-color: #ff0038;
-  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px #ff0038;
+  background-color: #ff0066;
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px #ff0066;
 }
 
 .btn.btn-primary:hover {
-  color: #ff0038;
+  color: #ff0066;
   background-color: white;
   border-color: #701c7e;
 }
@@ -2144,12 +2142,12 @@ h2, .h2 {
 
 .lightEdition .sidebar[data-color="azure"] li.active>a {
   background: white;
-  color: #ff0038 !important;
+  color: #ff0066 !important;
   /*box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);*/
 }
 
 .lightEdition .sidebar[data-background-color="black"] .nav .nav-item.active i {
-  color: #ff0038 !important;
+  color: #ff0066 !important;
 }
 
 .darkEdition .sidebar[data-background-color="black"] .nav .nav-item.active i {
@@ -2250,7 +2248,7 @@ h2, .h2 {
 }
 
 input:checked + .slider {
-  background-color: #ff0038;
+  background-color: #ff0066;
 }
 
 input:checked + .slider:before {
@@ -2263,4 +2261,52 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.mainbox{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 15px;
+  width: 50vw;
+  box-sizing: border-box;
+  min-height: 250px;
+}
+
+@media(max-width: 700px){
+  .mainbox{
+    width: 90%;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .l{
+    float: none !important;
+  }
+  .r{
+    float: none !important;
+  }
+}
+
+.lightEdition .mainbox{
+  background-color: rgba(220,220,220,0.3);
+}
+
+.darkEdition .mainbox{
+  background-color: rgba(255,255,255,0.5) !important;
+}
+
+.l{
+  border-radius: 20px 20px 20px 0px;
+  float: left;
+}
+
+.r{
+  border-radius: 20px 20px 0px 20px;
+  float: right;
+}
+
+#gap{
+  height: 200px;
+  margin-bottom: 50px;
 }
