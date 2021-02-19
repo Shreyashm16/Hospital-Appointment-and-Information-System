@@ -31,9 +31,13 @@
 <body id="jhamela" class="darkEdition lightEdition">
   <!-- Navbar -->
   {% include "hospital/Home/nav_main.html" %}
+  {% include "hospital/Home/preloader.html" %}
+
+  <div id="myDiv" class="animate-bottom wrapper" style="display:none;text-align: center;position: relative;">
   <!-- End Navbar -->
   <br><br><br><br><br><br><br><br><br>
   <center><h3 class="sps">Already have an account? <a href="{% url 'dashboard_adm.html' %}">Login here</a></h3></center>
+  </div>
   {% include "hospital/Home/footer.html" %}
   <!--   Core JS Files   -->
   <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
