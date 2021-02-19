@@ -40,7 +40,9 @@
 </head>
 
 <body id="jhamela" class="darkEdition lightEdition">
-  <div class="wrapper ">
+  {% include "hospital/Home/preloader.html" %}
+
+  <div id="myDiv" class="animate-bottom wrapper" style="display:none;text-align: center;position: relative;">
     <div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static 'assets/img/sidebar-2.jpg'%}">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"

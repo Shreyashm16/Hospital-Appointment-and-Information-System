@@ -30,10 +30,11 @@
 
 <body id="jhamela" class="darkEdition lightEdition">
   <!-- Navbar -->
+  {% include "hospital/Home/preloader.html" %}
   {% include "hospital/Home/nav_main.html" %}
   <!-- End Navbar -->
   
-  <div style="text-align: center;position: relative;">
+  <div id="myDiv" class="animate-bottom" style="display:none;text-align: center;position: relative;">
   <div style="z-index: -1;position: absolute;left:-180px;margin-left: 50%">
     <img src="{% static 'assets/img/hoslogo.png' %}" style="opacity: 0.15;width:360px">  
   </div>
@@ -47,14 +48,14 @@
     <a href="{% url 'signup_pat.html' %}" class="btn btn-primary btn-round btn-lg">Take Appointment</a>
   </div><br><br>
   <div style="align-items: center;">
-    <div class="mainbox l">
+    <div class="mainbox sps">
       Priyam bajpai
     </div>
-    <div class="mainbox r">
+    <div class="mainboxr sps">
     </div>
-    <div class="mainbox l">
+    <div class="mainbox sps">
     </div>
-    <div class="mainbox r" style="margin-bottom: 100px">
+    <div class="mainboxr sps" style="margin-bottom: 100px">
     </div>
   </div>
   </div>

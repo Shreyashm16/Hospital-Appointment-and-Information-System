@@ -4,7 +4,7 @@ from hospital import views
 
 urlpatterns = [
     
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     path('',views.home_view,name=''),
     path('dash_pat/',views.dash_view,name='dashboard.html'),
     path('bookapp_pat/',views.bookapp_view,name='bookapp.html'),

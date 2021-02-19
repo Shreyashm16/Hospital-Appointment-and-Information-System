@@ -2266,26 +2266,30 @@ input:checked + .slider:before {
 .mainbox{
   margin-top: 30px;
   margin-bottom: 30px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 0px;
   padding: 15px;
-  width: 50vw;
+  width: 100%;
   box-sizing: border-box;
-  min-height: 250px;
+  min-height: 360px;
 }
 
-@media(max-width: 700px){
-  .mainbox{
-    width: 90%;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-  .l{
-    float: none !important;
-  }
-  .r{
-    float: none !important;
-  }
+.mainboxr{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 0px;
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 300px;
+  background-color: inherit;
+}
+
+#loader .darkEdition {
+	border: 5px solid #212121 !important;
+}
+
+#loader .lightEdition {
+	border: 5px solid #ffffff;
 }
 
 .lightEdition .mainbox{
@@ -2293,17 +2297,7 @@ input:checked + .slider:before {
 }
 
 .darkEdition .mainbox{
-  background-color: rgba(255,255,255,0.5) !important;
-}
-
-.l{
-  border-radius: 20px 20px 20px 0px;
-  float: left;
-}
-
-.r{
-  border-radius: 20px 20px 0px 20px;
-  float: right;
+  background-color: rgba(255,255,255,0.05) !important;
 }
 
 #gap{
