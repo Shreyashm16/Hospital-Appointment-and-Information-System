@@ -86,7 +86,7 @@ function checkTheme() {
   {% include "hospital/Home/nav_main.html" %}
   <!-- End Navbar -->
   
-  <div id="myDiv" class="animate-bottom" style="display:none;text-align: center;position: relative;">
+  <div id="myDiv" class="animate-bottom" style="display:none;text-align: center;position: relative;margin-bottom: 200px">
   <div style="z-index: -1;position: absolute;left:-180px;margin-left: 50%">
     <img src="{% static 'assets/img/hoslogo.png' %}" style="opacity: 0.15;width:360px">  
   </div>
@@ -110,6 +110,7 @@ function checkTheme() {
     <div class="mainboxr sps" style="margin-bottom: 100px">
     </div>
   </div>
+	{% include "hospital/Home/testimonials.html" %}  
   </div>
  
 
