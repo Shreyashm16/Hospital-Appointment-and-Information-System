@@ -24,7 +24,6 @@ urlpatterns = [
     path('dash_adm/',views.dash_adm_view,name='dashboard_adm.html'),
     path('bookapp_adm/',views.bookapp_adm_view,name='bookapp_adm.html'),
     path('calladoc_adm/',views.calladoc_adm_view,name='calladoc_adm.html'),
-    path('feedback_adm/',views.feedback_adm_view,name='feedback_adm.html'),
     path('medicalreport_adm/',views.medicalreport_adm_view,name='medicalreport_adm.html'),
     path('profile_adm/',views.profile_adm_view,name='profile_adm.html'),
     path('yourhealth_adm/',views.yourhealth_adm_view,name='yourhealth_adm.html'),

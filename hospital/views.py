@@ -49,8 +49,6 @@ def bookapp_adm_view(request):
     return render(request,'hospital/Admin/bookapp_adm.html')
 def calladoc_adm_view(request):
     return render(request,'hospital/Admin/calladoc_adm.html')
-def feedback_adm_view(request):
-    return render(request,'hospital/Admin/feedback_adm.html')
 def medicalreport_adm_view(request):
     return render(request,'hospital/Admin/medicalreport_adm.html')
 def profile_adm_view(request):
