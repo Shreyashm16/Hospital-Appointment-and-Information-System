@@ -127,7 +127,25 @@
   </div>
     <div class="main-panel">
       <!-- Navbar -->
-      
+      <br>
+      <br>
+      <br>
+       <center>
+    <h3 class='sps'>Send Us Your Valuable Feedback !</h3>
+    <div class='sps'>
+    <form method="POST">
+      <!-- Very Important csrf Token -->
+      {% csrf_token %}
+      <div class="form-group">
+        <p>
+        <h3>{{ form.as_p }}</h3>
+        </p>
+        <br>
+        <input type="submit" value="Send Message" class='btn btn-primary btn-lg'>
+      </div>
+    </form>
+    </div>
+  </center>
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
       {% include "hospital//Doctor/footer.html" %}

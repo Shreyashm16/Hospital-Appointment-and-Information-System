@@ -37,6 +37,18 @@ def calladoc_doc_view(request):
     return render(request,'hospital/Doctor/calladoc_doc.html')
 def feedback_doc_view(request):
     return render(request,'hospital/Doctor/feedback_doc.html')
+def feedback_doc_view(request):
+    sub = forms.ContactusForm()
+    if request.method == 'POST':
+        sub = forms.ContactusForm(request.POST)
+        if sub.is_valid():
+            email = sub.cleaned_data['Email']
+            name=sub.cleaned_data['Name']
+            message = sub.cleaned_data['Message']
+            send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
+            return render(request, 'hospital/Home/home.html')
+    return render(request, 'hospital/Doctor/feedback_doc.html', {'form':sub})
+
 def medicalreport_doc_view(request):
     return render(request,'hospital/Doctor/medicalreport_doc.html')
 def profile_doc_view(request):
