@@ -26,7 +26,7 @@
           window.localStorage.setItem('checkbox', true);
           var dragTheme = window.localStorage.getItem('checkbox');
           console.log(dragTheme);
-          $("#checkbox").click();
+          $('#checkbox').prop('checked', true);
       }
       $("#checkbox").click(function(){
         if($('#checkbox').prop("checked")){
@@ -82,10 +82,11 @@
 <body id="jhamela" class="darkEdition lightEdition">
   <!-- Navbar -->
   {% include "hospital/Home/preloader.html" %}
+  <div id="myDiv" class="animate-bottom" style="display:none;">
   {% include "hospital/Home/nav_main.html" %}
   <!-- End Navbar -->
   
-  <div id="myDiv" class="animate-bottom container" style="display:none;text-align: center;position: relative;">
+  <div class="container" style="text-align: center;position: relative;">
     <!-- <div class="page-header-image" style="background-image: url('https://images.unsplash.com/photo-1470219556762-1771e7f9427d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8OHx8fGVufDB8fHw%3D&w=1000&q=80');"></div> -->
       <div class="container mx-auto">
         <div class="brand">
@@ -109,6 +110,7 @@
     
   <br><br>
   {% include "hospital/Home/footer.html" %}
+</div>
   <!--   Core JS Files   -->
   <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
   <script src="{% static 'assets/js/core/popper.min.js' %}"></script>

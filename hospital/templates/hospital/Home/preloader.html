@@ -58,17 +58,17 @@
 </head>
 <body onload="myFunction()" style="margin:0;">
 
-<div id="loader"></div>
+<div id="loaded" style="height: 100vh;width: 100vw;"><div id="loader"></div></div>
 
 <script>
 var myVar;
 
 function myFunction() {
-  myVar = setTimeout(showPage, 100);
+  myVar = setTimeout(showPage, 300);
 }
 
 function showPage() {
-  document.getElementById("loader").style.display = "none";
+  document.getElementById("loaded").style.display = "none";
   document.getElementById("myDiv").style.display = "block";
 }
 </script>

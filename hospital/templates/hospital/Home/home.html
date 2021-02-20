@@ -26,7 +26,7 @@
         	window.localStorage.setItem('checkbox', true);
         	var dragTheme = window.localStorage.getItem('checkbox');
         	console.log(dragTheme);
-        	$("#checkbox").click();
+        	$('#checkbox').prop('checked', true);
       }
       $("#checkbox").click(function(){
         if($('#checkbox').prop("checked")){
@@ -49,10 +49,11 @@
 <body id="jhamela" class="darkEdition lightEdition">
   <!-- Navbar -->
   {% include "hospital/Home/preloader.html" %}
+  <div id="myDiv" class="animate-bottom" style="display:none;">
   {% include "hospital/Home/nav_main.html" %}
   <!-- End Navbar -->
   
-  <div id="myDiv" class="animate-bottom" style="display:none;text-align: center;position: relative;margin-bottom: 200px">
+  <div style="text-align: center;position: relative;margin-bottom: 200px">
   <div style="z-index: -1;position: absolute;left:-180px;margin-left: 50%">
     <img src="{% static 'assets/img/hoslogo.png' %}" style="opacity: 0.15;width:360px">  
   </div>
@@ -81,6 +82,7 @@
  
 
   {% include "hospital/Home/footer.html" %}
+</div>
   <!--   Core JS Files   -->
   <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
   
