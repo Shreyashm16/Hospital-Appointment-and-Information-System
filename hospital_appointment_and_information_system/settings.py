@@ -52,7 +52,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'hospital_appointment_and_information_system.urls'
-
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
