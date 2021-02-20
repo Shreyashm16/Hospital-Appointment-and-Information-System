@@ -20,63 +20,29 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
+      var dragTheme = window.localStorage.getItem('checkbox');
+      if(dragTheme==="true"){
+      	$("#jhamela").removeClass("darkEdition");
+        	window.localStorage.setItem('checkbox', true);
+        	var dragTheme = window.localStorage.getItem('checkbox');
+        	console.log(dragTheme);
+        	$("#checkbox").click();
+      }
       $("#checkbox").click(function(){
-        console.log($('#checkbox').checked);
-        $("#jhamela").toggleClass("darkEdition");
+        if($('#checkbox').prop("checked")){
+        	$("#jhamela").removeClass("darkEdition");
+        	window.localStorage.setItem('checkbox', true);
+        	var dragTheme = window.localStorage.getItem('checkbox');
+        	console.log(dragTheme);	
+        }
+        else{
+        	$("#jhamela").addClass("darkEdition");
+        	window.localStorage.setItem('checkbox', false);
+        	var dragTheme = window.localStorage.getItem('checkbox');
+        	console.log(dragTheme);	
+        }
       });
     });
-
-    // First Type snippet
-     /*var dragTheme = window.localStorage.getItem('lightEdition'); //get the privious seted value
-var themeCheckBox = document.getElementById('checkbox'); // get the checkbox element
-themeCheckBox.checked = (dragTheme == "true")? true : false; // set checkbox conditionally base on privious set value if not set then default false
-
-function function() { // triger when change value of checkbox
-  if(themeCheckBox.checked) {
-           document.documentElement.setAttribute('jhamela', 'darkEdition');
-        window.localStorage.setItem('checkbox', true);
-         }
-         else 
-
-         { document.documentElement.setAttribute('jhamela', 'lightEdition');
-           window.localStorage.setItem('checkbox', false);
-
-         }
-}
-// Second Type Snippet
-/*
-var dragTheme = window.localStorage.getItem('darkEdition');
-const themeSwitcher = document.getElementById("checkbox");
-
-/*themeSwitcher.checked = false;*/
-/*
-themeSwitcher.checked = (dragTheme == "true")? true : false;
-function clickHandler() {
-    if (this.checked) {
-        document.body.classList.remove("lightEdition");
-        document.body.classList.add("darkEdition");
-        localStorage.setItem("checkbox", "darkEdition");
-    } else {
-        document.body.classList.add("lightEdition");
-        document.body.classList.remove("darkEdition");
-        localStorage.setItem("checkbox", "lightEdition");
-    }
-}
-themeSwitcher.addEventListener("click", clickHandler);
-
-window.onload = checkTheme();
-
-function checkTheme() {
-    const localStorageTheme = localStorage.getItem("checkbox");
-
-    if (localStorageTheme !== null && localStorageTheme === "darkEdition") {
-        // set the theme of body
-        document.body.className = localStorageTheme;
-
-        // adjust the slider position
-        const themeSwitch = document.getElementById("checkbox");
-        themeSwitch.checked = true;
-    }*/
   </script>
 </head>
 
