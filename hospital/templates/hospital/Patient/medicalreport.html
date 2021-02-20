@@ -55,39 +55,45 @@
     });
   </script>
   <style>
-    .options {
+    
+
+
+    .container{
+      display: flex;
+    }
+
+   .options{
       list-style: none;
-      margin-left: 25%;
-      margin-top: 5%
+   }
+    
+    .left {
+      width: 28%;
+      text-align: center;
+      margin-top: 100px;
     }
-    .options li{
-      display: inline-block;
+    .right {
+      width: 68%;
+      margin-right: 50px;
+
     }
-    .options li a{
-      color: #ff0066;
-      text-decoration: none;
-      padding: 5px 50px;
-      font-family: "Roboto", "sans-serif";
-      font-size: 30px;
+
+    @media (max-width: 1000px){
+      .container{
+        display: block;
+      }
+
+      .left {
+      width: 100% !important;
+
+      
     }
-    .options li.active a{
-      border: 1px solid rgb(111, 148, 9);
-      padding: 5px 19px;
+    .right {
+      width: 100% !important;
+
     }
-    .options li a:hover{
-      border: 1px solid rgb(111, 148, 9);
-      padding: 5px 40px;
-      color: rgb(111, 148, 9);
     }
-    .splitscreen {
-      display:flex;
-    }
-    .splitscreen .left {
-      flex: 1;
-    }
-    .splitscreen .right {
-      flex: 1;
-    }
+
+
   </style>
 </head>
 
@@ -154,23 +160,23 @@
   </div>
     <div class="main-panel">
       <br><br>
-      <h1 style="margin-left: 20%; color: red">Medical Reports</h1>
+      <h1 style="color: #ff0066">Medical Reports</h1>
       <br>
-      <div class="splitscreen" style="margin-bottom: 100px;">
+      <div class="container" style="margin-bottom: 200px;">
         <div class="left">
           <ul class="options">
-            <li><a href="{% url 'dashboard.html' %}" target="pdfdisplay"><b>Date 1</b></a></li><br><br>
-            <li><a href="{% url 'profile.html' %}" target="pdfdisplay"><b>Date 2</b></a></li><br><br>
-            <li><a href="{% url 'bookapp.html' %}" target="pdfdisplay"><b>Date 3</b></a></li><br><br>
-            <li><a href="{% url 'yourhealth.html' %}" target="pdfdisplay"><b>Date 4</b></a></li><br><br>
-            <li><a href="{% url 'calladoc.html' %}" target="pdfdisplay"><b>Date 5</b></a></li><br><br>
-            <li><a href="{% url 'feedback.html' %}" target="pdfdisplay"><b>Date 6</b></a></li><br><br>
+            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'dashboard.html' %}" target="pdfdisplay"><b>Date 1</b></a></li><br><br>
+            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'profile.html' %}" target="pdfdisplay"><b>Date 2</b></a></li><br><br>
+            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'bookapp.html' %}" target="pdfdisplay"><b>Date 3</b></a></li><br><br>
+            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'yourhealth.html' %}" target="pdfdisplay"><b>Date 4</b></a></li><br><br>
+            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'calladoc.html' %}" target="pdfdisplay"><b>Date 5</b></a></li><br><br>
+            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'feedback.html' %}" target="pdfdisplay"><b>Date 6</b></a></li><br><br>
         </ul>
         </div>
         <div class="right">
-          <div class="if" style="margin-left:5%; margin-right:0px;">
-            <iframe name="pdfdisplay"src="{% url 'feedback.html' %}" width="60%" height="500px"></iframe>
-            </div>
+          <div class="if">
+            <iframe name="pdfdisplay"src="{% url 'feedback.html' %}" width="95%" height="600px" style="border-radius: 20px;border: none;"></iframe>
+          </div>
         </div>
     </div>
       <br><br><br>
