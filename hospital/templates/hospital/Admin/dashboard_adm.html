@@ -202,6 +202,21 @@ td {
     margin-right: auto;
     padding:10px;
 }
+ .column {
+  float: left;
+  width: 25%;
+  padding: 30px;
+}
+
+
+.row {margin: 0 -10px;}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
     </style>
 </head>
 
@@ -268,24 +283,29 @@ td {
       </ul>
     </div>
   </div>
-    <div class="main-panel">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+    <div class="main-panel row">
       <!-- Navbar -->
       <div class="market-updates">
     <div class="col-md-4 market-update-gd">
-      <div class="market-update-block clr-block-1">
+      <div class="market-update-block clr-block-1 column">
         <div class="col-md-8 market-update-left">
           <h3></h3>
           <h4>Total Doctor</h4>
           <p>Approval Required :</p>
         </div>
-        <div class="col-md-4 market-update-right">
+        <div class="col-md-4 market-update-right column">
           <i class="fa fa-user-md "></i>
         </div>
         <div class="clearfix"> </div>
       </div>
     </div>
     <div class="col-md-4 market-update-gd">
-      <div class="market-update-block clr-block-2">
+      <div class="market-update-block clr-block-2 column">
         <div class="col-md-8 market-update-left">
           <h3></h3>
           <h4>Total Patient</h4>
@@ -297,8 +317,8 @@ td {
         <div class="clearfix"> </div>
       </div>
     </div>
-    <div class="col-md-4 market-update-gd">
-      <div class="market-update-block clr-block-3">
+    <div class="col-md-4 market-update-gd row">
+      <div class="market-update-block clr-block-3 column">
         <div class="col-md-8 market-update-left">
           <h3></h3>
           <h4>Total Appointment</h4>
