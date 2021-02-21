@@ -59,6 +59,11 @@
     });
   </script>
   <style media="screen">
+    
+    .market-updates{
+      margin-top: 100px;
+    }
+
     .market-update-block {
       padding: 2em 2em;
       background: #999;
@@ -138,7 +143,7 @@
 
     .market-update-right i.fa.fa-user-o {
       font-size: 3em;
-      color: #68AE00;
+      color: #ff0066;
       width: 80px;
       height: 80px;
       background: #fff;
@@ -152,7 +157,7 @@
 
     .market-update-right i.fa.fa-user-md {
       font-size: 3em;
-      color: #FC8213;
+      color: #ff0066;
       width: 80px;
       height: 80px;
       background: #fff;
@@ -166,7 +171,7 @@
 
     .market-update-right i.fa.fa-calendar {
       font-size: 3em;
-      color: #337AB7;
+      color: #ff0066;
       width: 80px;
       height: 80px;
       background: #fff;
@@ -183,25 +188,31 @@
     }
     
     table {
-    border: 1px solid green;
+    border: 1px solid #ff0066;
     border-collapse: collapse;
-    font-size: 20px;
+    font-size: 1.2em;
     padding:10px;
 }
 
 th {
-    border: 1px solid green;
+    border: 1px solid #ff0066;
     border-collapse: collapse;
     padding:10px;
 }
 
 td {
-    border: 1px solid green;
+    border: 1px solid #ff0066;
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
     padding:10px;
 }
+
+.col-md-4{
+  width: 30%;
+  display: inline-block;
+}
+
     </style>
 </head>
 
@@ -268,6 +279,9 @@ td {
       </ul>
     </div>
   </div>
+    
+
+
     <div class="main-panel">
       <!-- Navbar -->
       <div class="market-updates">
@@ -345,7 +359,7 @@ td {
       </table>
     </div>
 
-    <div class="sps" style="margin-left:5%;">
+    <div class="sps">
       
         <h2 class="sps">Recent Patient</h2>
       <table class="sps">
