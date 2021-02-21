@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
+  <link href="{% static 'assets/css/form.css'%}" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
@@ -130,21 +131,34 @@
       <br>
       <br>
       <br>
-       <center>
-    <h3 class='sps'>Send Us Your Valuable Feedback !</h3>
-    <div class='sps'>
-    <form method="POST">
-      <!-- Very Important csrf Token -->
-      {% csrf_token %}
-      <div class="form-group">
-        <p>
-        <h3>{{ form.as_p }}</h3>
-        </p>
-        <br>
-        <input type="submit" value="Send Message" class='btn btn-primary btn-lg'>
-      </div>
-    </form>
-    </div>
+     <center>
+    <div class="container">
+    <div class="screen" style="width: 70%;margin-left: auto;margin-right: auto;">
+              <div class="screen-header">
+                <div class="screen-header-left">
+                  <img src="{% static 'assets/img/btn.png' %}" height="20px">
+                </div>
+              </div>
+              <div class="screen-body">
+                <div class="screen-body-item left">
+                  <div class="app-title" style="text-align: left;color: #ff0066">
+                    <span>SEND FEEDBACK</span>
+                  </div>
+                </div>
+                <div class="screen-body-item">
+                  <form class="app-form" method="POST">
+                  <!-- Very Important csrf Token -->
+                  {% csrf_token %}
+                    {{ form }}
+                    <input type="submit" value="Send Message" class='btn btn-primary btn-lg' style="margin-top: 30px">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
   </center>
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
