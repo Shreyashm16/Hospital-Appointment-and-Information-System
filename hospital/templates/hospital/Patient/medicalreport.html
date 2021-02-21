@@ -170,17 +170,17 @@
       <div class="container" style="margin-bottom: 200px;">
         <div class="left">
           <ul class="options">
-            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'dashboard.html' %}" target="pdfdisplay"><b>Date 1</b></a></li><br><br>
-            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'profile.html' %}" target="pdfdisplay"><b>Date 2</b></a></li><br><br>
-            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'bookapp.html' %}" target="pdfdisplay"><b>Date 3</b></a></li><br><br>
-            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'yourhealth.html' %}" target="pdfdisplay"><b>Date 4</b></a></li><br><br>
-            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'calladoc.html' %}" target="pdfdisplay"><b>Date 5</b></a></li><br><br>
-            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'feedback.html' %}" target="pdfdisplay"><b>Date 6</b></a></li><br><br>
+            <li><a class="btn btn-primary btn-round btn-lg"href="{% static 'assets/pdf/dummy.pdf' %}" target="pdfdisplay"><b>Date 1</b></a></li><br><br>
+            <li><a class="btn btn-primary btn-round btn-lg"href="{% static 'assets/pdf/dummy.pdf' %}" target="pdfdisplay"><b>Date 2</b></a></li><br><br>
+            <li><a class="btn btn-primary btn-round btn-lg"href="{% static 'assets/pdf/dummy.pdf' %}" target="pdfdisplay"><b>Date 3</b></a></li><br><br>
+            <li><a class="btn btn-primary btn-round btn-lg"href="{% static 'assets/pdf/dummy.pdf' %}" target="pdfdisplay"><b>Date 4</b></a></li><br><br>
+            <li><a class="btn btn-primary btn-round btn-lg"href="{% static 'assets/pdf/dummy.pdf' %}" target="pdfdisplay"><b>Date 5</b></a></li><br><br>
+            <li><a class="btn btn-primary btn-round btn-lg"href="{% static 'assets/pdf/dummy.pdf' %}" target="pdfdisplay"><b>Date 6</b></a></li><br><br>
         </ul>
         </div>
         <div class="right">
           <div class="if">
-            <iframe name="pdfdisplay"src="{% url 'feedback.html' %}" width="90%" height="600px" style="border-radius: 10px;border: none;"></iframe>
+            <iframe name="pdfdisplay"src="{% static 'assets/pdf/dummy.pdf' %}" frameborder="0" width="90%" height="600px" style="border-radius: 10px;border: none"></iframe>
           </div>
         </div>
     </div>
