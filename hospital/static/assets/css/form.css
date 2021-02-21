@@ -29,7 +29,6 @@
   right: 20px;
   bottom: 0;
   border-radius: 15px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
   z-index: -1;
 }
 
@@ -108,7 +107,6 @@
   background: none;
   border: none;
   border-bottom: 1px solid #666;
-  color: #ddd;
   font-size: 14px;
   text-transform: uppercase;
   outline: none;

@@ -2309,3 +2309,28 @@ input:checked + .slider:before {
         margin-left: 0px;
       }
     }
+
+.darkEdition .screen-header {
+  background: #4d4d4f !important ;
+}
+
+.lightEdition .screen-header {
+  background: #ff0066;
+}
+
+.darkEdition .screen {
+  background: #282828 !important ;
+}
+
+.lightEdition .screen {
+  background: #ffffff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
+}
+
+.darkEdition .app-form-control{
+  color: #ddd !important;
+}
+
+.lightEdition .app-form-control{
+  color: black;
+}
