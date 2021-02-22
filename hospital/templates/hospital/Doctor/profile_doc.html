@@ -18,8 +18,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png'%}">
-  <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png'%}">
+  <link rel="icon" type="image/png" href="https://www.iasplus.com/en/images/responsive/badges/g20/@@images/465e1ae9-46a0-4131-b3d0-984fcbb8233a.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>Hospital Management System</title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -55,6 +54,205 @@
       });
     });
   </script>
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+    h1{
+      margin-left: 40%;
+      align-self: center;
+    }
+    .row {
+      display: flex;
+      margin-right: -15px;
+      margin-left: -15px;
+      flex-wrap: wrap;
+    }
+    .mt--7{
+      padding-top: 50px;
+    }
+    .col-4,.col-8,
+    .col,.col-md-10,
+    .col-md-12,.col-lg-3,
+    .col-lg-4,.col-lg-6,
+    .col-lg-7,.col-xl-4,
+    .col-xl-6,.col-xl-8 {
+      position: relative;
+      width: 100%;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+    .col-4 {
+      max-width: 33.33333%;
+      flex: 0 0 33.33333%;
+    }
+    .col-8 {
+      max-width: 66.66667%;
+      flex: 0 0 66.66667%;
+    }
+    @media (max-width: 800px){
+      .row{
+        display: block;
+      }
+      .col-4{
+        max-width: 100%;
+      }
+      .col-8{
+        max-width: 100%;
+      }
+      h1{
+        margin-left: 40%;
+        align-self: center;
+      }
+      .mt--7{
+        padding-top: 100px;
+      }
+    }
+    @media (min-width: 768px) {
+      .col-md-10 {
+        max-width: 83.33333%;
+        flex: 0 0 83.33333%;
+      }
+      .col-md-12 {
+        max-width: 100%;
+        flex: 0 0 100%;
+      }
+    }
+    @media (min-width: 992px) {
+      .col-lg-3 {
+        max-width: 25%;
+        flex: 0 0 25%;
+      }
+      .col-lg-4 {
+        max-width: 33.33333%;
+        flex: 0 0 33.33333%;
+      }
+      .col-lg-6 {
+        max-width: 50%;
+        flex: 0 0 50%;
+      }
+      .col-lg-7 {
+        max-width: 58.33333%;
+        flex: 0 0 58.33333%;
+      }
+      .order-lg-2 {
+        order: 2;
+      }
+    }
+    @media (min-width: 1200px) {
+      .col-xl-4 {
+        max-width: 33.33333%;
+        flex: 0 0 33.33333%;
+      }
+      .col-xl-6 {
+        max-width: 50%;
+        flex: 0 0 50%;
+      }
+      .col-xl-8 {
+        max-width: 66.66667%;
+        flex: 0 0 66.66667%;
+      }
+      .order-xl-1 {
+        order: 1;
+      }
+      .order-xl-2 {
+        order: 2;
+      }
+    }
+    .form-control {
+      font-size: 1rem;
+      line-height: 1.5;
+      display: block;
+      width: 100%;
+      height: calc(2.75rem + 2px);
+      padding: .625rem .75rem;
+      transition: all .2s cubic-bezier(.68, -.55, .265, 1.55);
+      color: #b011a2;
+      border: 1px solid #cad1d7;
+      border-radius: .375rem;
+      background-color: #fff;
+      background-clip: padding-box;
+      box-shadow: none;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-inline {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+    }
+    .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      word-wrap: break-word;
+      border: 1px solid rgba(0, 0, 0, .05);
+      border-radius: .375rem;
+      background-color: #fff;
+      background-clip: border-box;
+    }
+    .card>hr {
+      margin-right: 0;
+      margin-left: 0;
+    }
+    .card-body {
+      padding: 1.5rem;
+      flex: 1 1 auto;
+    }
+    .card-header {
+      margin-bottom: 0;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, .05);
+      background-color: #fff;
+    }
+    .card-header:first-child {
+      border-radius: calc(.375rem - 1px) calc(.375rem - 1px) 0 0;
+    }
+    .pt-8 {
+      padding-top: 8rem !important;
+    }
+    .card-profile-image {
+      position: relative;
+    }
+    .card-profile-image img {
+      position: absolute;
+      left: 50%;
+      max-width: 180px;
+      transition: all .15s ease;
+      transform: translate(-50%, -30%);
+      border-radius: .375rem;
+    }
+    @media (min-width: 768px) {
+      .main-content .container-fluid {
+        padding-right: 39px !important;
+        padding-left: 39px !important;
+      }
+    }
+    .avatar {
+      font-size: 1rem;
+      display: inline-flex;
+      width: 48px;
+      height: 48px;
+      color: #fff;
+      border-radius: 50%;
+      background-color: #adb5bd;
+      align-items: center;
+      justify-content: center;
+    }
+    .avatar img {
+      width: 100%;
+      border-radius: 50%;
+    }
+    .avatar-sm {
+      font-size: .875rem;
+      width: 36px;
+      height: 36px;
+    }
+        </style>
 </head>
 
 <body id="jhamela" class="darkEdition lightEdition">
@@ -126,200 +324,149 @@
     </div>
   </div>
     <div class="main-panel">
-      <!-- Navbar -->
-      
-      <!-- End Navbar -->
-      <br><br><br><br><br><br><br><br><br><br><br><br>
+      <div class="main-content">
+        <!-- Header -->
+        <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+          <h1 style="color: #ff0038; text-align: center; ">Profile</h1>
+          <!-- Mask -->
+          <span class="mask bg-gradient-default opacity-8"></span>
+          <!-- Header container -->
+          <div class="container-fluid d-flex align-items-center">
+            <div class="row">
+              <div class="col-lg-7 col-md-10">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Page content -->
+        <div class="container-fluid mt--7">
+          <div class="row">
+            <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+              <div class="card card-profile shadow">
+                <div class="row justify-content-center">
+                  <div class="col-lg-3 order-lg-2">
+                    <div class="card-profile-image">
+                      <a href="#">
+                        <img src="https://static.india.com/wp-content/uploads/2020/08/Sunil-Chhetri.jpg?impolicy=Medium_Resize&w=1200&h=800" width="300 px" height="250 px" class="rounded-circle"><br><br>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                  <div class="d-flex justify-content-between">
+                  </div>
+                </div>
+                <div class="card-body pt-0 pt-md-4">
+                  <div class="row">
+                    <div class="col">
+                      <div class="card-profile-stats d-flex justify-content-center mt-md-5">   
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <h3>
+                      Name<span class="font-weight-light">, Age</span>
+                    </h3>
+                    <div class="h5 font-weight-300">
+                      <i class="ni location_pin mr-2"></i>Place, Place
+                    </div>
+                    <div class="h5 mt-4">
+                      <i class="ni business_briefcase-24 mr-2"></i>Job/Role
+                    </div>
+                    <div>
+                      <i class="ni education_hat mr-2"></i>Organisation
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-8 order-xl-1">
+              <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                  <div class="row align-items-center">
+                    <div class="col-8">
+                      <h3 class="mb-0" style="size: 40px;color: rgba(244, 18, 18, 0.701)"><b>My Account</b></h3>
+                    </div>
+                    <div class="col-4 text-right">
+                      <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body" style="background-color: #ff0038;">
+                  <form>
+                    <div class="pl-lg-4">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-username" style="color: #fff;">Username</label>
+                            <input readonly type="text" id="input-username" class="form-control form-control-alternative" placeholder="user_name">
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label class="form-control-label" for="input-email" style="color: #fff;">Email address</label>
+                            <input readonly type="email" id="input-email" class="form-control form-control-alternative" placeholder="useremail@email.com">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-first-name" style="color: #fff;">First name</label>
+                            <input readonly type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="FName User">
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-last-name" style="color: #fff;">Last name</label>
+                            <input readonly type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="LName User">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr class="my-4">
+                    <!-- Address -->
+                    <div class="pl-lg-4">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-address" style="color: #fff;">Address</label>
+                            <input readonly id="input-address" class="form-control form-control-alternative" type="text" placeholder="User Address">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-city" style="color: #fff;">City</label>
+                            <input readonly type="text" id="input-city" class="form-control form-control-alternative" placeholder="User City">
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-group focused">
+                            <label class="form-control-label" for="input-country" style="color: #fff;">Country</label>
+                            <input readonly type="text" id="input-country" class="form-control form-control-alternative" placeholder="User Country">
+                          </div>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="form-group">
+                            <label class="form-control-label" for="input-country" style="color: #fff;">Postal code</label>
+                            <input readonly type="text" id="input-postal-code" class="form-control form-control-alternative" placeholder="User Pincode">
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br><br><br>
       {% include "hospital/Doctor/footer.html" %}
     </div>
   </div>
-  <!--   Core JS Files   -->
-  <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
-  <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
-  <script src="{% static 'assets/js/core/bootstrap-material-design.min.js' %}"></script>
-  <script src="https://unpkg.com/default-passive-events"></script>
-  <script src="{% static 'assets/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
-  <!-- Place this tag in your head or just before your close body tag. -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chartist JS -->
-  <script src="{% static 'assets/js/plugins/chartist.min.js' %}"></script>
-  <!--  Notifications Plugin    -->
-  <script src="{% static 'assets/js/plugins/bootstrap-notify.js' %}"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="{% static 'assets/js/material-dashboard.js?v=2.1.0' %}"></script>
-  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-  <script src="{% static 'assets/demo/demo.js' %}"></script>
-  <script>
-    $(document).ready(function() {
-      $().ready(function() {
-        $sidebar = $('.sidebar');
-
-        $sidebar_img_container = $sidebar.find('.sidebar-background');
-
-        $full_page = $('.full-page');
-
-        $sidebar_responsive = $('body > .navbar-collapse');
-
-        window_width = $(window).width();
-
-        $('.fixed-plugin a').click(function(event) {
-          // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
-          if ($(this).hasClass('switch-trigger')) {
-            if (event.stopPropagation) {
-              event.stopPropagation();
-            } else if (window.event) {
-              window.event.cancelBubble = true;
-            }
-          }
-        });
-
-        $('.fixed-plugin .active-color span').click(function() {
-          $full_page_background = $('.full-page-background');
-
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
-
-          var new_color = $(this).data('color');
-
-          if ($sidebar.length != 0) {
-            $sidebar.attr('data-color', new_color);
-          }
-
-          if ($full_page.length != 0) {
-            $full_page.attr('filter-color', new_color);
-          }
-
-          if ($sidebar_responsive.length != 0) {
-            $sidebar_responsive.attr('data-color', new_color);
-          }
-        });
-
-        $('.fixed-plugin .background-color .badge').click(function() {
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
-
-          var new_color = $(this).data('background-color');
-
-          if ($sidebar.length != 0) {
-            $sidebar.attr('data-background-color', new_color);
-          }
-        });
-
-        $('.fixed-plugin .img-holder').click(function() {
-          $full_page_background = $('.full-page-background');
-
-          $(this).parent('li').siblings().removeClass('active');
-          $(this).parent('li').addClass('active');
-
-
-          var new_image = $(this).find("img").attr('src');
-
-          if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-            $sidebar_img_container.fadeOut('fast', function() {
-              $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-              $sidebar_img_container.fadeIn('fast');
-            });
-          }
-
-          if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
-            $full_page_background.fadeOut('fast', function() {
-              $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-              $full_page_background.fadeIn('fast');
-            });
-          }
-
-          if ($('.switch-sidebar-image input:checked').length == 0) {
-            var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
-            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
-            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-          }
-
-          if ($sidebar_responsive.length != 0) {
-            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
-          }
-        });
-
-        $('.switch-sidebar-image input').change(function() {
-          $full_page_background = $('.full-page-background');
-
-          $input = $(this);
-
-          if ($input.is(':checked')) {
-            if ($sidebar_img_container.length != 0) {
-              $sidebar_img_container.fadeIn('fast');
-              $sidebar.attr('data-image', '#');
-            }
-
-            if ($full_page_background.length != 0) {
-              $full_page_background.fadeIn('fast');
-              $full_page.attr('data-image', '#');
-            }
-
-            background_image = true;
-          } else {
-            if ($sidebar_img_container.length != 0) {
-              $sidebar.removeAttr('data-image');
-              $sidebar_img_container.fadeOut('fast');
-            }
-
-            if ($full_page_background.length != 0) {
-              $full_page.removeAttr('data-image', '#');
-              $full_page_background.fadeOut('fast');
-            }
-
-            background_image = false;
-          }
-        });
-
-        $('.switch-sidebar-mini input').change(function() {
-          $body = $('body');
-
-          $input = $(this);
-
-          if (md.misc.sidebar_mini_active == true) {
-            $('body').removeClass('sidebar-mini');
-            md.misc.sidebar_mini_active = false;
-
-            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
-
-          } else {
-
-            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
-
-            setTimeout(function() {
-              $('body').addClass('sidebar-mini');
-
-              md.misc.sidebar_mini_active = true;
-            }, 300);
-          }
-
-          // we simulate the window Resize so the charts will get updated in realtime.
-          var simulateWindowResize = setInterval(function() {
-            window.dispatchEvent(new Event('resize'));
-          }, 180);
-
-          // we stop the simulation of Window Resize after the animations are completed
-          setTimeout(function() {
-            clearInterval(simulateWindowResize);
-          }, 1000);
-
-        });
-      });
-    });
-  </script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      md.initDashboardPageCharts();
-
-    });
-  </script>
 </body>
-
 </html>
