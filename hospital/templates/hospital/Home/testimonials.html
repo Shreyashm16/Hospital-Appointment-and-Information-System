@@ -1,12 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
 	<style type="text/css">
 		
-.fill
+.darkEdition .fill
 {
-  background-color: #ff0066;
+  background-color: rgba(0,0,0) !important;
 }
+
+.lightEdition .fill
+{
+  background-color: rgba(255,255,255);
+}
+
 
 .cards
 {
@@ -42,6 +49,20 @@
   pointer-events: none;
 }
 
+.innerdiv{
+    background-color: rgba(255,255,255,0.3);
+    height: 100%;
+    width: 100%;
+  }
+
+.darkEdition .innerdiv{
+    background-color: rgba(255,255,255,0.2) !important;
+  }
+
+.lightEdition .innerdiv{
+    background-color: rgba(220,220,220,0.3);
+  }
+
 .card--left
 {
   transform:scale(0.75) translate(-335px,0px) perspective( 750px ) rotateY(10deg);
@@ -67,25 +88,16 @@
 {
   width:30%;
   height:100%;
-  background:rgba(255,255,255,0.5);
+  background-color: #ff0066;
   position:relative;
   display:flex;
   align-items: center;
   justify-content: center;
 }
 
-.card__icon:before
-{
-  content:attr(data-icon);
-  font-size:3rem;
-  position:absolute;
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  width:100px;
-  height:100px;
-  border-radius: 50px;
-  background:rgba(255,255,255,1);
+.card__icon img{
+  height: 100px;
+  width: 100px;
 }
 
 .card__detail
@@ -135,16 +147,40 @@
 <body>
 	<div class="cards">
   <div class="card fill" data-card="0">
-    <div class="card__icon" data-icon="1"></div>
-    <div class="card__detail sps">priyam</div>
+    <div class="card__icon">
+      <img src="{%static 'assets/img/trophy.svg' %}">
+    </div>
+    <div class="card__detail sps">
+      <div class="innerdiv">
+        <h2>BEST HOSPITAL 2012</h2>
+        <br>
+        <p>TIMES OF INDIA</p>
+      </div>
+    </div>
   </div>
   <div class="card fill" data-card="1">
-    <div class="card__icon" data-icon="2"></div>
-    <div class="card__detail sps">details</div>
+    <div class="card__icon">
+      <img src="{%static 'assets/img/trophy.svg' %}">
+    </div>
+    <div class="card__detail sps">
+      <div class="innerdiv">
+        <h2>INNOVATION AWARDS 2016</h2>
+        <br>
+        <p>MEDICAL COUNCIL</p>
+      </div>
+    </div>
   </div>
   <div class="card fill" data-card="2">
-    <div class="card__icon" data-icon="3"></div>
-    <div class="card__detail sps">yaduraj</div>
+    <div class="card__icon">
+      <img src="{%static 'assets/img/trophy.svg' %}">
+    </div>
+    <div class="card__detail sps">
+      <div class="innerdiv">
+        <h2>BEST HOSPITAL 2019</h2>
+        <br>
+        <p>GLOBAL AWARDS</p>
+      </div>
+    </div>
   </div>
 </div>
 <script type="text/javascript">
