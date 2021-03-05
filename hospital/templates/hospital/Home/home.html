@@ -17,7 +17,10 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script type="text/javascript" src="{% static 'assets/js/aos.js'%}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'assets/css/aos.css'%}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
   <script>
     $(document).ready(function(){
       var dragTheme = window.localStorage.getItem('checkbox');
@@ -154,44 +157,52 @@
   </div><br><br><br><br><br><br><br>
   <div style="align-items: center;">
     <div class="mainbox sps">
+      
+      <div class="rightside minarea">
+      	<img src="{%static 'assets/img/proj4.png' %}" height="97%" width="95%">
+      </div>
       <div class="leftside maxarea">
       	<h2>INTEGRATED ADMIN PANEL</h2>
       	<p>Most of the institutes in the health sector today are unable to meet the current required standards for patient satisfaction and complain redressal. And lack of an integrated platform in hospital management systems plays a key role in achieving this. Keeping into consideration, the need of the hour, we as a responsible organisation, have already taken a step forward to solve the issue.</p>
       	<p>We have introduced an integrated Admin Panel for monitoring and supervising all the issues of the patients and even doctors. The Admin Panel provides a medium to connect the authorities with the patiens and the staff directly, thus ensuring a fair situation.</p>
       </div>
-      <div class="rightside minarea">
-      	<img src="{%static 'assets/img/proj4.png' %}" height="97%" width="95%">
-      </div>
+      
     </div>
     <div class="mainboxr sps">
+     
+      <div class="leftside minarea">
+      	<img src="{%static 'assets/img/proj2.png' %}" height="80%" width="85%">
+      </div>
       <div class="rightside maxarea">
       	<h2>FACILITIES FOR THE ELDERLY ONES</h2>
       	<p>Keeping into view, the needs and mandates of our elderly patients, we have introduced a lot of features to make the thinks easy and convinient for them. </p>
       	<p>We have included features such as priorities in appointments, getting access to the records of previous ailments and their detailed reports in a click, and personalised supervising through video chat(in case they are not able to show up for some reason) have proved to be a benchmark for getting along with them.</p>
       </div>
-      <div class="leftside minarea">
-      	<img src="{%static 'assets/img/proj2.png' %}" height="80%" width="85%">
-      </div>
+      
     </div>
     <div class="mainbox sps">
+      
+      <div class="rightside minarea" style="margin-top: 30px">
+      	<img src="{%static 'assets/img/proj3.svg' %}" height="97%" width="95%">
+      </div>
       <div class="leftside maxarea">
       	<h2>VIDEO CONFERENCING FACILITIES</h2>
       	<p>In these trying times of COVID 19, it has been very difficult for people to come out of their houses for their routinely check-ups. The elder patients are the most affected of all as they can't show up for their regular appointments.</p>
       	<p>We have come up with an innovative way to tackle this situation by including the feature of OCS ie Over the Call Supervision, wherein patients can consult the doctor through video conferencing and their mandates can be taken care of.</p>
       </div>
-      <div class="rightside minarea" style="margin-top: 30px">
-      	<img src="{%static 'assets/img/proj3.svg' %}" height="97%" width="95%">
-      </div>
+      
     </div>
     <div class="mainboxr sps" style="margin-bottom: 200px">
+      
+      <div class="leftside minarea">
+      	<img src="{%static 'assets/img/proj1.svg' %}" height="97%" width="95%">
+      </div>
       <div class="rightside maxarea">
       	<h2>MEASURES FOR COVID-19</h2>
       	<p>We understand the fact that the most vulnerble of the patients are those who are suffering from the deadly COVID 19. They are the ones who need specific care and redressal and also need to be properly cut off from the mianstream for a better treatment.</p>
       	<p>We believe in transparency and thus, our COVID stats are available to all our patients. Furhet, we have a seperate COVID ward for treating our COVID patients and a detailed record of the bed available, and the record of the vaccines given, and the patient history are recorded with us to help us treat you better.</p>
       </div>
-      <div class="leftside minarea">
-      	<img src="{%static 'assets/img/proj1.svg' %}" height="97%" width="95%">
-      </div>
+      
     </div>
   </div>
 	{% include "hospital/Home/testimonials.html" %}  
@@ -202,7 +213,9 @@
 </div>
   <!--   Core JS Files   -->
   <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
-  
+  <script type="text/javascript">
+  	AOS.init();
+  </script>
   <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
   <script src="{% static 'assets/js/core/bootstrap-material-design.min.js' %}"></script>
   <script src="https://unpkg.com/default-passive-events"></script>
