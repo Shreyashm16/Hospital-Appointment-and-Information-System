@@ -2264,6 +2264,9 @@ input:checked + .slider:before {
 }
 
 .mainbox{
+  font-family: cursive;
+  font-size: 1.2em;
+  line-height: 25px;
   margin-top: 30px;
   margin-bottom: 30px;
   margin-left: 0px;
@@ -2275,6 +2278,9 @@ input:checked + .slider:before {
 }
 
 .mainboxr{
+  font-family: cursive;
+  font-size: 1.2em;
+  line-height: 25px;
   margin-top: 30px;
   margin-bottom: 30px;
   margin-left: 0px;
@@ -2285,6 +2291,17 @@ input:checked + .slider:before {
   height: auto;
   background-color: inherit;
 }
+
+.mainbox h2{
+  color: #ff0066;
+  font-family: cursive !important;  
+}
+
+.mainboxr h2{
+  color: #ff0066;
+  font-family: cursive !important;
+}
+
 
 #loader .darkEdition {
 	border: 5px solid #212121 !important;
