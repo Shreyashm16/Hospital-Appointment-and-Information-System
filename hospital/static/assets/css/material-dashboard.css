@@ -2270,7 +2270,8 @@ input:checked + .slider:before {
   padding: 15px;
   width: 100%;
   box-sizing: border-box;
-  min-height: 360px;
+  min-height: 460px;
+  height: auto;
 }
 
 .mainboxr{
@@ -2280,7 +2281,8 @@ input:checked + .slider:before {
   padding: 15px;
   width: 100%;
   box-sizing: border-box;
-  min-height: 300px;
+  min-height: 400px;
+  height: auto;
   background-color: inherit;
 }
 

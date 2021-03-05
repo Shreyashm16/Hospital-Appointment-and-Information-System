@@ -44,6 +44,27 @@
       });
     });
   </script>
+  <style type="text/css">
+  	
+  	.minarea{
+  		width: 40%;
+  		display: inline-block;
+  	}
+  	
+  	.maxarea{
+  		width: 55%;
+  		display: inline-block;
+  	}
+  	
+  	.leftside{
+  		float: left;
+  	}
+  	
+  	.rightside{
+  		float: right;
+  	}
+  
+  </style>
 </head>
 
 <body id="jhamela" class="darkEdition lightEdition">
@@ -54,27 +75,39 @@
   <!-- End Navbar -->
   
   <div style="text-align: center;position: relative;margin-bottom: 200px">
-  <div style="z-index: -1;position: absolute;left:-180px;margin-left: 50%">
-    <img src="{% static 'assets/img/hoslogo.png' %}" style="opacity: 0.15;width:360px">  
-  </div>
   <br><br><br>
   <h1 class="sps" style="font-weight: bolder;">G20 SARKARI ASPATAL</h1>
   <!-- <h5 class="sps glow">You’ll Love the Way We Care for You</h5> -->
-  <h3 class="sps" style="font-weight: bolder;">Est. 1678</h3><br>
-  <br>
-  <br><br><br><br><br>
+  <h3 class="sps" style="font-weight: bolder;">Est. 1678</h3>
+  <img src="{%static 'assets/img/homepage-banner.svg' %}" width="80%">
+  <br><br><br><br><br><br>
   <div class="container">
     <a href="{% url 'signup_pat.html' %}" class="btn btn-primary btn-round btn-lg">Take Appointment</a>
   </div><br><br>
   <div style="align-items: center;">
     <div class="mainbox sps">
-      Priyam bajpai
+      <div class="leftside maxarea"></div>
+      <div class="rightside minarea" style="margin-top: 30px" >
+      	<img src="{%static 'assets/img/proj4.png' %}" height="350px">
+      </div>
     </div>
     <div class="mainboxr sps">
+      <div class="rightside maxarea"></div>
+      <div class="leftside minarea">
+      	<img src="{%static 'assets/img/proj2.png' %}" height="400px">
+      </div>
     </div>
     <div class="mainbox sps">
+      <div class="leftside maxarea"></div>
+      <div class="rightside minarea" style="margin-top: 30px">
+      	<img src="{%static 'assets/img/proj3.svg' %}" height="350px">
+      </div>
     </div>
     <div class="mainboxr sps" style="margin-bottom: 100px">
+      <div class="rightside maxarea"></div>
+      <div class="leftside minarea">
+      	<img src="{%static 'assets/img/proj1.svg' %}" height="300px">
+      </div>
     </div>
   </div>
 	{% include "hospital/Home/testimonials.html" %}  
