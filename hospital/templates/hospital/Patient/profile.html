@@ -189,11 +189,16 @@ h1{
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  border: 1px solid rgba(0, 0, 0, .05);
-  border-radius: .375rem;
-  background-color: #fff;
   background-clip: border-box;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
 }
+
+@media (max-width: 1200px){
+	.card{
+		margin-bottom: 100px;
+	}
+}
+
 .card>hr {
   margin-right: 0;
   margin-left: 0;
@@ -205,12 +210,9 @@ h1{
 .card-header {
   margin-bottom: 0;
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, .05);
-  background-color: #fff;
+  
 }
-.card-header:first-child {
-  border-radius: calc(.375rem - 1px) calc(.375rem - 1px) 0 0;
-}
+
 .pt-8 {
   padding-top: 8rem !important;
 }
@@ -341,12 +343,12 @@ h1{
         <div class="container-fluid mt--7">
           <div class="row">
             <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
-              <div class="card card-profile shadow">
+              <div class="card card-profile shadow" style="background-color: rgba(220,220,220,0.3);">
                 <div class="row justify-content-center">
                   <div class="col-lg-3 order-lg-2">
                     <div class="card-profile-image">
                       <a href="#">
-                        <img src="https://static.india.com/wp-content/uploads/2020/08/Sunil-Chhetri.jpg?impolicy=Medium_Resize&w=1200&h=800" width="300 px" height="250 px" class="rounded-circle"><br><br>
+                        <img src="https://static.india.com/wp-content/uploads/2020/08/Sunil-Chhetri.jpg?impolicy=Medium_Resize&w=1200&h=800" width="200 px" height="180 px" class="rounded-circle"><br><br>
                       </a>
                     </div>
                   </div>
@@ -362,7 +364,7 @@ h1{
                       </div>
                     </div>
                   </div>
-                  <div class="text-center">
+                  <div class="text-center sps">
                     <h3>
                       Name<span class="font-weight-light">, Age</span>
                     </h3>
@@ -380,18 +382,18 @@ h1{
               </div>
             </div>
             <div class="col-xl-8 order-xl-1">
-              <div class="card bg-secondary shadow">
-                <div class="card-header bg-white border-0">
+              <div class="card">
+                <div class="card-header bg-white">
                   <div class="row align-items-center">
                     <div class="col-8">
-                      <h3 class="mb-0" style="size: 40px;color: rgba(244, 18, 18, 0.701)"><b>My Account</b></h3>
+                      <h3 class="mb-0 sps" style="size: 40px"><b>My Account</b></h3>
                     </div>
                     <div class="col-4 text-right">
                       <a href="#!" class="btn btn-sm btn-primary">Settings</a>
                     </div>
                   </div>
                 </div>
-                <div class="card-body" style="background-color: #ff0038;">
+                <div id="profilebg" class="card-body">
                   <form>
                     <div class="pl-lg-4">
                       <div class="row">
