@@ -91,19 +91,27 @@
       <div class="container mx-auto">
         <div class="brand">
           <h1 class="sps"><center>Login / Sign Up</center></h1><br><br><br>
-          <br>
-          <a href="{% url 'signup_pat.html' %}"><img src="{%static 'assets/img/Patient.jfif' %}" width="32.4%"></a>
-         <a href="{% url 'signup_adm.html' %}"> <img src="{%static 'assets/img/Admin.jfif' %}" width="31%"></a>
-         <a href="{% url 'signup_doc.html' %}"> <img src="{%static 'assets/img/Doctor.jfif' %}" width="31%"></a>
-          <br>
+          <!-- <br>
+          <a href="{% url 'signup_pat.html' %}"><img src="{%static 'assets/img/patient.png' %}" width="32.4%"></a>
+         <a href="{% url 'signup_adm.html' %}"> <img src="{%static 'assets/img/admin.png' %}" width="31%"></a>
+         <a href="{% url 'signup_doc.html' %}"> <img src="{%static 'assets/img/doctor.png' %}" width="31%"></a>
+          <br> -->
           
-          <div class="flex-container">
-          <a href="{% url 'signup_pat.html' %}" class="btn btn-primary btn-round btn-lg">Patient</a><!-- </div> -->
+          <div class="flex-container" style="box-sizing: border-box;">
+          <div class="logincards" style="margin-top: 50px;">
+          	<img src="{%static 'assets/img/patient.png' %}" style="border-radius: 50%" width="250" height="250">
+          	<div style="display: block;margin-top: 50px"><a href="{% url 'signup_pat.html' %}" class="btn btn-primary btn-round btn-lg">Patient</a></div>
+          </div>
           <!-- <div class="col-md-4 col-sm-12"> -->
-          <a href="{% url 'signup_adm.html' %}" class="btn btn-primary btn-round btn-lg">Admin</a><!-- </div> -->
+          <div class="logincards" style="margin-top: 50px;">
+          	<img src="{%static 'assets/img/admin.png' %}" style="border-radius: 50%" width="250" height="250">
+          	<div style="display: block;margin-top: 50px"><a href="{% url 'signup_adm.html' %}" class="btn btn-primary btn-round btn-lg">Admin</a></div>
+          </div>
           <!-- <div class="col-md-4 col-sm-12"> -->
-          <a href="{% url 'signup_doc.html' %}" class="btn btn-primary btn-round btn-lg">Doctor</a></div>          
-          
+          <div class="logincards" style="margin-top: 50px;">
+          	<img src="{%static 'assets/img/doctor.png' %}" style="border-radius: 50%" width="250" height="250">
+          	<div style="display: block;margin-top: 50px"><a href="{% url 'signup_doc.html' %}" class="btn btn-primary btn-round btn-lg">Doctor</a></div>          
+          </div>
         </div>         
         
       </div>
