@@ -92,9 +92,9 @@
         <div class="brand">
           <h1 class="sps"><center>Login / Sign Up</center></h1><br><br><br>
           <br>
-          <img src="{%static 'assets/img/Patient.jfif' %}" width="32.4%">
-          <img src="{%static 'assets/img/Admin.jfif' %}" width="31%">
-          <img src="{%static 'assets/img/Doctor.jfif' %}" width="31%">
+          <a href="{% url 'signup_pat.html' %}"><img src="{%static 'assets/img/Patient.jfif' %}" width="32.4%"></a>
+         <a href="{% url 'signup_adm.html' %}"> <img src="{%static 'assets/img/Admin.jfif' %}" width="31%"></a>
+         <a href="{% url 'signup_doc.html' %}"> <img src="{%static 'assets/img/Doctor.jfif' %}" width="31%"></a>
           <br>
           
           <div class="flex-container">
