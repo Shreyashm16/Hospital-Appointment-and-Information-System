@@ -35,6 +35,9 @@ urlpatterns = [
     #path('contactus/',views.contactus_view,name='contactus.html'),
     #path('news/',views.news_view,name='news.html'),
     path('login/',views.login_view,name='login.html'),
+    path('login_adm/',views.login_adm_view,name='login_adm.html'),
+    path('login_doc/',views.login_doc_view,name='login_doc.html'),
+    path('login_pat/',views.login_pat_view,name='login_pat.html'),
     #path('hospital/', include('hospital.urls')),
     
 ]

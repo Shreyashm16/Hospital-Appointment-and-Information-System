@@ -83,3 +83,9 @@ def signup_adm_view(request):
 #    return render(request,'hospital/Home/news.html')
 def login_view(request):
     return render(request,'hospital/Home/login.html')
+def login_adm_view(request):
+    return render(request,'hospital/Home/login_adm.html')
+def login_doc_view(request):
+    return render(request,'hospital/Home/login_doc.html')
+def login_pat_view(request):
+    return render(request,'hospital/Home/login_pat.html')
