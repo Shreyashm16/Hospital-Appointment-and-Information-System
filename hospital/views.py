@@ -4,6 +4,10 @@ from . import forms,models
 from django.core.mail import send_mail
 # Create your views here.
 # Create your views here.
+
+
+
+#------------------- Paitent Related Views---------------#
 def dash_view(request):
     return render(request,'hospital/Patient/dashboard.html')
 def bookapp_view(request):
@@ -29,6 +33,8 @@ def profile_view(request):
     return render(request,'hospital/Patient/profile.html')
 def yourhealth_view(request):
     return render(request,'hospital/Patient/yourhealth.html')
+
+#------------------- Doctor Related Views---------------#
 def dash_doc_view(request):
     return render(request,'hospital/Doctor/dashboard_doc.html')
 def bookapp_doc_view(request):
@@ -55,6 +61,8 @@ def profile_doc_view(request):
     return render(request,'hospital/Doctor/profile_doc.html')
 def yourhealth_doc_view(request):
     return render(request,'hospital/Doctor/yourhealth_doc.html')
+
+#------------------- Admin Related Views---------------#
 def dash_adm_view(request):
     return render(request,'hospital/Admin/dashboard_adm.html')
 def bookapp_adm_view(request):
@@ -67,20 +75,35 @@ def profile_adm_view(request):
     return render(request,'hospital/Admin/profile_adm.html')
 def yourhealth_adm_view(request):
     return render(request,'hospital/Admin/yourhealth_adm.html')
+
+#------------------- Home Related Views---------------#
 def home_view(request):
     return render(request,'hospital/Home/home.html')
 def signup_pat_view(request):
     return render(request,'hospital/Home/signup_pat.html')
+def signup_pat_view(request):
+    userForm=forms.PatientUserForm()
+    patientForm=forms.PatientForm()
+    mydict={'userForm':userForm,'patientForm':patientForm}
+    if request.method=='POST':
+        userForm=forms.PatientUserForm(request.POST)
+        patientForm=forms.PatientForm(request.POST,request.FILES)
+        if userForm.is_valid() and patientForm.is_valid():
+            user=userForm.save()
+            user.set_password(user.password)
+            user.save()
+            patient=patientForm.save(commit=False)
+            patient.user=user
+            #patient.assignedDoctorId=request.POST.get('assignedDoctorId')
+            patient=patient.save()
+            my_patient_group = Group.objects.get_or_create(name='PATIENT')
+            my_patient_group[0].user_set.add(user)
+        return HttpResponseRedirect('login_pat')
+    return render(request,'hospital/Home/signup_pat.html',context=mydict)
 def signup_doc_view(request):
     return render(request,'hospital/Home/signup_doc.html')
 def signup_adm_view(request):
     return render(request,'hospital/Home/signup_adm.html')
-#def services_view(request):
-#    return render(request,'hospital/Home/services.html')
-#def contactus_view(request):
-#    return render(request,'hospital/Home/contactus.html')
-#def news_view(request):
-#    return render(request,'hospital/Home/news.html')
 def login_view(request):
     return render(request,'hospital/Home/login.html')
 def login_adm_view(request):
