@@ -47,6 +47,23 @@
   </script>
   <style type="text/css">
   	
+  	.theme-switch-wrapper {
+	  display: block !important;
+	  float: none !important;
+	  align-items: center;
+	  position: relative !important;
+	  margin-left: auto !important;
+	  margin-right: auto !important;
+	}
+
+  	.col-md-6{
+  		width: 48%;
+  		margin-top: 100px;
+  		margin-bottom: 100px;
+  		box-sizing: border-box;
+  		display: inline-block;
+  	}
+
   	.minarea{
   		width: 40%;
   		display: inline-block;
@@ -112,6 +129,11 @@
   }
   @media (max-width: 500px)
   {
+  	#footid{
+  		text-align: center !important;
+  		margin-left: 0px !important;
+  	}
+
   	.leftside{
   		float: none;
   	}
@@ -128,6 +150,12 @@
   	.rightside img{
   		width: 90%;
   		height: auto;
+  	}
+
+  	.col-md-6{
+  		width: 98%;
+  		margin-bottom: 0px;
+  	}
   	}
   }
   </style>
@@ -146,7 +174,15 @@
   <!-- <h5 class="sps glow">You’ll Love the Way We Care for You</h5> -->
   <h3 class="sps" style="font-weight: bolder;">Est. 1678</h3>
   <img src="{%static 'assets/img/homepage-banner.svg' %}" width="80%">
-  <br><br><br>
+  <br><br><br><br><br>
+  <div style="text-align: center !important">
+  	<div class="theme-switch-wrapper">
+      <label class="theme-switch" for="checkbox">
+          <input type="checkbox" id="checkbox"/>
+          <div class="slider round"></div>
+      </label>
+  	</div>
+  </div>
   <p style="width: 70%;margin-left:auto;margin-right:auto;margin-top: 100px;font-family: cursive;line-height: 30px;font-size: 1.2em" class="sps">
   	We, at SARKARI ASPATAL, aim to provide you not only the best possible treatment, but also aim to satisfy the needs and redress the queries of the patient with the same wholesomeness.Most of the institutes in the health sector today are unable to meet the current required standards for patient satisfaction and complain redressal. It's due to some sort of a stigma that these things are never considered. But we have come forward to break the stigma.<br><br>Thus we have extended our management system to include the patients into the evaluation process and to ensure a transparency in this relationship. And this is what makes us different!   
 </div>
@@ -207,48 +243,28 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-4">
-       <!-- <div class="logo padding"><a href="https://www.free-css.com/free-css-templates">
-        <img src="assets/images/logo.png" alt="website template image">
+      
+      <div class="col-md-6">
+        <div id="footid" style="text-align: left;margin-left: 10%;font-size: 1.2em">
+          <h2 class="sps">CONTACT US</h2>
+          <p class="sps"><i class="fa fa-map-marker" aria-hidden="true"></i> IIITS , Gyan Marg, Sricity </p>
+          <p class="sps"><i class="fa fa-paper-plane" aria-hidden="true"></i> info@domain.com</p>
+          <p class="sps"><i class="fa fa-phone" aria-hidden="true"></i> (+1) 800 123 456</p>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div><a href="#">
+        <img src="https://www.iasplus.com/en/images/responsive/badges/g20/@@images/465e1ae9-46a0-4131-b3d0-984fcbb8233a.png" height="150" width="170">
         </a>
-        <p>Locavore pork belly scen ester pine est chill wave microdosing pop uple itarian cliche artisan.</p>
-        </div>-->
-      </div>
-      <div class="col-md-4">
-        <div class="footer-info padding">
-          <h3>CONTACT US</h3>
-          <p><i class="fa fa-map-marker" aria-hidden="true"></i> IIITS , Gyan Marg, Sricity </p>
-          <p><i class="fa fa-paper-plane" aria-hidden="true"></i> info@domain.com</p>
-          <p><i class="fa fa-phone" aria-hidden="true"></i> (+1) 800 123 456</p>
+        <p class="sps">Hospital motto goes here.</p>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="subcriber-info">
-          <h3>SUBSCRIBE</h3>
-          <p>Get healthy news, tip and solutions to your problems from our experts.</p>
-          <div class="subcriber-box">
-            <form action="#" method="post" class="mc-form" id="mc-form">
-              <div class="newsletter-form">
-                <input type="email" autocomplete="off" id="mc-email" placeholder="Email address" class="form-control" name="EMAIL">
-                <button class="mc-submit" type="submit"><i class="fa fa-paper-plane"></i></button>
-                <div class="clearfix"></div>
-                <div class="mailchimp-alerts">
-                  <div class="mailchimp-submitting"></div>
-                  <div class="mailchimp-success"></div>
-                  <div class="mailchimp-error"></div>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
 
   </div>
- 
-
-  {% include "hospital/Home/footer.html" %}
 </div>
   <!--   Core JS Files   -->
   <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
