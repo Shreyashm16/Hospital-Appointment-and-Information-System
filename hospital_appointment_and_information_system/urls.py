@@ -16,12 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from hospital import views
+from users import views as user_views
+from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     
     path('admin/', admin.site.urls),
     path('',views.home_view,name=''),
     path('hospital/', include('hospital.urls')),
+    path('register/',user_views.register,name='register'),
+    path('login/',auth_views.LoginView.as_view(template_name='users/login.html'),name='login'),
+    path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'),
+    path('pat_login/',auth_views.LoginView.as_view(template_name='users/pat_login.html'),name='pat_login'),
+    path('pat_profile/',user_views.pat_profile,name='pat_profile'),
 ]
     
-
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

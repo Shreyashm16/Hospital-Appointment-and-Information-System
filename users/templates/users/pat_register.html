@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Admin Signup
+    Patient Signup
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -55,9 +55,40 @@
   
   <div style="text-align: center;position: relative">
   <!-- End Navbar -->
-  <br><br><br><br><br><br><br><br><br>
-  <center><h3 class="sps">Already have an account? <a href="{% url 'dashboard_adm.html' %}">Login here</a></h3></center>
+  <br><br><br>
+  <!--
+  <br><br><br><br><br><br>
+  <center><h3 class="sps">Already have an account? <a href="{% url 'dashboard.html' %}">Login here</a></h3></center>
+  -->
   </div>
+  
+  {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{message.tags}}">
+            {{ message }}
+        </div>
+    {% endfor %}
+  {% endif %}
+
+  <div class="content-section">
+      <form method="POST">
+        {% csrf_token %}
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Join Today</legend>
+            {{ form.as_p }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+        </div>
+      </form>
+      <div class="border-top pt-3">
+            <small class="text-muted">
+                Already have an account? <a class="ml-2" href="{% url 'pat_login' %}">Sign In</a>
+            </small>
+      </div>
+  </div>
+
   {% include "hospital/Home/footer.html" %}
   </div>
   <!--   Core JS Files   -->

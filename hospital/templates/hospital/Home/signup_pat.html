@@ -1,5 +1,4 @@
 {% load static %}
-{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,61 +53,11 @@
   {% include "hospital/Home/nav_main.html" %}
   <!-- End Navbar -->
   
-  
+  <div style="text-align: center;position: relative">
   <!-- End Navbar -->
-  <br><br>
-  
-  
-          
-          <center>
-    <div class="container">
-    <div class="screen" style="width: 70%;margin-left: auto;margin-right: auto;">
-              <div class="screen-header">
-                <div class="screen-header-left">
-                  <img src="{% static 'assets/img/btn.png' %}" height="20px">
-                </div>
-              </div>
-              <div class="screen-body">
-                <div class="screen-body-item left">
-                  <div class="app-title" style="text-align: center;color: #ff0066; font-size:20px;">
-                  <br>
-                    <span>PATIENT REGISTRATION FORM</span>
-                  </div>
-                </div>
-                <br>
-                <br>
-                <form class="app-form">
-                <div class="screen-body-item">
-                  {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
-                  {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}  
-                </div>
-                 <div class="screen-body-item"> 
-                   {% render_field userForm.username class="form-control" placeholder="Username" %}
-                   {% render_field userForm.password class="form-control" placeholder="Password" %}
-                </div>
-                <div class="screen-body-item">
-    
-                {% render_field patientForm.address class="form-control" placeholder="Address" %}
-                {% render_field patientForm.mobile class="form-control" pattern="[6789][0-9]{9}" placeholder="Mobile Number" %}
-                </div>
-                 <div class="screen-body-item">
-                {% render_field patientForm.symptoms class="form-control" placeholder="Symptoms" %}  
-                {% render_field patientForm.profile_pic required="required" class="form-control" placeholder="Profile Picture" %}
-                </div>
-              
-                
-                
-                <input type="submit" value="Register" class='btn btn-primary btn-lg' style="margin-top: 30px">
-                </form>
-            
-            </div>
-          </div>
-          <br><br>
-          <h3 class="sps">Already have an account? <a href="{% url 'login_pat.html' %}">Login here</a></h3></center>
-
-
-
-  </center>
+  <br><br><br><br><br><br><br><br><br>
+  <center><h3 class="sps">Already have an account? <a href="{% url 'dashboard.html' %}">Login here</a></h3></center>
+  </div>
   {% include "hospital/Home/footer.html" %}
   </div>
   <!--   Core JS Files   -->

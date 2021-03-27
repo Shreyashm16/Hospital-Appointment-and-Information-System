@@ -316,7 +316,7 @@ h1{
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="{% url '' %}">
+          <a class="nav-link" href="{% url 'logout' %}">
             <i class="material-icons">logout</i>
             <p>Logout</p>
           </a>
@@ -324,6 +324,8 @@ h1{
       </ul>
     </div>
   </div>
+
+
     <div class="main-panel">
       <div class="main-content">
         <!-- Header -->
@@ -348,7 +350,7 @@ h1{
                   <div class="col-lg-3 order-lg-2">
                     <div class="card-profile-image">
                       <a href="#">
-                        <img src="https://static.india.com/wp-content/uploads/2020/08/Sunil-Chhetri.jpg?impolicy=Medium_Resize&w=1200&h=800" width="200 px" height="180 px" class="rounded-circle"><br><br>
+                        <img src="{{ user.pat_Profile.image.url }}" width="200 px" height="180 px" class="rounded-circle"><br><br>
                       </a>
                     </div>
                   </div>
@@ -366,10 +368,10 @@ h1{
                   </div>
                   <div class="text-center sps">
                     <h3>
-                      Name<span class="font-weight-light">, Age</span>
+                      {{ user.pat_Profile.firstname }} {{ user.pat_Profile.lastname }}<span class="font-weight-light">, {{ user.pat_Profile.age }}</span>
                     </h3>
                     <div class="h5 font-weight-300">
-                      <i class="ni location_pin mr-2"></i>Place, Place
+                      <i class="ni location_pin mr-2"></i>{{ user.pat_Profile.city }}, {{ user.pat_Profile.country }}
                     </div>
                     <div class="h5 mt-4">
                       <i class="ni business_briefcase-24 mr-2"></i>Job/Role
@@ -400,13 +402,13 @@ h1{
                         <div class="col-lg-6">
                           <div class="form-group focused">
                             <label class="form-control-label" for="input-username" style="color: #fff;">Username</label>
-                            <input readonly type="text" id="input-username" class="form-control form-control-alternative" placeholder="user_name">
+                            <input readonly type="text" id="input-username" class="form-control form-control-alternative" placeholder="{{ user.username }}">
                           </div>
                         </div>
                         <div class="col-lg-6">
                           <div class="form-group">
                             <label class="form-control-label" for="input-email" style="color: #fff;">Email address</label>
-                            <input readonly type="email" id="input-email" class="form-control form-control-alternative" placeholder="useremail@email.com">
+                            <input readonly type="email" id="input-email" class="form-control form-control-alternative" placeholder="{{ user.email }}">
                           </div>
                         </div>
                       </div>
@@ -414,13 +416,13 @@ h1{
                         <div class="col-lg-6">
                           <div class="form-group focused">
                             <label class="form-control-label" for="input-first-name" style="color: #fff;">First name</label>
-                            <input readonly type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="FName User">
+                            <input readonly type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="{{ user.pat_Profile.firstname}}">
                           </div>
                         </div>
                         <div class="col-lg-6">
                           <div class="form-group focused">
                             <label class="form-control-label" for="input-last-name" style="color: #fff;">Last name</label>
-                            <input readonly type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="LName User">
+                            <input readonly type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="{{ user.pat_Profile.lastname }}">
                           </div>
                         </div>
                       </div>
@@ -432,7 +434,7 @@ h1{
                         <div class="col-md-12">
                           <div class="form-group focused">
                             <label class="form-control-label" for="input-address" style="color: #fff;">Address</label>
-                            <input readonly id="input-address" class="form-control form-control-alternative" type="text" placeholder="User Address">
+                            <input readonly id="input-address" class="form-control form-control-alternative" type="text" placeholder="{{ user.pat_Profile.address }}">
                           </div>
                         </div>
                       </div>
@@ -440,19 +442,19 @@ h1{
                         <div class="col-lg-4">
                           <div class="form-group focused">
                             <label class="form-control-label" for="input-city" style="color: #fff;">City</label>
-                            <input readonly type="text" id="input-city" class="form-control form-control-alternative" placeholder="User City">
+                            <input readonly type="text" id="input-city" class="form-control form-control-alternative" placeholder="{{ user.pat_Profile.city }}">
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="form-group focused">
                             <label class="form-control-label" for="input-country" style="color: #fff;">Country</label>
-                            <input readonly type="text" id="input-country" class="form-control form-control-alternative" placeholder="User Country">
+                            <input readonly type="text" id="input-country" class="form-control form-control-alternative" placeholder="{{ user.pat_Profile.country }}">
                           </div>
                         </div>
                         <div class="col-lg-4">
                           <div class="form-group">
                             <label class="form-control-label" for="input-country" style="color: #fff;">Postal code</label>
-                            <input readonly type="text" id="input-postal-code" class="form-control form-control-alternative" placeholder="User Pincode">
+                            <input readonly type="text" id="input-postal-code" class="form-control form-control-alternative" placeholder="{{ user.pat_Profile.postalcode }}">
                             
                           </div>
                         </div>
@@ -465,7 +467,21 @@ h1{
           </div>
         </div>
       </div>
-    <br><br><br><br><br>
+    <br><br>
+    
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+  
+      <fieldset class="form-group">
+          <legend class="border-bottom mb-4">Profile Info</legend>
+          {{ p_form.as_p }}
+      </fieldset>
+      <div class="form-group">
+          <button class="btn btn-outline-info" type="submit">Update</button>
+      </div>
+    </form>
+    
+    <br><br><br>
     {% include "hospital/Patient/footer.html" %}
     </div>
   </div>
