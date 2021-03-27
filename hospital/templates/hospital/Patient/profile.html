@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!--
 =========================================================
 * Material Dashboard Dark Edition - v2.1.0
@@ -265,65 +266,65 @@ h1{
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
         Tip 2: you can also add an image using data-image tag
-    -->
-    <div class="logo"><a href="#" class="simple-text logo-normal">
-      <img src="https://www.iasplus.com/en/images/responsive/badges/g20/@@images/465e1ae9-46a0-4131-b3d0-984fcbb8233a.png">
-      <br> 
+      -->
+      <div class="logo"><a href="#" class="simple-text logo-normal">
+        <img src="https://www.iasplus.com/en/images/responsive/badges/g20/@@images/465e1ae9-46a0-4131-b3d0-984fcbb8233a.png">
+        <br> 
       GROUP 20
       </a></div>
-    <div class="sidebar-wrapper">
-      <ul class="nav">
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'dashboard.html' %}">
-            <i class="material-icons">dashboard</i>
-            <p>Dashboard</p>
-          </a>
-        </li>
-        <li class="nav-item active  ">
-          <a class="nav-link" href="{% url 'profile.html' %}">
-            <i class="material-icons">person</i>
-            <p>Profile</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'bookapp.html' %}">
-            <i class="material-icons">content_paste</i>
-            <p>Book Appointment</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'yourhealth.html' %}">
-            <i class="material-icons">favorite</i>
-            <p>Your Health</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'calladoc.html' %}">
-            <i class="material-icons">library_books</i>
-            <p>Call A Doc</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'medicalreport.html' %}">
-            <i class="material-icons">favorite</i>
-            <p>Medical Reports</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'feedback.html' %}">
-            <i class="material-icons">bubble_chart</i>
-            <p>Feedback</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'logout' %}">
-            <i class="material-icons">logout</i>
-            <p>Logout</p>
-          </a>
-        </li>
-      </ul>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'dashboard.html' %}">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item active  ">
+            <a class="nav-link" href="{% url 'profile.html' %}">
+              <i class="material-icons">person</i>
+              <p>Profile</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'bookapp.html' %}">
+              <i class="material-icons">content_paste</i>
+              <p>Book Appointment</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'yourhealth.html' %}">
+              <i class="material-icons">favorite</i>
+              <p>Your Health</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'calladoc.html' %}">
+              <i class="material-icons">library_books</i>
+              <p>Call A Doc</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'medicalreport.html' %}">
+              <i class="material-icons">favorite</i>
+              <p>Medical Reports</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'feedback.html' %}">
+              <i class="material-icons">bubble_chart</i>
+              <p>Feedback</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'logout' %}">
+              <i class="material-icons">logout</i>
+              <p>Logout</p>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
 
 
     <div class="main-panel">
@@ -341,148 +342,159 @@ h1{
             </div>
           </div>
         </div>
-        <!-- Page content -->
-        <div class="container-fluid mt--7">
-          <div class="row">
-            <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
-              <div class="card card-profile shadow" style="background-color: rgba(220,220,220,0.3);">
-                <div class="row justify-content-center">
-                  <div class="col-lg-3 order-lg-2">
-                    <div class="card-profile-image">
-                      <a href="#">
-                        <img src="{{ user.pat_Profile.image.url }}" width="200 px" height="180 px" class="rounded-circle"><br><br>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                  <div class="d-flex justify-content-between">
-                  </div>
-                </div>
-                <div class="card-body pt-0 pt-md-4">
-                  <div class="row">
-                    <div class="col">
-                      <div class="card-profile-stats d-flex justify-content-center mt-md-5">   
+        <div class="main-content">
+          <div class="container-fluid mt--7">
+            <div class="row">
+              <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+                <div class="card card-profile shadow" style="background-color: rgba(220,220,220,0.3);">
+                  <div class="row justify-content-center">
+                    <div class="col-lg-3 order-lg-2">
+                      <div class="card-profile-image">
+                        <a href="#">
+                          <img src="{{ user.pat_Profile.image.url }}" width="200 px" height="180 px" class="rounded-circle"><br><br>
+                        </a>
                       </div>
                     </div>
                   </div>
-                  <div class="text-center sps">
-                    <h3>
-                      {{ user.pat_Profile.firstname }} {{ user.pat_Profile.lastname }}<span class="font-weight-light">, {{ user.pat_Profile.age }}</span>
-                    </h3>
-                    <div class="h5 font-weight-300">
-                      <i class="ni location_pin mr-2"></i>{{ user.pat_Profile.city }}, {{ user.pat_Profile.country }}
-                    </div>
-                    <div class="h5 mt-4">
-                      <i class="ni business_briefcase-24 mr-2"></i>Job/Role
-                    </div>
-                    <div>
-                      <i class="ni education_hat mr-2"></i>Organisation
+                  <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                    <div class="d-flex justify-content-between">
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-8 order-xl-1">
-              <div class="card">
-                <div class="card-header bg-white">
-                  <div class="row align-items-center">
-                    <div class="col-8">
-                      <h3 class="mb-0 sps" style="size: 40px"><b>My Account</b></h3>
+                  <div class="card-body pt-0 pt-md-4">
+                    <div class="row">
+                      <div class="col">
+                        <div class="card-profile-stats d-flex justify-content-center mt-md-5">   
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-4 text-right">
-                      <a href="#!" class="btn btn-sm btn-primary">Settings</a>
+                    <div class="text-center sps">
+                      <h3>
+                        {{ user.pat_Profile.firstname }} {{ user.pat_Profile.lastname }}<span class="font-weight-light">, {{ user.pat_Profile.age }}</span>
+                      </h3>
+                      <div class="h5 font-weight-300">
+                        <i class="ni location_pin mr-2"></i>{{ user.pat_Profile.city }}, {{ user.pat_Profile.country }}
+                      </div>
+                      <div class="h5 mt-4">
+                        <i class="ni business_briefcase-24 mr-2"></i>Job/Role
+                      </div>
+                      <div>
+                        <i class="ni education_hat mr-2"></i>Organisation
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div id="profilebg" class="card-body">
-                  <form>
-                    <div class="pl-lg-4">
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="form-group focused">
-                            <label class="form-control-label" for="input-username" style="color: #fff;">Username</label>
-                            <input readonly type="text" id="input-username" class="form-control form-control-alternative" placeholder="{{ user.username }}">
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="form-group">
-                            <label class="form-control-label" for="input-email" style="color: #fff;">Email address</label>
-                            <input readonly type="email" id="input-email" class="form-control form-control-alternative" placeholder="{{ user.email }}">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="form-group focused">
-                            <label class="form-control-label" for="input-first-name" style="color: #fff;">First name</label>
-                            <input readonly type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="{{ user.pat_Profile.firstname}}">
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="form-group focused">
-                            <label class="form-control-label" for="input-last-name" style="color: #fff;">Last name</label>
-                            <input readonly type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="{{ user.pat_Profile.lastname }}">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <hr class="my-4">
-                    <!-- Address -->
-                    <div class="pl-lg-4">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-group focused">
-                            <label class="form-control-label" for="input-address" style="color: #fff;">Address</label>
-                            <input readonly id="input-address" class="form-control form-control-alternative" type="text" placeholder="{{ user.pat_Profile.address }}">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <div class="form-group focused">
-                            <label class="form-control-label" for="input-city" style="color: #fff;">City</label>
-                            <input readonly type="text" id="input-city" class="form-control form-control-alternative" placeholder="{{ user.pat_Profile.city }}">
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="form-group focused">
-                            <label class="form-control-label" for="input-country" style="color: #fff;">Country</label>
-                            <input readonly type="text" id="input-country" class="form-control form-control-alternative" placeholder="{{ user.pat_Profile.country }}">
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                            <label class="form-control-label" for="input-country" style="color: #fff;">Postal code</label>
-                            <input readonly type="text" id="input-postal-code" class="form-control form-control-alternative" placeholder="{{ user.pat_Profile.postalcode }}">
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
                 </div>
               </div>
+                
+              <div class="col-xl-8 order-xl-1">
+                <form method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="card">
+                    <p>
+                      <div id="profilebg" class="card-body">
+                        <div class="pl-lg-4">
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group focused">
+                                <label class="form-control-label" for="input-username" style="color: #fff;">Username</label>
+                                <input readonly type="text" id="input-username" class="form-control form-control-alternative" placeholder="{{ user.username }}">
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-email" style="color: #fff;">Email address</label>
+                                <input readonly type="email" id="input-email" class="form-control form-control-alternative" placeholder="{{ user.email }}">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group focused">
+                                <label class="form-control-label" for="input-first-name" style="color: #fff;">First Name</label>
+                                  {{ p_form.firstname|add_class:"form-control form-control-alternative" }}
+                                  {{ p_form.firstname.errors }}
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-last-name" style="color: #fff;">Last Name</label>
+                                {{ p_form.lastname|add_class:"form-control form-control-alternative" }}
+                                {{ p_form.lastname.errors }}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="form-group focused">
+                                <label class="form-control-label" for="input-age" style="color: #fff;">Age</label>
+                                {{ p_form.age|add_class:"form-control form-control-alternative" }}
+                                {{ p_form.age.errors }}
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-date" style="color: #fff;">Date of Birth</label>
+                                {{ p_form.dob|add_class:"form-control form-control-alternative" }}
+                                {{ p_form.dob.errors }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <hr class="my-4">
+                        <div class="pl-lg-4">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group focused">
+                                <label class="form-control-label" for="input-address" style="color: #fff;">Address</label>
+                                {{ p_form.address|add_class:"form-control form-control-alternative" }}
+                                {{ p_form.address.errors }}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-4">
+                              <div class="form-group focused">
+                                <label class="form-control-label" for="input-city" style="color: #fff;">City</label>
+                                {{ p_form.city|add_class:"form-control form-control-alternative" }}
+                                {{ p_form.city.errors }}
+                              </div>
+                            </div>
+                            <div class="col-lg-4">
+                              <div class="form-group focused">
+                                <label class="form-control-label" for="input-country" style="color: #fff;">Country</label>
+                                {{ p_form.country|add_class:"form-control form-control-alternative" }}
+                                {{ p_form.country.errors }}
+                              </div>
+                            </div>
+                            <div class="col-lg-4">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-postalcode" style="color: #fff;">Postal code</label>
+                                {{ p_form.postalcode|add_class:"form-control form-control-alternative" }}
+                                {{ p_form.postalcode.errors }}
+                              </div>
+                            </div>
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="form-control-label" for="input-image" style="color: #fff;">Profile Pic</label>
+                                {{ p_form.image|add_class:"form-control form-control-alternative" }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </p>
+                    <div class="form-group">
+                      <button class="btn btn-sm btn-primary" type="submit">Update</button>
+                  </div>
+                    </div>
+    
+              </form>
             </div>
           </div>
         </div>
-      </div>
-    <br><br>
     
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-  
-      <fieldset class="form-group">
-          <legend class="border-bottom mb-4">Profile Info</legend>
-          {{ p_form.as_p }}
-      </fieldset>
-      <div class="form-group">
-          <button class="btn btn-outline-info" type="submit">Update</button>
+        <br><br><br>
+        {% include "hospital/Patient/footer.html" %}
       </div>
-    </form>
-    
-    <br><br><br>
-    {% include "hospital/Patient/footer.html" %}
     </div>
   </div>
 </body>

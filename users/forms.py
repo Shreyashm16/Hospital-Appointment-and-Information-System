@@ -20,6 +20,7 @@ class UserRegisterForm(UserCreationForm):
         fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image', 'password1', 'password2']
 
     
+
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField(required=True)
     #image = forms.ImageField()
@@ -27,7 +28,7 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         #fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image']
-        fields = ['username']
+        fields = ['username','email']
 
 
 class pat_ProfileUpdateForm(forms.ModelForm):
@@ -39,6 +40,7 @@ class pat_ProfileUpdateForm(forms.ModelForm):
     city = forms.CharField()
     country = forms.CharField()
     postalcode = forms.IntegerField()
+    image = forms.ImageField(widget=forms.FileInput)
     class Meta:
         model = pat_Profile
         fields = ['firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image']
