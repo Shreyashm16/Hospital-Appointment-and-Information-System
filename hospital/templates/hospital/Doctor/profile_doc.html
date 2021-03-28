@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!--
 =========================================================
 * Material Dashboard Dark Edition - v2.1.0
@@ -213,7 +214,6 @@ h1{
   padding: 1.25rem 1.5rem;
   
 }
-
 .pt-8 {
   padding-top: 8rem !important;
 }
@@ -317,7 +317,7 @@ h1{
           </a>
         </li>
          <li class="nav-item ">
-          <a class="nav-link" href="{% url '' %}">
+          <a class="nav-link" href="{% url 'logout' %}">
             <i class="material-icons">logout</i>
             <p>Logout</p>
           </a>
@@ -325,22 +325,23 @@ h1{
       </ul>
     </div>
   </div>
-    <div class="main-panel">
-            <div class="main-content">
-        <!-- Header -->
-        <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
-          <h1 style="color: #ff0038; text-align: center; ">Profile</h1>
-          <!-- Mask -->
-          <span class="mask bg-gradient-default opacity-8"></span>
-          <!-- Header container -->
-          <div class="container-fluid d-flex align-items-center">
-            <div class="row">
-              <div class="col-lg-7 col-md-10">
-              </div>
+  
+  <div class="main-panel">
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+        <h1 style="color: #ff0038; text-align: center; ">Profile</h1>
+        <!-- Mask -->
+        <span class="mask bg-gradient-default opacity-8"></span>
+        <!-- Header container -->
+        <div class="container-fluid d-flex align-items-center">
+          <div class="row">
+            <div class="col-lg-7 col-md-10">
             </div>
           </div>
         </div>
-        <!-- Page content -->
+      </div>
+      <div class="main-content">
         <div class="container-fluid mt--7">
           <div class="row">
             <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
@@ -349,7 +350,7 @@ h1{
                   <div class="col-lg-3 order-lg-2">
                     <div class="card-profile-image">
                       <a href="#">
-                        <img src="https://static.india.com/wp-content/uploads/2020/08/Sunil-Chhetri.jpg?impolicy=Medium_Resize&w=1200&h=800" width="200 px" height="180 px" class="rounded-circle"><br><br>
+                        <img src="{{ doc.image.url }}" width="200 px" height="180 px" class="rounded-circle"><br><br>
                       </a>
                     </div>
                   </div>
@@ -367,10 +368,10 @@ h1{
                   </div>
                   <div class="text-center sps">
                     <h3>
-                      Name<span class="font-weight-light">, Age</span>
+                      {{ doc.firstname }} {{ doc.lastname }}<span class="font-weight-light">, {{ doc.age }}</span>
                     </h3>
                     <div class="h5 font-weight-300">
-                      <i class="ni location_pin mr-2"></i>Place, Place
+                      <i class="ni location_pin mr-2"></i>{{ doc.city }}, {{ doc.country }}
                     </div>
                     <div class="h5 mt-4">
                       <i class="ni business_briefcase-24 mr-2"></i>Job/Role
@@ -382,92 +383,116 @@ h1{
                 </div>
               </div>
             </div>
+              
             <div class="col-xl-8 order-xl-1">
-              <div class="card">
-                <div class="card-header bg-white">
-                  <div class="row align-items-center">
-                    <div class="col-8">
-                      <h3 class="mb-0 sps" style="size: 40px"><b>My Account</b></h3>
+              <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card">
+                  <p>
+                    <div id="profilebg" class="card-body">
+                      <div class="pl-lg-4">
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <div class="form-group focused">
+                              <label class="form-control-label" for="input-username" style="color: #fff;">Username</label>
+                              <input readonly type="text" id="input-username" class="form-control form-control-alternative" placeholder="{{ user.username }}">
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-email" style="color: #fff;">Email address</label>
+                              <input readonly type="email" id="input-email" class="form-control form-control-alternative" placeholder="{{ user.email }}">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <div class="form-group focused">
+                              <label class="form-control-label" for="input-first-name" style="color: #fff;">First Name</label>
+                                {{ p_form.firstname|add_class:"form-control form-control-alternative" }}
+                                {{ p_form.firstname.errors }}
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-last-name" style="color: #fff;">Last Name</label>
+                              {{ p_form.lastname|add_class:"form-control form-control-alternative" }}
+                              {{ p_form.lastname.errors }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <div class="form-group focused">
+                              <label class="form-control-label" for="input-age" style="color: #fff;">Age</label>
+                              {{ p_form.age|add_class:"form-control form-control-alternative" }}
+                              {{ p_form.age.errors }}
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-date" style="color: #fff;">Date of Birth</label>
+                              {{ p_form.dob|add_class:"form-control form-control-alternative" }}
+                              {{ p_form.dob.errors }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="my-4">
+                      <div class="pl-lg-4">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group focused">
+                              <label class="form-control-label" for="input-address" style="color: #fff;">Address</label>
+                              {{ p_form.address|add_class:"form-control form-control-alternative" }}
+                              {{ p_form.address.errors }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="form-group focused">
+                              <label class="form-control-label" for="input-city" style="color: #fff;">City</label>
+                              {{ p_form.city|add_class:"form-control form-control-alternative" }}
+                              {{ p_form.city.errors }}
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="form-group focused">
+                              <label class="form-control-label" for="input-country" style="color: #fff;">Country</label>
+                              {{ p_form.country|add_class:"form-control form-control-alternative" }}
+                              {{ p_form.country.errors }}
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-postalcode" style="color: #fff;">Postal code</label>
+                              {{ p_form.postalcode|add_class:"form-control form-control-alternative" }}
+                              {{ p_form.postalcode.errors }}
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-image" style="color: #fff;">Profile Pic</label>
+                              {{ p_form.image|add_class:"form-control form-control-alternative" }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="col-4 text-right">
-                      <a href="#!" class="btn btn-sm btn-primary">Settings</a>
-                    </div>
+                  </p>
+                  <div class="form-group">
+                    <button class="btn btn-sm btn-primary" type="submit">Update</button>
+                </div>
                   </div>
-                </div>
-                <div id="profilebg" class="card-body">
-                  <form>
-                    <div class="pl-lg-4">
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="form-group focused">
-                            <label class="form-control-label" for="input-username" style="color: #fff;">Username</label>
-                            <input readonly type="text" id="input-username" class="form-control form-control-alternative" placeholder="user_name">
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="form-group">
-                            <label class="form-control-label" for="input-email" style="color: #fff;">Email address</label>
-                            <input readonly type="email" id="input-email" class="form-control form-control-alternative" placeholder="useremail@email.com">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="form-group focused">
-                            <label class="form-control-label" for="input-first-name" style="color: #fff;">First name</label>
-                            <input readonly type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="FName User">
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="form-group focused">
-                            <label class="form-control-label" for="input-last-name" style="color: #fff;">Last name</label>
-                            <input readonly type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="LName User">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <hr class="my-4">
-                    <!-- Address -->
-                    <div class="pl-lg-4">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-group focused">
-                            <label class="form-control-label" for="input-address" style="color: #fff;">Address</label>
-                            <input readonly id="input-address" class="form-control form-control-alternative" type="text" placeholder="User Address">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <div class="form-group focused">
-                            <label class="form-control-label" for="input-city" style="color: #fff;">City</label>
-                            <input readonly type="text" id="input-city" class="form-control form-control-alternative" placeholder="User City">
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="form-group focused">
-                            <label class="form-control-label" for="input-country" style="color: #fff;">Country</label>
-                            <input readonly type="text" id="input-country" class="form-control form-control-alternative" placeholder="User Country">
-                          </div>
-                        </div>
-                        <div class="col-lg-4">
-                          <div class="form-group">
-                            <label class="form-control-label" for="input-country" style="color: #fff;">Postal code</label>
-                            <input readonly type="text" id="input-postal-code" class="form-control form-control-alternative" placeholder="User Pincode">
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
+  
+            </form>
           </div>
         </div>
       </div>
-      <br><br><br><br>
-      {% include "hospital/Doctor/footer.html" %}
+  
+      <br><br><br>
+      {% include "hospital/Patient/footer.html" %}
     </div>
   </div>
 </body>

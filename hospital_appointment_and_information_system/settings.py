@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hospital',
-    'users.apps.UsersConfig',
     'crispy_forms',
     'widget_tweaks',
 ]
@@ -142,8 +141,6 @@ EMAIL_RECEIVING_USER = ['siddharth25pandey@gmail.com'] # email on which you will
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
-LOGIN_REDIRECT_URL = 'profile.html'
-LOGIN_URL = 'login'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL='/media/'

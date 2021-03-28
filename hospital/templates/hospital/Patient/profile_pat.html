@@ -281,7 +281,7 @@ h1{
             </a>
           </li>
           <li class="nav-item active  ">
-            <a class="nav-link" href="{% url 'profile.html' %}">
+            <a class="nav-link" href="{% url 'profile_pat.html' %}">
               <i class="material-icons">person</i>
               <p>Profile</p>
             </a>
@@ -351,7 +351,7 @@ h1{
                     <div class="col-lg-3 order-lg-2">
                       <div class="card-profile-image">
                         <a href="#">
-                          <img src="{{ user.pat_Profile.image.url }}" width="200 px" height="180 px" class="rounded-circle"><br><br>
+                          <img src="{{ pat.image.url }}" width="200 px" height="180 px" class="rounded-circle"><br><br>
                         </a>
                       </div>
                     </div>
@@ -369,10 +369,10 @@ h1{
                     </div>
                     <div class="text-center sps">
                       <h3>
-                        {{ user.pat_Profile.firstname }} {{ user.pat_Profile.lastname }}<span class="font-weight-light">, {{ user.pat_Profile.age }}</span>
+                        {{ pat.firstname }} {{ pat.lastname }}<span class="font-weight-light">, {{ pat.age }}</span>
                       </h3>
                       <div class="h5 font-weight-300">
-                        <i class="ni location_pin mr-2"></i>{{ user.pat_Profile.city }}, {{ user.pat_Profile.country }}
+                        <i class="ni location_pin mr-2"></i>{{ pat.city }}, {{ pat.country }}
                       </div>
                       <div class="h5 mt-4">
                         <i class="ni business_briefcase-24 mr-2"></i>Job/Role

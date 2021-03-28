@@ -61,28 +61,34 @@
   <center><h3 class="sps">Already have an account? <a href="{% url 'dashboard.html' %}">Login here</a></h3></center>
   -->
   </div>
-  <h1>{{ user.username }}</h1>
-  <h2>{{ user.email }}</h2>
-  <!--
-    <p><img src="{{ user.pat_Profile.image.url }}"></p>
-  -->
-
   
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
+  {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{message.tags}}">
+            {{ message }}
+        </div>
+    {% endfor %}
+  {% endif %}
 
-    <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Profile Info</legend>
-        {{ u_form.as_p }}
-        {{ p_form.as_p }}
-    </fieldset>
-    <div class="form-group">
-        <button class="btn btn-outline-info" type="submit">Update</button>
-    </div>
-  </form>
+  <div class="content-section">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
 
-  <br><br><br><br><br>
-
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Join Today</legend>
+            {{ form.as_p }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+        </div>
+      </form>
+      <div class="border-top pt-3">
+            <small class="text-muted">
+                Already have an account? <a class="ml-2" href="{% url 'login_pat.html' %}">Sign In</a>
+            </small>
+      </div>
+  </div>
+  <br><br><br>
   {% include "hospital/Home/footer.html" %}
   </div>
   <!--   Core JS Files   -->
