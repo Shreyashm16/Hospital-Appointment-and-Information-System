@@ -3,11 +3,12 @@ from django.conf import settings
 from . import forms,models
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm
 from django.contrib.auth.forms import AuthenticationForm
 from hospital.models import Doctor,Admin,Patient
 from django.contrib import auth
+
 # Create your views here.
 # Create your views here.
 def dash_view(request):
@@ -65,6 +66,8 @@ def register_pat_view(request):
                         image=request.FILES['image']
                         )
             doc.save()
+            mpg = Group.objects.get_or_create(name='PATIENT')
+            mpg[0].user_set.add(nu)
             return redirect('login_pat.html')
         else:
             print(form.errors)
@@ -144,6 +147,8 @@ def register_doc_view(request):
                         image=request.FILES['image']
                         )
             doc.save()
+            mpg = Group.objects.get_or_create(name='DOCTOR')
+            mpg[0].user_set.add(nu)
             return redirect('login_doc.html')
         else:
             print(form.errors)
@@ -225,6 +230,8 @@ def register_adm_view(request):
                         image=request.FILES['image']
                         )
             adm.save()
+            mpg = Group.objects.get_or_create(name='ADMIN')
+            mpg[0].user_set.add(nu)
             return redirect('login_adm.html')
         else:
             print(form.errors)
