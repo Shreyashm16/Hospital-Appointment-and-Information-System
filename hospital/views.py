@@ -263,18 +263,8 @@ def profile_adm_view(request):
 
 def home_view(request):
     return render(request,'hospital/Home/home.html')
-def signup_pat_view(request):
-    return render(request,'hospital/Home/signup_pat.html')
-def signup_doc_view(request):
-    return render(request,'hospital/Home/signup_doc.html')
-def signup_adm_view(request):
-    return render(request,'hospital/Home/signup_adm.html')
-#def services_view(request):
-#    return render(request,'hospital/Home/services.html')
-#def contactus_view(request):
-#    return render(request,'hospital/Home/contactus.html')
-#def news_view(request):
-#    return render(request,'hospital/Home/news.html')
+
+
 def login_view(request):
     return render(request,'hospital/Home/login.html')
 
