@@ -25,10 +25,11 @@ class DoctorRegisterForm(UserCreationForm):
     country = forms.CharField()
     postalcode = forms.IntegerField()
     image = forms.ImageField()
+    department= forms.CharField()
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image', 'password1', 'password2']
+        fields = ['username', 'email', 'firstname', 'lastname','department', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image', 'password1', 'password2']
         #fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2']
 
 
@@ -91,10 +92,11 @@ class PatientRegisterForm(UserCreationForm):
     country = forms.CharField()
     postalcode = forms.IntegerField()
     image = forms.ImageField()
+    symptoms = forms.CharField()
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image', 'password1', 'password2']
+        fields = ['username', 'email', 'firstname', 'lastname', 'symptoms', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image', 'password1', 'password2']
         #fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2']
 
 
@@ -108,6 +110,7 @@ class PatientUpdateForm(forms.ModelForm):
     country = forms.CharField()
     postalcode = forms.IntegerField()
     image = forms.ImageField(widget=forms.FileInput)
+    symptoms = forms.CharField()
     class Meta:
         model = Patient
-        fields = ['firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image']
+        fields = ['firstname', 'lastname','symptoms', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image']

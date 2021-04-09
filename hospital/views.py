@@ -63,7 +63,8 @@ def register_pat_view(request):
                         city=form.cleaned_data.get('city'),
                         country=form.cleaned_data.get('country'),
                         postalcode=form.cleaned_data.get('postalcode'),
-                        image=request.FILES['image']
+                        image=request.FILES['image'],
+                        symptoms=form.cleaned_data.get('symptoms')
                         )
             doc.save()
             mpg = Group.objects.get_or_create(name='PATIENT')
@@ -138,6 +139,7 @@ def register_doc_view(request):
             nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))
             doc = Doctor(user=nu,firstname=form.cleaned_data.get('firstname'),
                         lastname=form.cleaned_data.get('lastname'),
+                        department=form.cleaned_data.get('department'),
                         age=form.cleaned_data.get('age'),
                         dob=form.cleaned_data.get('dob'),
                         address=form.cleaned_data.get('address'),
