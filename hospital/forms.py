@@ -4,7 +4,13 @@ from . import models
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from .models import Doctor,Admin,Patient
 #from .models import Doctor
-
+dep=[('Cardiologist','Cardiologist'),
+('Dermatologists','Dermatologists'),
+('Emergency Medicine Specialists','Emergency Medicine Specialists'),
+('Allergists/Immunologists','Allergists/Immunologists'),
+('Anesthesiologists','Anesthesiologists'),
+('Colon and Rectal Surgeons','Colon and Rectal Surgeons')
+]
 
 class ContactusForm(forms.Form):
     Name = forms.CharField(max_length=30,label="",widget=forms.TextInput(attrs={'placeholder': 'NAME'}))
@@ -25,7 +31,7 @@ class DoctorRegisterForm(UserCreationForm):
     country = forms.CharField()
     postalcode = forms.IntegerField()
     image = forms.ImageField()
-    department= forms.CharField()
+    department= forms.MultipleChoiceField(choices=dep)
 
     class Meta:
         model = User
