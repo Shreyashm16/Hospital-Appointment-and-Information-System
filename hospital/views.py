@@ -41,7 +41,7 @@ def login_pat_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = auth.authenticate(username=username, password=password)
-            if user is not None:
+            if user is not None and check_patient(user):
                 auth.login(request, user)
                 return redirect('profile_pat.html')
         return render(request, 'hospital/Patient/login_pat.html', {'form': form})
@@ -122,7 +122,7 @@ def login_doc_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = auth.authenticate(username=username, password=password)
-            if user is not None:
+            if user is not None and check_doctor(user):
                 auth.login(request, user)
                 return redirect('profile_doc.html')
         return render(request, 'hospital/Doctor/login_doc.html', {'form': form})
@@ -205,7 +205,7 @@ def login_adm_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = auth.authenticate(username=username, password=password)
-            if user is not None:
+            if user is not None and check_admin(user):
                 auth.login(request, user)
                 return redirect('profile_adm.html')
         return render(request, 'hospital/Admin/login_adm.html', {'form': form})
@@ -277,3 +277,12 @@ def signup_adm_view(request):
 #    return render(request,'hospital/Home/news.html')
 def login_view(request):
     return render(request,'hospital/Home/login.html')
+
+
+
+def check_admin(user):
+    return user.groups.filter(name='ADMIN').exists()
+def check_doctor(user):
+    return user.groups.filter(name='DOCTOR').exists()
+def check_patient(user):
+    return user.groups.filter(name='PATIENT').exists()
