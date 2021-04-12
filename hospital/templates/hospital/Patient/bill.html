@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!--
 =========================================================
 * Material Dashboard Dark Edition - v2.1.0
@@ -280,14 +281,14 @@
               </tr>
               <tr>
               <td>
-                Patient Name : {{patientName}}<br>
+                Patient Name : {{pat.firstname}} {{pat.lastname}}<br>
                 Patient Mobile : {{mobile}}<br>
-                Patient Addres : {{address}}<br>
+                Patient Addres : {{pat.address}}<br>
               </td>
 
               <td>
                 Doctor Name :<br>
-                {{assignedDoctorName}}<br>
+                {{doctorname}}<br>
 
               </td>
             </tr>
@@ -302,7 +303,7 @@
             <tr>
               <td>
                 Disease and Symptoms :<br>
-                &nbsp &nbsp &nbsp &nbsp &nbsp {{symptoms}}
+                &nbsp &nbsp &nbsp &nbsp &nbsp {{pat.symptoms}}
               </td>
 
             </tr>
