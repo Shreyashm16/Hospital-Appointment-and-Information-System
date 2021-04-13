@@ -216,7 +216,7 @@ def login_adm_view(request):
             user = auth.authenticate(username=username, password=password)
             if user is not None and check_admin(user):
                 auth.login(request, user)
-                return redirect('profile_adm.html')
+                return redirect('dashboard_adm.html')
         return render(request, 'hospital/Admin/login_adm.html', {'form': form})
     else: 
         form = AuthenticationForm()
@@ -249,6 +249,9 @@ def register_adm_view(request):
     
     return render(request,'hospital/Admin/register_adm.html',{'form': form})
 
+@login_required
+def patient_adm_view(request):
+    return render(request,'hospital/Admin/patient_adm.html')
 
 
 @login_required
@@ -267,6 +270,9 @@ def profile_adm_view(request):
         'adm': adm
      }
     return render(request,'hospital/Admin/profile_adm.html',context)
+
+
+
 
 
 
