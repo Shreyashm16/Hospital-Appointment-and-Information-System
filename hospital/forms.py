@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 from . import models
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from .models import Doctor,Admin,Patient
-#from .models import Doctor
+import datetime
+from django.forms.widgets import SelectDateWidget
+
 dep=[('Cardiologist','Cardiologist'),
 ('Dermatologist','Dermatologist'),
 ('Emergency Medicine Specialist','Emergency Medicine Specialist'),
@@ -25,10 +27,10 @@ class DoctorRegisterForm(UserCreationForm):
     firstname = forms.CharField()
     lastname = forms.CharField()
     age = forms.IntegerField()
-    dob = forms.DateField()
+    dob = forms.DateField(widget=SelectDateWidget(years=range(1960, 2021)))
     address = forms.CharField()
     city = forms.CharField()
-    country = forms.CharField()
+    country = forms.CharField(initial="india")
     postalcode = forms.IntegerField()
     image = forms.ImageField()
     department= forms.MultipleChoiceField(choices=dep)
@@ -47,7 +49,7 @@ class DoctorUpdateForm(forms.ModelForm):
     firstname = forms.CharField()
     lastname = forms.CharField()
     age = forms.IntegerField()
-    dob = forms.DateField()
+    dob = forms.DateField(widget=SelectDateWidget(years=range(1960, 2021)))
     address = forms.CharField()
     city = forms.CharField()
     country = forms.CharField()
@@ -63,7 +65,7 @@ class AdminRegisterForm(UserCreationForm):
     firstname = forms.CharField()
     lastname = forms.CharField()
     age = forms.IntegerField()
-    dob = forms.DateField()
+    dob = forms.DateField(widget=SelectDateWidget(years=range(1960, 2021)))
     address = forms.CharField()
     city = forms.CharField()
     country = forms.CharField()
@@ -84,7 +86,7 @@ class AdminUpdateForm(forms.ModelForm):
     firstname = forms.CharField()
     lastname = forms.CharField()
     age = forms.IntegerField()
-    dob = forms.DateField()
+    dob = forms.DateField(widget=SelectDateWidget(years=range(1960, 2021)))
     address = forms.CharField()
     city = forms.CharField()
     country = forms.CharField()
@@ -100,7 +102,7 @@ class PatientRegisterForm(UserCreationForm):
     firstname = forms.CharField()
     lastname = forms.CharField()
     age = forms.IntegerField()
-    dob = forms.DateField()
+    dob = forms.DateField(widget=SelectDateWidget(years=range(1960, 2021)))
     address = forms.CharField()
     city = forms.CharField()
     country = forms.CharField()
@@ -121,7 +123,7 @@ class PatientUpdateForm(forms.ModelForm):
     firstname = forms.CharField()
     lastname = forms.CharField()
     age = forms.IntegerField()
-    dob = forms.DateField()
+    dob = forms.DateField(widget=SelectDateWidget(years=range(1960, 2021)))
     address = forms.CharField()
     city = forms.CharField()
     country = forms.CharField()

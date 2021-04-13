@@ -277,8 +277,14 @@ def home_view(request):
 def login_view(request):
     return render(request,'hospital/Home/login.html')
 
+@login_required
 def bill_view(request):
-    return render(request,'hospital/Patient/bill.html')
+    pat = Patient.objects.filter(user_id=request.user.id).first()
+    context = {
+        'pat': pat
+     }
+    return render(request,'hospital/Patient/bill.html',context)
+    
 
 
 
