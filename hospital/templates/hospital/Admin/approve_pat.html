@@ -1,0 +1,12 @@
+<html>
+<body>
+{% for p in pat %}
+      <tr>
+        <td> {{p.firstname}}</td>
+        <td> {{p.lastname}}</td>
+        <td>{{p.address}}</td>
+        <td><a class="btn btn-primary btn-xs" href="{% url 'approve_patient' p.id  %}">Approve</a></td>
+      </tr>
+      {% endfor %}
+</body>
+</html>

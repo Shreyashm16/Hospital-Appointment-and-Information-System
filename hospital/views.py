@@ -253,6 +253,17 @@ def register_adm_view(request):
 def patient_adm_view(request):
     return render(request,'hospital/Admin/patient_adm.html')
 
+@login_required
+def approve_pat_view(request):
+    pat = Patient.objects.all().filter(status=False)
+    return render(request,'hospital/Admin/approve_pat.html',{'pat':pat})
+
+@login_required
+def approve_patient_view(request,pk):
+    patient=Patient.objects.get(id=pk)
+    patient.status=True
+    patient.save()
+    return redirect(reverse('approve_pat.html'))
 
 @login_required
 def profile_adm_view(request):

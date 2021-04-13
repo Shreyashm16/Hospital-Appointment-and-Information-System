@@ -31,6 +31,7 @@ class Doctor(models.Model):
     country = models.CharField(max_length=100,default="country")
     postalcode = models.IntegerField(default=0)
     department= models.CharField(max_length=50,choices=departments,default='Cardiologist')
+    status=models.BooleanField(default=False)
     def __str__(self):
         return f'{self.user.username} Doctor Profile'
 
@@ -62,5 +63,6 @@ class Patient(models.Model):
     country = models.CharField(max_length=100,default="country")
     postalcode = models.IntegerField(default=0)
     symptoms = models.CharField(max_length=100,default="fever")
+    status=models.BooleanField(default=False)
     def __str__(self):
         return f'{self.user.username} Patient Profile'
