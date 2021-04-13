@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
 from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm
 from django.contrib.auth.forms import AuthenticationForm
-from hospital.models import Doctor,Admin,Patient
+from hospital.models import Doctor,Admin,Patient,Appointment
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 
@@ -26,17 +26,23 @@ def dash_view(request):
 def bookapp_view(request):
     pat = Patient.objects.filter(user_id=request.user.id).first()
     if request.method=="POST":
-        p_form = PatientAppointmentForm(request.POST, instance=pat)
-        if p_form.is_valid():
-            p_form.save()
+        appointmentForm = PatientAppointmentForm(request.POST)
+        if appointmentForm.is_valid():
+            docid=appointmentForm.cleaned_data.get('doctorId')
+            doc = Doctor.objects.all().filter(id=docid).first()
+            app = Appointment(patientId=pat.id,doctorId=docid,
+                                patientName=pat.firstname,
+                                doctorName=doc.firstname,
+                                description=appointmentForm.cleaned_data.get('description'),
+                                appointmentDate=appointmentForm.cleaned_data.get('appointmentDate'),
+                                status=False)
+            app.save()
             return redirect('bookapp.html')
+        else:
+            print(appointmentForm.errors)
     else:
-        p_form = PatientAppointmentForm(instance=pat)
-    context = {
-        'p_form': p_form,
-        'pat': pat
-     }
-    return render(request,'hospital/Patient/bookapp.html',context)
+        appointmentForm = PatientAppointmentForm()
+    return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm})
 
 
 
