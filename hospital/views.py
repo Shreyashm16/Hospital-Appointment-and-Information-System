@@ -246,7 +246,9 @@ def medicalreport_doc_view(request):
 def dash_adm_view(request):
     doc = Doctor.objects.all().filter(status=False)
     pat = Patient.objects.all().filter(status=False)
-    dic={'doc':doc,'pat':pat}
+    pattotcount=Patient.objects.all().count()
+    doctotcount=Doctor.objects.all().count()
+    dic={'doc':doc,'pat':pat,'pattotcount':pattotcount,'doctotcount':doctotcount}
     return render(request,'hospital/Admin/dashboard_adm.html',context=dic)
 def bookapp_adm_view(request):
     return render(request,'hospital/Admin/bookapp_adm.html')
@@ -303,12 +305,16 @@ def register_adm_view(request):
 @login_required
 def patient_adm_view(request):
     pat = Patient.objects.all().filter(status=False)
-    return render(request,'hospital/Admin/patient_adm.html',{'pat':pat})
+    patcount=Patient.objects.all().count()
+    dic={'pat':pat,'patcount':patcount}
+    return render(request,'hospital/Admin/patient_adm.html',context=dic)
 
 @login_required
 def doctor_adm_view(request):
     doc = Doctor.objects.all().filter(status=False)
-    return render(request,'hospital/Admin/doctor_adm.html',{'doc':doc})
+    doccount=Doctor.objects.all().count()
+    dic={'doc':doc,'doccount':doccount}
+    return render(request,'hospital/Admin/doctor_adm.html',context=dic)
 
 @login_required
 def approve_pat_view(request):
