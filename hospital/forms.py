@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from . import models
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
-from .models import Doctor,Admin,Patient
+from .models import Doctor,Admin,Patient,Appointment
 import datetime
 from django.forms.widgets import SelectDateWidget
 
@@ -133,3 +133,11 @@ class PatientUpdateForm(forms.ModelForm):
     class Meta:
         model = Patient
         fields = ['firstname', 'lastname','symptoms', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image']
+
+
+class PatientAppointmentForm(forms.ModelForm):
+    doctorId=forms.ModelChoiceField(queryset=Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="user_id")
+    description = forms.CharField()
+    class Meta:
+        model=Appointment
+        fields=['description','status']

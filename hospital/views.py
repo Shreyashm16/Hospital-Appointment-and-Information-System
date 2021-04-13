@@ -4,10 +4,11 @@ from . import forms,models
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
-from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm
+from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm
 from django.contrib.auth.forms import AuthenticationForm
 from hospital.models import Doctor,Admin,Patient
 from django.contrib import auth
+from django.http import HttpResponseRedirect
 
 ## For Invoice Function
 import io
@@ -20,8 +21,25 @@ from django.http import HttpResponse
 # Create your views here.
 def dash_view(request):
     return render(request,'hospital/Patient/dashboard.html')
+
+@login_required
 def bookapp_view(request):
-    return render(request,'hospital/Patient/bookapp.html')
+    pat = Patient.objects.filter(user_id=request.user.id).first()
+    if request.method=="POST":
+        p_form = PatientAppointmentForm(request.POST, instance=pat)
+        if p_form.is_valid():
+            p_form.save()
+            return redirect('bookapp.html')
+    else:
+        p_form = PatientAppointmentForm(instance=pat)
+    context = {
+        'p_form': p_form,
+        'pat': pat
+     }
+    return render(request,'hospital/Patient/bookapp.html',context)
+
+
+
 def calladoc_view(request):
     return render(request,'hospital/Patient/calladoc.html')
 def feedback_view(request):

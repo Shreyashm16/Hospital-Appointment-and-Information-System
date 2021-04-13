@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!--
 =========================================================
 * Material Dashboard Dark Edition - v2.1.0
@@ -129,7 +130,53 @@
       <!-- Navbar -->
      
       <!-- End Navbar -->
-      <br><br><br><br><br><br><br><br><br><br><br><br>
+      <br><br><br><br><br>
+      
+      <form method="post">
+        {% csrf_token %}
+        <div class="container register-form">
+          <div class="form">
+            <div class="note">
+              <p>Book Appointment Details</p>
+            </div>
+            <div class="form-content">
+              <!--
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    {% render_field appointmentForm.description class="form-control" placeholder="Description" %}
+                  </div>
+                  <div class="form-group">
+                    {% render_field appointmentForm.doctorId class="form-control" placeholder="doctor" %}
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btnSubmit">Book</button>
+            -->
+              <form method="POST">
+                {% csrf_token %}
+        
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Book Appointment</legend>
+                    {{ form.as_p }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Login</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </form>
+
+
+
+
+      
+      
+      
+      
+      <br><br><br><br><br><br><br>
       {% include "hospital/Patient/footer.html" %}
     </div>
   </div>
