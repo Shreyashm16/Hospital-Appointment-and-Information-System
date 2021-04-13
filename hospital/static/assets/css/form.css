@@ -113,6 +113,19 @@
   transition: border-color .2s;
 }
 
+.app-form-control-date {
+  width: 33%;
+  margin-bottom: 30px;
+  padding: 10px 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #666;
+  font-size: 14px;
+  text-transform: uppercase;
+  outline: none;
+  transition: border-color .2s;
+}
+
 .app-form-control::placeholder {
   color: #666;
 }

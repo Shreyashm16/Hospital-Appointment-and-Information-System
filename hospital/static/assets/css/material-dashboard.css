@@ -2350,6 +2350,14 @@ input:checked + .slider:before {
   color: black;
 }
 
+.darkEdition .app-form-control-date{
+  color: #ddd !important;
+}
+
+.lightEdition .app-form-control-date{
+  color: black;
+}
+
 .animation-element {
   opacity: 0;
   position: relative;
