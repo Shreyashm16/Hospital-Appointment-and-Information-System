@@ -2409,3 +2409,4 @@ input:checked + .slider:before {
   background-color: rgba(220,220,220,0.3);
   box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
 }
+

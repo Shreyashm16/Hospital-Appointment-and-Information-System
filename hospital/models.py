@@ -8,11 +8,11 @@ import datetime
 
 
 departments=[('Cardiologist','Cardiologist'),
-('Dermatologists','Dermatologists'),
-('Emergency Medicine Specialists','Emergency Medicine Specialists'),
-('Allergists/Immunologists','Allergists/Immunologists'),
-('Anesthesiologists','Anesthesiologists'),
-('Colon and Rectal Surgeons','Colon and Rectal Surgeons')
+('Dermatologist','Dermatologist'),
+('Emergency Medicine Specialist','Emergency Medicine Specialist'),
+('Allergist/Immunologist','Allergist/Immunologist'),
+('Anesthesiologist','Anesthesiologist'),
+('Colon and Rectal Surgeon','Colon and Rectal Surgeon')
 ]
 
 def defaultuser():
