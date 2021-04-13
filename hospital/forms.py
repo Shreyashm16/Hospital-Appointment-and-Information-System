@@ -34,9 +34,12 @@ class DoctorRegisterForm(UserCreationForm):
     
     lastname = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'LASTNAME'}))
     lastname.widget.attrs.update({'class' : 'app-form-control'})
+<<<<<<< HEAD
 
     department= forms.MultipleChoiceField(choices=dep)
     department.widget.attrs.update({'class' : 'app-form-control'})
+=======
+>>>>>>> 06f3f2813e36ea63e4a7302e7756a96a81879ddc
     
     age = forms.IntegerField(label="",widget=forms.TextInput(attrs={'placeholder': 'AGE'}))
     age.widget.attrs.update({'class' : 'app-form-control'})
@@ -59,7 +62,13 @@ class DoctorRegisterForm(UserCreationForm):
     image = forms.ImageField(label="",widget=forms.TextInput(attrs={'placeholder': 'NAME'}))
     image.widget.attrs.update({'class' : 'app-form-control'})
     
+<<<<<<< HEAD
     
+=======
+    department = forms.CharField(label="",widget = forms.Select(choices=dep))
+    department.widget.attrs.update({'class' : 'app-form-control'})
+
+>>>>>>> 06f3f2813e36ea63e4a7302e7756a96a81879ddc
     password1 = forms.CharField(label='',widget=forms.PasswordInput(attrs={'placeholder': 'PASSWORD'}))
     password1.widget.attrs.update({'class' : 'app-form-control'})
     
