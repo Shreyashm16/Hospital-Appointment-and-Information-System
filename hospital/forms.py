@@ -56,7 +56,7 @@ class DoctorRegisterForm(UserCreationForm):
     postalcode = forms.IntegerField(label="",widget=forms.TextInput(attrs={'placeholder': 'POSTAL CODE'}))
     postalcode.widget.attrs.update({'class' : 'app-form-control'})
     
-    image = forms.ImageField(label="",widget=forms.TextInput(attrs={'placeholder': 'NAME'}))
+    image = forms.ImageField()
     image.widget.attrs.update({'class' : 'app-form-control'})
     
     
@@ -71,7 +71,7 @@ class DoctorRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'firstname', 'lastname','department', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image', 'password1', 'password2']
+        fields = ['username', 'email', 'firstname', 'lastname','department', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2','image']
         #fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2']
         help_texts = {k:"" for k in fields}
 
@@ -121,7 +121,7 @@ class AdminRegisterForm(UserCreationForm):
     postalcode = forms.IntegerField(label="",widget=forms.TextInput(attrs={'placeholder': 'POSTAL CODE'}))
     postalcode.widget.attrs.update({'class' : 'app-form-control'})
     
-    image = forms.ImageField(label="",widget=forms.TextInput(attrs={'placeholder': 'NAME'}))
+    image = forms.ImageField()
     image.widget.attrs.update({'class' : 'app-form-control'})
     
     password1 = forms.CharField(label='',widget=forms.PasswordInput(attrs={'placeholder': 'PASSWORD'}))
@@ -132,7 +132,7 @@ class AdminRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image', 'password1', 'password2']
+        fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2','image']
         #fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2']
         help_texts = {k:"" for k in fields}
 
@@ -182,7 +182,7 @@ class PatientRegisterForm(UserCreationForm):
     postalcode = forms.IntegerField(label="",widget=forms.TextInput(attrs={'placeholder': 'POSTAL CODE'}))
     postalcode.widget.attrs.update({'class' : 'app-form-control'})
     
-    image = forms.ImageField(label="",widget=forms.TextInput(attrs={'placeholder': 'NAME'}))
+    image = forms.ImageField()
     image.widget.attrs.update({'class' : 'app-form-control'})
     
     symptoms = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'SYMPTOMS'}))
@@ -196,7 +196,7 @@ class PatientRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'firstname', 'lastname', 'symptoms', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image', 'password1', 'password2']
+        fields = ['username', 'email', 'firstname', 'lastname', 'symptoms', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2','image']
         help_texts = {k:"" for k in fields}
 
 class PatientUpdateForm(forms.ModelForm):
@@ -223,3 +223,15 @@ class PatientAppointmentForm(forms.ModelForm):
     class Meta:
         model=Appointment
         fields=['doctorId','description','appointmentDate']
+
+
+class AdminAppointmentForm(forms.ModelForm):
+    #doctorId=forms.ModelChoiceField(queryset=models.Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="user_id")
+    #patientId=forms.ModelChoiceField(queryset=models.Patient.objects.all().filter(status=True),empty_label="Patient Name and Symptoms", to_field_name="user_id")
+    doctorId=forms.IntegerField()
+    patientId=forms.IntegerField()
+    description = forms.CharField()
+    appointmentDate = forms.DateField(widget=SelectDateWidget(years=range(1960, 2021)))
+    class Meta:
+        model=Appointment
+        fields=['patientId','doctorId','description','status']

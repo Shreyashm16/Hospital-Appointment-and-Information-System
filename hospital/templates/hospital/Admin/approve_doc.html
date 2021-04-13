@@ -1,5 +1,4 @@
 {% load static %}
-{% load widget_tweaks %}
 <!--
 =========================================================
 * Material Dashboard Dark Edition - v2.1.0
@@ -27,9 +26,12 @@
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
   <!-- CSS Files -->
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
       var dragTheme = window.localStorage.getItem('checkbox');
@@ -56,10 +58,174 @@
       });
     });
   </script>
+  <style media="screen">
+    
+    
+    .market-update-block {
+      padding: 2em 2em;
+      background: #999;
+    }
+
+    .market-update-block h3 {
+      color: #fff;
+      font-size: 1.5em;
+      font-family: 'Carrois Gothic', sans-serif;
+    }
+
+    .market-update-block h4 {
+      font-size: 1.2em;
+      color: #fff;
+      margin: 0.3em 0em;
+      font-family: 'Carrois Gothic', sans-serif;
+    }
+
+    .market-update-block p {
+      color: #fff;
+      font-size: 0.8em;
+      line-height: 1.8em;
+    }
+
+    .market-update-block.clr-block-1 {
+      background: #ff0000;
+      margin-right: 0.8em;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-2 {
+      background: #4f5905;
+      margin-right: 0.8em;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-3 {
+      background: #1355f9;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-1:hover {
+      background: #3C3C3C;
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-2:hover {
+      background: #3C3C3C;
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-3:hover {
+      background: #3C3C3C;
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-right i.fa.fa-user-o,
+    i.fa.fa-map-marker {
+      font-size: 3em;
+      color: #68AE00;
+      width: 80px;
+      height: 80px;
+      background: #fff;
+      text-align: center;
+      border-radius: 49px;
+      -webkit-border-radius: 49px;
+      -moz-border-radius: 49px;
+      -o-border-radius: 49px;
+      line-height: 1.7em;
+    }
+
+    .market-update-right i.fa.fa-info-circle,
+    i.fa.fa-list-alt {
+      font-size: 3em;
+      color: #FC8213;
+      width: 80px;
+      height: 80px;
+      background: #fff;
+      text-align: center;
+      border-radius: 49px;
+      -webkit-border-radius: 49px;
+      -moz-border-radius: 49px;
+      -o-border-radius: 49px;
+      line-height: 1.7em;
+    }
+
+    .market-update-right i.fa.fa-mobile,
+    i.fa.fa-calendar-o {
+      font-size: 3em;
+      color: #337AB7;
+      width: 80px;
+      height: 80px;
+      background: #fff;
+      text-align: center;
+      border-radius: 49px;
+      -webkit-border-radius: 49px;
+      -moz-border-radius: 49px;
+      -o-border-radius: 49px;
+      line-height: 1.7em;
+    }
+
+
+
+    .market-update-left {
+      padding: 0px;
+    }
+    .column {
+  float: left;
+  width: 25%;
+  padding: 30px;
+}
+
+
+.row {margin: 0 -10px;
+padding-left: 15px;
+padding-right: 15px;}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+th {
+    border: 1px solid #ff0066;
+    border-collapse: collapse;
+    padding:10px;
+}
+
+td {
+    border: 1px solid #ff0066;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    padding:10px;
+}
+
+
+    </style>
 </head>
 
 <body id="jhamela" class="darkEdition lightEdition">
-{% include "hospital/Home/preloader.html" %}
+  {% include "hospital/Home/preloader.html" %}
 
   <div id="myDiv" class="animate-bottom wrapper" style="display:none;text-align: center;position: relative;">
     <div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static 'assets/img/sidebar-2.jpg'%}">
@@ -75,50 +241,33 @@
       </a></div>
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'dashboard.html' %}">
+        <li class="nav-item  ">
+          <a class="nav-link" href="{% url 'dashboard_adm.html' %}">
             <i class="material-icons">dashboard</i>
             <p>Dashboard</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="{% url 'profile_pat.html' %}">
-            <i class="material-icons">person</i>
-            <p>Profile</p>
-          </a>
-        </li>
-        <li class="nav-item active  ">
-          <a class="nav-link" href="{% url 'bookapp.html' %}">
+          <a class="nav-link" href="{% url 'bookapp_adm.html' %}">
             <i class="material-icons">content_paste</i>
             <p>Book Appointment</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'yourhealth.html' %}">
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'patient_adm.html' %}">
             <i class="material-icons">favorite</i>
-            <p>Your Health</p>
+            <p>Patient</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'calladoc.html' %}">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'doctor_adm.html' %}">
             <i class="material-icons">library_books</i>
-            <p>Call A Doc</p>
+            <p>Doctor</p>
           </a>
         </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'medicalreport.html' %}">
-            <i class="material-icons">favorite</i>
-            <p>Medical Reports</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'feedback.html' %}">
-            <i class="material-icons">bubble_chart</i>
-            <p>Feedback</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'logout' %}">
+      
+         <li class="nav-item ">
+          <a class="nav-link" href="{% url '' %}">
             <i class="material-icons">logout</i>
             <p>Logout</p>
           </a>
@@ -126,58 +275,61 @@
       </ul>
     </div>
   </div>
-    <div class="main-panel sps">
-      <!-- Navbar -->
-     
-      <!-- End Navbar -->
-      <br><br><br><br><br>
+    
+
+    
       
-      <form method="post">
-        {% csrf_token %}
-        <div class="container register-form">
-          <div class="form">
-            <div class="note">
-              <p>Book Appointment Details</p>
-            </div>
-            <div class="form-content">
-              <!--
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    {% render_field appointmentForm.description class="form-control" placeholder="Description" %}
-                  </div>
-                  <div class="form-group">
-                    {% render_field appointmentForm.doctorId class="form-control" placeholder="doctor" %}
-                  </div>
-                </div>
-              </div>
-              <button type="submit" class="btnSubmit">Book</button>
-            -->
-              <form method="POST">
-                {% csrf_token %}
+    <br>
+    <br>
+    <div class="main-panel row">
+      {% for p in doc %}
+  
+  <br>
+  <br>
+  <div class="container sps">
+  <div class="row sps">
+  <center>
+    
+    
+
+    <div class="sps">
+      
+        <h2 class="sps">Recent Doctors</h2>
+      <table class="sps">
+        <thead>
+          <tr class="sps">
+            <th class="sps">Name: </th>
+            <th class="sps">Department: </th>
+            <th class="sps">Address: </th>
+            <th class="sps">Status: </th>
+            <th class="sps">Approve /Onhold: </th>
+
+          </tr>
+       
         
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Book Appointment</legend>
-                    {{ appointmentForm.as_p }}
-                </fieldset>
-                <div class="form-group">
-                    <button class="btn btn-outline-info" type="submit">Login</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </form>
+        <tr>
+          <td class="sps"> {{p.firstname}} {{p.lastname}}</td>
+          <td class="sps">{{p.department}}</td>
+          <td class="sps">{{p.address}}</td>
+          <td class="sps">{{p.status}}</td>
+         <td><a class="btn btn-primary btn-xs" href="{% url 'approve_doctor' p.id  %}">Approve</a></td>
+          
 
+        </tr>
+        
+      
+      </table>
+    </div>
+    </center>
+  </div>
+  
+</div>
+{% endfor %}
 
-
-
-      
-      
-      
-      
-      <br><br><br><br><br><br><br>
-      {% include "hospital/Patient/footer.html" %}
+</body>
+      <!-- End Navbar -->
+      <br><br><br><br><br><br><br><br><br><br><br><br>
+      {% include "hospital/Admin/footer.html" %}
     </div>
   </div>
   <!--   Core JS Files   -->
@@ -370,3 +522,7 @@
 </body>
 
 </html>
+
+
+
+

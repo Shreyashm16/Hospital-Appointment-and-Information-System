@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!--
 =========================================================
 * Material Dashboard Dark Edition - v2.1.0
@@ -80,36 +81,25 @@
             <p>Dashboard</p>
           </a>
         </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'profile_adm.html' %}">
-            <i class="material-icons">person</i>
-            <p>Profile</p>
-          </a>
-        </li>
-        <li class="nav-item active  ">
+        <li class="nav-item active">
           <a class="nav-link" href="{% url 'bookapp_adm.html' %}">
             <i class="material-icons">content_paste</i>
             <p>Book Appointment</p>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'yourhealth_adm.html' %}">
+          <a class="nav-link" href="{% url 'patient_adm.html' %}">
             <i class="material-icons">favorite</i>
-            <p>Your Health</p>
+            <p>Patient</p>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'calladoc_adm.html' %}">
+          <a class="nav-link" href="{% url 'doctor_adm.html' %}">
             <i class="material-icons">library_books</i>
-            <p>Call A Doc</p>
+            <p>Doctor</p>
           </a>
         </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'medicalreport_adm.html' %}">
-            <i class="material-icons">favorite</i>
-            <p>Medical Reports</p>
-          </a>
-        </li>
+      
          <li class="nav-item ">
           <a class="nav-link" href="{% url '' %}">
             <i class="material-icons">logout</i>
@@ -119,8 +109,45 @@
       </ul>
     </div>
   </div>
+    
     <div class="main-panel">
       <!-- Navbar -->
+       <form method="post">
+        {% csrf_token %}
+        <div class="container register-formm sps">
+          <div class="form">
+            <div class="note">
+              <p>Book Appointment Details</p>
+            </div>
+            <div class="form-content">
+              <!--
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    {% render_field appointmentForm.description class="form-control" placeholder="Description" %}
+                  </div>
+                  <div class="form-group">
+                    {% render_field appointmentForm.doctorId class="form-control" placeholder="doctor" %}
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btnSubmit">Book</button>
+            -->
+              <form method="POST">
+                {% csrf_token %}
+        
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Book Appointment</legend>
+                    {{ appointmentForm.as_p }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Login</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </form>
      
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>

@@ -236,7 +236,7 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="nav-item  ">
+                    <li class="nav-item ">
                         <a class="nav-link" href="{% url 'dashboard_adm.html' %}">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
@@ -248,13 +248,13 @@
                             <p>Book Appointment</p>
                         </a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'patient_adm.html' %}">
                             <i class="material-icons">favorite</i>
                             <p>Patient</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="{% url 'doctor_adm.html' %}">
                             <i class="material-icons">library_books</i>
                             <p>Doctor</p>
@@ -272,17 +272,18 @@
         </div>
 
 
+
         <br>
         <br>
         <div class="main-panel row">
-
+            {% for p in doc %}
             <div class="market-updates row">
                 <div class="col-md-4 market-update-gd">
                     <div class="market-update-block clr-block-3 column">
                         <div class="col-md-8 market-update-left">
-                            <h4>Total Appointment</h4>
+                            <h4>Total Appointment : {{p.count}}</h4>
                             <p>Approve Appointments : </p>
-                            <a href="{% url 'approve_pat.html' %}">Approve Patient</a>
+                            <a href="{% url 'approve_doc.html' %}">Approve Doctors</a>
                         </div>
                         <div class="col-md-4 market-update-right">
                             <i class="fa fa-calendar-o"></i>
@@ -292,11 +293,7 @@
                 </div>
                 <div class="clearfix"> </div>
             </div>
-
-
-
-
-
+            {% endfor %}
             <br>
             <br>
             <div class="container sps">
@@ -306,13 +303,13 @@
 
 
                         <div class="sps">
-                            {% for p in pat %}
-                            <h2 class="sps">Recent Patient</h2>
+                            {% for p in doc %}
+                            <h2 class="sps">Recent Doctors</h2>
                             <table class="sps">
                                 <thead>
                                     <tr class="sps">
                                         <th class="sps">Name: </th>
-                                        <th class="sps">Symptoms: </th>
+                                        <th class="sps">Department: </th>
                                         <th class="sps">Address: </th>
                                         <th class="sps">Status: </th>
 
@@ -322,7 +319,7 @@
 
                                     <tr>
                                         <td class="sps"> {{p.firstname}} {{p.lastname}}</td>
-                                        <td class="sps">{{p.symptoms}}</td>
+                                        <td class="sps">{{p.department}}</td>
                                         <td class="sps">{{p.address}}</td>
                                         <td class="sps">{{p.status}}</td>
 

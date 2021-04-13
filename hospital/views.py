@@ -45,6 +45,30 @@ def bookapp_view(request):
     return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm})
 
 
+@login_required
+def bookapp_adm_view(request):
+    pat = Patient.objects.filter(user_id=request.user.id).first()
+    if request.method=="POST":
+        appointmentForm = AdminAppointmentForm(request.POST)
+        if appointmentForm.is_valid():
+            docid=appointmentForm.cleaned_data.get('doctorId')
+            patid=appointmentForm.cleaned_data.get('patientId')
+            doc = Doctor.objects.all().filter(id=docid).first()
+            app = Appointment(patientId=pat.id,doctorId=docid,
+                                patientName=pat.firstname,
+                                doctorName=doc.firstname,
+                                description=appointmentForm.cleaned_data.get('description'),
+                                appointmentDate=appointmentForm.cleaned_data.get('appointmentDate'),
+                                status=False)
+            app.save()
+            return redirect('bookapp_adm.html')
+        else:
+            print(appointmentForm.errors)
+    else:
+        appointmentForm = AdminAppointmentForm()
+    return render(request,'hospital/Patient/bookapp_adm.html',{'appointmentForm': appointmentForm})
+
+
 
 def calladoc_view(request):
     return render(request,'hospital/Patient/calladoc.html')
@@ -275,7 +299,13 @@ def register_adm_view(request):
 
 @login_required
 def patient_adm_view(request):
-    return render(request,'hospital/Admin/patient_adm.html')
+    pat = Patient.objects.all().filter(status=False)
+    return render(request,'hospital/Admin/patient_adm.html',{'pat':pat})
+
+@login_required
+def doctor_adm_view(request):
+    doc = Doctor.objects.all().filter(status=False)
+    return render(request,'hospital/Admin/doctor_adm.html',{'doc':doc})
 
 @login_required
 def approve_pat_view(request):
@@ -283,11 +313,23 @@ def approve_pat_view(request):
     return render(request,'hospital/Admin/approve_pat.html',{'pat':pat})
 
 @login_required
+def approve_doc_view(request):
+    doc = Doctor.objects.all().filter(status=False)
+    return render(request,'hospital/Admin/approve_doc.html',{'doc':doc})
+
+@login_required
 def approve_patient_view(request,pk):
     patient=Patient.objects.get(id=pk)
     patient.status=True
     patient.save()
     return redirect(reverse('approve_pat.html'))
+
+@login_required
+def approve_doctor_view(request,pk):
+    doctor=Doctor.objects.get(id=pk)
+    doctor.status=True
+    doctor.save()
+    return redirect(reverse('approve_doc.html'))
 
 @login_required
 def profile_adm_view(request):
