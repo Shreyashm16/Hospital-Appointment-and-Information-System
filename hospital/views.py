@@ -242,9 +242,12 @@ def medicalreport_doc_view(request):
 
 
 
-
+@login_required
 def dash_adm_view(request):
-    return render(request,'hospital/Admin/dashboard_adm.html')
+    doc = Doctor.objects.all().filter(status=False)
+    pat = Patient.objects.all().filter(status=False)
+    dic={'doc':doc,'pat':pat}
+    return render(request,'hospital/Admin/dashboard_adm.html',context=dic)
 def bookapp_adm_view(request):
     return render(request,'hospital/Admin/bookapp_adm.html')
 def calladoc_adm_view(request):

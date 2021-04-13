@@ -280,7 +280,8 @@ td {
     <br>
     <br>
     <div class="main-panel row">
-      
+      {% for p in pat %}
+      {% for d in doc %}
   <div class="market-updates row">
     <div class="col-md-4 market-update-gd">
       <div class="market-update-block clr-block-1 column">
@@ -335,17 +336,18 @@ td {
           <tr class="sps">
             <th class="sps" >Name</th>
             <th class="sps">Department</th>
-            <th class="sps">Mobile</th>
+            <th class="sps">Address</th>
             <th class="sps">Status</th>
 
           </tr>
         
         <tr class="sps">
-          <td class="sps"> Line1</td>
-          <td class="sps">Line2</td>
-          <td class="sps">Line3</td>
+          <td class="sps">{{d.firstname}} {{d.lastname}}</td>
+          <td class="sps">{{d.department}}</td>
+          <td class="sps">{{d.address}}</td>
+          <td class="sps">{{d.status}}</td>
   
-          <td> <span class="sps">Permanent</span></td>
+          
          
          <!-- <td> <span class="label label-success">On Hold</span></td>-->
          
@@ -357,13 +359,12 @@ td {
 
     <div class="sps">
       
-        <h2 class="sps">Recent Patient</h2>
+        <h2 class="sps">Recent Patients</h2>
       <table class="sps">
         <thead>
           <tr class="sps">
             <th class="sps">Name</th>
             <th class="sps">Symptoms</th>
-            <th class="sps">Mobile</th>
             <th class="sps">Address</th>
             <th class="sps">Status</th>
 
@@ -371,12 +372,11 @@ td {
        
         
         <tr>
-          <td class="sps"> Line 1</td>
-          <td class="sps">Line 2</td>
-          <td class="sps">Line 3</td>
-          <td class="sps">Line 4</td>
+          <td class="sps"> {{p.firstname}} {{p.lastname}}</td>
+          <td class="sps">{{p.symptoms}}</td>
+          <td class="sps">{{p.address}}</td>
+          <td class="sps">{{p.status}}</td>
          
-          <td> <span class="sps">Admitted</span></td>
          
           
           
@@ -389,7 +389,8 @@ td {
   </div>
   
 </div>
-
+{% endfor %}
+{% endfor %}
 </body>
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
