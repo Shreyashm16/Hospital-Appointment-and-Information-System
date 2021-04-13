@@ -13,7 +13,9 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
+  
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
+  <link href="{% static 'assets/css/form.css'%}" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
@@ -70,24 +72,37 @@
     {% endfor %}
   {% endif %}
 
-  <div class="content-section sps">
-      <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Join Today</legend>
-            {{ form.as_p }}
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+  <center>
+    <div class="container">
+      <div class="screen" style="width: 70%;margin-left: auto;margin-right: auto;">
+        <div class="screen-header">
+          <div class="screen-header-left">
+            <img src="{% static 'assets/img/btn.png' %}" height="20px">
+          </div>
         </div>
-      </form>
-      <div class="border-top pt-3">
-            <small class="text-muted">
-                Already have an account? <a class="ml-2" href="{% url 'login_doc.html' %}">Sign In</a>
-            </small>
+        <div class="screen-body">
+          <div class="screen-body-item left">
+            <div class="app-title" style="text-align: left;color: #ff0066">
+              <span>REGISTER</span>
+            </div>
+          </div>
+          <div class="screen-body-item sps">
+            <form class="app-form" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form }}
+              <input type="submit" value="Register" class='btn btn-primary btn-lg' style="margin-top: 30px;margin-bottom: 50px">
+            </form>
+
+            <div class="border-top pt-3">
+                  <div class="text-muted">
+                    Already have an account? <a class="ml-2" href="{% url 'login_doc.html' %}">Sign In</a>
+                  </div>
+            </div>
+          </div>
+        </div>
       </div>
-  </div>
+    </div>
+  </center>
   <br><br><br>
   {% include "hospital/Home/footer.html" %}
   </div>

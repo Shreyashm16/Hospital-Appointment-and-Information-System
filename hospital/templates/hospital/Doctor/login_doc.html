@@ -62,28 +62,40 @@
   -->
   </div>
 
-  <div class="content-section sps">
-      <form method="POST">
-        {% csrf_token %}
-
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Log In</legend>
-            {{ form.as_p }}
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Login</button>
+  <center>
+    <div class="container">
+      <div class="screen" style="width: 70%;margin-left: auto;margin-right: auto;">
+        <div class="screen-header">
+          <div class="screen-header-left">
+            <img src="{% static 'assets/img/btn.png' %}" height="20px">
+          </div>
         </div>
-      </form>
-      <div class="border-top pt-3">
-            <small class="text-muted">
-                Need an account? <a class="ml-2" href="{% url 'register_doc.html' %}">Sign Up Now</a>
-            </small>
-            <br>
-            <small class="text-muted">
-              Forgot password? <a class="ml-2" href="{% url 'password_reset' %}">Reset Password</a>
-            </small>
+        <div class="screen-body">
+          <div class="screen-body-item left">
+            <div class="app-title" style="text-align: left;color: #ff0066">
+              <center><span>LOGIN</span></center>
+            </div>
+          </div>
+          <div class="screen-body-item sps">
+            <form class="app-form" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form.as_p}}
+              <input type="submit" value="Login" class='btn btn-primary btn-lg' style="margin-top: 30px;margin-bottom: 50px">
+            </form>
+
+            <div class="border-top pt-3">
+                  <div class="text-muted">
+                     Need an account? <a class="ml-2" href="{% url 'register_doc.html' %}">Sign Up Now</a>
+                  </div>
+                  <div class="text-muted">
+                      Forgot password? <a class="ml-2" href="{% url 'password_reset' %}">Reset Password</a>
+                  </div>
+            </div>
+          </div>
+        </div>
       </div>
-  </div>
+    </div>
+  </center>
 
   {% include "hospital/Home/footer.html" %}
   </div>
