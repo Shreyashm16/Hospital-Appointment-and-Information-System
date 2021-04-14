@@ -72,12 +72,12 @@ class Patient(models.Model):
 
 class Appointment(models.Model):
     patientId=models.PositiveIntegerField(null=True)
-    doctorId=models.PositiveIntegerField(default=0)
+    doctorId=models.PositiveIntegerField(null=True)
     patientName=models.CharField(max_length=40,null=True)
     doctorName=models.CharField(max_length=40,null=True)
     appointmentDate=models.DateField()
     description=models.TextField(max_length=500)
     status=models.BooleanField(default=False)
-    symptoms = models.CharField(max_length=100,default="fever")
+    #symptoms = models.CharField(max_length=100,default="fever")
     def __str__(self):
         return f'{self.patientName} Appointment Info'

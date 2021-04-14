@@ -44,6 +44,11 @@ def bookapp_view(request):
         appointmentForm = PatientAppointmentForm()
     return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm})
 
+@login_required
+def pat_appointment_view(request):
+    pat=Patient.objects.get(user_id=request.user.id)
+    app=Appointment.objects.all().filter(patientId=request.user.id)
+    return render(request,'hospital/Patient/appoint_view_pat.html',{'app':app,'pat':pat})
 
 @login_required
 def bookapp_adm_view(request):
@@ -59,7 +64,7 @@ def bookapp_adm_view(request):
                                 doctorName=doc.firstname,
                                 description=appointmentForm.cleaned_data.get('description'),
                                 appointmentDate=appointmentForm.cleaned_data.get('appointmentDate'),
-                                status=False)
+                                status=True)
             app.save()
             return redirect('bookapp_adm.html')
         else:
@@ -67,6 +72,13 @@ def bookapp_adm_view(request):
     else:
         appointmentForm = AdminAppointmentForm()
     return render(request,'hospital/Admin/bookapp_adm.html',{'appointmentForm': appointmentForm})
+
+@login_required
+def admin_appointment_view(request):
+    app=Appointment.objects.all().filter(status=True)
+    return render(request,'hospital/Admin/appoint_view_adm.html',{'app':app})
+
+
 
 
 
@@ -357,6 +369,7 @@ def profile_adm_view(request):
         'adm': adm
      }
     return render(request,'hospital/Admin/profile_adm.html',context)
+
 
 
 

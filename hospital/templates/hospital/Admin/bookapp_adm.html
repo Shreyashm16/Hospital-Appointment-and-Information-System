@@ -140,16 +140,20 @@
                     <legend class="border-bottom mb-4">Book Appointment</legend>
                     {{ appointmentForm.as_p }}
                 </fieldset>
-                <div class="form-group sps">
-                    
-                     <input type="submit" value="Submit" class='btn btn-primary btn-lg' style="margin-top: 30px;margin-bottom: 50px">
+                <div class="form-group sps"> 
+                      <button type="submit" class="btn btn-primary btn-round btn-lg">Book</button>
                 </div>
               </form>
             </div>
           </div>
         </div>
       </form>
-     
+
+      <br>
+      <br>
+      <br>
+      <a class="btn btn-primary btn-round btn-lg"href="{% url 'appoint_view_adm.html' %}" target="_blank"><b>View Appointment Details</b></a>
+      
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
       {% include "hospital/Admin/footer.html" %}

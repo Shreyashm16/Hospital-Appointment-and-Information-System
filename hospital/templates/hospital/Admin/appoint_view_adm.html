@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
       var dragTheme = window.localStorage.getItem('checkbox');
@@ -59,7 +59,7 @@
 </head>
 
 <body id="jhamela" class="darkEdition lightEdition">
-{% include "hospital/Home/preloader.html" %}
+  {% include "hospital/Home/preloader.html" %}
 
   <div id="myDiv" class="animate-bottom wrapper" style="display:none;text-align: center;position: relative;">
     <div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static 'assets/img/sidebar-2.jpg'%}">
@@ -76,49 +76,32 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <li class="nav-item ">
-          <a class="nav-link" href="{% url 'dashboard.html' %}">
+          <a class="nav-link" href="{% url 'dashboard_adm.html' %}">
             <i class="material-icons">dashboard</i>
             <p>Dashboard</p>
           </a>
         </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'profile_pat.html' %}">
-            <i class="material-icons">person</i>
-            <p>Profile</p>
-          </a>
-        </li>
-        <li class="nav-item active  ">
-          <a class="nav-link" href="{% url 'bookapp.html' %}">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'bookapp_adm.html' %}">
             <i class="material-icons">content_paste</i>
             <p>Book Appointment</p>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'yourhealth.html' %}">
+          <a class="nav-link" href="{% url 'patient_adm.html' %}">
             <i class="material-icons">favorite</i>
-            <p>Your Health</p>
+            <p>Patient</p>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'calladoc.html' %}">
+          <a class="nav-link" href="{% url 'doctor_adm.html' %}">
             <i class="material-icons">library_books</i>
-            <p>Call A Doc</p>
+            <p>Doctor</p>
           </a>
         </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'medicalreport.html' %}">
-            <i class="material-icons">favorite</i>
-            <p>Medical Reports</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'feedback.html' %}">
-            <i class="material-icons">bubble_chart</i>
-            <p>Feedback</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'logout' %}">
+      
+         <li class="nav-item ">
+          <a class="nav-link" href="{% url '' %}">
             <i class="material-icons">logout</i>
             <p>Logout</p>
           </a>
@@ -126,48 +109,51 @@
       </ul>
     </div>
   </div>
-    <div class="main-panel sps">
-      <!-- Navbar -->
-     
-      <!-- End Navbar -->
-      <br><br><br><br><br>
-      
-      <form method="post">
-        {% csrf_token %}
-        <div class="container register-form">
-          <div class="form">
-            <div class="note">
-              <p>Book Appointment Details</p>
-            </div>
-            <div class="form-content sps">
-              <form method="POST">
-                {% csrf_token %}
-        
-                <fieldset class="form-group sps">
-                    <legend class="border-bottom mb-4">Book Appointment</legend>
-                    {{ appointmentForm.as_p }}
-                </fieldset>
-                <div class="form-group sps">
-                     <button type="submit" class="btn btn-primary btn-round btn-lg">Book</button>
+    
+    <div class="container sps">
+                <div class="row sps">
+                    <center>
+
+
+
+                        <div class="sps">
+
+                            <h2 class="sps">Appointment Details</h2>
+                            <table class="sps">
+                                <thead>
+                                    <tr class="sps">
+                                        <th class="sps">Doctor Name</th>
+                                        <th class="sps">Patient Name </th>
+                                        <th class="sps">Description </th>
+                                        <th class="sps">Date</th>
+
+
+                                    </tr>
+
+                                    {% for p in app %}
+                                    <tr>
+                                        <td class="sps"> {{p.doctorName}}</td>
+                                        <td class="sps">{{p.patientName}}</td>
+                                        <td class="sps">{{p.description}}</td>
+                                        <td class="sps">{{p.appointmentDate}}</td>
+
+
+
+                                    </tr>
+                                    {% endfor %}
+
+                            </table>
+                        </div>
+                    </center>
                 </div>
-              </form>
+
             </div>
-          </div>
+
         </div>
-      </form>
-      <br>
-      <br>
-      <br>
-    <a class="btn btn-primary btn-round btn-lg"href="{% url 'appoint_view_pat.html' %}" target="_blank"><b>View Appointment Details</b></a>
-
-
-
       
-      
-      
-      
-      <br><br><br><br><br><br><br>
-      {% include "hospital/Patient/footer.html" %}
+      <!-- End Navbar -->
+      <br><br><br><br><br><br><br><br><br><br><br><br>
+      {% include "hospital/Admin/footer.html" %}
     </div>
   </div>
   <!--   Core JS Files   -->
