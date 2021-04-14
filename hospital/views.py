@@ -4,7 +4,7 @@ from . import forms,models
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
-from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm
+from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm
 from django.contrib.auth.forms import AuthenticationForm
 from hospital.models import Doctor,Admin,Patient,Appointment
 from django.contrib import auth
@@ -47,14 +47,14 @@ def bookapp_view(request):
 
 @login_required
 def bookapp_adm_view(request):
-    pat = Patient.objects.filter(user_id=request.user.id).first()
     if request.method=="POST":
         appointmentForm = AdminAppointmentForm(request.POST)
         if appointmentForm.is_valid():
             docid=appointmentForm.cleaned_data.get('doctorId')
             patid=appointmentForm.cleaned_data.get('patientId')
             doc = Doctor.objects.all().filter(id=docid).first()
-            app = Appointment(patientId=pat.id,doctorId=docid,
+            pat = Patient.objects.all().filter(id=patid).first()
+            app = Appointment(patientId=patid,doctorId=docid,
                                 patientName=pat.firstname,
                                 doctorName=doc.firstname,
                                 description=appointmentForm.cleaned_data.get('description'),
@@ -66,7 +66,7 @@ def bookapp_adm_view(request):
             print(appointmentForm.errors)
     else:
         appointmentForm = AdminAppointmentForm()
-    return render(request,'hospital/Patient/bookapp_adm.html',{'appointmentForm': appointmentForm})
+    return render(request,'hospital/Admin/bookapp_adm.html',{'appointmentForm': appointmentForm})
 
 
 
@@ -250,8 +250,6 @@ def dash_adm_view(request):
     doctotcount=Doctor.objects.all().count()
     dic={'doc':doc,'pat':pat,'pattotcount':pattotcount,'doctotcount':doctotcount}
     return render(request,'hospital/Admin/dashboard_adm.html',context=dic)
-def bookapp_adm_view(request):
-    return render(request,'hospital/Admin/bookapp_adm.html')
 def calladoc_adm_view(request):
     return render(request,'hospital/Admin/calladoc_adm.html')
 def medicalreport_adm_view(request):
