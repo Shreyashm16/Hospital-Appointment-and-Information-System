@@ -98,11 +98,7 @@ def login_pat_view(request):
             user = auth.authenticate(username=username, password=password)
             if user is not None and check_patient(user):
                 auth.login(request, user)
-                accountapproval=Patient.objects.all().filter(status=True,user_id=request.user.id)
-                if accountapproval:
-                    return redirect('profile_pat.html')
-                else:
-                    return render(request,'hospital/Home/wait_approval.html')
+                return redirect('profile_pat.html')
         return render(request, 'hospital/Patient/login_pat.html', {'form': form})
     else: 
         form = AuthenticationForm()
@@ -184,11 +180,7 @@ def login_doc_view(request):
             user = auth.authenticate(username=username, password=password)
             if user is not None and check_doctor(user):
                 auth.login(request, user)
-                accountapproval=Doctor.objects.all().filter(status=True,user_id=request.user.id)
-                if accountapproval:
-                    return redirect('profile_doc.html')
-                else:
-                    return render(request,'hospital/Home/wait_approval.html')
+                return redirect('profile_doc.html')
         return render(request, 'hospital/Doctor/login_doc.html', {'form': form})
     else: 
         form = AuthenticationForm()
@@ -252,8 +244,8 @@ def medicalreport_doc_view(request):
 
 @login_required
 def dash_adm_view(request):
-    doc = Doctor.objects.all().filter()
-    pat = Patient.objects.all().filter()
+    doc = Doctor.objects.all().filter(status=False)
+    pat = Patient.objects.all().filter(status=False)
     pattotcount=Patient.objects.all().count()
     doctotcount=Doctor.objects.all().count()
     dic={'doc':doc,'pat':pat,'pattotcount':pattotcount,'doctotcount':doctotcount}
@@ -310,18 +302,16 @@ def register_adm_view(request):
 
 @login_required
 def patient_adm_view(request):
-    pat = Patient.objects.all().filter()
+    pat = Patient.objects.all().filter(status=False)
     patcount=Patient.objects.all().count()
-    appcount = Patient.objects.all().filter(status=True).count()
-    dic={'pat':pat,'patcount':patcount,'appcount':appcount}
+    dic={'pat':pat,'patcount':patcount}
     return render(request,'hospital/Admin/patient_adm.html',context=dic)
 
 @login_required
 def doctor_adm_view(request):
-    doc = Doctor.objects.all().filter()
+    doc = Doctor.objects.all().filter(status=False)
     doccount=Doctor.objects.all().count()
-    appcount = Doctor.objects.all().filter(status=True).count()
-    dic={'doc':doc,'doccount':doccount,'appcount':appcount}
+    dic={'doc':doc,'doccount':doccount}
     return render(request,'hospital/Admin/doctor_adm.html',context=dic)
 
 @login_required

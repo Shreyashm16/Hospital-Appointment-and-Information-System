@@ -140,19 +140,6 @@
               <p>Book Appointment Details</p>
             </div>
             <div class="form-content">
-              <!--
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    {% render_field appointmentForm.description class="form-control" placeholder="Description" %}
-                  </div>
-                  <div class="form-group">
-                    {% render_field appointmentForm.doctorId class="form-control" placeholder="doctor" %}
-                  </div>
-                </div>
-              </div>
-              <button type="submit" class="btnSubmit">Book</button>
-            -->
               <form method="POST">
                 {% csrf_token %}
         

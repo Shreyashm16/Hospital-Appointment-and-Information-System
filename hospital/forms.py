@@ -216,8 +216,8 @@ class PatientUpdateForm(forms.ModelForm):
 
 
 class PatientAppointmentForm(forms.ModelForm):
-    #doctorId=forms.ModelChoiceField(queryset=Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="user_id")
-    doctorId=forms.IntegerField()
+    doctorId=forms.ModelChoiceField(queryset=Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="id")
+    #doctorId=forms.IntegerField()
     description = forms.CharField()
     appointmentDate = forms.DateField(widget=SelectDateWidget(years=range(1960, 2021)))
     class Meta:

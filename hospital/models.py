@@ -33,7 +33,8 @@ class Doctor(models.Model):
     department= models.CharField(max_length=50,choices=departments,default='Cardiologist')
     status=models.BooleanField(default=False)
     def __str__(self):
-        return f'{self.user.username} Doctor Profile'
+        return f'{self.user.username} {self.department}'
+        
 
 
 class Admin(models.Model):
@@ -71,7 +72,7 @@ class Patient(models.Model):
 
 class Appointment(models.Model):
     patientId=models.PositiveIntegerField(null=True)
-    doctorId=models.PositiveIntegerField(null=True)
+    doctorId=models.PositiveIntegerField(default=0)
     patientName=models.CharField(max_length=40,null=True)
     doctorName=models.CharField(max_length=40,null=True)
     appointmentDate=models.DateField()
