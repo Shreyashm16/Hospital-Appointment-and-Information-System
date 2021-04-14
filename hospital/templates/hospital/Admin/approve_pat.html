@@ -282,7 +282,7 @@ td {
     <br>
     <br>
     <div class="main-panel row">
-      {% for p in pat %}
+      
   
   <br>
   <br>
@@ -306,7 +306,7 @@ td {
 
           </tr>
        
-        
+        {% for p in pat %}
         <tr>
           <td class="sps"> {{p.firstname}} {{p.lastname}}</td>
           <td class="sps">{{p.symptoms}}</td>
@@ -316,7 +316,7 @@ td {
           
 
         </tr>
-        
+        {% endfor %}
       
       </table>
     </div>
@@ -324,7 +324,7 @@ td {
   </div>
   
 </div>
-{% endfor %}
+
 
 </body>
       <!-- End Navbar -->

@@ -276,24 +276,31 @@
         <br>
         <br>
         <div class="main-panel row">
-            {% for p in doc %}
+
             <div class="market-updates row">
                 <div class="col-md-4 market-update-gd">
                     <div class="market-update-block clr-block-3 column">
                         <div class="col-md-8 market-update-left">
-                            <h4>Total Appointment : {{doccount}}</h4>
-                            <p>Approve Appointments : </p>
-                            <a href="{% url 'approve_doc.html' %}">Approve Doctors</a>
+                            <h4>Total Doctors : {{doccount}}</h4>
+                            <h4>Total Appointment :</h4>
+                            <p>Approved Doctors : {{appcount}}</p>
+                            <p>Approve Appointment : </p>
+
+
                         </div>
                         <div class="col-md-4 market-update-right">
                             <i class="fa fa-calendar-o"></i>
                         </div>
                         <div class="clearfix"> </div>
+                        <br>
+                        <a href="{% url 'approve_doc.html' %}" style="font-size: large;">Approve Doctors</a>
                     </div>
+
                 </div>
                 <div class="clearfix"> </div>
             </div>
-            {% endfor %}
+
+
             <br>
             <br>
             <div class="container sps">
@@ -303,7 +310,7 @@
 
 
                         <div class="sps">
-                            {% for p in doc %}
+
                             <h2 class="sps">Recent Doctors</h2>
                             <table class="sps">
                                 <thead>
@@ -316,7 +323,7 @@
 
                                     </tr>
 
-
+                                    {% for p in doc %}
                                     <tr>
                                         <td class="sps"> {{p.firstname}} {{p.lastname}}</td>
                                         <td class="sps">{{p.department}}</td>
@@ -326,7 +333,7 @@
 
 
                                     </tr>
-
+                                    {% endfor %}
 
                             </table>
                         </div>
@@ -334,7 +341,7 @@
                 </div>
 
             </div>
-            {% endfor %}
+
         </div>
 
 </body>

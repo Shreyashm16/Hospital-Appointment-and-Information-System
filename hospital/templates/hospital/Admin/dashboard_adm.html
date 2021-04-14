@@ -280,8 +280,8 @@ td {
     <br>
     <br>
     <div class="main-panel row">
-      {% for p in pat %}
-      {% for d in doc %}
+      
+      
   <div class="market-updates row">
     <div class="col-md-4 market-update-gd">
       <div class="market-update-block clr-block-1 column">
@@ -340,7 +340,7 @@ td {
             <th class="sps">Status</th>
 
           </tr>
-        
+        {% for d in doc %}
         <tr class="sps">
           <td class="sps">{{d.firstname}} {{d.lastname}}</td>
           <td class="sps">{{d.department}}</td>
@@ -353,6 +353,7 @@ td {
          
 
         </tr>
+        {% endfor %}
   
       </table>
     </div>
@@ -370,18 +371,13 @@ td {
 
           </tr>
        
-        
+        {% for p in pat %}
         <tr>
           <td class="sps"> {{p.firstname}} {{p.lastname}}</td>
           <td class="sps">{{p.symptoms}}</td>
           <td class="sps">{{p.address}}</td>
           <td class="sps">{{p.status}}</td>
-         
-         
-          
-          
-
-        </tr>
+        </tr>{% endfor %}
       
       </table>
     </div>
@@ -389,8 +385,8 @@ td {
   </div>
   
 </div>
-{% endfor %}
-{% endfor %}
+
+
 </body>
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>

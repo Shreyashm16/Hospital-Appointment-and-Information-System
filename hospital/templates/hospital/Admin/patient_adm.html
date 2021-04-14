@@ -280,13 +280,19 @@
                 <div class="col-md-4 market-update-gd">
                     <div class="market-update-block clr-block-3 column">
                         <div class="col-md-8 market-update-left">
-                            <h4>Total Appointment : {{patcount}}</h4>
-                            <p>Approve Appointments : </p>
-                            <a href="{% url 'approve_pat.html' %}">Approve Patient</a>
+
+                            <h4>Total Patients : {{patcount}}</h4>
+                            <h4>Total Appointment :</h4>
+                            <p>Approved Patients : {{appcount}}</p>
+                            <p>Approve Appointment : </p>
+
                         </div>
                         <div class="col-md-4 market-update-right">
                             <i class="fa fa-calendar-o"></i>
+
                         </div>
+                        <br>
+                        <a href="{% url 'approve_pat.html' %}" style="font-size: large;">Approve Patient</a>
                         <div class="clearfix"> </div>
                     </div>
                 </div>
@@ -306,7 +312,7 @@
 
 
                         <div class="sps">
-                            {% for p in pat %}
+
                             <h2 class="sps">Recent Patient</h2>
                             <table class="sps">
                                 <thead>
@@ -319,8 +325,9 @@
 
                                     </tr>
 
-
+                                    {% for p in pat %}
                                     <tr>
+
                                         <td class="sps"> {{p.firstname}} {{p.lastname}}</td>
                                         <td class="sps">{{p.symptoms}}</td>
                                         <td class="sps">{{p.address}}</td>
@@ -329,6 +336,7 @@
 
 
                                     </tr>
+                                    {% endfor %}
 
 
                             </table>
@@ -337,7 +345,7 @@
                 </div>
 
             </div>
-            {% endfor %}
+
         </div>
 
 </body>
