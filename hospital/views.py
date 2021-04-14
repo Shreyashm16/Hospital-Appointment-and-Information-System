@@ -98,7 +98,11 @@ def login_pat_view(request):
             user = auth.authenticate(username=username, password=password)
             if user is not None and check_patient(user):
                 auth.login(request, user)
-                return redirect('profile_pat.html')
+                accountapproval=Patient.objects.all().filter(status=True)
+                if accountapproval:
+                    return redirect('profile_pat.html')
+                else:
+                    return render(request,'hospital/Home/wait_approval.html')
         return render(request, 'hospital/Patient/login_pat.html', {'form': form})
     else: 
         form = AuthenticationForm()
@@ -180,7 +184,11 @@ def login_doc_view(request):
             user = auth.authenticate(username=username, password=password)
             if user is not None and check_doctor(user):
                 auth.login(request, user)
-                return redirect('profile_doc.html')
+                accountapproval=Doctor.objects.all().filter(status=True)
+                if accountapproval:
+                    return redirect('profile_doc.html')
+                else:
+                    return render(request,'hospital/Home/wait_approval.html')
         return render(request, 'hospital/Doctor/login_doc.html', {'form': form})
     else: 
         form = AuthenticationForm()
