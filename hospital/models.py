@@ -78,5 +78,6 @@ class Appointment(models.Model):
     appointmentDate=models.DateField()
     description=models.TextField(max_length=500)
     status=models.BooleanField(default=False)
+    symptoms = models.CharField(max_length=100,default="fever")
     def __str__(self):
         return f'{self.patientName} Appointment Info'
