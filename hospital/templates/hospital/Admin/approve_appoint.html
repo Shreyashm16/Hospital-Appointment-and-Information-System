@@ -26,9 +26,11 @@
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
   <!-- CSS Files -->
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
-  <link href="{% static 'assets/css/form.css'%}" rel="stylesheet" />
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
@@ -56,13 +58,177 @@
       });
     });
   </script>
+  <style media="screen">
+    
+    
+    .market-update-block {
+      padding: 2em 2em;
+      background: #999;
+    }
+
+    .market-update-block h3 {
+      color: #fff;
+      font-size: 1.5em;
+      font-family: 'Carrois Gothic', sans-serif;
+    }
+
+    .market-update-block h4 {
+      font-size: 1.2em;
+      color: #fff;
+      margin: 0.3em 0em;
+      font-family: 'Carrois Gothic', sans-serif;
+    }
+
+    .market-update-block p {
+      color: #fff;
+      font-size: 0.8em;
+      line-height: 1.8em;
+    }
+
+    .market-update-block.clr-block-1 {
+      background: #ff0000;
+      margin-right: 0.8em;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-2 {
+      background: #4f5905;
+      margin-right: 0.8em;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-3 {
+      background: #1355f9;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-1:hover {
+      background: #3C3C3C;
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-2:hover {
+      background: #3C3C3C;
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-3:hover {
+      background: #3C3C3C;
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-right i.fa.fa-user-o,
+    i.fa.fa-map-marker {
+      font-size: 3em;
+      color: #68AE00;
+      width: 80px;
+      height: 80px;
+      background: #fff;
+      text-align: center;
+      border-radius: 49px;
+      -webkit-border-radius: 49px;
+      -moz-border-radius: 49px;
+      -o-border-radius: 49px;
+      line-height: 1.7em;
+    }
+
+    .market-update-right i.fa.fa-info-circle,
+    i.fa.fa-list-alt {
+      font-size: 3em;
+      color: #FC8213;
+      width: 80px;
+      height: 80px;
+      background: #fff;
+      text-align: center;
+      border-radius: 49px;
+      -webkit-border-radius: 49px;
+      -moz-border-radius: 49px;
+      -o-border-radius: 49px;
+      line-height: 1.7em;
+    }
+
+    .market-update-right i.fa.fa-mobile,
+    i.fa.fa-calendar-o {
+      font-size: 3em;
+      color: #337AB7;
+      width: 80px;
+      height: 80px;
+      background: #fff;
+      text-align: center;
+      border-radius: 49px;
+      -webkit-border-radius: 49px;
+      -moz-border-radius: 49px;
+      -o-border-radius: 49px;
+      line-height: 1.7em;
+    }
+
+
+
+    .market-update-left {
+      padding: 0px;
+    }
+    .column {
+  float: left;
+  width: 25%;
+  padding: 30px;
+}
+
+
+.row {margin: 0 -10px;
+padding-left: 15px;
+padding-right: 15px;}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+th {
+    border: 1px solid #ff0066;
+    border-collapse: collapse;
+    padding:10px;
+}
+
+td {
+    border: 1px solid #ff0066;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    padding:10px;
+}
+
+
+    </style>
 </head>
 
 <body id="jhamela" class="darkEdition lightEdition">
   {% include "hospital/Home/preloader.html" %}
 
   <div id="myDiv" class="animate-bottom wrapper" style="display:none;text-align: center;position: relative;">
-    <div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static 'assets/img/sidebar-1.jpg'%}">
+    <div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static 'assets/img/sidebar-2.jpg'%}">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -75,48 +241,31 @@
       </a></div>
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'dashboard_doc.html' %}">
+        <li class="nav-item  ">
+          <a class="nav-link" href="{% url 'dashboard_adm.html' %}">
             <i class="material-icons">dashboard</i>
             <p>Dashboard</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="{% url 'profile_doc.html' %}">
-            <i class="material-icons">person</i>
-            <p>Profile</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'bookapp_doc.html' %}">
+          <a class="nav-link" href="{% url 'bookapp_adm.html' %}">
             <i class="material-icons">content_paste</i>
-            <p>Your Appointments</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'yourhealth_doc.html' %}">
-            <i class="material-icons">favorite</i>
-            <p>Your Health</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'calladoc_doc.html' %}">
-            <i class="material-icons">library_books</i>
-            <p>Call A Doc</p>
+            <p>Book Appointment</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="{% url 'medicalreport_doc.html' %}">
+          <a class="nav-link" href="{% url 'patient_adm.html' %}">
             <i class="material-icons">favorite</i>
-            <p>Medical Reports</p>
+            <p>Patient</p>
           </a>
         </li>
-        <li class="nav-item active  ">
-          <a class="nav-link" href="{% url 'feedback_doc.html' %}">
-            <i class="material-icons">bubble_chart</i>
-            <p>Feedback</p>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'doctor_adm.html' %}">
+            <i class="material-icons">library_books</i>
+            <p>Doctor</p>
           </a>
         </li>
+      
          <li class="nav-item ">
           <a class="nav-link" href="{% url '' %}">
             <i class="material-icons">logout</i>
@@ -126,43 +275,61 @@
       </ul>
     </div>
   </div>
-    <div class="main-panel">
-      <!-- Navbar -->
-      <br>
-      <br>
-      <br>
-     <center>
-    <div class="container">
-    <div class="screen" style="width: 70%;margin-left: auto;margin-right: auto;">
-              <div class="screen-header">
-                <div class="screen-header-left">
-                  <img src="{% static 'assets/img/btn.png' %}" height="20px">
-                </div>
-              </div>
-              <div class="screen-body">
-                <div class="screen-body-item left">
-                  <div class="app-title" style="text-align: left;color: #ff0066">
-                    <span>SEND FEEDBACK</span>
-                  </div>
-                </div>
-                <div class="screen-body-item">
-                  <form class="app-form" method="POST">
-                  <!-- Very Important csrf Token -->
-                  {% csrf_token %}
-                    {{ form }}
-                    <input type="submit" value="Send Message" class='btn btn-primary btn-lg' style="margin-top: 30px">
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+    
+
+    
+      
+    <br>
+    <br>
+    <div class="main-panel row">
+      
+  
+  <br>
+  <br>
+  <div class="container sps">
+  <div class="row sps">
+  <center>
+    
+    
+
+    <div class="sps">
+      
+        <h2 class="sps">Recent Appointment Approvals</h2>
+      <table class="sps">
+        <thead>
+          <tr class="sps">
+            <th class="sps">Doctor Name: </th>
+            <th class="sps">Patient Name: </th>
+            <th class="sps">Description: </th>
+            <th class="sps">Appointment Date: </th>
+            <th class="sps">Approve /Onhold: </th>
+
+          </tr>
+       
+        {% for p in app %}
+        <tr>
+          <td class="sps"> {{p.doctorName}}</td>
+          <td class="sps">{{p.patientName}}</td>
+          <td class="sps">{{p.description}}</td>
+          <td class="sps">{{p.appointmentDate}}</td>
+         <td><a class="btn btn-primary btn-xs" href="{% url 'approve_app' p.id  %}">Approve</a></td>
+          
+
+        </tr>
+        {% endfor %}
+      
+      </table>
+    </div>
+    </center>
+  </div>
+  
+</div>
 
 
-
-  </center>
+</body>
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
-      {% include "hospital//Doctor/footer.html" %}
+      {% include "hospital/Admin/footer.html" %}
     </div>
   </div>
   <!--   Core JS Files   -->
@@ -355,3 +522,7 @@
 </body>
 
 </html>
+
+
+
+

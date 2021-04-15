@@ -89,7 +89,7 @@
         <li class="nav-item active  ">
           <a class="nav-link" href="{% url 'bookapp_doc.html' %}">
             <i class="material-icons">content_paste</i>
-            <p>Book Appointment</p>
+            <p>Your Appointments</p>
           </a>
         </li>
         <li class="nav-item">
@@ -127,7 +127,55 @@
   </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <!-- End Navbar -->
+      <!-- End Navbar --><div class="main-panel row">
+      
+  
+  <br>
+  <br>
+  <div class="container sps">
+  <div class="row sps">
+  <center>
+    
+    
+
+    <div class="sps">
+      
+        <h2 class="sps">Recent Appointment Approvals</h2>
+      <table class="sps">
+        <thead>
+          <tr class="sps">
+            <th class="sps">Patient Name: </th>
+            <th class="sps">Description: </th>
+            <th class="sps">Appointment Date: </th>
+            <th class="sps">Approve /Onhold: </th>
+
+          </tr>
+       
+        {% for p in app %}
+        <tr>
+          <td class="sps">{{p.patientName}}</td>
+          <td class="sps">{{p.description}}</td>
+          <td class="sps">{{p.appointmentDate}}</td>
+         <td><a class="btn btn-primary btn-xs" href="{% url 'doc_approve_app' p.id  %}">Approve</a></td>
+          
+
+        </tr>
+        {% endfor %}
+      
+      </table>
+    </div>
+    
+    </center>
+    
+  </div>
+  
+</div>
+<br>
+<br>
+<br>
+<br>
+<a class="btn btn-primary btn-round btn-lg"href="{% url 'appoint_view_doc.html' %}" target="_blank"><b>View Appointment Details</b></a>
+
       <br><br><br><br><br><br><br><br><br><br><br><br>
       {% include "hospital/Doctor/footer.html" %}
     </div>

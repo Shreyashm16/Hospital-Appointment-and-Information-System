@@ -80,7 +80,11 @@ def admin_appointment_view(request):
     app=Appointment.objects.all().filter(status=True)
     return render(request,'hospital/Admin/appoint_view_adm.html',{'app':app})
 
-
+@login_required
+def doc_appointment_view(request):
+    doc=Doctor.objects.get(user_id=request.user.id)
+    app=Appointment.objects.all().filter(status=True,doctorId=doc.id)
+    return render(request,'hospital/Doctor/appoint_view_doc.html',{'app':app})
 
 
 
@@ -362,6 +366,36 @@ def approve_doctor_view(request,pk):
     doctor.status=True
     doctor.save()
     return redirect(reverse('approve_doc.html'))
+
+
+@login_required
+def approve_appoint_view(request):
+    #those whose approval are needed
+    app=Appointment.objects.all().filter(status=False)
+    return render(request,'hospital/Admin/approve_appoint.html',{'app':app})
+
+@login_required
+def approve_app_view(request,pk):
+    appointment=Appointment.objects.get(id=pk)
+    appointment.status=True
+    appointment.save()
+    return redirect(reverse('approve_appoint.html'))
+
+@login_required
+def doc_approve_appoint_view(request):
+    #those whose approval are needed from a particular Doctor
+    doc=Doctor.objects.get(user_id=request.user.id)
+    app=Appointment.objects.all().filter(status=False,doctorId=doc.id)
+    return render(request,'hospital/Doctor/bookapp_doc.html',{'app':app})
+
+@login_required
+def doc_approve_app_view(request,pk):
+    appointment=Appointment.objects.get(id=pk)
+    appointment.status=True
+    appointment.save()
+    return redirect(reverse('bookapp_doc.html'))
+
+
 
 @login_required
 def profile_adm_view(request):

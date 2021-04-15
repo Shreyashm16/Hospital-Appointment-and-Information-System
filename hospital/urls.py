@@ -41,6 +41,7 @@ urlpatterns = [
     path('login_adm/',views.login_adm_view,name='login_adm.html'),
     path('yourhealth_adm/',views.yourhealth_adm_view,name='yourhealth_adm.html'),
     path('admin_appointment_view',views.admin_appointment_view,name='appoint_view_adm.html'),
+    path('doc_appointment',views.doc_appointment_view,name='appoint_view_doc.html'),
     path('pat_appointment_view',views.pat_appointment_view,name='appoint_view_pat.html'),
     path('home/',views.home_view,name='home.html'),
     path('login/',views.login_view,name='login.html'),
@@ -50,6 +51,8 @@ urlpatterns = [
     path('password_reset/done/',auth_views.PasswordResetDoneView.as_view(template_name='hospital/password_reset_done.html'),name='password_reset_done'),
     path('password_reset_confirm/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='hospital/password_reset_confirm.html'),name='password_reset_confirm'),
     path('password_reset_complete/',auth_views.PasswordResetCompleteView.as_view(template_name='hospital/password_reset_complete.html'),name='password_reset_complete'),
+    path('approve_appoint', views.approve_appoint_view,name='approve_appoint.html'),
+    path('approve_appoint/<int:pk>', views.approve_app_view,name='approve_app'),
     #path('hospital/', include('hospital.urls')),
     
     

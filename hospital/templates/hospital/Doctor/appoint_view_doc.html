@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!--
 =========================================================
 * Material Dashboard Dark Edition - v2.1.0
@@ -28,7 +29,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
-  <link href="{% static 'assets/css/form.css'%}" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
@@ -62,7 +62,7 @@
   {% include "hospital/Home/preloader.html" %}
 
   <div id="myDiv" class="animate-bottom wrapper" style="display:none;text-align: center;position: relative;">
-    <div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static 'assets/img/sidebar-1.jpg'%}">
+    <div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static 'assets/img/sidebar-2.jpg'%}">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -87,7 +87,7 @@
             <p>Profile</p>
           </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item active  ">
           <a class="nav-link" href="{% url 'bookapp_doc.html' %}">
             <i class="material-icons">content_paste</i>
             <p>Your Appointments</p>
@@ -111,7 +111,7 @@
             <p>Medical Reports</p>
           </a>
         </li>
-        <li class="nav-item active  ">
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'feedback_doc.html' %}">
             <i class="material-icons">bubble_chart</i>
             <p>Feedback</p>
@@ -126,43 +126,49 @@
       </ul>
     </div>
   </div>
-    <div class="main-panel">
-      <!-- Navbar -->
-      <br>
-      <br>
-      <br>
-     <center>
-    <div class="container">
-    <div class="screen" style="width: 70%;margin-left: auto;margin-right: auto;">
-              <div class="screen-header">
-                <div class="screen-header-left">
-                  <img src="{% static 'assets/img/btn.png' %}" height="20px">
+    
+    <div class="container sps">
+                <div class="row sps">
+                    <center>
+
+
+
+                        <div class="sps">
+
+                            <h2 class="sps">Appointment Details</h2>
+                            <table class="sps">
+                                <thead>
+                                    <tr class="sps">
+                                        <th class="sps">Patient Name </th>
+                                        <th class="sps">Description </th>
+                                        <th class="sps">Date</th>
+
+
+                                    </tr>
+
+                                    {% for p in app %}
+                                    <tr>
+                                        <td class="sps">{{p.patientName}}</td>
+                                        <td class="sps">{{p.description}}</td>
+                                        <td class="sps">{{p.appointmentDate}}</td>
+
+
+
+                                    </tr>
+                                    {% endfor %}
+
+                            </table>
+                        </div>
+                    </center>
                 </div>
-              </div>
-              <div class="screen-body">
-                <div class="screen-body-item left">
-                  <div class="app-title" style="text-align: left;color: #ff0066">
-                    <span>SEND FEEDBACK</span>
-                  </div>
-                </div>
-                <div class="screen-body-item">
-                  <form class="app-form" method="POST">
-                  <!-- Very Important csrf Token -->
-                  {% csrf_token %}
-                    {{ form }}
-                    <input type="submit" value="Send Message" class='btn btn-primary btn-lg' style="margin-top: 30px">
-                  </form>
-                </div>
-              </div>
+
             </div>
-          </div>
 
-
-
-  </center>
+        </div>
+      
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
-      {% include "hospital//Doctor/footer.html" %}
+      {% include "hospital/Admin/footer.html" %}
     </div>
   </div>
   <!--   Core JS Files   -->
