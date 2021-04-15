@@ -56,7 +56,7 @@ class DoctorRegisterForm(UserCreationForm):
     postalcode = forms.IntegerField(label="",widget=forms.TextInput(attrs={'placeholder': 'POSTAL CODE'}))
     postalcode.widget.attrs.update({'class' : 'app-form-control'})
     
-    image = forms.ImageField()
+    image = forms.ImageField(label="")
     image.widget.attrs.update({'class' : 'app-form-control'})
     
     
@@ -121,7 +121,7 @@ class AdminRegisterForm(UserCreationForm):
     postalcode = forms.IntegerField(label="",widget=forms.TextInput(attrs={'placeholder': 'POSTAL CODE'}))
     postalcode.widget.attrs.update({'class' : 'app-form-control'})
     
-    image = forms.ImageField()
+    image = forms.ImageField(label="")
     image.widget.attrs.update({'class' : 'app-form-control'})
     
     password1 = forms.CharField(label='',widget=forms.PasswordInput(attrs={'placeholder': 'PASSWORD'}))
@@ -182,7 +182,7 @@ class PatientRegisterForm(UserCreationForm):
     postalcode = forms.IntegerField(label="",widget=forms.TextInput(attrs={'placeholder': 'POSTAL CODE'}))
     postalcode.widget.attrs.update({'class' : 'app-form-control'})
     
-    image = forms.ImageField()
+    image = forms.ImageField(label="")
     image.widget.attrs.update({'class' : 'app-form-control'})
     
     symptoms = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'SYMPTOMS'}))
