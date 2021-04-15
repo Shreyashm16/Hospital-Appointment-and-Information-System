@@ -216,13 +216,14 @@ class PatientUpdateForm(forms.ModelForm):
 
 
 class PatientAppointmentForm(forms.ModelForm):
-    doctorId=forms.ModelChoiceField(queryset=Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="id",label="Doctor")
+    #doctorId=forms.ModelChoiceField(queryset=Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="id",label="Doctor")
     #doctorId=forms.IntegerField()
-    description = forms.CharField(widget=forms.Textarea)
+    doctorId=forms.CharField()
+    #description = forms.CharField(widget=forms.Textarea)
     appointmentDate = forms.DateField(widget=SelectDateWidget(years=range(2021,2024)))
     class Meta:
         model=Appointment
-        fields=['doctorId','description','appointmentDate']
+        fields=['description','status','appointmentDate']
 
 
 class AdminAppointmentForm(forms.ModelForm):

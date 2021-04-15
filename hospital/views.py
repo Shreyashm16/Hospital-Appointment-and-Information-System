@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
 from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm
 from django.contrib.auth.forms import AuthenticationForm
-from hospital.models import Doctor,Admin,Patient,Appointment
+from hospital.models import Doctor,Admin,Patient,Appointment,User
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 
@@ -29,8 +29,10 @@ def bookapp_view(request):
         appointmentForm = PatientAppointmentForm(request.POST)
         if appointmentForm.is_valid():
             docid=appointmentForm.cleaned_data.get('doctorId')
-            doc = Doctor.objects.all().filter(id=docid).first()
-            app = Appointment(patientId=pat.id,doctorId=docid,
+            print(docid)
+            us = User.objects.all().filter(username=docid)[0]
+            doc = Doctor.objects.all().filter(user=us).first()
+            app = Appointment(patientId=pat.id,doctorId=doc.id,
                                 patientName=pat.firstname,
                                 doctorName=doc.firstname,
                                 description=appointmentForm.cleaned_data.get('description'),

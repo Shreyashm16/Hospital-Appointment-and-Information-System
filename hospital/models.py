@@ -33,7 +33,7 @@ class Doctor(models.Model):
     department= models.CharField(max_length=50,choices=departments,default='Cardiologist')
     status=models.BooleanField(default=False)
     def __str__(self):
-        return f'{self.user.username} {self.department}'
+        return f'{self.id}'
         
 
 
