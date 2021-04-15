@@ -215,11 +215,8 @@ class PatientUpdateForm(forms.ModelForm):
         fields = ['firstname', 'lastname','symptoms', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image']
 
 
-class PatientAppointmentForm(forms.ModelForm):
-    #doctorId=forms.ModelChoiceField(queryset=Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="id",label="Doctor")
-    #doctorId=forms.IntegerField()
-    doctorId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname) for c in Doctor.objects.all().filter(status=True)]))
-    #description = forms.CharField(widget=forms.Textarea)
+class PatientAppointmentForm(forms.ModelForm):   
+    doctorId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname+"("+c.department+")") for c in Doctor.objects.all().filter(status=True)]))  
     appointmentDate = forms.DateField(widget=SelectDateWidget(years=range(2021,2024)))
     class Meta:
         model=Appointment
@@ -227,13 +224,8 @@ class PatientAppointmentForm(forms.ModelForm):
 
 
 class AdminAppointmentForm(forms.ModelForm):
-    #doctorId=forms.ModelChoiceField(queryset=Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="user_id", label="Doctor")
-    #patientId=forms.ModelChoiceField(queryset=Patient.objects.all().filter(status=True),empty_label="Patient Name", to_field_name="user_id", label="Patient")
     patientId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname) for c in Patient.objects.all().filter(status=True)])) 
-    doctorId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname) for c in Doctor.objects.all().filter(status=True)])) 
-    #doctorId=forms.IntegerField()
-    #patientId=forms.IntegerField()
-    #description = forms.CharField(widget=forms.Textarea)
+    doctorId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname+"("+c.department+")") for c in Doctor.objects.all().filter(status=True)])) 
     appointmentDate = forms.DateField(widget=SelectDateWidget(years=range(2021, 2024)))
     class Meta:
         model=Appointment
