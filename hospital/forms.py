@@ -220,7 +220,7 @@ class PatientAppointmentForm(forms.ModelForm):
     appointmentDate = forms.DateField(widget=SelectDateWidget(years=range(2021,2024)))
     class Meta:
         model=Appointment
-        fields=['description','appointmentDate']
+        fields=['description',]
 
 
 class AdminAppointmentForm(forms.ModelForm):

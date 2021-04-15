@@ -71,6 +71,7 @@ class Patient(models.Model):
 
 
 class Appointment(models.Model):
+    #user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="Appointment")
     patientId=models.PositiveIntegerField(null=True)
     doctorId=models.PositiveIntegerField(null=True)
     patientName=models.CharField(max_length=40,null=True)
