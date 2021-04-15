@@ -35,8 +35,8 @@ class DoctorRegisterForm(UserCreationForm):
     lastname = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'LASTNAME'}))
     lastname.widget.attrs.update({'class' : 'app-form-control'})
 
-    department= forms.MultipleChoiceField(choices=dep)
-    department.widget.attrs.update({'class' : 'app-form-control'})
+    # department= forms.MultipleChoiceField(choices=dep)
+    # department.widget.attrs.update({'class' : 'app-form-control'})
     
     age = forms.IntegerField(label="",widget=forms.TextInput(attrs={'placeholder': 'AGE'}))
     age.widget.attrs.update({'class' : 'app-form-control'})
@@ -218,7 +218,7 @@ class PatientUpdateForm(forms.ModelForm):
 class PatientAppointmentForm(forms.ModelForm):
     #doctorId=forms.ModelChoiceField(queryset=Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="id",label="Doctor")
     #doctorId=forms.IntegerField()
-    doctorId=forms.CharField()
+    doctorId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname) for c in Doctor.objects.all().filter(status=True)]))
     #description = forms.CharField(widget=forms.Textarea)
     appointmentDate = forms.DateField(widget=SelectDateWidget(years=range(2021,2024)))
     class Meta:
@@ -227,8 +227,9 @@ class PatientAppointmentForm(forms.ModelForm):
 
 
 class AdminAppointmentForm(forms.ModelForm):
-    doctorId=forms.ModelChoiceField(queryset=Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="user_id", label="Doctor")
-    patientId=forms.ModelChoiceField(queryset=Patient.objects.all().filter(status=True),empty_label="Patient Name and Symptoms", to_field_name="user_id", label="Patient")
+    #doctorId=forms.ModelChoiceField(queryset=Doctor.objects.all().filter(status=True),empty_label="Doctor Name and Department", to_field_name="user_id", label="Doctor")
+    patientId=forms.ModelChoiceField(queryset=Patient.objects.all().filter(status=True),empty_label="Patient Name", to_field_name="user_id", label="Patient")
+    doctorId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname) for c in Doctor.objects.all().filter(status=True)])) 
     #doctorId=forms.IntegerField()
     #patientId=forms.IntegerField()
     #description = forms.CharField(widget=forms.Textarea)
