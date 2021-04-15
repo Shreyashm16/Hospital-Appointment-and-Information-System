@@ -76,32 +76,49 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <li class="nav-item ">
-          <a class="nav-link" href="{% url 'dashboard_adm.html' %}">
+          <a class="nav-link" href="{% url 'dashboard.html' %}">
             <i class="material-icons">dashboard</i>
             <p>Dashboard</p>
           </a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'bookapp_adm.html' %}">
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'profile_pat.html' %}">
+            <i class="material-icons">person</i>
+            <p>Profile</p>
+          </a>
+        </li>
+        <li class="nav-item active  ">
+          <a class="nav-link" href="{% url 'bookapp.html' %}">
             <i class="material-icons">content_paste</i>
             <p>Book Appointment</p>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'patient_adm.html' %}">
+          <a class="nav-link" href="{% url 'yourhealth.html' %}">
             <i class="material-icons">favorite</i>
-            <p>Patient</p>
+            <p>Your Health</p>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'doctor_adm.html' %}">
+          <a class="nav-link" href="{% url 'calladoc.html' %}">
             <i class="material-icons">library_books</i>
-            <p>Doctor</p>
+            <p>Call A Doc</p>
           </a>
         </li>
-      
-         <li class="nav-item ">
-          <a class="nav-link" href="{% url '' %}">
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'medicalreport.html' %}">
+            <i class="material-icons">favorite</i>
+            <p>Medical Reports</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'feedback.html' %}">
+            <i class="material-icons">bubble_chart</i>
+            <p>Feedback</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'logout' %}">
             <i class="material-icons">logout</i>
             <p>Logout</p>
           </a>
@@ -109,7 +126,8 @@
       </ul>
     </div>
   </div>
-    
+
+
     <div class="container sps">
                 <div class="row sps">
                     <center>

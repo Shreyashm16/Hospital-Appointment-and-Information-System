@@ -29,9 +29,9 @@ def bookapp_view(request):
         appointmentForm = PatientAppointmentForm(request.POST)
         if appointmentForm.is_valid():
             docid=appointmentForm.cleaned_data.get('doctorId')
-            print(docid)
-            us = User.objects.all().filter(username=docid)[0]
-            doc = Doctor.objects.all().filter(user=us).first()
+            #print(docid)
+            #us = User.objects.all().filter(username=docid)[0]
+            doc = Doctor.objects.all().filter(id=docid).first()
             app = Appointment(patientId=pat.id,doctorId=doc.id,
                                 patientName=pat.firstname,
                                 doctorName=doc.firstname,
@@ -48,9 +48,9 @@ def bookapp_view(request):
 
 @login_required
 def pat_appointment_view(request):
-    pat=Patient.objects.get(user_id=request.user.id)
-    app=Appointment.objects.all().filter(patientId=request.user.id)
-    return render(request,'hospital/Patient/appoint_view_pat.html',{'app':app,'pat':pat})
+    #pat=Patient.objects.get(user_id=request.user.id)
+    app=Appointment.objects.all().filter()
+    return render(request,'hospital/Patient/appoint_view_pat.html',{'app':app})
 
 @login_required
 def bookapp_adm_view(request):

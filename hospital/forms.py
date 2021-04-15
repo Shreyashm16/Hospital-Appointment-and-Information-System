@@ -223,7 +223,7 @@ class PatientAppointmentForm(forms.ModelForm):
     appointmentDate = forms.DateField(widget=SelectDateWidget(years=range(2021,2024)))
     class Meta:
         model=Appointment
-        fields=['description','status','appointmentDate']
+        fields=['description','appointmentDate']
 
 
 class AdminAppointmentForm(forms.ModelForm):
@@ -237,4 +237,4 @@ class AdminAppointmentForm(forms.ModelForm):
     appointmentDate = forms.DateField(widget=SelectDateWidget(years=range(2021, 2024)))
     class Meta:
         model=Appointment
-        fields=['description','status']
+        fields=['description']
