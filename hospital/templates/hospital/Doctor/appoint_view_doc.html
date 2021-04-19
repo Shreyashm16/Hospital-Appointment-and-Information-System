@@ -142,18 +142,12 @@
                                         <th class="sps">Patient Name </th>
                                         <th class="sps">Description </th>
                                         <th class="sps">Date</th>
-
-
                                     </tr>
-
                                     {% for p in app %}
                                     <tr>
-                                        <td class="sps">{{p.patientName}}</td>
-                                        <td class="sps">{{p.description}}</td>
-                                        <td class="sps">{{p.appointmentDate}}</td>
-
-
-
+                                        <td class="sps">{{ p.0 }}</td>
+                                        <td class="sps">{{ p.1 }}</td>
+                                        <td class="sps">{{ p.2 }}</td>
                                     </tr>
                                     {% endfor %}
 

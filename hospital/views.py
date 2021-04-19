@@ -28,8 +28,7 @@ def bookapp_view(request):
     if request.method=="POST":
         appointmentForm = PatientAppointmentForm(request.POST)
         if appointmentForm.is_valid():
-            docid=appointmentForm.cleaned_data.get('doctorId')
-            #print(docid)
+            docid=int(appointmentForm.cleaned_data.get('doctorId'))
             #us = User.objects.all().filter(username=docid)[0]
             doc = Doctor.objects.all().filter(id=docid).first()
             app = Appointment(patientId=pat.id,doctorId=doc.id,
@@ -49,8 +48,13 @@ def bookapp_view(request):
 @login_required
 def pat_appointment_view(request):
     pat=Patient.objects.get(user_id=request.user.id)
-    app=Appointment.objects.filter(status=True,patientId=pat.id)
-    return render(request,'hospital/Patient/appoint_view_pat.html',{'app':app})
+    det=[]
+    for c in Appointment.objects.filter(status=True,patientId=pat.id).all():
+        d=Doctor.objects.filter(id=c.doctorId).first()
+        p=Patient.objects.filter(id=c.patientId).first()
+        if d and p:
+            det.append([d.firstname,p.firstname,c.description,c.appointmentDate])
+    return render(request,'hospital/Patient/appoint_view_pat.html',{'app':det})
 
 @login_required
 def bookapp_adm_view(request):
@@ -77,14 +81,23 @@ def bookapp_adm_view(request):
 
 @login_required
 def admin_appointment_view(request):
-    app=Appointment.objects.all().filter(status=True)
-    return render(request,'hospital/Admin/appoint_view_adm.html',{'app':app})
+    det=[]
+    for c in Appointment.objects.filter(status=True).all():
+        d=Doctor.objects.filter(id=c.doctorId).first()
+        p=Patient.objects.filter(id=c.patientId).first()
+        if d and p:
+            det.append([d.firstname,p.firstname,c.description,c.appointmentDate])
+    return render(request,'hospital/Admin/appoint_view_adm.html',{'app':det})
 
 @login_required
 def doc_appointment_view(request):
     doc=Doctor.objects.get(user_id=request.user.id)
-    app=Appointment.objects.all().filter(status=True,doctorId=doc.id)
-    return render(request,'hospital/Doctor/appoint_view_doc.html',{'app':app})
+    det=[]
+    for c in Appointment.objects.filter(status=True,doctorId=doc.id).all():
+        p=Patient.objects.filter(id=c.patientId).first()
+        if p:
+            det.append([p.firstname,c.description,c.appointmentDate])
+    return render(request,'hospital/Doctor/appoint_view_doc.html',{'app':det})
 
 
 
@@ -371,8 +384,13 @@ def approve_doctor_view(request,pk):
 @login_required
 def approve_appoint_view(request):
     #those whose approval are needed
-    app=Appointment.objects.all().filter(status=False)
-    return render(request,'hospital/Admin/approve_appoint.html',{'app':app})
+    det=[]
+    for c in Appointment.objects.filter(status=False).all():
+        d=Doctor.objects.filter(id=c.doctorId).first()
+        p=Patient.objects.filter(id=c.patientId).first()
+        if d and p:
+            det.append([d.firstname,p.firstname,c.description,c.appointmentDate,c.id])
+    return render(request,'hospital/Admin/approve_appoint.html',{'app':det})
 
 @login_required
 def approve_app_view(request,pk):
@@ -385,8 +403,13 @@ def approve_app_view(request,pk):
 def doc_approve_appoint_view(request):
     #those whose approval are needed from a particular Doctor
     doc=Doctor.objects.get(user_id=request.user.id)
-    app=Appointment.objects.all().filter(status=False,doctorId=doc.id)
-    return render(request,'hospital/Doctor/bookapp_doc.html',{'app':app})
+    det=[]
+    for c in Appointment.objects.filter(status=False,doctorId=doc.id).all():
+        d=Doctor.objects.filter(id=c.doctorId).first()
+        p=Patient.objects.filter(id=c.patientId).first()
+        if d and p:
+            det.append([p.firstname,c.description,c.appointmentDate,c.id])
+    return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det})
 
 @login_required
 def doc_approve_app_view(request,pk):

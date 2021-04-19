@@ -216,17 +216,32 @@ class PatientUpdateForm(forms.ModelForm):
 
 
 class PatientAppointmentForm(forms.ModelForm):   
-    doctorId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname+"("+c.department+")") for c in Doctor.objects.all().filter(status=True)]))  
+    #ch = [(c.pk, c.firstname+"("+c.department+")") for c in Doctor.objects.filter(status=True).all()]
+    doctorId = forms.TypedChoiceField()
+    #doctorId=forms.CharField(widget=forms.Select(choices=c))  
     appointmentDate = forms.DateField(widget=SelectDateWidget(years=range(2021,2024)))
+
+    def __init__(self, *args, **kwargs):
+        super(PatientAppointmentForm, self).__init__(*args, **kwargs)
+        self.fields['doctorId'].choices = [(c.id, c.firstname+"("+c.department+")") for c in Doctor.objects.filter(status=True).all()]
+    
     class Meta:
         model=Appointment
         fields=['description']
 
 
 class AdminAppointmentForm(forms.ModelForm):
-    patientId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname) for c in Patient.objects.all().filter(status=True)])) 
-    doctorId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname+"("+c.department+")") for c in Doctor.objects.all().filter(status=True)])) 
+    #patientId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname) for c in Patient.objects.all().filter(status=True)])) 
+    #doctorId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname+"("+c.department+")") for c in Doctor.objects.all().filter(status=True)])) 
+    doctorId = forms.TypedChoiceField()
+    patientId = forms.TypedChoiceField()
     appointmentDate = forms.DateField(widget=SelectDateWidget(years=range(2021, 2024)))
+
+    def __init__(self, *args, **kwargs):
+        super(AdminAppointmentForm, self).__init__(*args, **kwargs)
+        self.fields['doctorId'].choices = [(c.id, c.firstname+"("+c.department+")") for c in Doctor.objects.filter(status=True).all()]
+        self.fields['patientId'].choices = [(c.id, c.firstname) for c in Patient.objects.filter(status=True).all()]
+    
     class Meta:
         model=Appointment
         fields=['description']
