@@ -37,7 +37,7 @@ def bookapp_view(request):
                                 doctorName=doc.firstname,
                                 description=appointmentForm.cleaned_data.get('description'),
                                 appointmentDate=appointmentForm.cleaned_data.get('appointmentDate'),
-                                status=True)
+                                status=False)
             app.save()
             return redirect('bookapp.html')
         else:
