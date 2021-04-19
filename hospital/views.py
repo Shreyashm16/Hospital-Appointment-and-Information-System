@@ -191,8 +191,7 @@ def dash_doc_view(request):
     return render(request,'hospital/Doctor/dashboard_doc.html')
 def bookapp_doc_view(request):
     return render(request,'hospital/Doctor/bookapp_doc.html')
-def calladoc_doc_view(request):
-    return render(request,'hospital/Doctor/calladoc_doc.html')
+
 def feedback_doc_view(request):
     return render(request,'hospital/Doctor/feedback_doc.html')
 def feedback_doc_view(request):
