@@ -89,18 +89,6 @@ def admin_appointment_view(request):
             det.append([d.firstname,p.firstname,c.description,c.appointmentDate])
     return render(request,'hospital/Admin/appoint_view_adm.html',{'app':det})
 
-@login_required
-def doc_appointment_view(request):
-    doc=Doctor.objects.get(user_id=request.user.id)
-    det=[]
-    for c in Appointment.objects.filter(status=True,doctorId=doc.id).all():
-        p=Patient.objects.filter(id=c.patientId).first()
-        if p:
-            det.append([p.firstname,c.description,c.appointmentDate])
-    return render(request,'hospital/Doctor/appoint_view_doc.html',{'app':det})
-
-
-
 def calladoc_view(request):
     return render(request,'hospital/Patient/calladoc.html')
 def feedback_view(request):
@@ -189,8 +177,15 @@ def yourhealth_view(request):
 
 def dash_doc_view(request):
     return render(request,'hospital/Doctor/dashboard_doc.html')
+
 def bookapp_doc_view(request):
-    return render(request,'hospital/Doctor/bookapp_doc.html')
+    doc=Doctor.objects.get(user_id=request.user.id)
+    det=[]
+    for c in Appointment.objects.filter(status=True,doctorId=doc.id).all():
+        p=Patient.objects.filter(id=c.patientId).first()
+        if p:
+            det.append([p.firstname,c.description,c.appointmentDate])
+    return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det})
 
 def feedback_doc_view(request):
     return render(request,'hospital/Doctor/feedback_doc.html')

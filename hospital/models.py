@@ -75,6 +75,7 @@ class Appointment(models.Model):
     doctorId=models.PositiveIntegerField(null=True)
     appointmentDate=models.DateField()
     description=models.TextField(max_length=500)
+    link=models.TextField(null=True)
     status=models.BooleanField(default=False)
     def __str__(self):
         return f'{self.description} Appointment Info'

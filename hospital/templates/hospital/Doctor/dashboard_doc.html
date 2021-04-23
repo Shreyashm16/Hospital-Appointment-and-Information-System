@@ -344,27 +344,22 @@ td {
       <table class="table sps">
           <tr class="sps">
             <th class="sps" >Patient Name</th>
-            <th class="sps">Patient Picture</th>
             <th class="sps">Description</th>
-            <th class="sps">Mobile</th>
-            <th class="sps">Address</th>
             <th class="sps">Date</th>
+            <th class="sps">Link</th>
+            <th class="sps">Approve /Onhold: </th>
 
           </tr>
-        
+        {% for p in app %}
         <tr class="sps">
-          <td class="sps"> Line1</td>
-          <td class="sps">Line2</td>
-          <td class="sps">Line3</td>
-          <td class="sps">Line4</td>
-          <td class="sps">Line5</td>
-          <td class="sps">Line6</td>
-         
-         <!-- <td> <span class="label label-success">On Hold</span></td>-->
-         
-
+          <td class="sps">{{p.0}}</td>
+          <td class="sps">{{p.1}}</td>
+          <td class="sps">{{p.2}}</td>
+          <td><a class="btn btn-primary btn-xs" href="{% url 'doc_approve_app' p.3  %}">Approve</a></td>
+          <td><a class="btn btn-primary btn-xs" href="{% url 'doc_approve_app' p.3  %}">Approve</a></td>
         </tr>
-  
+        {% endfor %}
+
       </table>
     </div>
       <!-- End Navbar -->

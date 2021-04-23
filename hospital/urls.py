@@ -39,7 +39,6 @@ urlpatterns = [
     path('login_adm/',views.login_adm_view,name='login_adm.html'),
     path('yourhealth_adm/',views.yourhealth_adm_view,name='yourhealth_adm.html'),
     path('admin_appointment_view',views.admin_appointment_view,name='appoint_view_adm.html'),
-    path('doc_appointment',views.doc_appointment_view,name='appoint_view_doc.html'),
     path('pat_appointment_view',views.pat_appointment_view,name='appoint_view_pat.html'),
     path('home/',views.home_view,name='home.html'),
     path('login/',views.login_view,name='login.html'),
