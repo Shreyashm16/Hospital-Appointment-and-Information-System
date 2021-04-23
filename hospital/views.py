@@ -29,11 +29,8 @@ def bookapp_view(request):
         appointmentForm = PatientAppointmentForm(request.POST)
         if appointmentForm.is_valid():
             docid=int(appointmentForm.cleaned_data.get('doctorId'))
-            #us = User.objects.all().filter(username=docid)[0]
             doc = Doctor.objects.all().filter(id=docid).first()
             app = Appointment(patientId=pat.id,doctorId=doc.id,
-                                patientName=pat.firstname,
-                                doctorName=doc.firstname,
                                 description=appointmentForm.cleaned_data.get('description'),
                                 appointmentDate=appointmentForm.cleaned_data.get('appointmentDate'),
                                 status=False)
@@ -176,7 +173,20 @@ def yourhealth_view(request):
     return render(request,'hospital/Patient/yourhealth.html')
 
 def dash_doc_view(request):
-    return render(request,'hospital/Doctor/dashboard_doc.html')
+    doc=Doctor.objects.get(user_id=request.user.id)
+    det=[]
+    for c in Appointment.objects.filter(status=False,doctorId=doc.id).all():
+        p=Patient.objects.filter(id=c.patientId).first()
+        if p:
+            det.append([p.firstname,c.description,c.appointmentDate,c.link,c.id])
+    return render(request,'hospital/Doctor/dashboard_doc.html',{'app':det})
+
+@login_required
+def dash_doc_approve_view(request,pk):
+    appointment=Appointment.objects.get(id=pk)
+    appointment.status=True
+    appointment.save()
+    return redirect(reverse('dashboard_doc.html'))
 
 def bookapp_doc_view(request):
     doc=Doctor.objects.get(user_id=request.user.id)
@@ -184,7 +194,7 @@ def bookapp_doc_view(request):
     for c in Appointment.objects.filter(status=True,doctorId=doc.id).all():
         p=Patient.objects.filter(id=c.patientId).first()
         if p:
-            det.append([p.firstname,c.description,c.appointmentDate])
+            det.append([p.firstname,c.description,c.appointmentDate,c.link])
     return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det})
 
 def feedback_doc_view(request):

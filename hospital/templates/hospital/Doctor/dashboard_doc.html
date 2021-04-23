@@ -355,8 +355,8 @@ td {
           <td class="sps">{{p.0}}</td>
           <td class="sps">{{p.1}}</td>
           <td class="sps">{{p.2}}</td>
-          <td><a class="btn btn-primary btn-xs" href="{% url 'doc_approve_app' p.3  %}">Approve</a></td>
-          <td><a class="btn btn-primary btn-xs" href="{% url 'doc_approve_app' p.3  %}">Approve</a></td>
+          <td class="sps">{{p.3}}</td>
+          <td><a class="btn btn-primary btn-xs" href="{% url 'dashboard_doc_approve' p.4  %}">Approve</a></td>
         </tr>
         {% endfor %}
 
