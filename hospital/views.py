@@ -17,8 +17,181 @@ from django.template.loader import get_template
 from django.template import Context
 from django.http import HttpResponse
 
-# Create your views here.
-# Create your views here.
+#Admin Related Views
+
+@login_required
+def bookapp_adm_view(request):
+    if request.method=="POST":
+        appointmentForm = AdminAppointmentForm(request.POST)
+        if appointmentForm.is_valid():
+            docid=appointmentForm.cleaned_data.get('doctorId')
+            patid=appointmentForm.cleaned_data.get('patientId')
+            doc = Doctor.objects.all().filter(id=docid).first()
+            pat = Patient.objects.all().filter(id=patid).first()
+            app = Appointment(patientId=patid,doctorId=docid,
+                                description=appointmentForm.cleaned_data.get('description'),
+                                appointmentDate=appointmentForm.cleaned_data.get('appointmentDate'),
+                                status=True)
+            app.save()
+            return redirect('bookapp_adm.html')
+        else:
+            print(appointmentForm.errors)
+    else:
+        appointmentForm = AdminAppointmentForm()
+    return render(request,'hospital/Admin/bookapp_adm.html',{'appointmentForm': appointmentForm})
+
+@login_required
+def admin_appointment_view(request):
+    det=[]
+    for c in Appointment.objects.filter(status=True).all():
+        d=Doctor.objects.filter(id=c.doctorId).first()
+        p=Patient.objects.filter(id=c.patientId).first()
+        if d and p:
+            det.append([d.firstname,p.firstname,c.description,c.appointmentDate])
+    return render(request,'hospital/Admin/appoint_view_adm.html',{'app':det})
+
+@login_required
+def dash_adm_view(request):
+    doc = Doctor.objects.all().filter(status=False)
+    pat = Patient.objects.all().filter(status=False)
+    pattotcount=Patient.objects.all().count()
+    doctotcount=Doctor.objects.all().count()
+    appcount=Appointment.objects.all().count()
+    patapp = Patient.objects.all().filter(status=False).count()
+    docapp = Doctor.objects.all().filter(status=False).count()
+    approveapp = Appointment.objects.all().filter(status=False).count()
+    dic={'doc':doc,'pat':pat,'pattotcount':pattotcount,'doctotcount':doctotcount,'patapp':patapp,'docapp':docapp,'appcount':appcount,'approveapp':approveapp}
+    return render(request,'hospital/Admin/dashboard_adm.html',context=dic)
+def calladoc_adm_view(request):
+    return render(request,'hospital/Admin/calladoc_adm.html')
+def medicalreport_adm_view(request):
+    return render(request,'hospital/Admin/medicalreport_adm.html')
+def yourhealth_adm_view(request):
+    return render(request,'hospital/Admin/yourhealth_adm.html')
+
+
+def login_adm_view(request):
+    if request.method=="POST":
+        form = AuthenticationForm(request=request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = auth.authenticate(username=username, password=password)
+            if user is not None and check_admin(user):
+                auth.login(request, user)
+                return redirect('dashboard_adm.html')
+        return render(request, 'hospital/Admin/login_adm.html', {'form': form})
+    else: 
+        form = AuthenticationForm()
+                
+    return render(request, 'hospital/Admin/login_adm.html', {'form': form})
+
+def register_adm_view(request):
+    if request.method=="POST":
+        form = AdminRegisterForm(request.POST, request.FILES)
+        if form.is_valid():
+            nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))
+            adm = Admin(user=nu,firstname=form.cleaned_data.get('firstname'),
+                        lastname=form.cleaned_data.get('lastname'),
+                        age=form.cleaned_data.get('age'),
+                        dob=form.cleaned_data.get('dob'),
+                        address=form.cleaned_data.get('address'),
+                        city=form.cleaned_data.get('city'),
+                        country=form.cleaned_data.get('country'),
+                        postalcode=form.cleaned_data.get('postalcode'),
+                        image=request.FILES['image']
+                        )
+            adm.save()
+            mpg = Group.objects.get_or_create(name='ADMIN')
+            mpg[0].user_set.add(nu)
+            return redirect('login_adm.html')
+        else:
+            print(form.errors)
+    else: 
+        form = AdminRegisterForm()
+    
+    return render(request,'hospital/Admin/register_adm.html',{'form': form})
+
+@login_required
+def patient_adm_view(request):
+    pat = Patient.objects.all().filter(status=False)
+    patapp = Patient.objects.all().filter(status=False).count()
+    patcount=Patient.objects.all().count()
+    dic={'pat':pat,'patcount':patcount,'patapp':patapp}
+    return render(request,'hospital/Admin/patient_adm.html',context=dic)
+
+@login_required
+def doctor_adm_view(request):
+    doc = Doctor.objects.all().filter(status=False)
+    doccount=Doctor.objects.all().count()
+    dic={'doc':doc,'doccount':doccount}
+    return render(request,'hospital/Admin/doctor_adm.html',context=dic)
+
+@login_required
+def approve_pat_view(request):
+    pat = Patient.objects.all().filter(status=False)
+    return render(request,'hospital/Admin/approve_pat.html',{'pat':pat})
+
+@login_required
+def approve_doc_view(request):
+    doc = Doctor.objects.all().filter(status=False)
+    return render(request,'hospital/Admin/approve_doc.html',{'doc':doc})
+
+@login_required
+def approve_patient_view(request,pk):
+    patient=Patient.objects.get(id=pk)
+    patient.status=True
+    patient.save()
+    return redirect(reverse('approve_pat.html'))
+
+@login_required
+def approve_doctor_view(request,pk):
+    doctor=Doctor.objects.get(id=pk)
+    doctor.status=True
+    doctor.save()
+    return redirect(reverse('approve_doc.html'))
+
+
+@login_required
+def approve_appoint_view(request):
+    #those whose approval are needed
+    det=[]
+    for c in Appointment.objects.filter(status=False).all():
+        d=Doctor.objects.filter(id=c.doctorId).first()
+        p=Patient.objects.filter(id=c.patientId).first()
+        if d and p:
+            det.append([d.firstname,p.firstname,c.description,c.appointmentDate,c.id])
+    return render(request,'hospital/Admin/approve_appoint.html',{'app':det})
+
+@login_required
+def approve_app_view(request,pk):
+    appointment=Appointment.objects.get(id=pk)
+    appointment.status=True
+    appointment.save()
+    return redirect(reverse('approve_appoint.html'))
+
+@login_required
+def profile_adm_view(request):
+    adm = Admin.objects.filter(user_id=request.user.id).first()
+    #return render(request,'hospital/Doctor/profile_doc.html',{'doc':doc})
+    if request.method=="POST":
+        p_form = AdminUpdateForm(request.POST, request.FILES, instance=adm)
+        if p_form.is_valid():
+            p_form.save()
+            return redirect('profile_adm.html')
+    else:
+        p_form = AdminUpdateForm(instance=adm)
+    context = {
+        'p_form': p_form,
+        'adm': adm
+     }
+    return render(request,'hospital/Admin/profile_adm.html',context)
+
+
+
+
+# Paitent Related Views
+
 def dash_view(request):
     return render(request,'hospital/Patient/dashboard.html')
 
@@ -53,36 +226,6 @@ def pat_appointment_view(request):
             det.append([d.firstname,p.firstname,c.description,c.appointmentDate])
     return render(request,'hospital/Patient/appoint_view_pat.html',{'app':det})
 
-@login_required
-def bookapp_adm_view(request):
-    if request.method=="POST":
-        appointmentForm = AdminAppointmentForm(request.POST)
-        if appointmentForm.is_valid():
-            docid=appointmentForm.cleaned_data.get('doctorId')
-            patid=appointmentForm.cleaned_data.get('patientId')
-            doc = Doctor.objects.all().filter(id=docid).first()
-            pat = Patient.objects.all().filter(id=patid).first()
-            app = Appointment(patientId=patid,doctorId=docid,
-                                description=appointmentForm.cleaned_data.get('description'),
-                                appointmentDate=appointmentForm.cleaned_data.get('appointmentDate'),
-                                status=True)
-            app.save()
-            return redirect('bookapp_adm.html')
-        else:
-            print(appointmentForm.errors)
-    else:
-        appointmentForm = AdminAppointmentForm()
-    return render(request,'hospital/Admin/bookapp_adm.html',{'appointmentForm': appointmentForm})
-
-@login_required
-def admin_appointment_view(request):
-    det=[]
-    for c in Appointment.objects.filter(status=True).all():
-        d=Doctor.objects.filter(id=c.doctorId).first()
-        p=Patient.objects.filter(id=c.patientId).first()
-        if d and p:
-            det.append([d.firstname,p.firstname,c.description,c.appointmentDate])
-    return render(request,'hospital/Admin/appoint_view_adm.html',{'app':det})
 
 def calladoc_view(request):
     return render(request,'hospital/Patient/calladoc.html')
@@ -169,6 +312,9 @@ def profile_pat_view(request):
 
 def yourhealth_view(request):
     return render(request,'hospital/Patient/yourhealth.html')
+
+
+# Doctor Related Views
 
 def dash_doc_view(request):
     doc=Doctor.objects.get(user_id=request.user.id)
@@ -281,126 +427,6 @@ def yourhealth_doc_view(request):
 def medicalreport_doc_view(request):
     return render(request,'hospital/Doctor/medicalreport_doc.html')
 
-
-
-@login_required
-def dash_adm_view(request):
-    doc = Doctor.objects.all().filter(status=False)
-    pat = Patient.objects.all().filter(status=False)
-    pattotcount=Patient.objects.all().count()
-    doctotcount=Doctor.objects.all().count()
-    patapp = Patient.objects.all().filter(status=False).count()
-    docapp = Patient.objects.all().filter(status=False).count()
-    dic={'doc':doc,'pat':pat,'pattotcount':pattotcount,'doctotcount':doctotcount,'patapp':patapp,'docapp':docapp}
-    return render(request,'hospital/Admin/dashboard_adm.html',context=dic)
-def calladoc_adm_view(request):
-    return render(request,'hospital/Admin/calladoc_adm.html')
-def medicalreport_adm_view(request):
-    return render(request,'hospital/Admin/medicalreport_adm.html')
-def yourhealth_adm_view(request):
-    return render(request,'hospital/Admin/yourhealth_adm.html')
-
-
-def login_adm_view(request):
-    if request.method=="POST":
-        form = AuthenticationForm(request=request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = auth.authenticate(username=username, password=password)
-            if user is not None and check_admin(user):
-                auth.login(request, user)
-                return redirect('dashboard_adm.html')
-        return render(request, 'hospital/Admin/login_adm.html', {'form': form})
-    else: 
-        form = AuthenticationForm()
-                
-    return render(request, 'hospital/Admin/login_adm.html', {'form': form})
-
-def register_adm_view(request):
-    if request.method=="POST":
-        form = AdminRegisterForm(request.POST, request.FILES)
-        if form.is_valid():
-            nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))
-            adm = Admin(user=nu,firstname=form.cleaned_data.get('firstname'),
-                        lastname=form.cleaned_data.get('lastname'),
-                        age=form.cleaned_data.get('age'),
-                        dob=form.cleaned_data.get('dob'),
-                        address=form.cleaned_data.get('address'),
-                        city=form.cleaned_data.get('city'),
-                        country=form.cleaned_data.get('country'),
-                        postalcode=form.cleaned_data.get('postalcode'),
-                        image=request.FILES['image']
-                        )
-            adm.save()
-            mpg = Group.objects.get_or_create(name='ADMIN')
-            mpg[0].user_set.add(nu)
-            return redirect('login_adm.html')
-        else:
-            print(form.errors)
-    else: 
-        form = AdminRegisterForm()
-    
-    return render(request,'hospital/Admin/register_adm.html',{'form': form})
-
-@login_required
-def patient_adm_view(request):
-    pat = Patient.objects.all().filter(status=False)
-    patapp = Patient.objects.all().filter(status=False).count()
-    patcount=Patient.objects.all().count()
-    dic={'pat':pat,'patcount':patcount,'patapp':patapp}
-    return render(request,'hospital/Admin/patient_adm.html',context=dic)
-
-@login_required
-def doctor_adm_view(request):
-    doc = Doctor.objects.all().filter(status=False)
-    doccount=Doctor.objects.all().count()
-    dic={'doc':doc,'doccount':doccount}
-    return render(request,'hospital/Admin/doctor_adm.html',context=dic)
-
-@login_required
-def approve_pat_view(request):
-    pat = Patient.objects.all().filter(status=False)
-    return render(request,'hospital/Admin/approve_pat.html',{'pat':pat})
-
-@login_required
-def approve_doc_view(request):
-    doc = Doctor.objects.all().filter(status=False)
-    return render(request,'hospital/Admin/approve_doc.html',{'doc':doc})
-
-@login_required
-def approve_patient_view(request,pk):
-    patient=Patient.objects.get(id=pk)
-    patient.status=True
-    patient.save()
-    return redirect(reverse('approve_pat.html'))
-
-@login_required
-def approve_doctor_view(request,pk):
-    doctor=Doctor.objects.get(id=pk)
-    doctor.status=True
-    doctor.save()
-    return redirect(reverse('approve_doc.html'))
-
-
-@login_required
-def approve_appoint_view(request):
-    #those whose approval are needed
-    det=[]
-    for c in Appointment.objects.filter(status=False).all():
-        d=Doctor.objects.filter(id=c.doctorId).first()
-        p=Patient.objects.filter(id=c.patientId).first()
-        if d and p:
-            det.append([d.firstname,p.firstname,c.description,c.appointmentDate,c.id])
-    return render(request,'hospital/Admin/approve_appoint.html',{'app':det})
-
-@login_required
-def approve_app_view(request,pk):
-    appointment=Appointment.objects.get(id=pk)
-    appointment.status=True
-    appointment.save()
-    return redirect(reverse('approve_appoint.html'))
-
 @login_required
 def doc_approve_appoint_view(request):
     #those whose approval are needed from a particular Doctor
@@ -420,24 +446,6 @@ def doc_approve_app_view(request,pk):
     appointment.save()
     return redirect(reverse('bookapp_doc.html'))
 
-
-
-@login_required
-def profile_adm_view(request):
-    adm = Admin.objects.filter(user_id=request.user.id).first()
-    #return render(request,'hospital/Doctor/profile_doc.html',{'doc':doc})
-    if request.method=="POST":
-        p_form = AdminUpdateForm(request.POST, request.FILES, instance=adm)
-        if p_form.is_valid():
-            p_form.save()
-            return redirect('profile_adm.html')
-    else:
-        p_form = AdminUpdateForm(instance=adm)
-    context = {
-        'p_form': p_form,
-        'adm': adm
-     }
-    return render(request,'hospital/Admin/profile_adm.html',context)
 
 
 
