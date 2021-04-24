@@ -14,6 +14,21 @@
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <script>
+      {% for p in app %}
+      function f_{{ p.3 }}() {
+        var v1 = document.getElementById('link_{{ p.3 }}');
+        var v2 = document.getElementById('date_{{ p.3 }}');
+        var v3 = document.getElementById('time_{{ p.3 }}');
+        console.log(v1.value);
+        console.log(v2.value);
+        console.log(v3.value);
+        document.getElementById('link_{{ p.3 }}').value='';
+        document.getElementById('date_{{ p.3 }}').value='';
+        document.getElementById('time_{{ p.3 }}').value='';   
+      }
+      {% endfor %}    
+  </script>
   <!-- CSS Files -->
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
   <style media="screen">
@@ -291,10 +306,10 @@ td {
                                         <td class="sps">{{ p.2 }}</td>
                                         <form method="POST" enctype="multipart/form-data">
                                           {% csrf_token %}
-                                        <td class="sps"><input type="Date" name="date"></td>
-                                        <td class="sps"><input type="Time" name="time"></td>
-                                        <td class="sps"><input type="text" name="link"></td>
-                                        <td><a class="btn btn-primary btn-xs" type="submit">Save</a></td>
+                                        <td class="sps"><input type="Date" id="date_{{ p.3 }}" name="date"></td>
+                                        <td class="sps"><input type="Time" id="time_{{ p.3 }}" name="time"></td>
+                                        <td class="sps"><input type="text" id="link_{{ p.3 }}" name="link"></td>
+                                        <td><a class="btn btn-primary btn-xs" onclick="f_{{ p.3 }}()" type="submit">Save</a></td>
                                         </form>
                                     </tr>
                                     {% endfor %}

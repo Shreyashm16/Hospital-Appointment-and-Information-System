@@ -352,7 +352,7 @@ def bookapp_doc_view(request):
     for c in Appointment.objects.filter(status=True,doctorId=doc.id).all():
         p=Patient.objects.filter(id=c.patientId).first()
         if p:
-            det.append([p.firstname,c.description,c.appointmentDate,c.link])
+            det.append([p.firstname,c.description,c.appointmentDate,c.pk])
     if request.method=="POST":
         p_form = PatientAppointmentForm(request.POST, request.FILES, instance=doc)
         if p_form.is_valid():
