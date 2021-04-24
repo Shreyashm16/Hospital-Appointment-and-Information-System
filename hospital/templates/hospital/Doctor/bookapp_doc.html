@@ -280,15 +280,19 @@ td {
                                     <tr class="sps">
                                         <th class="sps">Patient Name </th>
                                         <th class="sps">Description </th>
-                                        <th class="sps">Date</th>
-                                        <th class="sps">Link</th>
+                                        <th class="sps">Appointment Date</th>
+                                        <th class="sps">Call Date</th>
+                                        <th class="sps">Call Time</th>
+                                        <th class="sps">Approve</th>
                                     </tr>
                                     {% for p in app %}
                                     <tr>
                                         <td class="sps">{{ p.0 }}</td>
                                         <td class="sps">{{ p.1 }}</td>
                                         <td class="sps">{{ p.2 }}</td>
-                                        <td class="sps">{{ p.3 }}</td>
+                                        <td class="sps"><form><input type="Date" name="date"></form></td>
+                                        <td class="sps"><form><input type="time" name="time"></form></td>
+                                        <td><a class="btn btn-primary btn-xs">Approve</a></td>
                                     </tr>
                                     {% endfor %}
 
