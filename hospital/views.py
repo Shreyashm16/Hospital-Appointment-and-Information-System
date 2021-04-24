@@ -241,70 +241,98 @@ def profile_adm_view(request):
 
 # Paitent Related Views
 
+
+@login_required(login_url='login_pat.html')
 def dash_view(request):
-    patient=Patient.objects.get(user_id=request.user.id)
-    doctor=Doctor.objects.get(user_id=patient.assignedDoctorId)
-    mydict={
-    'patient':patient,
-    'doctorName':doctor.firstname,
-    'doctorpostal':doctor.postalcode,
-    'doctorAddress':doctor.address,
-    'symptoms':patient.symptoms,
-    'doctorDepartment':doctor.department,
-    'admitDate':patient.admitDate,
-    }
-    return render(request,'hospital/Patient/dashboard.html',context=mydict)
-
-@login_required
-def bookapp_view(request):
-    pat = Patient.objects.filter(user_id=request.user.id).first()
-    if request.method=="POST":
-        appointmentForm = PatientAppointmentForm(request.POST)
-        if appointmentForm.is_valid():
-            docid=int(appointmentForm.cleaned_data.get('doctorId'))
-            doc = Doctor.objects.all().filter(id=docid).first()
-            app = Appointment(patientId=pat.id,doctorId=doc.id,
-                                description=appointmentForm.cleaned_data.get('description'),
-                                appointmentDate=appointmentForm.cleaned_data.get('appointmentDate'),
-                                status=False)
-            app.save()
-            return redirect('bookapp.html')
-        else:
-            print(appointmentForm.errors)
+    if check_patient(request.user):
+        patient=Patient.objects.get(user_id=request.user.id)
+        doctor=Doctor.objects.get(user_id=patient.assignedDoctorId)
+        mydict={
+        'patient':patient,
+        'doctorName':doctor.firstname,
+        'doctorpostal':doctor.postalcode,
+        'doctorAddress':doctor.address,
+        'symptoms':patient.symptoms,
+        'doctorDepartment':doctor.department,
+        'admitDate':patient.admitDate,
+        }
+        return render(request,'hospital/Patient/dashboard.html',context=mydict)
     else:
-        appointmentForm = PatientAppointmentForm()
-    return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm})
+        auth.logout(request)
+        return redirect('login_pat.html')
 
-@login_required
+@login_required(login_url='login_pat.html')
+def bookapp_view(request):
+    if check_patient(request.user):
+        pat = Patient.objects.filter(user_id=request.user.id).first()
+        if request.method=="POST":
+            appointmentForm = PatientAppointmentForm(request.POST)
+            if appointmentForm.is_valid():
+                docid=int(appointmentForm.cleaned_data.get('doctorId'))
+                doc = Doctor.objects.all().filter(id=docid).first()
+                app = Appointment(patientId=pat.id,doctorId=doc.id,
+                                    description=appointmentForm.cleaned_data.get('description'),
+                                    appointmentDate=appointmentForm.cleaned_data.get('appointmentDate'),
+                                    status=False)
+                app.save()
+                return redirect('bookapp.html')
+            else:
+                print(appointmentForm.errors)
+        else:
+            appointmentForm = PatientAppointmentForm()
+        return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm})
+    else:
+        auth.logout(request)
+        return redirect('login_pat.html')
+
+@login_required(login_url='login_pat.html')
 def pat_appointment_view(request):
-    pat=Patient.objects.get(user_id=request.user.id)
-    det=[]
-    for c in Appointment.objects.filter(status=True,patientId=pat.id).all():
-        d=Doctor.objects.filter(id=c.doctorId).first()
-        p=Patient.objects.filter(id=c.patientId).first()
-        if d and p:
-            det.append([d.firstname,p.firstname,c.description,c.appointmentDate])
-    return render(request,'hospital/Patient/appoint_view_pat.html',{'app':det})
+    if check_patient(request.user):
+        pat=Patient.objects.get(user_id=request.user.id)
+        det=[]
+        for c in Appointment.objects.filter(status=True,patientId=pat.id).all():
+            d=Doctor.objects.filter(id=c.doctorId).first()
+            p=Patient.objects.filter(id=c.patientId).first()
+            if d and p:
+                det.append([d.firstname,p.firstname,c.description,c.appointmentDate])
+        return render(request,'hospital/Patient/appoint_view_pat.html',{'app':det})
+    else:
+        auth.logout(request)
+        return redirect('login_pat.html')
 
-
+@login_required(login_url='login_pat.html')
 def calladoc_view(request):
-    return render(request,'hospital/Patient/calladoc.html')
-def feedback_view(request):
-    return render(request,'hospital/Patient/feedback.html')
-def feedback_view(request):
-    sub = forms.ContactusForm()
-    if request.method == 'POST':
-        sub = forms.ContactusForm(request.POST)
-        if sub.is_valid():
-            email = sub.cleaned_data['Email']
-            name=sub.cleaned_data['Name']
-            message = sub.cleaned_data['Message']
-            send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
-            return render(request, 'hospital/Home/home.html')
-    return render(request, 'hospital/Patient/feedback.html', {'form':sub})
+    if check_patient(request.user):
+        return render(request,'hospital/Patient/calladoc.html')
+    else:
+        auth.logout(request)
+        return redirect('login_pat.html')
 
+
+@login_required(login_url='login_pat.html')
+def feedback_view(request):
+    if check_patient(request.user):
+        sub = forms.ContactusForm()
+        if request.method == 'POST':
+            sub = forms.ContactusForm(request.POST)
+            if sub.is_valid():
+                email = sub.cleaned_data['Email']
+                name=sub.cleaned_data['Name']
+                message = sub.cleaned_data['Message']
+                send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
+                return render(request, 'hospital/Home/home.html')
+        return render(request, 'hospital/Patient/feedback.html', {'form':sub})
+    else:
+        auth.logout(request)
+        return redirect('login_pat.html')
+
+@login_required(login_url='login_pat.html')
 def medicalreport_view(request):
-    return render(request,'hospital/Patient/medicalreport.html')
+    if check_patient(request.user):
+        return render(request,'hospital/Patient/medicalreport.html')
+    else:
+        auth.logout(request)
+        return redirect('login_pat.html')
 
 def login_pat_view(request):
     if request.method=="POST":
@@ -353,76 +381,101 @@ def register_pat_view(request):
     
     return render(request,'hospital/Patient/register_pat.html',{'form': form})
 
-@login_required
+@login_required(login_url='login_pat.html')
 def profile_pat_view(request):
-    pat = Patient.objects.filter(user_id=request.user.id).first()
-    #return render(request,'hospital/Doctor/profile_doc.html',{'doc':doc})
-    if request.method=="POST":
-        p_form = PatientUpdateForm(request.POST, request.FILES, instance=pat)
-        if p_form.is_valid():
-            p_form.save()
-            return redirect('profile_pat.html')
+    if check_patient(request.user):
+        pat = Patient.objects.filter(user_id=request.user.id).first()
+        #return render(request,'hospital/Doctor/profile_doc.html',{'doc':doc})
+        if request.method=="POST":
+            p_form = PatientUpdateForm(request.POST, request.FILES, instance=pat)
+            if p_form.is_valid():
+                p_form.save()
+                return redirect('profile_pat.html')
+        else:
+            p_form = PatientUpdateForm(instance=pat)
+        context = {
+            'p_form': p_form,
+            'pat': pat
+        }
+        return render(request,'hospital/Patient/profile_pat.html',context)
     else:
-        p_form = PatientUpdateForm(instance=pat)
-    context = {
-        'p_form': p_form,
-        'pat': pat
-     }
-    return render(request,'hospital/Patient/profile_pat.html',context)
+        auth.logout(request)
+        return redirect('login_pat.html')
 
+@login_required(login_url='login_pat.html')
 def yourhealth_view(request):
-    return render(request,'hospital/Patient/yourhealth.html')
+    if check_patient(request.user):
+        return render(request,'hospital/Patient/yourhealth.html')
+    else:
+        auth.logout(request)
+        return redirect('login_pat.html')
 
 
 # Doctor Related Views
 
+@login_required(login_url='login_doc.html')
 def dash_doc_view(request):
-    doc=Doctor.objects.get(user_id=request.user.id)
-    patcount=models.Patient.objects.all().filter(status=True,assignedDoctorId=request.user.id).count()
-    appcount=models.Appointment.objects.all().filter(status=True,doctorId=request.user.id).count()
-    det=[]
-    for c in Appointment.objects.filter(status=False,doctorId=doc.id).all():
-        p=Patient.objects.filter(id=c.patientId).first()
-        if p:
-            det.append([p.firstname,c.description,c.appointmentDate,c.link,c.id])
-    return render(request,'hospital/Doctor/dashboard_doc.html',{'app':det,'patcount':patcount,'appcount':appcount})
+    if check_doctor(request.user):
+        doc=Doctor.objects.get(user_id=request.user.id)
+        patcount=models.Patient.objects.all().filter(status=True,assignedDoctorId=request.user.id).count()
+        appcount=models.Appointment.objects.all().filter(status=True,doctorId=request.user.id).count()
+        det=[]
+        for c in Appointment.objects.filter(status=False,doctorId=doc.id).all():
+            p=Patient.objects.filter(id=c.patientId).first()
+            if p:
+                det.append([p.firstname,c.description,c.appointmentDate,c.link,c.id])
+        return render(request,'hospital/Doctor/dashboard_doc.html',{'app':det,'patcount':patcount,'appcount':appcount})
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
 
-@login_required
+@login_required(login_url='login_doc.html')
 def dash_doc_approve_view(request,pk):
-    appointment=Appointment.objects.get(id=pk)
-    appointment.status=True
-    appointment.save()
-    return redirect(reverse('dashboard_doc.html'))
+    if check_doctor(request.user):
+        appointment=Appointment.objects.get(id=pk)
+        appointment.status=True
+        appointment.save()
+        return redirect(reverse('dashboard_doc.html'))
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
 
-
+@login_required(login_url='login_doc.html')
 def bookapp_doc_view(request):
-    doc=Doctor.objects.get(user_id=request.user.id)
-    det=[]
-    for c in Appointment.objects.filter(status=True,doctorId=doc.id).all():
-        p=Patient.objects.filter(id=c.patientId).first()
-        if p:
-            det.append([p.firstname,c.description,c.appointmentDate,c.pk])
-    if request.method=="POST":
-        p_form = PatientAppointmentForm(request.POST, request.FILES, instance=doc)
-        if p_form.is_valid():
-            p_form.save()
-            return redirect('profile_doc.html')
-    return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det})
+    if check_doctor(request.user):
+        doc=Doctor.objects.get(user_id=request.user.id)
+        det=[]
+        for c in Appointment.objects.filter(status=True,doctorId=doc.id).all():
+            p=Patient.objects.filter(id=c.patientId).first()
+            if p:
+                det.append([p.firstname,c.description,c.appointmentDate,c.pk])
+        if request.method=="POST":
+            p_form = PatientAppointmentForm(request.POST, request.FILES, instance=doc)
+            if p_form.is_valid():
+                p_form.save()
+                return redirect('profile_doc.html')
+        return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det})
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
 
-
+@login_required(login_url='login_doc.html')
 def feedback_doc_view(request):
-    return render(request,'hospital/Doctor/feedback_doc.html')
-def feedback_doc_view(request):
-    sub = forms.ContactusForm()
-    if request.method == 'POST':
-        sub = forms.ContactusForm(request.POST)
-        if sub.is_valid():
-            email = sub.cleaned_data['Email']
-            name=sub.cleaned_data['Name']
-            message = sub.cleaned_data['Message']
-            send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
-            return render(request, 'hospital/Home/home.html')
-    return render(request, 'hospital/Doctor/feedback_doc.html', {'form':sub})
+    if check_doctor(request.user):
+        sub = forms.ContactusForm()
+        if request.method == 'POST':
+            sub = forms.ContactusForm(request.POST)
+            if sub.is_valid():
+                email = sub.cleaned_data['Email']
+                name=sub.cleaned_data['Name']
+                message = sub.cleaned_data['Message']
+                send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
+                return render(request, 'hospital/Home/home.html')
+        return render(request, 'hospital/Doctor/feedback_doc.html', {'form':sub})
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
+    
 def login_doc_view(request):
     if request.method=="POST":
         form = AuthenticationForm(request=request, data=request.POST)
@@ -472,48 +525,69 @@ def register_doc_view(request):
 
 
 
-@login_required
+@login_required(login_url='login_doc.html')
 def profile_doc_view(request):
-    doc = Doctor.objects.filter(user_id=request.user.id).first()
-    #return render(request,'hospital/Doctor/profile_doc.html',{'doc':doc})
-    if request.method=="POST":
-        p_form = DoctorUpdateForm(request.POST, request.FILES, instance=doc)
-        if p_form.is_valid():
-            p_form.save()
-            return redirect('profile_doc.html')
+    if check_doctor(request.user):
+        doc = Doctor.objects.filter(user_id=request.user.id).first()
+        #return render(request,'hospital/Doctor/profile_doc.html',{'doc':doc})
+        if request.method=="POST":
+            p_form = DoctorUpdateForm(request.POST, request.FILES, instance=doc)
+            if p_form.is_valid():
+                p_form.save()
+                return redirect('profile_doc.html')
+        else:
+            p_form = DoctorUpdateForm(instance=doc)
+        context = {
+            'p_form': p_form,
+            'doc': doc
+        }
+        return render(request,'hospital/Doctor/profile_doc.html',context)
     else:
-        p_form = DoctorUpdateForm(instance=doc)
-    context = {
-        'p_form': p_form,
-        'doc': doc
-     }
-    return render(request,'hospital/Doctor/profile_doc.html',context)
+        auth.logout(request)
+        return redirect('login_doc.html')
     
-
+@login_required(login_url='login_doc.html')
 def yourhealth_doc_view(request):
-    return render(request,'hospital/Doctor/yourhealth_doc.html')
+    if check_doctor(request.user):
+        return render(request,'hospital/Doctor/yourhealth_doc.html')
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
 
+@login_required(login_url='login_doc.html')
 def medicalreport_doc_view(request):
-    return render(request,'hospital/Doctor/medicalreport_doc.html')
+    if check_doctor(request.user):
+        return render(request,'hospital/Doctor/medicalreport_doc.html')
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
 
-@login_required
+@login_required(login_url='login_doc.html')
 def doc_approve_appoint_view(request):
-    #those whose approval are needed from a particular Doctor
-    doc=Doctor.objects.get(user_id=request.user.id)
-    det=[]
-    for c in Appointment.objects.filter(status=False,doctorId=doc.id).all():
-        d=Doctor.objects.filter(id=c.doctorId).first()
-        p=Patient.objects.filter(id=c.patientId).first()
-        if d and p:
-            det.append([p.firstname,c.description,c.appointmentDate,c.id])
-    return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det})
+    if check_doctor(request.user):
+        #those whose approval are needed from a particular Doctor
+        doc=Doctor.objects.get(user_id=request.user.id)
+        det=[]
+        for c in Appointment.objects.filter(status=False,doctorId=doc.id).all():
+            d=Doctor.objects.filter(id=c.doctorId).first()
+            p=Patient.objects.filter(id=c.patientId).first()
+            if d and p:
+                det.append([p.firstname,c.description,c.appointmentDate,c.id])
+        return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det})
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
 
-@login_required
+@login_required(login_url='login_doc.html')
 def doc_approve_app_view(request,pk):
-    appointment=Appointment.objects.get(id=pk)
-    appointment.status=True
-    appointment.save()
-    return redirect(reverse('bookapp_doc.html'))
+    if check_doctor(request.user):
+        appointment=Appointment.objects.get(id=pk)
+        appointment.status=True
+        appointment.save()
+        return redirect(reverse('bookapp_doc.html'))
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
 
 
 
@@ -529,13 +603,17 @@ def home_view(request):
 def login_view(request):
     return render(request,'hospital/Home/login.html')
 
-@login_required
+@login_required(login_url='login_pat.html')
 def bill_view(request):
-    pat = Patient.objects.filter(user_id=request.user.id).first()
-    context = {
-        'pat': pat
-     }
-    return render(request,'hospital/Patient/bill.html',context)
+    if check_doctor(request.user):
+        pat = Patient.objects.filter(user_id=request.user.id).first()
+        context = {
+            'pat': pat
+        }
+        return render(request,'hospital/Patient/bill.html',context)
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
     
 
 
