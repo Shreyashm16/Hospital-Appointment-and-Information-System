@@ -193,7 +193,18 @@ def profile_adm_view(request):
 # Paitent Related Views
 
 def dash_view(request):
-    return render(request,'hospital/Patient/dashboard.html')
+    patient=Patient.objects.get(user_id=request.user.id)
+    doctor=Doctor.objects.get(user_id=patient.assignedDoctorId)
+    mydict={
+    'patient':patient,
+    'doctorName':doctor.firstname,
+    'doctorpostal':doctor.postalcode,
+    'doctorAddress':doctor.address,
+    'symptoms':patient.symptoms,
+    'doctorDepartment':doctor.department,
+    'admitDate':patient.admitDate,
+    }
+    return render(request,'hospital/Patient/dashboard.html',context=mydict)
 
 @login_required
 def bookapp_view(request):

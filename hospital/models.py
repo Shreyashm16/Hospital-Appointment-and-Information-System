@@ -65,6 +65,8 @@ class Patient(models.Model):
     postalcode = models.IntegerField(default=0)
     symptoms = models.CharField(max_length=100,default="fever")
     status=models.BooleanField(default=False)
+    assignedDoctorId = models.PositiveIntegerField(null=True)
+    admitDate=models.DateField(auto_now=True)
     def __str__(self):
         return f'{self.user.username} Patient Profile'
 
