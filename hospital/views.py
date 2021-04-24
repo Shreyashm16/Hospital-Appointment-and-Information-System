@@ -329,12 +329,14 @@ def yourhealth_view(request):
 
 def dash_doc_view(request):
     doc=Doctor.objects.get(user_id=request.user.id)
+    patcount=models.Patient.objects.all().filter(status=True,assignedDoctorId=request.user.id).count()
+    appcount=models.Appointment.objects.all().filter(status=True,doctorId=request.user.id).count()
     det=[]
     for c in Appointment.objects.filter(status=False,doctorId=doc.id).all():
         p=Patient.objects.filter(id=c.patientId).first()
         if p:
             det.append([p.firstname,c.description,c.appointmentDate,c.link,c.id])
-    return render(request,'hospital/Doctor/dashboard_doc.html',{'app':det})
+    return render(request,'hospital/Doctor/dashboard_doc.html',{'app':det,'patcount':patcount,'appcount':appcount})
 
 @login_required
 def dash_doc_approve_view(request,pk):
