@@ -63,8 +63,6 @@ def bookapp_adm_view(request):
             doc = Doctor.objects.all().filter(id=docid).first()
             pat = Patient.objects.all().filter(id=patid).first()
             app = Appointment(patientId=patid,doctorId=docid,
-                                patientName=pat.firstname,
-                                doctorName=doc.firstname,
                                 description=appointmentForm.cleaned_data.get('description'),
                                 appointmentDate=appointmentForm.cleaned_data.get('appointmentDate'),
                                 status=True)
