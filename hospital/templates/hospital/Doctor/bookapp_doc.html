@@ -289,16 +289,13 @@ td {
                                         <td class="sps">{{ p.0 }}</td>
                                         <td class="sps">{{ p.1 }}</td>
                                         <td class="sps">{{ p.2 }}</td>
-                                        <td class="sps"><form><input type="Date" name="date"></form></td>
-                                        <td class="sps"><form><input type="time" name="time"></form></td>
                                         <form method="POST" enctype="multipart/form-data">
                                           {% csrf_token %}
-                                        <td class="sps"><form><input type="link" name="link" placeholder="Paste the link here"></form></td>
-                                         {{ p_form.link|add_class:"form-control form-control-alternative" }}
-                                         {{ p_form.link.errors }}
-                                         <div class="form-group">
+                                        <td class="sps"><input type="Date" name="date"></td>
+                                        <td class="sps"><input type="Time" name="time"></td>
+                                        <td class="sps"><input type="text" name="link"></td>
                                         <td><a class="btn btn-primary btn-xs" type="submit">Save</a></td>
-                                        </div>
+                                        </form>
                                     </tr>
                                     {% endfor %}
 

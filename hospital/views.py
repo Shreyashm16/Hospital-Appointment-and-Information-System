@@ -4,7 +4,7 @@ from . import forms,models
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
-from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm
+from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,LinkUpdateForm
 from django.contrib.auth.forms import AuthenticationForm
 from hospital.models import Doctor,Admin,Patient,Appointment,User
 from django.contrib import auth
@@ -345,6 +345,7 @@ def dash_doc_approve_view(request,pk):
     appointment.save()
     return redirect(reverse('dashboard_doc.html'))
 
+
 def bookapp_doc_view(request):
     doc=Doctor.objects.get(user_id=request.user.id)
     det=[]
@@ -358,6 +359,7 @@ def bookapp_doc_view(request):
             p_form.save()
             return redirect('profile_doc.html')
     return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det})
+
 
 def feedback_doc_view(request):
     return render(request,'hospital/Doctor/feedback_doc.html')

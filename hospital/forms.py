@@ -245,3 +245,10 @@ class AdminAppointmentForm(forms.ModelForm):
     class Meta:
         model=Appointment
         fields=['description']
+
+class LinkUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        fields=['link','calldate','calltime']
+        
+
