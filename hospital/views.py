@@ -352,6 +352,11 @@ def bookapp_doc_view(request):
         p=Patient.objects.filter(id=c.patientId).first()
         if p:
             det.append([p.firstname,c.description,c.appointmentDate,c.link])
+    if request.method=="POST":
+        p_form = PatientAppointmentForm(request.POST, request.FILES, instance=doc)
+        if p_form.is_valid():
+            p_form.save()
+            return redirect('profile_doc.html')
     return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det})
 
 def feedback_doc_view(request):

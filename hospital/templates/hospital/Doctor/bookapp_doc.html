@@ -142,14 +142,13 @@
     }
 
 
-
     .market-update-left {
       padding: 0px;
     }
     .column {
   float: left;
   width: 25%;
-  padding: 30px;
+  padding: 20px;
 }
 
 
@@ -216,7 +215,6 @@ td {
     <div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static 'assets/img/sidebar-2.jpg'%}">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
         Tip 2: you can also add an image using data-image tag
     -->
     <div class="logo"><a href="#" class="simple-text logo-normal">
@@ -283,7 +281,8 @@ td {
                                         <th class="sps">Appointment Date</th>
                                         <th class="sps">Call Date</th>
                                         <th class="sps">Call Time</th>
-                                        <th class="sps">Approve</th>
+                                        <th class="sps">Link Issued</th>
+                                        <th class="sps">Save Details</th>
                                     </tr>
                                     {% for p in app %}
                                     <tr>
@@ -292,15 +291,24 @@ td {
                                         <td class="sps">{{ p.2 }}</td>
                                         <td class="sps"><form><input type="Date" name="date"></form></td>
                                         <td class="sps"><form><input type="time" name="time"></form></td>
-                                        <td><a class="btn btn-primary btn-xs">Approve</a></td>
+                                        <form method="POST" enctype="multipart/form-data">
+                                          {% csrf_token %}
+                                        <td class="sps"><form><input type="link" name="link" placeholder="Paste the link here"></form></td>
+                                         {{ p_form.link|add_class:"form-control form-control-alternative" }}
+                                         {{ p_form.link.errors }}
+                                         <div class="form-group">
+                                        <td><a class="btn btn-primary btn-xs" type="submit">Save</a></td>
+                                        </div>
                                     </tr>
                                     {% endfor %}
 
                             </table>
                         </div>
                     </center>
+                    <br>
+                    <br>
                 </div>
-
+              </div> <a class="btn btn-primary btn-round btn-lg"href="https://camus.chat/" target="_blank"><b>Create Link</b></a> </div>
             </div>
 
         </div>
