@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
 from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,LinkUpdateForm
 from django.contrib.auth.forms import AuthenticationForm
-from hospital.models import Doctor,Admin,Patient,Appointment,User
+from hospital.models import Doctor,Admin,Patient,Appointment,User,PatBasicInfo,PatDisease
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 
@@ -405,7 +405,10 @@ def profile_pat_view(request):
 @login_required(login_url='login_pat.html')
 def yourhealth_view(request):
     if check_patient(request.user):
-        return render(request,'hospital/Patient/yourhealth.html')
+        pat = Patient.objects.filter(user_id=request.user.id).first()
+        info=PatBasicInfo.objects.filter(patientId=pat.id).first()
+        diseases=PatDisease.objects.filter(patientId=pat.id).all()
+        return render(request,'hospital/Patient/yourhealth.html',{'info':info,'pat':pat,'diseases':diseases})
     else:
         auth.logout(request)
         return redirect('login_pat.html')

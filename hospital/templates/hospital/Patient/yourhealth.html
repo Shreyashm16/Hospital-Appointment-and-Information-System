@@ -146,16 +146,16 @@
       <div class="container">
         <div class="box">
           <h1 style="font-size: 30px; color: #ff0066">Basic Information</h1><hr><br>
-          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> Height: </p>
-          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> Weight: </p>
-          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> Age: </p>
+          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> <b>Height:</b> {{ info.height }} cm</p>
+          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> <b>Weight:</b> {{ info.weight}} kg</p>
+          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> <b>Age:</b> {{ pat.age }} years</p>
         </div>
         <br><br>
         <div class="box">
           <h1 style="font-size: 30px; color: #ff0066">Diseases</h1><hr><br>
-          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> Disease 1</p>
-          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> Disease 2</p>
-          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> Disease 3</p>
+          {% for dis in diseases %}
+            <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> {{ dis.disease }} </p>
+          {% endfor %}
         </div>
         <br><br>
         <div class="box">
