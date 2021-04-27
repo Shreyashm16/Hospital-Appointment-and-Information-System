@@ -35,9 +35,13 @@ Features to Include :
 ## Problem Modules
 
 Module 1 : Creation of Basic outline structure of the Project (Static files generation, linking with Backend,etc)
+
 Module 2 : Almost completion of front-end part, Form Creations,etc.
+
 Module 3: Database linking of app & completion of left-over Backend Functionalities.
+
 Module 4: Deployment & Hosting on a Web Server.
+
 
 ## Functions
 
