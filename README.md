@@ -56,11 +56,6 @@ Module 3: Database linking of app & completion of left-over Backend Functionalit
 
 Module 4: Deployment & Hosting on a Web Server.
 
-
-## Functions
-
-
-
 ## HOW TO RUN THIS PROJECT
 
 * Install Python(3.7.6) (Dont Forget to Tick Add to Path while installing Python).
