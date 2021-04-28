@@ -516,7 +516,7 @@ def bookapp_doc_link_view(request,pk,date,time,link):
         appointment=Appointment.objects.get(id=pk)
         appointment.calldate=date
         appointment.calltime=time
-        appointment.link=link
+        appointment.link='https://camus.chat/room/'+link
         appointment.save()
         return redirect(reverse('bookapp_doc.html'))
     else:
