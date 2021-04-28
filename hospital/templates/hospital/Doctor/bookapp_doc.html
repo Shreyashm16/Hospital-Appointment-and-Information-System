@@ -20,10 +20,17 @@
         var v1 = document.getElementById('link_{{ p.3 }}');
         var v2 = document.getElementById('date_{{ p.3 }}');
         var v3 = document.getElementById('time_{{ p.3 }}');
+        var link = String(v1.value);
+        var date = String(v2.value);
+        var time = String(v3.value);
         console.log(v1.value);
         console.log(v2.value);
         console.log(v3.value);
-        var finhref = {% url 'add_link' p.4 v2.value v3.value v1.value %}+v2.value+v3.value+v1.value;
+        var finhref = "{% url 'add_link' p.3 p.2 '06:00:00' p.0 %}".replace(/{{ p.0 }}/, link);
+        finhref = finhref.replace(/{{ p.2 }}/, date);
+        finhref = finhref.replace(/06:00:00/, time);
+        console.log(finhref);
+        window.location.href = finhref;
         document.getElementById('link_{{ p.3 }}').value='';
         document.getElementById('date_{{ p.3 }}').value='';
         document.getElementById('time_{{ p.3 }}').value='';   
@@ -305,13 +312,14 @@ td {
                                         <td class="sps">{{ p.0 }}</td>
                                         <td class="sps">{{ p.1 }}</td>
                                         <td class="sps">{{ p.2 }}</td>
-                                        <form method="POST" enctype="multipart/form-data">
-                                          {% csrf_token %}
+                    
                                         <td class="sps"><input type="Date" id="date_{{ p.3 }}" name="date"></td>
                                         <td class="sps"><input type="Time" id="time_{{ p.3 }}" name="time"></td>
                                         <td class="sps"><input type="text" id="link_{{ p.3 }}" name="link"></td>
-                                        <td><a class="btn btn-primary btn-xs" onclick="f_{{ p.3 }}()" type="submit">Save</a></td>
-                                        </form>
+                                        <td><a class="btn btn-primary btn-xs" onclick="f_{{p.3}}()">Save</a></td>
+                                        
+                                  
+                                        
                                     </tr>
                                     {% endfor %}
 
