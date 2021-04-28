@@ -4,9 +4,9 @@ from . import forms,models
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
-from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,LinkUpdateForm
+from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,LinkUpdateForm,YourHealthEditForm
 from django.contrib.auth.forms import AuthenticationForm
-from hospital.models import Doctor,Admin,Patient,Appointment,User
+from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 
@@ -405,10 +405,61 @@ def profile_pat_view(request):
 @login_required(login_url='login_pat.html')
 def yourhealth_view(request):
     if check_patient(request.user):
-        return render(request,'hospital/Patient/yourhealth.html')
+        pat = Patient.objects.filter(user_id=request.user.id).first()
+        info=PatHealth.objects.filter(patientId=pat.id).first()
+        return render(request,'hospital/Patient/yourhealth.html',{'info':info,'pat':pat})
     else:
         auth.logout(request)
         return redirect('login_pat.html')
+
+
+@login_required(login_url='login_pat.html')
+def edityourhealth_view(request):
+    if check_patient(request.user):
+        pat = Patient.objects.filter(user_id=request.user.id).first()
+        info=PatHealth.objects.filter(patientId=pat.id).first()
+        if request.method=="POST":
+            p_form = YourHealthEditForm(request.POST, instance=pat)
+            if p_form.is_valid():
+                info.height=p_form.cleaned_data.get('height')
+                info.weight=p_form.cleaned_data.get('weight')
+                info.diseases=p_form.cleaned_data.get('diseases')
+                info.medicines=p_form.cleaned_data.get('medicines')
+                info.save()
+                return render(request,'hospital/Patient/yourhealth.html',{'info':info,'pat':pat})
+        else:
+            p_form = YourHealthEditForm(instance=pat)
+            p_form.fields['height'].initial = info.height
+            p_form.fields['weight'].initial = info.weight
+            p_form.fields['diseases'].initial = info.diseases
+            p_form.fields['medicines'].initial = info.medicines
+            p_form.fields['ts'].initial = info.ts
+            context = {
+                'p_form': p_form,
+                'info':info,
+                'pat':pat
+            }
+            return render(request,'hospital/Patient/edityourhealth.html',context)
+    else:
+        auth.logout(request)
+        return redirect('login_pat.html')
+
+def Saveforms(request):
+    lenth =  request.POST['totallength']
+    if request.POST:
+        i = 0
+        for index in range(i,int(lenth)):
+            dis = ""
+            flag=0
+            if 'disease'+str(index) in request.POST:
+                dis = request.POST['disease'+str(index)]
+                flag = 1
+
+            if flag == 1: 
+                pat = Patient.objects.filter(user_id=request.user.id).first()
+                PatDisease.objects.create(patientId=pat.id,disease=dis)               
+
+    return HttpResponseRedirect("/dynamicform/Manageforms/")
 
 
 # Doctor Related Views

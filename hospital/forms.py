@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from . import models
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
-from .models import Doctor,Admin,Patient,Appointment
+from .models import Doctor,Admin,Patient,Appointment,PatHealth
 import datetime
 from django.forms.widgets import SelectDateWidget
 
@@ -209,10 +209,9 @@ class PatientUpdateForm(forms.ModelForm):
     country = forms.CharField()
     postalcode = forms.IntegerField()
     image = forms.ImageField(widget=forms.FileInput)
-    symptoms = forms.CharField()
     class Meta:
         model = Patient
-        fields = ['firstname', 'lastname','symptoms', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image']
+        fields = ['firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image']
 
 
 class PatientAppointmentForm(forms.ModelForm):   
@@ -250,5 +249,16 @@ class LinkUpdateForm(forms.ModelForm):
     class Meta:
         model = Appointment
         fields=['link','calldate','calltime']
+
+class YourHealthEditForm(forms.ModelForm):
+    height = forms.FloatField()
+    weight = forms.FloatField()
+    diseases = forms.CharField(widget=forms.Textarea(attrs={'cols': 100, 'rows': 10}))
+    medicines = forms.CharField(widget=forms.Textarea(attrs={'cols': 100, 'rows': 10}))
+    ts  = forms.CharField(widget=forms.Textarea(attrs={'cols': 100, 'rows': 10}))
+    class Meta:
+        model = PatHealth
+        fields = ['height','weight','diseases','medicines','ts']
         
+
 

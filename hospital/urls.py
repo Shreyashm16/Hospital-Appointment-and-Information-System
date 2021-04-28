@@ -2,9 +2,10 @@ from django.contrib import admin
 from django.urls import include, path
 from hospital import views
 from django.contrib.auth import views as auth_views
+from django.conf.urls import include, url
 
 urlpatterns = [
-    
+    url(r'^Saveforms/$', views.Saveforms, name='Saveforms'),
     # path('admin/', admin.site.urls),
     path('',views.home_view,name=''),
     path('dash_pat/',views.dash_view,name='dashboard.html'),
@@ -14,6 +15,7 @@ urlpatterns = [
     path('medicalreport_pat/',views.medicalreport_view,name='medicalreport.html'),
     path('profile_pat/',views.profile_pat_view,name='profile_pat.html'),
     path('yourhealth_pat/',views.yourhealth_view,name='yourhealth.html'),
+    path('edityourhealth_pat/',views.edityourhealth_view,name='edityourhealth.html'),
     path('register_pat/',views.register_pat_view,name='register_pat.html'),
     path('login_pat/',views.login_pat_view,name='login_pat.html'),
     path('home/',views.home_view,name='home.html'),

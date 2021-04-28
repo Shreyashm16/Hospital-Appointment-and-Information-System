@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!--
 =========================================================
 * Material Dashboard Dark Edition - v2.1.0
@@ -70,6 +71,7 @@
   text-align: left;
 }
   </style>
+  
 </head>
 
 <body id="jhamela" class="darkEdition lightEdition">
@@ -143,31 +145,35 @@
     <div class="main-panel">
       <br><br>
       <h1 style="color: #ff0066">Your Health</h1>
-      <br><br><br>
-      <a class="btn btn-primary btn-round btn-lg"href="{% url 'edityourhealth.html' %}"><b>Edit</b></a>
+      <br><br>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
       <div class="container">
         <div class="box">
           <h1 style="font-size: 30px; color: #ff0066">Basic Information</h1><hr><br>
-          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> <b><u>Height:</u> {{ info.height }} cm</b></p>
-          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> <b><u>Weight:</u> {{ info.weight}} kg</b></p>
-          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> <b><u>Age:</u> {{ pat.age }} years</b></p>
+          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> <b>Height:</b> {{ p_form.height|add_class:"form-control form-control-alternative" }} cm</p>{{ p_form.height.errors }}
+          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> <b>Weight:</b> {{ p_form.weight|add_class:"form-control form-control-alternative" }} kg</p>{{ p_form.weight.errors }}
+          <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> <b>Age:</b> {{ pat.age }} years</p>
         </div>
         <br><br>
         <div class="box">
           <h1 style="font-size: 30px; color: #ff0066">Diseases</h1><hr><br>
-            <p><b>{{ info.diseases }}</b></p>
+          {{ p_form.diseases|add_class:"form-control form-control-alternative" }}
+          {{ p_form.diseases.errors }}
         </div>
         <br><br>
         <div class="box">
           <h1 style="font-size: 30px; color: #ff0066">Medicines</h1><hr><br>
-          <p><b>{{ info.medicines }}</b></p>
+          {{ p_form.medicines|add_class:"form-control form-control-alternative" }}
         </div>
         <br><br>
         <div class="box">
           <h1 style="font-size: 30px; color: #ff0066">Treatments/Surgery</h1><hr><br>
-          <p><b>{{ info.ts }}</b></p>
+          {{ p_form.ts|add_class:"form-control form-control-alternative" }}
         </div>
       </div>
+      <button class="btn btn-sm btn-primary" type="submit">Update</button>
+      </form>
       <br><br><br>
       {% include "hospital/Patient/footer.html" %}
     </div>
