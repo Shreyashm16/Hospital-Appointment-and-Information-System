@@ -23,6 +23,7 @@
         console.log(v1.value);
         console.log(v2.value);
         console.log(v3.value);
+        var finhref = {% url 'add_link' p.4 v2.value v3.value v1.value %}+v2.value+v3.value+v1.value;
         document.getElementById('link_{{ p.3 }}').value='';
         document.getElementById('date_{{ p.3 }}').value='';
         document.getElementById('time_{{ p.3 }}').value='';   

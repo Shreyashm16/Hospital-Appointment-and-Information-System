@@ -22,6 +22,7 @@ urlpatterns = [
     path('dash_doc/',views.dash_doc_view,name='dashboard_doc.html'),
     path('dash_doc/<int:pk>',views.dash_doc_approve_view,name='dashboard_doc_approve'),
     path('bookapp_doc/',views.bookapp_doc_view,name='bookapp_doc.html'),
+    path('bookapp_doc/<int:pk>/<str:date>/<str:time>/<str:link>',views.bookapp_doc_link_view,name='add_link'),
     path('feedback_doc/',views.feedback_doc_view,name='feedback_doc.html'),
     path('register_doc/',views.register_doc_view,name='register_doc.html'),
     path('login_doc/',views.login_doc_view,name='login_doc.html'),

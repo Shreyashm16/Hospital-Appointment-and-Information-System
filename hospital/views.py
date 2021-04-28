@@ -511,6 +511,19 @@ def bookapp_doc_view(request):
         return redirect('login_doc.html')
 
 @login_required(login_url='login_doc.html')
+def bookapp_doc_link_view(request,pk,date,time,link):
+    if check_doctor(request.user):
+        appointment=Appointment.objects.get(id=pk)
+        appointment.calldate=date
+        appointment.calltime=time
+        appointment.link=link
+        appointment.save()
+        return redirect(reverse('bookapp_doc.html'))
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
+
+@login_required(login_url='login_doc.html')
 def feedback_doc_view(request):
     if check_doctor(request.user):
         sub = forms.ContactusForm()
@@ -613,32 +626,32 @@ def medicalreport_doc_view(request):
         auth.logout(request)
         return redirect('login_doc.html')
 
-@login_required(login_url='login_doc.html')
-def doc_approve_appoint_view(request):
-    if check_doctor(request.user):
-        #those whose approval are needed from a particular Doctor
-        doc=Doctor.objects.get(user_id=request.user.id)
-        det=[]
-        for c in Appointment.objects.filter(status=False,doctorId=doc.id).all():
-            d=Doctor.objects.filter(id=c.doctorId).first()
-            p=Patient.objects.filter(id=c.patientId).first()
-            if d and p:
-                det.append([p.firstname,c.description,c.appointmentDate,c.id])
-        return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det})
-    else:
-        auth.logout(request)
-        return redirect('login_doc.html')
+# @login_required(login_url='login_doc.html')
+# def doc_approve_appoint_view(request):
+#     if check_doctor(request.user):
+#         #those whose approval are needed from a particular Doctor
+#         doc=Doctor.objects.get(user_id=request.user.id)
+#         det=[]
+#         for c in Appointment.objects.filter(status=False,doctorId=doc.id).all():
+#             d=Doctor.objects.filter(id=c.doctorId).first()
+#             p=Patient.objects.filter(id=c.patientId).first()
+#             if d and p:
+#                 det.append([p.firstname,c.description,c.appointmentDate,c.id])
+#         return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det})
+#     else:
+#         auth.logout(request)
+#         return redirect('login_doc.html')
 
-@login_required(login_url='login_doc.html')
-def doc_approve_app_view(request,pk):
-    if check_doctor(request.user):
-        appointment=Appointment.objects.get(id=pk)
-        appointment.status=True
-        appointment.save()
-        return redirect(reverse('bookapp_doc.html'))
-    else:
-        auth.logout(request)
-        return redirect('login_doc.html')
+# @login_required(login_url='login_doc.html')
+# def doc_approve_app_view(request,pk):
+#     if check_doctor(request.user):
+#         appointment=Appointment.objects.get(id=pk)
+#         appointment.status=True
+#         appointment.save()
+#         return redirect(reverse('bookapp_doc.html'))
+#     else:
+#         auth.logout(request)
+#         return redirect('login_doc.html')
 
 
 
