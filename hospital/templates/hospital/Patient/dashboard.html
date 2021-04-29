@@ -280,13 +280,14 @@ padding-right: 15px;}
     <div class="main-panel row">
       
     
+  {% for p in app %}
   <div class="market-updates row">
     <div class="col-md-4 market-update-gd">
       <div class="market-update-block clr-block-1 column">
         <div class="col-md-8 market-update-left">
           <h3></h3>
           <h4>Doctor Name</h4>
-           <h3>{{doctorName}}</h3>
+           <h3>{{p.0}}</h3>
         </div>
         <div class="col-md-4 market-update-right">
           <i class="fa fa-user-o"> </i>
@@ -299,7 +300,7 @@ padding-right: 15px;}
         <div class="col-md-8 market-update-left">
           <h3></h3>
           <h4>Your's Symptoms</h4>
-           <h3>{{symptoms}}</h3>
+           <h3>{{p.1}}</h3>
         </div>
         <div class="col-md-4 market-update-right">
           <i class="fa fa-info-circle"></i>
@@ -312,7 +313,7 @@ padding-right: 15px;}
         <div class="col-md-8 market-update-left">
           <h3></h3>
           <h4>Doctor Postal Code</h4>
-           <h3>{{doctorpostal}}</h3>
+           <h3>{{p.2}}</h3>
         </div>
         <div class="col-md-4 market-update-right">
           <i class="fa fa-mobile" aria-hidden="true"></i>
@@ -322,6 +323,55 @@ padding-right: 15px;}
     </div>
     <div class="clearfix"> </div>
   </div>
+
+
+  <br><br><br>
+
+
+
+  <div class="market-updates row">
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-1 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Doctor Address</h4>
+           <h3>{{p.3}}</h3>
+        </div>
+        <div class="col-md-4 market-update-right">
+          <i class="fa fa-map-marker"> </i>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-2 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Doctor Department</h4>
+           <h3>{{p.4}}</h3>
+        </div>
+        <div class="col-md-4 market-update-right">
+          <i class="fa fa-list-alt"></i>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-3 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Admit Date</h4>
+           <h3>{{p.5}}</h3>
+        </div>
+        <div class="col-md-4 market-update-right">
+          <i class="fa fa-calendar-o" aria-hidden="true"></i>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="clearfix"> </div>
+  </div>
+  {% endfor %}
 
 
   <br><br><br>

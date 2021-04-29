@@ -245,18 +245,14 @@ def profile_adm_view(request):
 @login_required(login_url='login_pat.html')
 def dash_view(request):
     if check_patient(request.user):
-        patient=Patient.objects.get(user_id=request.user.id)
-        doctor=Doctor.objects.get(user_id=patient.assignedDoctorId)
-        mydict={
-        'patient':patient,
-        'doctorName':doctor.firstname,
-        'doctorpostal':doctor.postalcode,
-        'doctorAddress':doctor.address,
-        'symptoms':patient.symptoms,
-        'doctorDepartment':doctor.department,
-        'admitDate':patient.admitDate,
-        }
-        return render(request,'hospital/Patient/dashboard.html',context=mydict)
+        pat=Patient.objects.get(user_id=request.user.id)
+        det=[]
+        for c in Appointment.objects.filter(status=True,patientId=pat.id).all():
+            d=Doctor.objects.filter(id=c.doctorId).first()
+            p=Patient.objects.filter(id=c.patientId).first()
+            if d and p:
+                det.append([d.firstname,p.symptoms,d.postalcode,d.address,d.department,c.appointmentDate])
+        return render(request,'hospital/Patient/dashboard.html',{'app':det})
     else:
         auth.logout(request)
         return redirect('login_pat.html')
