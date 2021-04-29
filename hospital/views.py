@@ -442,7 +442,7 @@ def yourhealth_view(request):
         if info.status:
             return render(request,'hospital/Patient/yourhealth.html',{'info':info,'pat':pat})
         else:
-            return render(request,'hospital/Patient/edityourhealth.html',{'info':info})
+            return redirect('edityourhealth.html')
     else:
         auth.logout(request)
         return redirect('login_pat.html')
