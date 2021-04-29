@@ -7,8 +7,7 @@ So, we have focussed on creating an integrated platform that can assimilate the 
 This is in accordance with a problem raised by the AYUSH ministry in SIH (Smart India Hackathon) 2020.
 
 ## Motivation
-As demands of an automatic system in the healthcare sector are high, we need to develop a unique web app for online OPD Appointment , Registration and Hospital Information System. 
-We have focussed on creating an integrated platform that can assimilate patients and doctors under a single roof which is under admin supervision. This would bring transparency and decentralisation in the hospital management which is really uncommon as of now.
+As demands of an automatic system in the healthcare sector are high, we need to develop a unique web app for online OPD Appointment , Registration and Hospital Information System. We have focussed on creating an integrated platform that can assimilate patients and doctors under a single roof which is under admin supervision. This would bring transparency and decentralisation in the hospital management which is really uncommon as of now.
 ![image](https://user-images.githubusercontent.com/56602020/116561169-b1fa8e00-a91f-11eb-98a4-9bfb67f8d39a.png)
 
 ## Functional Description
