@@ -496,7 +496,7 @@ def bookapp_doc_view(request):
     if check_doctor(request.user):
         doc=Doctor.objects.get(user_id=request.user.id)
         det=[]
-        for c in Appointment.objects.filter(status=True,doctorId=doc.id).all():
+        for c in Appointment.objects.filter(status=True,doctorId=doc.id,link__isnull=True).all():
             p=Patient.objects.filter(id=c.patientId).first()
             if p:
                 det.append([p.firstname,c.description,c.appointmentDate,c.pk])
