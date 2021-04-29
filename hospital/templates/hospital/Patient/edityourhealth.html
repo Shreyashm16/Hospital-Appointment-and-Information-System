@@ -29,6 +29,14 @@
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
+      var num = {{ info.status }};
+      if(var=='false')
+      {
+        window.alert("sometext");  
+      }
+      
+  </script>
+  <script>
     $(document).ready(function(){
       var dragTheme = window.localStorage.getItem('checkbox');
       if(dragTheme==="true"){
