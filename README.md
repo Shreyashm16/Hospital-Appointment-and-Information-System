@@ -1,5 +1,5 @@
 # Hospital-Appointment-and-Information-System
-As demands of an Automatic System in the Health Care Sector are high, we need to develop a unique web app for online OPD Appointment , Registration and Hospital Information System.
+#### As demand for an Automatic System in the Health Care Sector are high, we need to develop a unique web app for online OPD Appointment , Registration and Hospital Information System. With automation, doctors & nurses can reach out to more patients in a more efficient way, cutting repetitive tasks likepaperwork.
 
 ## Problem Statement
 At present, there is no platform which can have all virtual functionalities such as video call diagnosis help, online emergency facility & online monitoring patients, One-to-one communication in between patient & doctor virtually, etc.
@@ -9,6 +9,7 @@ This is in accordance with a problem raised by the AYUSH ministry in SIH (Smart 
 ## Motivation
 As demands of an automatic system in the healthcare sector are high, we need to develop a unique web app for online OPD Appointment , Registration and Hospital Information System. 
 We have focussed on creating an integrated platform that can assimilate patients and doctors under a single roof which is under admin supervision. This would bring transparency and decentralisation in the hospital management - which is really uncommon as of now.
+![image](https://user-images.githubusercontent.com/56602020/116561169-b1fa8e00-a91f-11eb-98a4-9bfb67f8d39a.png)
 
 ## Functional Description
 
@@ -29,6 +30,8 @@ We have focussed on creating an integrated platform that can assimilate patients
 * Can admit/view/approve/reject/discharge patient (discharge patient when treatment is done).
 * Can Generate/Download Invoice pdf (Generate Invoice according to medicine cost, room charge, doctor charge and other charge).
 * Can view/book/approve Appointment (approve those appointments which is requested by patient).
+* ![image](https://user-images.githubusercontent.com/56602020/116562228-9b086b80-a920-11eb-937f-32d6d4db10a3.png)
+
 
 ## Doctor
 
@@ -37,6 +40,8 @@ We have focussed on creating an integrated platform that can assimilate patients
 * Can view their discharged(by admin) patient list.
 * Can view their Appointments, booked by admin.
 * Can delete their Appointment, when doctor attended their appointment.
+* ![image](https://user-images.githubusercontent.com/56602020/116562079-8035f700-a920-11eb-992b-7f335a58eed7.png)
+
 
 ## Patient
 
@@ -45,6 +50,8 @@ We have focussed on creating an integrated platform that can assimilate patients
 * Can view their booked appointment status (pending/confirmed by admin).
 * Can book appointments.(approval required by admin).
 * Can view/download Invoice pdf (Only when that patient is discharged by admin).
+* ![image](https://user-images.githubusercontent.com/56602020/116561436-f0904880-a91f-11eb-8afd-5ad9bcce1903.png)
+
 
 ## Problem Modules
 
@@ -94,9 +101,7 @@ Module 4: Deployment & Hosting on a Web Server.
  
 ## Drawbacks/LoopHoles
 
-* Any one can be Admin. There is no Approval required for admin account. So you can disable admin signup process and use any logic like creating superuser.
-* There should be at least one doctor in hospital before admitting patient. So first add doctor.
-* On update page of doctor/patient you must have to update password.
+* There is no Approval required for admin account. So you can disable admin signup process and use any logic like creating superuser.
 
 ## Feedback
 
@@ -104,6 +109,8 @@ For any queries, reach out to the Developers :
 * [Siddharth Pandey](mailto:siddharth25pandey@gmail.com) (**Front End & Back End**)
 * [Shreyash Mishra](mailto:shreyashm1601@gmail.com) (**Front End & Back End**)
 * [Priyam Bajpai](mailto:priyambajpai@yahoo.in) (**Front End & Back End**)
+* [Naveen Kumar](mailto:naveenkumar.k19@gmail.com) (**Front End**)
+* [Yaduraj Deshmukh](mailto:yadurajdeshmukh2.303@gmail.com) (**Front End**)
  
  
     
