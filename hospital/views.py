@@ -4,9 +4,9 @@ from . import forms,models
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
-from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,LinkUpdateForm,YourHealthEditForm
+from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm#,LinkUpdateForm
 from django.contrib.auth.forms import AuthenticationForm
-from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth
+from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 
@@ -338,6 +338,32 @@ def medicalreport_view(request):
         auth.logout(request)
         return redirect('login_pat.html')
 
+@login_required(login_url='login_pat.html')
+def admit_details_view(request):
+    if check_patient(request.user):
+        pat=Patient.objects.get(user_id=request.user.id)
+        det=[]
+        for c in PatAdmit.objects.filter(patientId=pat.id).all():
+            d=Doctor.objects.filter(id=c.doctorId).first()
+            if d:
+                det.append([d.firstname,pat.firstname,c.admitDate,c.dischargeDate,c.pk])
+        return render(request,'hospital/Patient/admit_details.html',{'app':det})
+    else:
+        auth.logout(request)
+        return redirect('login_pat.html')
+
+@login_required(login_url='login_pat.html')
+def admit_details_particular_view(request,pk):
+    if check_patient(request.user):
+        ad = PatAdmit.objects.filter(id=pk).first()
+        pat=Patient.objects.filter(id=ad.patientId).first()
+        doc=Doctor.objects.filter(id=ad.doctorId).first()
+        det=[doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description]
+        return render(request,'hospital/Patient/admit_details_particular.html',{'app':det})
+    else:
+        auth.logout(request)
+        return redirect('login_pat.html')
+
 def login_pat_view(request):
     if request.method=="POST":
         form = AuthenticationForm(request=request, data=request.POST)
@@ -429,7 +455,7 @@ def edityourhealth_view(request):
                 info.weight=p_form.cleaned_data.get('weight')
                 info.diseases=p_form.cleaned_data.get('diseases')
                 info.medicines=p_form.cleaned_data.get('medicines')
-                info.save()
+                p_form.save()
                 return render(request,'hospital/Patient/yourhealth.html',{'info':info,'pat':pat})
         else:
             p_form = YourHealthEditForm(instance=pat)

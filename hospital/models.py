@@ -85,19 +85,6 @@ class Appointment(models.Model):
         return f'{self.description} Appointment Info'
 
 
-class PatBasicInfo(models.Model):
-    patientId=models.PositiveIntegerField(null=True)
-    height=models.FloatField(default=0)
-    weight=models.FloatField(default=0)
-    def __str__(self):
-        return f'{self.patientId} Basic Info'
-
-class PatDisease(models.Model):
-    patientId=models.PositiveIntegerField(null=True)
-    disease=models.CharField(max_length=100,default='somedisease')
-    def __str__(self):
-        return f'{self.patientId} Disease'
-
 class PatHealth(models.Model):
     patientId=models.PositiveIntegerField(null=True)
     height=models.FloatField(default=0)
@@ -107,3 +94,15 @@ class PatHealth(models.Model):
     ts=models.CharField(max_length=2000,default='treatments/surgery')
     def __str__(self):
         return f'{self.patientId} Health Info'
+
+
+class PatAdmit(models.Model):
+    patientId=models.PositiveIntegerField(null=True)
+    doctorId=models.PositiveIntegerField(null=True)
+    admitDate=models.DateField()
+    description=models.TextField()
+    dischargeDate=models.DateField()
+    
+    def __str__(self):
+        return f'{self.patientId} Admit Info'
+
