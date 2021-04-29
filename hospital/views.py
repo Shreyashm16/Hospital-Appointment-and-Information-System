@@ -447,17 +447,20 @@ def yourhealth_view(request):
 def edityourhealth_view(request):
     if check_patient(request.user):
         pat = Patient.objects.filter(user_id=request.user.id).first()
-        info=PatHealth.objects.filter(patientId=pat.id).first()
+        info = PatHealth.objects.filter(patientId=pat.id).first()
         if request.method=="POST":
             p_form = YourHealthEditForm(request.POST, instance=pat)
             if p_form.is_valid():
+                print(p_form.cleaned_data.get('height'))
                 info.height=p_form.cleaned_data.get('height')
                 info.weight=p_form.cleaned_data.get('weight')
                 info.diseases=p_form.cleaned_data.get('diseases')
                 info.medicines=p_form.cleaned_data.get('medicines')
+                info.save()
                 p_form.save()
                 return render(request,'hospital/Patient/yourhealth.html',{'info':info,'pat':pat})
         else:
+            info.refresh_from_db()
             p_form = YourHealthEditForm(instance=pat)
             p_form.fields['height'].initial = info.height
             p_form.fields['weight'].initial = info.weight

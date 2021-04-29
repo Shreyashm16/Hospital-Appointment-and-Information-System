@@ -245,11 +245,7 @@ class AdminAppointmentForm(forms.ModelForm):
         model=Appointment
         fields=['description']
 
-#class LinkUpdateForm(forms.ModelForm):
- #   calldate = forms.DateField(widget=SelectDateWidget(years=range(2021, 2024)))
-  #  class Meta:
-   #     model = Appointment
-    #    fields=['link','calldate','calltime']
+
 
 class YourHealthEditForm(forms.ModelForm):
     height = forms.FloatField()
@@ -260,6 +256,7 @@ class YourHealthEditForm(forms.ModelForm):
     class Meta:
         model = PatHealth
         fields = ['height','weight','diseases','medicines','ts']
+    
         
 
 
