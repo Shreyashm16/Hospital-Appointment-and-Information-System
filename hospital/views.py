@@ -437,7 +437,10 @@ def yourhealth_view(request):
     if check_patient(request.user):
         pat = Patient.objects.filter(user_id=request.user.id).first()
         info=PatHealth.objects.filter(patientId=pat.id).first()
-        return render(request,'hospital/Patient/yourhealth.html',{'info':info,'pat':pat})
+        if info.status:
+            return render(request,'hospital/Patient/yourhealth.html',{'info':info,'pat':pat})
+        else:
+            return redirect('edityourhealth.html')
     else:
         auth.logout(request)
         return redirect('login_pat.html')
@@ -456,6 +459,7 @@ def edityourhealth_view(request):
                 info.weight=p_form.cleaned_data.get('weight')
                 info.diseases=p_form.cleaned_data.get('diseases')
                 info.medicines=p_form.cleaned_data.get('medicines')
+                info.status=True
                 info.save()
                 p_form.save()
                 return render(request,'hospital/Patient/yourhealth.html',{'info':info,'pat':pat})

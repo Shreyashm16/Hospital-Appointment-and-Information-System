@@ -92,6 +92,7 @@ class PatHealth(models.Model):
     diseases=models.CharField(max_length=2000,default='somediseases')
     medicines=models.CharField(max_length=2000,default='somemedicines')
     ts=models.CharField(max_length=2000,default='treatments/surgery')
+    status=models.BooleanField(default=False)
     def __str__(self):
         return f'{self.patientId} Health Info'
 
