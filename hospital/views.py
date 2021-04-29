@@ -247,15 +247,17 @@ def dash_view(request):
     if check_patient(request.user):
         pat=Patient.objects.get(user_id=request.user.id)
         det=[]
-        for c in Appointment.objects.filter(status=True,patientId=pat.id).all():
+        for c in Appointment.objects.filter(status=False,patientId=pat.id).all():
             d=Doctor.objects.filter(id=c.doctorId).first()
-            p=Patient.objects.filter(id=c.patientId).first()
-            if d and p:
-                det.append([d.firstname,p.symptoms,d.postalcode,d.address,d.department,c.appointmentDate])
+            # p=Patient.objects.filter(id=c.patientId).first()
+            if d:
+                det.append([d.firstname,pat.symptoms,d.department,c.appointmentDate])
         return render(request,'hospital/Patient/dashboard.html',{'app':det})
     else:
         auth.logout(request)
         return redirect('login_pat.html')
+
+
 
 @login_required(login_url='login_pat.html')
 def bookapp_view(request):
@@ -299,7 +301,13 @@ def pat_appointment_view(request):
 @login_required(login_url='login_pat.html')
 def calladoc_view(request):
     if check_patient(request.user):
-        return render(request,'hospital/Patient/calladoc.html')
+        pat=Patient.objects.get(user_id=request.user.id)
+        det=[]
+        for c in Appointment.objects.filter(status=True,patientId=pat.id).all():
+            d=Doctor.objects.filter(id=c.doctorId).first()
+            if d:
+                det.append([d.firstname,pat.firstname,c.calldate,c.calltime,c.link])
+        return render(request,'hospital/Patient/calladoc.html',{'app':det})
     else:
         auth.logout(request)
         return redirect('login_pat.html')
@@ -512,7 +520,7 @@ def bookapp_doc_link_view(request,pk,date,time,link):
         appointment=Appointment.objects.get(id=pk)
         appointment.calldate=date
         appointment.calltime=time
-        appointment.link='https://camus.chat/room/'+link
+        appointment.link=link
         appointment.save()
         return redirect(reverse('bookapp_doc.html'))
     else:

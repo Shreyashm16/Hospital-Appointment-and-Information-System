@@ -280,7 +280,6 @@ padding-right: 15px;}
     <div class="main-panel row">
       
     
-  {% for p in app %}
   <div class="market-updates row">
     <div class="col-md-4 market-update-gd">
       <div class="market-update-block clr-block-1 column">
@@ -371,55 +370,31 @@ padding-right: 15px;}
     </div>
     <div class="clearfix"> </div>
   </div>
-  {% endfor %}
+
 
 
   <br><br><br>
 
+  <table class="table sps">
+          <tr class="sps">
+            <th class="sps" >Doctor Name</th>
+            <th class="sps">Symptoms</th>
+            <th class="sps">Department</th>
+            <th class="sps">Appointment</th>
+            
 
+          </tr>
+        {% for p in app %}
+        <tr class="sps">
+          <td class="sps">{{p.0}}</td>
+          <td class="sps">{{p.1}}</td>
+          <td class="sps">{{p.2}}</td>
+          <td class="sps">{{p.3}}</td>
+          
+        </tr>
+        {% endfor %}
 
-  <div class="market-updates row">
-    <div class="col-md-4 market-update-gd">
-      <div class="market-update-block clr-block-1 column">
-        <div class="col-md-8 market-update-left">
-          <h3></h3>
-          <h4>Doctor Address</h4>
-           <h3>{{doctorAddress}}</h3>
-        </div>
-        <div class="col-md-4 market-update-right">
-          <i class="fa fa-map-marker"> </i>
-        </div>
-        <div class="clearfix"> </div>
-      </div>
-    </div>
-    <div class="col-md-4 market-update-gd">
-      <div class="market-update-block clr-block-2 column">
-        <div class="col-md-8 market-update-left">
-          <h3></h3>
-          <h4>Doctor Department</h4>
-           <h3>{{doctorDepartment}}</h3>
-        </div>
-        <div class="col-md-4 market-update-right">
-          <i class="fa fa-list-alt"></i>
-        </div>
-        <div class="clearfix"> </div>
-      </div>
-    </div>
-    <div class="col-md-4 market-update-gd">
-      <div class="market-update-block clr-block-3 column">
-        <div class="col-md-8 market-update-left">
-          <h3></h3>
-          <h4>Admit Date</h4>
-           <h3>{{admitDate}}</h3>
-        </div>
-        <div class="col-md-4 market-update-right">
-          <i class="fa fa-calendar-o" aria-hidden="true"></i>
-        </div>
-        <div class="clearfix"> </div>
-      </div>
-    </div>
-    <div class="clearfix"> </div>
-  </div>
+      </table>
 
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
