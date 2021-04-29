@@ -401,6 +401,8 @@ def register_pat_view(request):
                         symptoms=form.cleaned_data.get('symptoms')
                         )
             doc.save()
+            path = PatHealth(patientId=doc.id,status=False)
+            path.save()
             mpg = Group.objects.get_or_create(name='PATIENT')
             mpg[0].user_set.add(nu)
             return redirect('login_pat.html')
@@ -454,7 +456,6 @@ def edityourhealth_view(request):
         if request.method=="POST":
             p_form = YourHealthEditForm(request.POST, instance=pat)
             if p_form.is_valid():
-                print(p_form.cleaned_data.get('height'))
                 info.height=p_form.cleaned_data.get('height')
                 info.weight=p_form.cleaned_data.get('weight')
                 info.diseases=p_form.cleaned_data.get('diseases')
