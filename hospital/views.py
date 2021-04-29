@@ -294,7 +294,7 @@ def pat_appointment_view(request):
             d=Doctor.objects.filter(id=c.doctorId).first()
             p=Patient.objects.filter(id=c.patientId).first()
             if d and p:
-                det.append([d.firstname,p.firstname,c.description,c.appointmentDate])
+                det.append([d.firstname,p.firstname,c.description,c.appointmentDate,c.link,c.calldate,c.calltime])
         return render(request,'hospital/Patient/appoint_view_pat.html',{'app':det})
     else:
         auth.logout(request)
