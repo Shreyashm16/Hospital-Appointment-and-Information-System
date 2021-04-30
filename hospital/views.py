@@ -25,11 +25,11 @@ def bookapp_adm_view(request):
         if request.method=="POST":
             appointmentForm = AdminAppointmentForm(request.POST)
             if appointmentForm.is_valid():
-                docid=appointmentForm.cleaned_data.get('doctorId')
-                patid=appointmentForm.cleaned_data.get('patientId')
+                docid=appointmentForm.cleaned_data.get('doctor')
+                patid=appointmentForm.cleaned_data.get('patient')
                 doc = Doctor.objects.all().filter(id=docid).first()
                 pat = Patient.objects.all().filter(id=patid).first()
-                app = Appointment(patientId=patid,doctorId=docid,
+                app = Appointment(patient=pat,doctor=doc,
                                     description=appointmentForm.cleaned_data.get('description'),
                                     appointmentDate=appointmentForm.cleaned_data.get('appointmentDate'),
                                     status=True)
@@ -49,8 +49,8 @@ def admin_appointment_view(request):
     if check_admin(request.user):
         det=[]
         for c in Appointment.objects.filter(status=True).all():
-            d=Doctor.objects.filter(id=c.doctorId).first()
-            p=Patient.objects.filter(id=c.patientId).first()
+            d=c.doctor
+            p=c.patient
             if d and p:
                 det.append([d.firstname,p.firstname,c.description,c.appointmentDate])
         return render(request,'hospital/Admin/appoint_view_adm.html',{'app':det})
@@ -195,8 +195,8 @@ def approve_appoint_view(request):
         #those whose approval are needed
         det=[]
         for c in Appointment.objects.filter(status=False).all():
-            d=Doctor.objects.filter(id=c.doctorId).first()
-            p=Patient.objects.filter(id=c.patientId).first()
+            d=c.doctor
+            p=c.patient
             if d and p:
                 det.append([d.firstname,p.firstname,c.description,c.appointmentDate,c.id])
         return render(request,'hospital/Admin/approve_appoint.html',{'app':det})
@@ -247,11 +247,11 @@ def dash_view(request):
     if check_patient(request.user):
         pat=Patient.objects.get(user_id=request.user.id)
         det=[]
-        for c in Appointment.objects.filter(status=False,patientId=pat.id).all():
-            d=Doctor.objects.filter(id=c.doctorId).first()
+        for c in Appointment.objects.filter(status=False,patient=pat).all():
+            d=c.doctor
             # p=Patient.objects.filter(id=c.patientId).first()
             if d:
-                det.append([d.firstname,pat.symptoms,d.department,c.appointmentDate])
+                det.append([d.firstname,c.description,d.department,c.appointmentDate])
         return render(request,'hospital/Patient/dashboard.html',{'app':det})
     else:
         auth.logout(request)
@@ -266,9 +266,9 @@ def bookapp_view(request):
         if request.method=="POST":
             appointmentForm = PatientAppointmentForm(request.POST)
             if appointmentForm.is_valid():
-                docid=int(appointmentForm.cleaned_data.get('doctorId'))
+                docid=int(appointmentForm.cleaned_data.get('doctor'))
                 doc = Doctor.objects.all().filter(id=docid).first()
-                app = Appointment(patientId=pat.id,doctorId=doc.id,
+                app = Appointment(patient=pat,doctor=doc,
                                     description=appointmentForm.cleaned_data.get('description'),
                                     appointmentDate=appointmentForm.cleaned_data.get('appointmentDate'),
                                     status=False)
@@ -288,9 +288,9 @@ def pat_appointment_view(request):
     if check_patient(request.user):
         pat=Patient.objects.get(user_id=request.user.id)
         det=[]
-        for c in Appointment.objects.filter(status=True,patientId=pat.id).all():
-            d=Doctor.objects.filter(id=c.doctorId).first()
-            p=Patient.objects.filter(id=c.patientId).first()
+        for c in Appointment.objects.filter(status=True,patient=pat).all():
+            d=c.doctor
+            p=c.patient
             if d and p:
                 det.append([d.firstname,p.firstname,c.description,c.appointmentDate,c.link,c.calldate,c.calltime])
         return render(request,'hospital/Patient/appoint_view_pat.html',{'app':det})
@@ -303,8 +303,8 @@ def calladoc_view(request):
     if check_patient(request.user):
         pat=Patient.objects.get(user_id=request.user.id)
         det=[]
-        for c in Appointment.objects.filter(status=True,patientId=pat.id).all():
-            d=Doctor.objects.filter(id=c.doctorId).first()
+        for c in Appointment.objects.filter(status=True,patient=pat).all():
+            d=c.doctor
             if d:
                 det.append([d.firstname,pat.firstname,c.calldate,c.calltime,c.link])
         return render(request,'hospital/Patient/calladoc.html',{'app':det})
@@ -343,8 +343,8 @@ def admit_details_view(request):
     if check_patient(request.user):
         pat=Patient.objects.get(user_id=request.user.id)
         det=[]
-        for c in PatAdmit.objects.filter(patientId=pat.id).all():
-            d=Doctor.objects.filter(id=c.doctorId).first()
+        for c in PatAdmit.objects.filter(patient=pat).all():
+            d=c.doctor
             if d:
                 det.append([d.firstname,pat.firstname,c.admitDate,c.dischargeDate,c.pk])
         return render(request,'hospital/Patient/admit_details.html',{'app':det})
@@ -356,8 +356,8 @@ def admit_details_view(request):
 def admit_details_particular_view(request,pk):
     if check_patient(request.user):
         ad = PatAdmit.objects.filter(id=pk).first()
-        pat=Patient.objects.filter(id=ad.patientId).first()
-        doc=Doctor.objects.filter(id=ad.doctorId).first()
+        pat=ad.patient
+        doc=ad.doctor
         det=[doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description]
         return render(request,'hospital/Patient/admit_details_particular.html',{'app':det})
     else:
@@ -389,7 +389,7 @@ def register_pat_view(request):
         form = PatientRegisterForm(request.POST, request.FILES)
         if form.is_valid():
             nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))
-            doc = Patient(user=nu,firstname=form.cleaned_data.get('firstname'),
+            p = Patient(user=nu,firstname=form.cleaned_data.get('firstname'),
                         lastname=form.cleaned_data.get('lastname'),
                         age=form.cleaned_data.get('age'),
                         dob=form.cleaned_data.get('dob'),
@@ -397,11 +397,10 @@ def register_pat_view(request):
                         city=form.cleaned_data.get('city'),
                         country=form.cleaned_data.get('country'),
                         postalcode=form.cleaned_data.get('postalcode'),
-                        image=request.FILES['image'],
-                        symptoms=form.cleaned_data.get('symptoms')
+                        image=request.FILES['image']
                         )
-            doc.save()
-            path = PatHealth(patientId=doc.id,status=False)
+            p.save()
+            path = PatHealth(patient=p,status=False)
             path.save()
             mpg = Group.objects.get_or_create(name='PATIENT')
             mpg[0].user_set.add(nu)
@@ -438,7 +437,7 @@ def profile_pat_view(request):
 def yourhealth_view(request):
     if check_patient(request.user):
         pat = Patient.objects.filter(user_id=request.user.id).first()
-        info=PatHealth.objects.filter(patientId=pat.id).first()
+        info=PatHealth.objects.filter(patient=pat).first()
         if info.status:
             return render(request,'hospital/Patient/yourhealth.html',{'info':info,'pat':pat})
         else:
@@ -452,7 +451,7 @@ def yourhealth_view(request):
 def edityourhealth_view(request):
     if check_patient(request.user):
         pat = Patient.objects.filter(user_id=request.user.id).first()
-        info = PatHealth.objects.filter(patientId=pat.id).first()
+        info = PatHealth.objects.filter(patient=pat).first()
         if request.method=="POST":
             p_form = YourHealthEditForm(request.POST, instance=pat)
             if p_form.is_valid():
@@ -460,6 +459,7 @@ def edityourhealth_view(request):
                 info.weight=p_form.cleaned_data.get('weight')
                 info.diseases=p_form.cleaned_data.get('diseases')
                 info.medicines=p_form.cleaned_data.get('medicines')
+                info.ts=p_form.cleaned_data.get('ts')
                 info.status=True
                 info.save()
                 p_form.save()
@@ -482,22 +482,7 @@ def edityourhealth_view(request):
         auth.logout(request)
         return redirect('login_pat.html')
 
-def Saveforms(request):
-    lenth =  request.POST['totallength']
-    if request.POST:
-        i = 0
-        for index in range(i,int(lenth)):
-            dis = ""
-            flag=0
-            if 'disease'+str(index) in request.POST:
-                dis = request.POST['disease'+str(index)]
-                flag = 1
 
-            if flag == 1: 
-                pat = Patient.objects.filter(user_id=request.user.id).first()
-                PatDisease.objects.create(patientId=pat.id,disease=dis)               
-
-    return HttpResponseRedirect("/dynamicform/Manageforms/")
 
 
 # Doctor Related Views
@@ -506,11 +491,11 @@ def Saveforms(request):
 def dash_doc_view(request):
     if check_doctor(request.user):
         doc=Doctor.objects.get(user_id=request.user.id)
-        patcount=models.Patient.objects.all().filter(status=True,assignedDoctorId=request.user.id).count()
-        appcount=models.Appointment.objects.all().filter(status=True,doctorId=request.user.id).count()
+        patcount=models.Appointment.objects.all().filter(status=True,doctor=request.user.id).count()
+        appcount=models.Appointment.objects.all().filter(status=True,doctor=request.user.id).count()
         det=[]
-        for c in Appointment.objects.filter(status=False,doctorId=doc.id).all():
-            p=Patient.objects.filter(id=c.patientId).first()
+        for c in Appointment.objects.filter(status=False,doctor=doc).all():
+            p=c.patient
             if p:
                 det.append([p.firstname,c.description,c.appointmentDate,c.link,c.id])
         return render(request,'hospital/Doctor/dashboard_doc.html',{'app':det,'patcount':patcount,'appcount':appcount})
@@ -534,8 +519,8 @@ def bookapp_doc_view(request):
     if check_doctor(request.user):
         doc=Doctor.objects.get(user_id=request.user.id)
         det=[]
-        for c in Appointment.objects.filter(status=True,doctorId=doc.id,link__isnull=True).all():
-            p=Patient.objects.filter(id=c.patientId).first()
+        for c in Appointment.objects.filter(status=True,doctor=doc.id,link__isnull=True).all():
+            p=Patient.objects.filter(id=c.patient.id).first()
             if p:
                 det.append([p.firstname,c.description,c.appointmentDate,c.pk])
         if request.method=="POST":

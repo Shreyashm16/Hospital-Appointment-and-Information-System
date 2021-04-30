@@ -185,9 +185,6 @@ class PatientRegisterForm(UserCreationForm):
     image = forms.ImageField(label="")
     image.widget.attrs.update({'class' : 'app-form-control'})
     
-    symptoms = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'SYMPTOMS'}))
-    symptoms.widget.attrs.update({'class' : 'app-form-control'})
-    
     password1 = forms.CharField(label='',widget=forms.PasswordInput(attrs={'placeholder': 'PASSWORD'}))
     password1.widget.attrs.update({'class' : 'app-form-control'})
     
@@ -196,7 +193,7 @@ class PatientRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'firstname', 'lastname', 'symptoms', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2','image']
+        fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2','image']
         help_texts = {k:"" for k in fields}
 
 class PatientUpdateForm(forms.ModelForm):
@@ -216,13 +213,13 @@ class PatientUpdateForm(forms.ModelForm):
 
 class PatientAppointmentForm(forms.ModelForm):   
     #ch = [(c.pk, c.firstname+"("+c.department+")") for c in Doctor.objects.filter(status=True).all()]
-    doctorId = forms.TypedChoiceField()
+    doctor = forms.TypedChoiceField()
     #doctorId=forms.CharField(widget=forms.Select(choices=c))  
     appointmentDate = forms.DateField(widget=SelectDateWidget(years=range(2021,2024)))
 
     def __init__(self, *args, **kwargs):
         super(PatientAppointmentForm, self).__init__(*args, **kwargs)
-        self.fields['doctorId'].choices = [(c.id, c.firstname+"("+c.department+")") for c in Doctor.objects.filter(status=True).all()]
+        self.fields['doctor'].choices = [(c.id, c.firstname+"("+c.department+")") for c in Doctor.objects.filter(status=True).all()]
     
     class Meta:
         model=Appointment
@@ -232,14 +229,14 @@ class PatientAppointmentForm(forms.ModelForm):
 class AdminAppointmentForm(forms.ModelForm):
     #patientId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname) for c in Patient.objects.all().filter(status=True)])) 
     #doctorId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname+"("+c.department+")") for c in Doctor.objects.all().filter(status=True)])) 
-    doctorId = forms.TypedChoiceField()
-    patientId = forms.TypedChoiceField()
+    doctor = forms.TypedChoiceField()
+    patient = forms.TypedChoiceField()
     appointmentDate = forms.DateField(widget=SelectDateWidget(years=range(2021, 2024)))
 
     def __init__(self, *args, **kwargs):
         super(AdminAppointmentForm, self).__init__(*args, **kwargs)
-        self.fields['doctorId'].choices = [(c.id, c.firstname+"("+c.department+")") for c in Doctor.objects.filter(status=True).all()]
-        self.fields['patientId'].choices = [(c.id, c.firstname) for c in Patient.objects.filter(status=True).all()]
+        self.fields['doctor'].choices = [(c.id, c.firstname+"("+c.department+")") for c in Doctor.objects.filter(status=True).all()]
+        self.fields['patient'].choices = [(c.id, c.firstname) for c in Patient.objects.filter(status=True).all()]
     
     class Meta:
         model=Appointment

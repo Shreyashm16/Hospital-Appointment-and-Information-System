@@ -63,18 +63,15 @@ class Patient(models.Model):
     city = models.CharField(max_length=100,default="city")
     country = models.CharField(max_length=100,default="country")
     postalcode = models.IntegerField(default=0)
-    symptoms = models.CharField(max_length=100,default="fever")
     status=models.BooleanField(default=False)
-    assignedDoctorId = models.PositiveIntegerField(null=True)
-    admitDate=models.DateField(auto_now=True)
     def __str__(self):
         return f'{self.user.username} Patient Profile'
 
 
 
 class Appointment(models.Model):
-    patientId=models.PositiveIntegerField(null=True)
-    doctorId=models.PositiveIntegerField(null=True)
+    patient=models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="PatientApp")
+    doctor=models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="DoctorApp")
     appointmentDate=models.DateField()
     description=models.TextField(max_length=500)
     link=models.TextField(null=True)
@@ -86,7 +83,7 @@ class Appointment(models.Model):
 
 
 class PatHealth(models.Model):
-    patientId=models.PositiveIntegerField(null=True)
+    patient=models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="PatientHealth")
     height=models.FloatField(default=0)
     weight=models.FloatField(default=0)
     diseases=models.CharField(max_length=2000,default='somediseases')
@@ -94,16 +91,16 @@ class PatHealth(models.Model):
     ts=models.CharField(max_length=2000,default='treatments/surgery')
     status=models.BooleanField(default=False)
     def __str__(self):
-        return f'{self.patientId} Health Info'
+        return f'{self.patient} Health Info'
 
 
 class PatAdmit(models.Model):
-    patientId=models.PositiveIntegerField(null=True)
-    doctorId=models.PositiveIntegerField(null=True)
+    patient=models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="PatientAdmit")
+    doctor=models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="DoctorAdmit")
     admitDate=models.DateField()
     description=models.TextField()
     dischargeDate=models.DateField()
     
     def __str__(self):
-        return f'{self.patientId} Admit Info'
+        return f'{self.patient} Admit Info'
 
