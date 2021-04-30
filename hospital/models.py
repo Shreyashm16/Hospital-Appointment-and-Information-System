@@ -100,7 +100,14 @@ class PatAdmit(models.Model):
     admitDate=models.DateField()
     description=models.TextField()
     dischargeDate=models.DateField()
-    
+    roomcharges=models.TextField()
     def __str__(self):
         return f'{self.patient} Admit Info'
 
+class Charges:
+    Admitinfo=models.ForeignKey(PatAdmit, on_delete=models.CASCADE, related_name="AdmitDetails")
+    commodity=models.TextField()
+    unitprice=models.IntegerField(default=0)
+    quantity=models.IntegerField(default=1)
+    def __str__(self):
+        return f'{self.commodity} Info'
