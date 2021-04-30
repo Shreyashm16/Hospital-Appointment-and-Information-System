@@ -252,7 +252,13 @@ def dash_view(request):
             # p=Patient.objects.filter(id=c.patientId).first()
             if d:
                 det.append([d.firstname,c.description,d.department,c.appointmentDate])
-        return render(request,'hospital/Patient/dashboard.html',{'app':det})
+        
+        admt=[]
+        for c in PatAdmit.objects.filter(patient=pat).all():
+            d=c.doctor
+            if d:
+                admt.append([d.firstname,pat.firstname,c.admitDate,c.dischargeDate,c.pk])
+        return render(request,'hospital/Patient/dashboard.html',{'app':det,'admt':admt})
     else:
         auth.logout(request)
         return redirect('login_pat.html')
@@ -498,7 +504,13 @@ def dash_doc_view(request):
             p=c.patient
             if p:
                 det.append([p.firstname,c.description,c.appointmentDate,c.link,c.id])
-        return render(request,'hospital/Doctor/dashboard_doc.html',{'app':det,'patcount':patcount,'appcount':appcount})
+        
+        admt=[]
+        for c in PatAdmit.objects.filter(doctor=doc).all():
+            p=c.patient
+            if p:
+                admt.append([doc.firstname,p.firstname,c.admitDate,c.dischargeDate,c.pk])
+        return render(request,'hospital/Doctor/dashboard_doc.html',{'app':det,'patcount':patcount,'appcount':appcount,'admt':admt})
     else:
         auth.logout(request)
         return redirect('login_doc.html')
@@ -645,6 +657,32 @@ def yourhealth_doc_view(request):
 def medicalreport_doc_view(request):
     if check_doctor(request.user):
         return render(request,'hospital/Doctor/medicalreport_doc.html')
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
+
+@login_required(login_url='login_doc.html')
+def admit_details_doc_view(request):
+    if check_doctor(request.user):
+        doc=Doctor.objects.get(user_id=request.user.id)
+        det=[]
+        for c in PatAdmit.objects.filter(doctor=doc).all():
+            p=c.patient
+            if p:
+                det.append([doc.firstname,p.firstname,c.admitDate,c.dischargeDate,c.pk])
+        return render(request,'hospital/Doctor/admit_details_doc.html',{'app':det})
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
+
+@login_required(login_url='login_doc.html')
+def admit_details_particular_doc_view(request,pk):
+    if check_doctor(request.user):
+        ad = PatAdmit.objects.filter(id=pk).first()
+        pat=ad.patient
+        doc=ad.doctor
+        det=[doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description]
+        return render(request,'hospital/Doctor/admit_details_particular_doc.html',{'app':det})
     else:
         auth.logout(request)
         return redirect('login_doc.html')
