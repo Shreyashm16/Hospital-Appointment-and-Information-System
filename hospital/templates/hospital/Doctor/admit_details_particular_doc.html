@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!--
 =========================================================
 * Material Dashboard Dark Edition - v2.1.0
@@ -134,7 +135,20 @@
             <h3>Description</h3><br>
             {{app.4}}
         </div>
-
+        <br><br><br><br><br>
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <!--
+          {{ p_form.dischargeDate|add_class:"form-control form-control-alternative" }}
+          <br>
+          {{ p_form.roomcharges|add_class:"form-control form-control-alternative" }}
+          <br>
+          {{ p_form.description|add_class:"form-control form-control-alternative" }}
+          <br>
+          -->
+          {{ p_form.as_p }}
+        <button class="btn btn-sm btn-primary" type="submit">Update</button>
+        </form>
     </div>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       {% include "hospital//Doctor/footer.html" %}

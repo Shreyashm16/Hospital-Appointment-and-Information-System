@@ -4,7 +4,7 @@ from . import forms,models
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
-from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm#,LinkUpdateForm
+from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm,PatAdmitEditForm
 from django.contrib.auth.forms import AuthenticationForm
 from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit
 from django.contrib import auth
@@ -682,7 +682,20 @@ def admit_details_particular_doc_view(request,pk):
         pat=ad.patient
         doc=ad.doctor
         det=[doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description]
-        return render(request,'hospital/Doctor/admit_details_particular_doc.html',{'app':det})
+        if request.method=="POST":
+            p_form = PatAdmitEditForm(request.POST,instance=ad)
+            if p_form.is_valid():
+                ad.description=p_form.cleaned_data.get('description')
+                ad.roomcharges=p_form.cleaned_data.get('roomcharges')
+                ad.dischargeDate = p_form.cleaned_data.get('dischargeDate')
+                ad.save()
+                p_form.save()
+                return redirect('admit_details_doc.html')
+            else:
+                print(p_form.errors)
+        else:
+            p_form = PatAdmitEditForm()
+            return render(request,'hospital/Doctor/admit_details_particular_doc.html',{'app':det,'p_form':p_form})
     else:
         auth.logout(request)
         return redirect('login_doc.html')

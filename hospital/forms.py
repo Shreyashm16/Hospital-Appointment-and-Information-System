@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from . import models
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
-from .models import Doctor,Admin,Patient,Appointment,PatHealth
+from .models import Doctor,Admin,Patient,Appointment,PatHealth,PatAdmit
 import datetime
 from django.forms.widgets import SelectDateWidget
 
@@ -255,5 +255,11 @@ class YourHealthEditForm(forms.ModelForm):
         fields = ['height','weight','diseases','medicines','ts']
     
         
-
+class PatAdmitEditForm(forms.ModelForm):
+    dischargeDate = forms.DateField(widget=SelectDateWidget(years=range(2021,2024)))
+    roomcharges = forms.FloatField()
+    description = forms.TextInput()
+    class Meta:
+        model = PatAdmit
+        fields = ['dischargeDate','roomcharges','description']
 
