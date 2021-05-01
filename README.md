@@ -11,11 +11,11 @@ As demands of an automatic system in the healthcare sector are high, we need to 
 
 ## screenshots
 ### Homepage
-![homepage snap 1](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/home1.png?raw=true)
-![homepage snap 2](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/home2.png?raw=true)
+![homepage snap 1](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/home1.PNG?raw=true)
+![homepage snap 2](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/home2.PNG?raw=true)
 
 ### Loginpage
-![login snap](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/login.png?raw=true)
+![login snap](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/login.PNG?raw=true)
 
 ## Functional Description
 
