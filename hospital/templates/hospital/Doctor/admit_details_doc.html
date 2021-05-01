@@ -93,13 +93,19 @@
             <p>Your Appointments</p>
           </a>
         </li>
+        <li class="nav-item active  ">
+          <a class="nav-link" href="{% url 'admit_details_doc.html' %}">
+            <i class="material-icons">favorite</i>
+            <p>Admitted Patients</p>
+          </a>
+        </li>
         <li class="nav-item ">
           <a class="nav-link" href="{% url 'medicalreport_doc.html' %}">
             <i class="material-icons">favorite</i>
             <p>Medical Reports</p>
           </a>
         </li>
-        <li class="nav-item active  ">
+        <li class="nav-item ">
           <a class="nav-link" href="{% url 'feedback_doc.html' %}">
             <i class="material-icons">bubble_chart</i>
             <p>Feedback</p>
@@ -133,7 +139,7 @@
                                 <td class="sps">{{p.1}}</td>
                                 <td class="sps">{{p.2}}</td>
                                 <td class="sps">{{p.3}}</td>
-                                <td><a class="btn btn-primary btn-xs" href="{% url 'admit_details_particular_doc.html' p.4  %}">Approve</a></td>
+                                <td><a class="btn btn-primary btn-xs" href="{% url 'admit_details_particular_doc.html' p.4  %}">Details</a></td>
                             </tr>
                             {% endfor %}
 

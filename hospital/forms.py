@@ -257,3 +257,8 @@ class YourHealthEditForm(forms.ModelForm):
         fields = ['height','weight','diseases','medicines','ts']
     
         
+class AppointmentEditForm(forms.ModelForm):
+    description = forms.TextInput()
+    class Meta:
+        model = Appointment
+        fields = ['description']

@@ -4,7 +4,7 @@ from . import forms,models
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
-from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm
+from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm,AppointmentEditForm
 from django.contrib.auth.forms import AuthenticationForm
 from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges
 from django.contrib import auth
@@ -302,6 +302,18 @@ def bookapp_view(request):
         return redirect('login_pat.html')
 
 @login_required(login_url='login_pat.html')
+def appointment_details_particular_pat_view(request,pk):
+    if check_patient(request.user):
+        ad = Appointment.objects.filter(id=pk).first()
+        pat = ad.patient
+        doc = ad.doctor
+        det = [doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description]
+        return render(request,'hospital/Patient/bookapp_details_particular_pat.html',{'app':det})
+    else:
+        auth.logout(request)
+        return redirect('login_pat.html')
+
+@login_required(login_url='login_pat.html')
 def pat_appointment_view(request):
     if check_patient(request.user):
         pat=Patient.objects.get(user_id=request.user.id)
@@ -310,7 +322,7 @@ def pat_appointment_view(request):
             d=c.doctor
             p=c.patient
             if d and p:
-                det.append([d.firstname,p.firstname,c.description,c.appointmentDate,c.link,c.calldate,c.calltime])
+                det.append([d.firstname,p.firstname,c.description,c.appointmentDate,c.link,c.calldate,c.calltime,c.pk])
         return render(request,'hospital/Patient/appoint_view_pat.html',{'app':det})
     else:
         auth.logout(request)
@@ -577,7 +589,35 @@ def bookapp_doc_view(request):
             p=Patient.objects.filter(id=c.patient.id).first()
             if p:
                 det.append([p.firstname,c.description,c.appointmentDate,c.pk])
-        return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det})
+        d=[]
+        for c in Appointment.objects.filter(status=True,doctor=doc.id,link__isnull=False).all():
+            p=Patient.objects.filter(id=c.patient.id).first()
+            if p:
+                d.append([p.firstname,c.description,c.appointmentDate,c.calldate,c.calltime,c.link,c.pk])
+
+        return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det,'sapp':d})
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
+
+@login_required(login_url='login_doc.html')
+def appointment_details_particular_doc_view(request,pk):
+    if check_doctor(request.user):
+        ad = Appointment.objects.filter(id=pk).first()
+        pat=ad.patient
+        doc=ad.doctor
+        det=[doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description]
+        if request.method=="POST":
+            p_form = AppointmentEditForm(request.POST,instance=ad)
+            if p_form.is_valid():
+                ad.description=p_form.cleaned_data.get('description')
+                ad.save()
+                p_form.save()
+                return redirect('bookapp_doc.html')
+            else:
+                print(p_form.errors)
+        p_form = AppointmentEditForm()
+        return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form})
     else:
         auth.logout(request)
         return redirect('login_doc.html')

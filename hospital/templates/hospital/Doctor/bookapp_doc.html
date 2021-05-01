@@ -266,6 +266,12 @@ td {
           </a>
         </li>
         <li class="nav-item ">
+          <a class="nav-link" href="{% url 'admit_details_doc.html' %}">
+            <i class="material-icons">favorite</i>
+            <p>Admitted Patients</p>
+          </a>
+        </li>
+        <li class="nav-item ">
           <a class="nav-link" href="{% url 'medicalreport_doc.html' %}">
             <i class="material-icons">favorite</i>
             <p>Medical Reports</p>
@@ -306,6 +312,7 @@ td {
                                         <th class="sps">Call Time</th>
                                         <th class="sps">Room Name</th>
                                         <th class="sps">Save Details</th>
+                                        <th class="sps">Details</th>
                                     </tr>
                                     {% for p in app %}
                                     <tr>
@@ -317,6 +324,7 @@ td {
                                         <td class="sps"><input type="Time" id="time_{{ p.3 }}" name="time"></td>
                                         <td class="sps"><input type="text" id="link_{{ p.3 }}" name="link"></td>
                                         <td><a class="btn btn-primary btn-xs" onclick="f_{{p.3}}()">Save</a></td>
+                                        <td><a class="btn btn-primary btn-xs" href="{% url 'bookapp_details_prticular_doc.html' p.3  %}">Details</a></td>
                                         
                                   
                                         
@@ -325,6 +333,35 @@ td {
 
                             </table>
                             <p>*NOTE: Password for the room you create shoud be your firstname</p>
+                            <br><br><br><br>
+                            <table class="sps">
+                              <thead>
+                                  <tr class="sps">
+                                      <th class="sps">Patient Name </th>
+                                      <th class="sps">Description </th>
+                                      <th class="sps">Appointment Date</th>
+                                      <th class="sps">Call Date</th>
+                                      <th class="sps">Call Time</th>
+                                      <th class="sps">Room Name</th>
+                                      <th class="sps">Details</th>
+                                  </tr>
+                                  {% for q in sapp %}
+                                  <tr>
+                                      <td class="sps">{{ q.0 }}</td>
+                                      <td class="sps">{{ q.1 }}</td>
+                                      <td class="sps">{{ q.2 }}</td>
+                  
+                                      <td class="sps">{{ q.3 }}</td>
+                                      <td class="sps">{{ q.4 }}</td>
+                                      <td class="sps">{{ q.5 }}</td>
+                                      <td><a class="btn btn-primary btn-xs" href="{% url 'bookapp_details_prticular_doc.html' q.6  %}">Details</a></td>
+                                      
+                                
+                                      
+                                  </tr>
+                                  {% endfor %}
+
+                          </table>
                         </div>
                     </center>
                     <br>
