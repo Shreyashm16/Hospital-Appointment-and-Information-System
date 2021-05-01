@@ -809,7 +809,7 @@ def login_view(request):
 
 @login_required(login_url='login_pat.html')
 def bill_view(request):
-    if check_doctor(request.user):
+    if check_patient(request.user):
         pat = Patient.objects.filter(user_id=request.user.id).first()
         context = {
             'pat': pat
@@ -817,7 +817,7 @@ def bill_view(request):
         return render(request,'hospital/Patient/bill.html',context)
     else:
         auth.logout(request)
-        return redirect('login_doc.html')
+        return redirect('logout_pat.html')
     
 
 
