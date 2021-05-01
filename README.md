@@ -11,11 +11,11 @@ As demands of an automatic system in the healthcare sector are high, we need to 
 
 ## screenshots
 ### Homepage
-![homepage snap 1](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/home1.PNG?raw=true)
-![homepage snap 2](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/home2.PNG?raw=true)
+![homepage snap 1](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/home_1.PNG)
+![homepage snap 2](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/home_1.PNG)
 
 ### Loginpage
-![login snap](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/login.PNG?raw=true)
+![login snap](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/login_page.PNG)
 
 ## Functional Description
 
@@ -36,6 +36,8 @@ As demands of an automatic system in the healthcare sector are high, we need to 
 * Can admit/view/approve/reject/discharge patient (discharge patient when treatment is done).
 * Can Generate/Download Invoice pdf (Generate Invoice according to medicine cost, room charge, doctor charge and other charge).
 * Can view/book/approve Appointment (approve those appointments which is requested by patient).
+
+
 ![image](https://user-images.githubusercontent.com/56602020/116562228-9b086b80-a920-11eb-937f-32d6d4db10a3.png)
 
 
@@ -46,6 +48,8 @@ As demands of an automatic system in the healthcare sector are high, we need to 
 * Can view their discharged(by admin) patient list.
 * Can view their Appointments, booked by admin.
 * Can delete their Appointment, when doctor attended their appointment.
+
+
 ![image](https://user-images.githubusercontent.com/56602020/116562079-8035f700-a920-11eb-992b-7f335a58eed7.png)
 
 
@@ -56,17 +60,16 @@ As demands of an automatic system in the healthcare sector are high, we need to 
 * Can view their booked appointment status (pending/confirmed by admin).
 * Can book appointments.(approval required by admin).
 * Can view/download Invoice pdf (Only when that patient is discharged by admin).
+
+
 ![image](https://user-images.githubusercontent.com/56602020/116561436-f0904880-a91f-11eb-8afd-5ad9bcce1903.png)
 
 
 ## Problem Modules
 
 Module 1 : Creation of Basic outline structure of the Project (Static files generation, linking with Backend,etc)
-
 Module 2 : Almost completion of front-end part, Form Creations,etc.
-
 Module 3: Database linking of app & completion of left-over Backend Functionalities.
-
 Module 4: Deployment & Hosting on a Web Server.
 
 ## HOW TO RUN THIS PROJECT
