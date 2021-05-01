@@ -766,32 +766,6 @@ def admit_details_particular_doc_view(request,pk):
         auth.logout(request)
         return redirect('login_doc.html')
 
-# @login_required(login_url='login_doc.html')
-# def doc_approve_appoint_view(request):
-#     if check_doctor(request.user):
-#         #those whose approval are needed from a particular Doctor
-#         doc=Doctor.objects.get(user_id=request.user.id)
-#         det=[]
-#         for c in Appointment.objects.filter(status=False,doctorId=doc.id).all():
-#             d=Doctor.objects.filter(id=c.doctorId).first()
-#             p=Patient.objects.filter(id=c.patientId).first()
-#             if d and p:
-#                 det.append([p.firstname,c.description,c.appointmentDate,c.id])
-#         return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det})
-#     else:
-#         auth.logout(request)
-#         return redirect('login_doc.html')
-
-# @login_required(login_url='login_doc.html')
-# def doc_approve_app_view(request,pk):
-#     if check_doctor(request.user):
-#         appointment=Appointment.objects.get(id=pk)
-#         appointment.status=True
-#         appointment.save()
-#         return redirect(reverse('bookapp_doc.html'))
-#     else:
-#         auth.logout(request)
-#         return redirect('login_doc.html')
 
 
 
@@ -811,13 +785,25 @@ def login_view(request):
 def bill_view(request):
     if check_patient(request.user):
         pat=Patient.objects.get(user_id=request.user.id)
-        det=[]
-        for c in PatAdmit.objects.filter(patient=pat).all():
-            p=c.doctor
-            if p:
-                det.append([p.firstname,pat.firstname,c.admitDate,c.dischargeDate,c.pk])
-        
-        return render(request,'hospital/Patient/bill.html',{'app':det})
+        discharge=PatAdmit.objects.all().filter(patient=pat).order_by('-id')[:1]
+        d1=discharge[0].admitDate
+        d2=discharge[0].dischargeDate
+        days=(d2-d1).days
+        total=discharge[0].roomcharges
+        total_room_charge=discharge[0].roomcharges*days
+        dict={
+            'patientName':discharge[0].patient.firstname,
+            'doctorName':discharge[0].doctor.firstname,
+            'admitDate':discharge[0].admitDate,
+            'releaseDate':discharge[0].dischargeDate,
+            'roomCharge':discharge[0].roomcharges,
+            'desc':discharge[0].description,
+            'pat_add':discharge[0].patient.address,
+            'days':days,
+            'tot':total,
+            'tc':total_room_charge
+            }
+        return render(request,'hospital/Patient/bill.html',dict)
     else:
         auth.logout(request)
         return redirect('logout_pat.html')

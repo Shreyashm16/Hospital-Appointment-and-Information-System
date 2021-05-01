@@ -58,6 +58,8 @@
     });
   </script>
   <style media="screen">
+    
+    
     .market-update-block {
       padding: 2em 2em;
       background: #999;
@@ -202,7 +204,24 @@ padding-right: 15px;}
   display: table;
   clear: both;
 }
+
+th {
+    border: 1px solid #ff0066;
+    border-collapse: collapse;
+    padding:10px;
+}
+
+td {
+    border: 1px solid #ff0066;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    padding:10px;
+}
+
+
     </style>
+
 </head>
 
 <body id="jhamela" class="darkEdition lightEdition">
@@ -277,37 +296,48 @@ padding-right: 15px;}
   <br>
   <br>
   <br>
-  <div class="main-panel row">
+  
+  <div class="container sps">
+                <div class="row sps">
+                    <center>
 
-  <br><br><br>
 
-  <br><br><br>
-  <center>
-  <table class="sps">
-    <thead>
-      <tr class="sps">
-        <th class="sps">Doctor Name</th>
-        <th class="sps">Your Name </th>                       
-        <th class="sps">Call Date</th>
-        <th class="sps">Call Time</th>
-        <th class="sps">Room Name</th>
-        <th class="sps">Room Pass</th>
-      </tr>
-    </thead>  
 
-      {% for p in app %}
-      <tr>
-          <td class="sps"> {{p.0}}</td>
-          <td class="sps">{{p.1}}</td>
-          <td class="sps">{{p.2}}</td>
-          <td class="sps">{{p.3}}</td>
-          <td class="sps">{{p.4}}</td>
-          <td class="sps">{{p.0}}</td>
-      </tr>
-      {% endfor %}
+                        <div class="sps">
 
-  </table>
-  </center>
+                            <h2 class="sps">Call Details</h2>
+                            <table class="sps">
+                                <thead>
+                                    <tr class="sps">
+                                        <th class="sps">Doctor Name</th>
+                                        <th class="sps">Your Name </th>
+                                        <th class="sps">Call Date</th>
+                                        <th class="sps">Call Time</th>
+                                        <th class="sps">Room Name</th>
+                                        <th class="sps">Room Pass</th>
+                                    </tr>
+
+                                    {% for p in app %}
+                                    <tr>
+                                        <td class="sps"> {{p.0}}</td>
+                                        <td class="sps">{{p.1}}</td>
+                                        <td class="sps">{{p.2}}</td>
+                                        <td class="sps">{{p.3}}</td>
+                                        <td class="sps">{{p.4}}</td>
+                                        <td class="sps">{{p.0}}</td>
+                                        
+                                    </tr>
+                                    {% endfor %}
+
+                            </table>
+                        </div>
+                    </center>
+                </div>
+
+            </div>
+
+        </div>
+
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
       <a class="btn btn-primary btn-round btn-lg"href="https://videocall.agora.io/" target="_blank"><b>Join Room</b></a>

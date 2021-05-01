@@ -273,22 +273,21 @@
             <tr>
              <td>
 
-                Admit Date: {{app.2}}<br>
-                Release Date: {{app.3}}<br>
-                Days Spent: {{daySpent}}
+                Admit Date: {{admitDate}}<br>
+                Release Date: {{releaseDate}}<br>
+                Days Spent: {{days}} days
     
               </td>
               </tr>
               <tr>
               <td>
-                Patient Name : {{app.1}}<br>
-                Patient Mobile : {{app.5}}<br>
-                Patient Address : {{app.5}}<br>
+                Patient Name : {{patientName}}<br>
+                Patient Address : {{pat_add}}<br>
               </td>
-
+              <br>
               <td>
                 Doctor Name :<br>
-                {{app.0}}<br>
+                {{doctorName}}<br>
 
               </td>
             </tr>
@@ -303,7 +302,7 @@
             <tr>
               <td>
                 Disease and Symptoms :<br>
-                &nbsp &nbsp &nbsp &nbsp &nbsp {{pat.symptoms}}
+                {{desc}}
               </td>
 
             </tr>
@@ -318,13 +317,13 @@
           <table>
             <tr>
               <td>
-                Charges :<br><br>
-                Room Charge of {{daySpent}} Days : {{roomCharge}}<br>
+                Charges Per Day : {{roomCharge}} <br><br>
+                Room Charge of {{days}} Days : ₹ {{tc}}<br>
                 Doctor Fee : {{doctorFee}}<br>
                 Medicine Cost : {{medicineCost}}<br>
                 Other Charge : {{OtherCharge}} <br>
                 <br>
-                 Total Due : {{total }}
+                 Total Due : ₹ {{tot }}
               </td>
             </tr>
             <tr>
