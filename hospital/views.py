@@ -810,11 +810,14 @@ def login_view(request):
 @login_required(login_url='login_pat.html')
 def bill_view(request):
     if check_patient(request.user):
-        pat = Patient.objects.filter(user_id=request.user.id).first()
-        context = {
-            'pat': pat
-        }
-        return render(request,'hospital/Patient/bill.html',context)
+        pat=Patient.objects.get(user_id=request.user.id)
+        det=[]
+        for c in PatAdmit.objects.filter(patient=pat).all():
+            p=c.doctor
+            if p:
+                det.append([p.firstname,pat.firstname,c.admitDate,c.dischargeDate,c.pk])
+        
+        return render(request,'hospital/Patient/bill.html',{'app':det})
     else:
         auth.logout(request)
         return redirect('logout_pat.html')
