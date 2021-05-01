@@ -257,11 +257,3 @@ class YourHealthEditForm(forms.ModelForm):
         fields = ['height','weight','diseases','medicines','ts']
     
         
-class PatAdmitEditForm(forms.ModelForm):
-    dischargeDate = forms.DateField(widget=SelectDateWidget(years=range(2021,2024)))
-    roomcharges = forms.FloatField()
-    description = forms.TextInput()
-    class Meta:
-        model = PatAdmit
-        fields = ['dischargeDate','roomcharges','description']
-

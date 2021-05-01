@@ -4,7 +4,7 @@ from . import forms,models
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
-from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm,PatAdmitEditForm
+from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm
 from django.contrib.auth.forms import AuthenticationForm
 from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit
 from django.contrib import auth
@@ -577,11 +577,6 @@ def bookapp_doc_view(request):
             p=Patient.objects.filter(id=c.patient.id).first()
             if p:
                 det.append([p.firstname,c.description,c.appointmentDate,c.pk])
-        if request.method=="POST":
-            p_form = PatientAppointmentForm(request.POST, request.FILES, instance=doc)
-            if p_form.is_valid():
-                p_form.save()
-                return redirect('profile_doc.html')
         return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det})
     else:
         auth.logout(request)
@@ -748,29 +743,22 @@ def admit_details_particular_doc_view(request,pk):
         pat=ad.patient
         doc=ad.doctor
         det=[doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description]
-        if request.method=="POST":
-            p_form = PatAdmitEditForm(request.POST,instance=ad)
-            if p_form.is_valid():
-                ad.description=p_form.cleaned_data.get('description')
-                ad.roomcharges=p_form.cleaned_data.get('roomcharges')
-                ad.dischargeDate = p_form.cleaned_data.get('dischargeDate')
-                ad.save()
-                p_form.save()
-                return redirect('admit_details_doc.html')
-            else:
-                print(p_form.errors)
-        else:
-            p_form = PatAdmitEditForm()
-            return render(request,'hospital/Doctor/admit_details_particular_doc.html',{'app':det,'p_form':p_form})
+        return render(request,'hospital/Doctor/admit_details_particular_doc.html',{'app':det})
     else:
         auth.logout(request)
         return redirect('login_doc.html')
 
 
-
-
-
-
+@login_required(login_url='login_doc.html')
+def admit_details_particular_doc_add_charge_view(request,pk,commodity,price,quantity):
+    if check_doctor(request.user):
+        #
+        # YOUR CODE TO MAKE A NEW CHARGE RECORD GOES HERE
+        #
+        return redirect(reverse('hospital/Doctor/admit_details_particular_doc.html'))
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
 
 
 
