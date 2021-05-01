@@ -752,7 +752,7 @@ def admit_details_particular_doc_view(request,pk):
 @login_required(login_url='login_doc.html')
 def admit_details_particular_doc_add_charge_view(request,pk,comm,price,quan):
     if check_doctor(request.user):
-        ad = PatAdmit.objects.filter(id=pk).first()
+        ad = PatAdmit.objects.get(id=pk)
         Charges.objects.create(Admitinfo=ad,commodity=comm,unitprice=float(price),quantity=quan)
         return redirect(reverse('hospital/Doctor/admit_details_particular_doc.html'))
     else:
