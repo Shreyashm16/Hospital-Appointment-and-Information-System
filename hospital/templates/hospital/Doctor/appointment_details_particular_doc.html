@@ -142,12 +142,42 @@
         <br><br>
         <h3>Description</h3><br>
         {{app.5}}
-        <br><br><br><br><br><br><br><br>
+        <br>
+        <br><br>
         <form method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           {{ p_form.as_p }}
-        <button class="btn btn-sm btn-primary" type="submit">Update</button>
+        <button class="btn btn-sm btn-primary" type="submit" name="edit">Update</button>
         </form>
+        <br><br>
+        <h2>Admit Patient</h2>
+        <br><br>
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ q_form.as_p }}
+        <button class="btn btn-sm btn-primary" type="submit" name="admit">Admit</button>
+        </form>
+        <br><br>
+        <h2>Patient Health Record</h2>
+        <br>
+        <h3>Patient Height</h3><br>
+        {{pathi.height}} cm
+        <br><br>
+        <h3>Patient Weight</h3><br>
+        {{pathi.weight}} kg
+        <br><br>
+        <h3>Patient Age</h3><br>
+        {{ ag }} years
+        <br><br>
+        <h3>Patient Diseases</h3><br>
+        {{pathi.diseases}}
+        <br><br>
+        <h3>Patient Medicines</h3><br>
+        {{pathi.medicines}}
+        <br><br>
+        <h3>Patient Treatments/Surgeries</h3><br>
+        {{pathi.ts}}
+        <br><br><br>
 
     </div>
       <br><br><br><br><br><br><br><br><br><br><br><br>

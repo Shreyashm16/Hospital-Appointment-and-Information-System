@@ -262,3 +262,10 @@ class AppointmentEditForm(forms.ModelForm):
     class Meta:
         model = Appointment
         fields = ['description']
+
+class AdmitRegisterForm(forms.ModelForm):
+    description = forms.TextInput()
+    admitDate = forms.DateField()
+    class Meta:
+        model = PatAdmit
+        fields = ['description','admitDate']

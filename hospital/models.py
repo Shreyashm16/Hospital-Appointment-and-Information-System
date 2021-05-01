@@ -97,8 +97,8 @@ class PatAdmit(models.Model):
     doctor=models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="DoctorAdmit")
     admitDate=models.DateField()
     description=models.TextField()
-    dischargeDate=models.DateField()
-    roomcharges=models.FloatField()
+    dischargeDate=models.DateField(null=True)
+    #roomcharges=models.FloatField()
     def __str__(self):
         return f'{self.patient} Admit Info'
 

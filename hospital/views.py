@@ -4,7 +4,7 @@ from . import forms,models
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
-from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm,AppointmentEditForm
+from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm,AppointmentEditForm,AdmitRegisterForm
 from django.contrib.auth.forms import AuthenticationForm
 from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges
 from django.contrib import auth
@@ -606,18 +606,37 @@ def appointment_details_particular_doc_view(request,pk):
         ad = Appointment.objects.filter(id=pk).first()
         pat=ad.patient
         doc=ad.doctor
+        pathi = PatHealth.objects.filter(patient=pat).first()
+        db = pat.dob
+        today = date.today()
+        ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
         det=[doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description]
-        if request.method=="POST":
+        if request.method=="POST" and 'edit' in request.POST:
             p_form = AppointmentEditForm(request.POST,instance=ad)
             if p_form.is_valid():
                 ad.description=p_form.cleaned_data.get('description')
                 ad.save()
                 p_form.save()
-                return redirect('bookapp_doc.html')
+                p_form = AppointmentEditForm()
+                q_form = AdmitRegisterForm()
+                det=[doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description]
+                return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form,'q_form':q_form,'pathi':pathi,'ag':ag})
             else:
                 print(p_form.errors)
+        elif request.method=="POST" and 'admit' in request.POST:
+            q_form = AdmitRegisterForm(request.POST,instance=doc)
+            if q_form.is_valid():
+                adt = PatAdmit(patient=pat,doctor=doc,admitDate=q_form.cleaned_data.get('admitDate'),description=q_form.cleaned_data.get('description'))
+                adt.save()
+                p_form = AppointmentEditForm()
+                q_form = AdmitRegisterForm()
+                det=[doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description]
+                return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form,'q_form':q_form,'pathi':pathi,'ag':ag})
+            else:
+                print(q_form.errors)
         p_form = AppointmentEditForm()
-        return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form})
+        q_form = AdmitRegisterForm()
+        return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form,'q_form':q_form,'pathi':pathi,'ag':ag})
     else:
         auth.logout(request)
         return redirect('login_doc.html')
