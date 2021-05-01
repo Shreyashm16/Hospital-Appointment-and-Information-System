@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from .models import Doctor,Admin,Patient,Appointment,PatHealth,PatAdmit
 import datetime
 from django.forms.widgets import SelectDateWidget
+from django.utils import timezone
 
 dep=[('Cardiologist','Cardiologist'),
 ('Dermatologist','Dermatologist'),
@@ -38,8 +39,8 @@ class DoctorRegisterForm(UserCreationForm):
     # department= forms.MultipleChoiceField(choices=dep)
     # department.widget.attrs.update({'class' : 'app-form-control'})
     
-    age = forms.IntegerField(label="",widget=forms.TextInput(attrs={'placeholder': 'AGE'}))
-    age.widget.attrs.update({'class' : 'app-form-control'})
+    #age = forms.IntegerField(label="",widget=forms.TextInput(attrs={'placeholder': 'AGE'}))
+    #age.widget.attrs.update({'class' : 'app-form-control'})
     
     dob = forms.DateField(label="",widget=SelectDateWidget(years=range(1960, 2021)))
     dob.widget.attrs.update({'class' : 'app-form-control-date'})
@@ -71,14 +72,22 @@ class DoctorRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'firstname', 'lastname','department', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2','image']
+        fields = ['username', 'email', 'firstname', 'lastname','department', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2','image']
         #fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2']
         help_texts = {k:"" for k in fields}
+    
+    def checkdate(self):
+        cleaned_data = self.cleaned_data
+        db = cleaned_data.get('dob')
+        if db < timezone.now().date():
+            return True
+        self.add_error('dob', 'Invalid date of birth.')
+        return False
 
 class DoctorUpdateForm(forms.ModelForm):
     firstname = forms.CharField()
     lastname = forms.CharField()
-    age = forms.IntegerField()
+    #age = forms.IntegerField()
     dob = forms.DateField(widget=SelectDateWidget(years=range(1960, 2021)))
     address = forms.CharField()
     city = forms.CharField()
@@ -87,7 +96,7 @@ class DoctorUpdateForm(forms.ModelForm):
     image = forms.ImageField(widget=forms.FileInput)
     class Meta:
         model = Doctor
-        fields = ['firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image']
+        fields = ['firstname', 'lastname', 'dob', 'address', 'city', 'country', 'postalcode', 'image']
 
 
 class AdminRegisterForm(UserCreationForm):

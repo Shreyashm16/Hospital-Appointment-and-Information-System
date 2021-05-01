@@ -8,6 +8,8 @@ from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminU
 from django.contrib.auth.forms import AuthenticationForm
 from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit
 from django.contrib import auth
+from django.utils import timezone
+from datetime import date
 from django.http import HttpResponseRedirect
 
 ## For Invoice Function
@@ -599,11 +601,15 @@ def register_doc_view(request):
     if request.method=="POST":
         form = DoctorRegisterForm(request.POST, request.FILES)
         if form.is_valid():
-            nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))
-            doc = Doctor(user=nu,firstname=form.cleaned_data.get('firstname'),
+            db = form.cleaned_data.get('dob')
+            today = date.today()
+            ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
+            if db < timezone.now().date():
+                nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))
+                doc = Doctor(user=nu,firstname=form.cleaned_data.get('firstname'),
                         lastname=form.cleaned_data.get('lastname'),
                         department=form.cleaned_data.get('department'),
-                        age=form.cleaned_data.get('age'),
+                        age=ag,
                         dob=form.cleaned_data.get('dob'),
                         address=form.cleaned_data.get('address'),
                         city=form.cleaned_data.get('city'),
@@ -611,10 +617,13 @@ def register_doc_view(request):
                         postalcode=form.cleaned_data.get('postalcode'),
                         image=request.FILES['image']
                         )
-            doc.save()
-            mpg = Group.objects.get_or_create(name='DOCTOR')
-            mpg[0].user_set.add(nu)
-            return redirect('login_doc.html')
+                doc.save()
+                mpg = Group.objects.get_or_create(name='DOCTOR')
+                mpg[0].user_set.add(nu)
+                return redirect('login_doc.html')
+            else:
+                form.add_error('dob', 'Invalid date of birth.')
+                return render(request,'hospital/Doctor/register_doc.html',{'form': form})
         else:
             print(form.errors)
     else: 
