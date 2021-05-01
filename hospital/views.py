@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
 from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm
 from django.contrib.auth.forms import AuthenticationForm
-from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit
+from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges
 from django.contrib import auth
 from django.utils import timezone
 from datetime import date
@@ -742,7 +742,7 @@ def admit_details_particular_doc_view(request,pk):
         ad = PatAdmit.objects.filter(id=pk).first()
         pat=ad.patient
         doc=ad.doctor
-        det=[doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description]
+        det=[ad.pk,doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description]
         return render(request,'hospital/Doctor/admit_details_particular_doc.html',{'app':det})
     else:
         auth.logout(request)
@@ -750,11 +750,10 @@ def admit_details_particular_doc_view(request,pk):
 
 
 @login_required(login_url='login_doc.html')
-def admit_details_particular_doc_add_charge_view(request,pk,commodity,price,quantity):
+def admit_details_particular_doc_add_charge_view(request,pk,comm,price,quan):
     if check_doctor(request.user):
-        #
-        # YOUR CODE TO MAKE A NEW CHARGE RECORD GOES HERE
-        #
+        ad = PatAdmit.objects.filter(id=pk).first()
+        Charges.objects.create(Admitinfo=ad,commodity=comm,unitprice=float(price),quantity=quan)
         return redirect(reverse('hospital/Doctor/admit_details_particular_doc.html'))
     else:
         auth.logout(request)
