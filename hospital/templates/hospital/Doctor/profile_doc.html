@@ -413,8 +413,7 @@ h1{
                           <div class="col-lg-6">
                             <div class="form-group focused">
                               <label class="form-control-label" for="input-age" style="color: #fff;">Age</label>
-                              {{ p_form.age|add_class:"form-control form-control-alternative" }}
-                              {{ p_form.age.errors }}
+                              <input readonly type="text" id="input-username" class="form-control form-control-alternative" placeholder="{{ age }}">
                             </div>
                           </div>
                           <div class="col-lg-6">

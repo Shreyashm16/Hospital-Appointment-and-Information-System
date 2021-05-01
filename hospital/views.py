@@ -105,23 +105,30 @@ def register_adm_view(request):
     if request.method=="POST":
         form = AdminRegisterForm(request.POST, request.FILES)
         if form.is_valid():
-            nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))
-            adm = Admin(user=nu,firstname=form.cleaned_data.get('firstname'),
-                        lastname=form.cleaned_data.get('lastname'),
-                        age=form.cleaned_data.get('age'),
-                        dob=form.cleaned_data.get('dob'),
-                        address=form.cleaned_data.get('address'),
-                        city=form.cleaned_data.get('city'),
-                        country=form.cleaned_data.get('country'),
-                        postalcode=form.cleaned_data.get('postalcode'),
-                        image=request.FILES['image']
-                        )
-            adm.save()
-            mpg = Group.objects.get_or_create(name='ADMIN')
-            mpg[0].user_set.add(nu)
-            return redirect('login_adm.html')
+            db = form.cleaned_data.get('dob')
+            today = date.today()
+            ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
+            if db < timezone.now().date():
+                nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))
+                adm = Admin(user=nu,firstname=form.cleaned_data.get('firstname'),
+                            lastname=form.cleaned_data.get('lastname'),
+                            age=ag,
+                            dob=form.cleaned_data.get('dob'),
+                            address=form.cleaned_data.get('address'),
+                            city=form.cleaned_data.get('city'),
+                            country=form.cleaned_data.get('country'),
+                            postalcode=form.cleaned_data.get('postalcode'),
+                            image=request.FILES['image']
+                            )
+                adm.save()
+                mpg = Group.objects.get_or_create(name='ADMIN')
+                mpg[0].user_set.add(nu)
+                return redirect('login_adm.html')
+            else:
+                form.add_error('dob', 'Invalid date of birth.')
         else:
             print(form.errors)
+            return render(request,'hospital/Admin/register_adm.html',{'form': form})
     else: 
         form = AdminRegisterForm()
     
@@ -221,6 +228,9 @@ def approve_app_view(request,pk):
 def profile_adm_view(request):
     if check_admin(request.user):
         adm = Admin.objects.filter(user_id=request.user.id).first()
+        db=adm.dob
+        today = date.today()
+        ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
         #return render(request,'hospital/Doctor/profile_doc.html',{'doc':doc})
         if request.method=="POST":
             p_form = AdminUpdateForm(request.POST, request.FILES, instance=adm)
@@ -396,23 +406,30 @@ def register_pat_view(request):
     if request.method=="POST":
         form = PatientRegisterForm(request.POST, request.FILES)
         if form.is_valid():
-            nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))
-            p = Patient(user=nu,firstname=form.cleaned_data.get('firstname'),
-                        lastname=form.cleaned_data.get('lastname'),
-                        age=form.cleaned_data.get('age'),
-                        dob=form.cleaned_data.get('dob'),
-                        address=form.cleaned_data.get('address'),
-                        city=form.cleaned_data.get('city'),
-                        country=form.cleaned_data.get('country'),
-                        postalcode=form.cleaned_data.get('postalcode'),
-                        image=request.FILES['image']
-                        )
-            p.save()
-            path = PatHealth(patient=p,status=False)
-            path.save()
-            mpg = Group.objects.get_or_create(name='PATIENT')
-            mpg[0].user_set.add(nu)
-            return redirect('login_pat.html')
+            db = form.cleaned_data.get('dob')
+            today = date.today()
+            ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
+            if db < timezone.now().date():
+                nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))
+                p = Patient(user=nu,firstname=form.cleaned_data.get('firstname'),
+                            lastname=form.cleaned_data.get('lastname'),
+                            age=ag,
+                            dob=form.cleaned_data.get('dob'),
+                            address=form.cleaned_data.get('address'),
+                            city=form.cleaned_data.get('city'),
+                            country=form.cleaned_data.get('country'),
+                            postalcode=form.cleaned_data.get('postalcode'),
+                            image=request.FILES['image']
+                            )
+                p.save()
+                path = PatHealth(patient=p,status=False)
+                path.save()
+                mpg = Group.objects.get_or_create(name='PATIENT')
+                mpg[0].user_set.add(nu)
+                return redirect('login_pat.html')
+            else:
+                form.add_error('dob', 'Invalid date of birth.')
+                return render(request,'hospital/Patient/register_pat.html',{'form': form})
         else:
             print(form.errors)
     else: 
@@ -424,18 +441,38 @@ def register_pat_view(request):
 def profile_pat_view(request):
     if check_patient(request.user):
         pat = Patient.objects.filter(user_id=request.user.id).first()
+        db=pat.dob
+        today = date.today()
+        ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
         #return render(request,'hospital/Doctor/profile_doc.html',{'doc':doc})
         if request.method=="POST":
             p_form = PatientUpdateForm(request.POST, request.FILES, instance=pat)
             if p_form.is_valid():
-                p_form.save()
-                return redirect('profile_pat.html')
-        else:
-            p_form = PatientUpdateForm(instance=pat)
+                db = p_form.cleaned_data.get('dob')
+                today = date.today()
+                ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
+                if db < timezone.now().date():
+                    p_form.save()
+                    pat.age=ag
+                    pat.save()
+                    return redirect('profile_pat.html')
+                else:
+                    p_form.add_error('dob', 'Invalid date of birth.')
+                    context = {
+                        'p_form': p_form,
+                        'pat': pat,
+                        'age': ag
+                    }
+                    return render(request,'hospital/Patient/profile_pat.html',context)
+            else:
+                print(p_form.errors)
+        p_form = PatientUpdateForm(instance=pat)
         context = {
             'p_form': p_form,
-            'pat': pat
+            'pat': pat,
+            'age':ag
         }
+        
         return render(request,'hospital/Patient/profile_pat.html',context)
     else:
         auth.logout(request)
@@ -446,8 +483,11 @@ def yourhealth_view(request):
     if check_patient(request.user):
         pat = Patient.objects.filter(user_id=request.user.id).first()
         info=PatHealth.objects.filter(patient=pat).first()
+        db=pat.dob
+        today = date.today()
+        ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
         if info.status:
-            return render(request,'hospital/Patient/yourhealth.html',{'info':info,'pat':pat})
+            return render(request,'hospital/Patient/yourhealth.html',{'info':info,'pat':pat,'age':ag})
         else:
             return redirect('edityourhealth.html')
     else:
@@ -637,17 +677,34 @@ def register_doc_view(request):
 def profile_doc_view(request):
     if check_doctor(request.user):
         doc = Doctor.objects.filter(user_id=request.user.id).first()
-        #return render(request,'hospital/Doctor/profile_doc.html',{'doc':doc})
+        db = doc.dob
+        today = date.today()
+        ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
         if request.method=="POST":
             p_form = DoctorUpdateForm(request.POST, request.FILES, instance=doc)
             if p_form.is_valid():
-                p_form.save()
-                return redirect('profile_doc.html')
+                db = p_form.cleaned_data.get('dob')
+                today = date.today()
+                ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
+                if db < timezone.now().date():
+                    p_form.save()
+                    doc.age=ag
+                    doc.save()
+                    return redirect('profile_doc.html')
+                else:
+                    p_form.add_error('dob', 'Invalid date of birth.')
+                    context = {
+                        'p_form': p_form,
+                        'doc': doc,
+                        'age': ag
+                    }
+                    return render(request,'hospital/Doctor/profile_doc.html',context)
         else:
             p_form = DoctorUpdateForm(instance=doc)
         context = {
             'p_form': p_form,
-            'doc': doc
+            'doc': doc,
+            'age': ag
         }
         return render(request,'hospital/Doctor/profile_doc.html',context)
     else:

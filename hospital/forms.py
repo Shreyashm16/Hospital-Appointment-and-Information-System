@@ -112,8 +112,6 @@ class AdminRegisterForm(UserCreationForm):
     lastname = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'LASTNAME'}))
     lastname.widget.attrs.update({'class' : 'app-form-control'})
     
-    age = forms.IntegerField(label="",widget=forms.TextInput(attrs={'placeholder': 'AGE'}))
-    age.widget.attrs.update({'class' : 'app-form-control'})
     
     dob = forms.DateField(label="",widget=SelectDateWidget(years=range(1960, 2021)))
     dob.widget.attrs.update({'class' : 'app-form-control-date'})
@@ -141,14 +139,13 @@ class AdminRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2','image']
+        fields = ['username', 'email', 'firstname', 'lastname', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2','image']
         #fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2']
         help_texts = {k:"" for k in fields}
 
 class AdminUpdateForm(forms.ModelForm):
     firstname = forms.CharField()
     lastname = forms.CharField()
-    age = forms.IntegerField()
     dob = forms.DateField(widget=SelectDateWidget(years=range(1960, 2021)))
     address = forms.CharField()
     city = forms.CharField()
@@ -157,7 +154,7 @@ class AdminUpdateForm(forms.ModelForm):
     image = forms.ImageField(widget=forms.FileInput)
     class Meta:
         model = Admin
-        fields = ['firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image']
+        fields = ['firstname', 'lastname', 'dob', 'address', 'city', 'country', 'postalcode', 'image']
 
 
 class PatientRegisterForm(UserCreationForm):
@@ -172,10 +169,7 @@ class PatientRegisterForm(UserCreationForm):
     
     lastname = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'LASTNAME'}))
     lastname.widget.attrs.update({'class' : 'app-form-control'})
-    
-    age = forms.IntegerField(label="",widget=forms.TextInput(attrs={'placeholder': 'AGE'}))
-    age.widget.attrs.update({'class' : 'app-form-control'})
-    
+      
     dob = forms.DateField(label="",widget=SelectDateWidget(years=range(1960, 2021)))
     dob.widget.attrs.update({'class' : 'app-form-control-date'})
     
@@ -202,13 +196,12 @@ class PatientRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2','image']
+        fields = ['username', 'email', 'firstname', 'lastname', 'dob', 'address', 'city', 'country', 'postalcode', 'password1', 'password2','image']
         help_texts = {k:"" for k in fields}
 
 class PatientUpdateForm(forms.ModelForm):
     firstname = forms.CharField()
     lastname = forms.CharField()
-    age = forms.IntegerField()
     dob = forms.DateField(widget=SelectDateWidget(years=range(1960, 2021)))
     address = forms.CharField()
     city = forms.CharField()
@@ -217,7 +210,7 @@ class PatientUpdateForm(forms.ModelForm):
     image = forms.ImageField(widget=forms.FileInput)
     class Meta:
         model = Patient
-        fields = ['firstname', 'lastname', 'age', 'dob', 'address', 'city', 'country', 'postalcode', 'image']
+        fields = ['firstname', 'lastname', 'dob', 'address', 'city', 'country', 'postalcode', 'image']
 
 
 class PatientAppointmentForm(forms.ModelForm):   
