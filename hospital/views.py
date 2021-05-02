@@ -346,26 +346,7 @@ def profile_adm_view(request):
 # Paitent Related Views
 
 
-@login_required(login_url='login_pat.html')
-def dash_view(request):
-    if check_patient(request.user):
-        pat=Patient.objects.get(user_id=request.user.id)
-        det=[]
-        for c in Appointment.objects.filter(patient=pat).all():
-            d=c.doctor
-            # p=Patient.objects.filter(id=c.patientId).first()
-            if d:
-                det.append([d.firstname,c.description,d.department,c.calldate,c.calltime,c.status])
-        
-        admt=[]
-        for c in PatAdmit.objects.filter(patient=pat).all():
-            d=c.doctor
-            if d:
-                admt.append([d.firstname,pat.firstname,c.admitDate,c.dischargeDate,c.pk])
-        return render(request,'hospital/Patient/dashboard.html',{'app':det,'admt':admt})
-    else:
-        auth.logout(request)
-        return redirect('login_pat.html')
+
 
 def add_secs_to_time(timeval, secs_to_add):
     secs = timeval.hour * 3600 + timeval.minute * 60 + timeval.second
@@ -391,7 +372,6 @@ def check_avail(doc,dt,tm):
 @login_required(login_url='login_pat.html')
 def bookapp_view(request):
     if check_patient(request.user):
-        pat = Patient.objects.filter(user_id=request.user.id).first()
         if request.method=="POST":
             appointmentForm = PatientAppointmentForm(request.POST)
             if appointmentForm.is_valid():
@@ -498,12 +478,17 @@ def medicalreport_view(request):
 def admit_details_view(request):
     if check_patient(request.user):
         pat=Patient.objects.get(user_id=request.user.id)
+        app_det=[]
+        for a in Appointment.objects.filter(patient=pat).all():
+            k=a.doctor
+            if k:
+                app_det.append([k.firstname,a.description,k.department,a.calldate,a.calltime,a.status])
         det=[]
         for c in PatAdmit.objects.filter(patient=pat).all():
             d=c.doctor
             if d:
                 det.append([d.firstname,pat.firstname,c.admitDate,c.dischargeDate,c.pk])
-        return render(request,'hospital/Patient/admit_details.html',{'app':det})
+        return render(request,'hospital/Patient/admit_details.html',{'app':det,'p1':app_det})
     else:
         auth.logout(request)
         return redirect('login_pat.html')
@@ -997,14 +982,14 @@ def bill_view(request):
         d1=discharge[0].admitDate
         d2=discharge[0].dischargeDate
         days=(d2-d1).days
-        total=discharge[0].roomcharges
-        total_room_charge=discharge[0].roomcharges*days
+        roomcharges=10
+        total=roomcharges
+        total_room_charge=roomcharges*days
         dict={
             'patientName':discharge[0].patient.firstname,
             'doctorName':discharge[0].doctor.firstname,
             'admitDate':discharge[0].admitDate,
             'releaseDate':discharge[0].dischargeDate,
-            'roomCharge':discharge[0].roomcharges,
             'desc':discharge[0].description,
             'pat_add':discharge[0].patient.address,
             'days':days,

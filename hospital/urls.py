@@ -7,7 +7,6 @@ from django.conf.urls import include, url
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('',views.home_view,name=''),
-    path('dash_pat/',views.dash_view,name='dashboard.html'),
     path('bookapp_pat/',views.bookapp_view,name='bookapp.html'),
     path('calladoc_pat/',views.calladoc_view,name='calladoc.html'),
     path('feedback_pat/',views.feedback_view,name='feedback.html'),

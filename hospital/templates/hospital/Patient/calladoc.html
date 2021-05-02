@@ -241,12 +241,7 @@ td {
       </a></div>
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'dashboard.html' %}">
-            <i class="material-icons">dashboard</i>
-            <p>Dashboard</p>
-          </a>
-        </li>
+        
         <li class="nav-item ">
           <a class="nav-link" href="{% url 'profile_pat.html' %}">
             <i class="material-icons">person</i>
@@ -262,7 +257,7 @@ td {
         <li class="nav-item ">
           <a class="nav-link" href="{% url 'admit_details.html' %}">
             <i class="material-icons">content_paste</i>
-            <p>Admit Details</p>
+            <p>Admit &amp Appointment Details </p>
           </a>
         </li>
         <li class="nav-item">
@@ -371,14 +366,16 @@ td {
                   </div>
                 </center>
                 </div>
-
+  
             </div>
-
+            <br><br>
+      
+<a class="btn btn-primary btn-round btn-lg"href="https://videocall.agora.io/" target="_blank"><b>Join Room</b></a>
         </div>
 
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
-      <a class="btn btn-primary btn-round btn-lg"href="https://videocall.agora.io/" target="_blank"><b>Join Room</b></a>
+      
 
       {% include "hospital/Patient/footer.html" %}
     </div>
