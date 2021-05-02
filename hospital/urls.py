@@ -34,7 +34,6 @@ urlpatterns = [
     path('feedback_doc/',views.feedback_doc_view,name='feedback_doc.html'),
     path('register_doc/',views.register_doc_view,name='register_doc.html'),
     path('login_doc/',views.login_doc_view,name='login_doc.html'),
-    path('medicalreport_doc/',views.medicalreport_doc_view,name='medicalreport_doc.html'),
     path('profile_doc/',views.profile_doc_view,name='profile_doc.html'),
     path('dash_adm/',views.dash_adm_view,name='dashboard_adm.html'),
     path('patient_adm/',views.patient_adm_view,name='patient_adm.html'),

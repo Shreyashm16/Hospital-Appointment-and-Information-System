@@ -31,6 +31,169 @@
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
   <link href="{% static 'assets/css/form.css'%}" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style media="screen">
+    
+    
+    .market-update-block {
+      padding: 2em 2em;
+      background: #999;
+    }
+
+    .market-update-block h3 {
+      color: #fff;
+      font-size: 1.5em;
+      font-family: 'Carrois Gothic', sans-serif;
+    }
+
+    .market-update-block h4 {
+      font-size: 1.2em;
+      color: #fff;
+      margin: 0.3em 0em;
+      font-family: 'Carrois Gothic', sans-serif;
+    }
+
+    .market-update-block p {
+      color: #fff;
+      font-size: 0.8em;
+      line-height: 1.8em;
+    }
+
+    .market-update-block.clr-block-1 {
+      background: #ff0000;
+      margin-right: 0.8em;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-2 {
+      background: #4f5905;
+      margin-right: 0.8em;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-3 {
+      background: #1355f9;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-1:hover {
+      background: #3C3C3C;
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-2:hover {
+      background: #3C3C3C;
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-block.clr-block-3:hover {
+      background: #3C3C3C;
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+
+    .market-update-right i.fa.fa-user-o,
+    i.fa.fa-map-marker {
+      font-size: 3em;
+      color: #68AE00;
+      width: 80px;
+      height: 80px;
+      background: #fff;
+      text-align: center;
+      border-radius: 49px;
+      -webkit-border-radius: 49px;
+      -moz-border-radius: 49px;
+      -o-border-radius: 49px;
+      line-height: 1.7em;
+    }
+
+    .market-update-right i.fa.fa-info-circle,
+    i.fa.fa-list-alt {
+      font-size: 3em;
+      color: #FC8213;
+      width: 80px;
+      height: 80px;
+      background: #fff;
+      text-align: center;
+      border-radius: 49px;
+      -webkit-border-radius: 49px;
+      -moz-border-radius: 49px;
+      -o-border-radius: 49px;
+      line-height: 1.7em;
+    }
+
+    .market-update-right i.fa.fa-mobile,
+    i.fa.fa-calendar-o {
+      font-size: 3em;
+      color: #337AB7;
+      width: 80px;
+      height: 80px;
+      background: #fff;
+      text-align: center;
+      border-radius: 49px;
+      -webkit-border-radius: 49px;
+      -moz-border-radius: 49px;
+      -o-border-radius: 49px;
+      line-height: 1.7em;
+    }
+
+
+    .market-update-left {
+      padding: 0px;
+    }
+    .column {
+  float: left;
+  width: 25%;
+  padding: 20px;
+}
+
+
+.row {margin: 0 -10px;
+padding-left: 15px;
+padding-right: 15px;}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+th {
+    border: 1px solid #ff0066;
+    border-collapse: collapse;
+    padding:10px;
+}
+
+td {
+    border: 1px solid #ff0066;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    padding:10px;
+}
+
+
+    </style>
   <script>
     $(document).ready(function(){
       var dragTheme = window.localStorage.getItem('checkbox');
@@ -121,12 +284,7 @@
             <p>Admitted Patients</p>
           </a>
         </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'medicalreport_doc.html' %}">
-            <i class="material-icons">favorite</i>
-            <p>Medical Reports</p>
-          </a>
-        </li>
+        
         <li class="nav-item ">
           <a class="nav-link" href="{% url 'feedback_doc.html' %}">
             <i class="material-icons">bubble_chart</i>
@@ -145,24 +303,106 @@
     <div class="main-panel">
       <!-- Navbar -->
       <br><br><br>
-      <div class="container sps">
-        <div class="row sps">
-            <h3>Doctor Name</h3><br>
-            {{app.1}}
-            <br><br>
-            <h3>Patient Name</h3><br>
-            {{app.2}}
-            <br><br>
-            <h3>Admit Date</h3><br>
-            {{app.3}}
-            <br><br>
-            <h3>Discharge Date</h3><br>
-            {{app.4}}
-            <br><br>
-            <h3>Description</h3><br>
-            {{app.5}}
+      
+         <div class="main-panel row">
+      
+    
+  <div class="market-updates row">
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-1 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Doctor Name</h4>
+           <h3>{{app.1}}</h3>
         </div>
-        <br><br><br><br><br>
+        <div class="col-md-4 market-update-right">
+          <i class="fa fa-user-o"> </i>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-2 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Admit Date</h4>
+           <h3>{{app.3}}</h3>
+        </div>
+        <div class="col-md-4 market-update-right">
+         <i class="fa fa-calendar-o" aria-hidden="true"></i>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-3 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Discharge Date</h4>
+           <h3>{{app.4}}</h3>
+        </div>
+        <div class="col-md-4 market-update-right">
+          <i class="fa fa-calendar-o" aria-hidden="true"></i>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="clearfix"> </div>
+  </div>
+
+
+  <br><br><br>
+
+
+
+  <div class="market-updates row">
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-1 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Patient Name</h4>
+           <h3>{{app.2}}</h3>
+        </div>
+        <div class="col-md-4 market-update-right">
+           <i class="fa fa-user-o"> </i>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-2 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Description</h4>
+           <h3>{{app.5}}</h3>
+        </div>
+        <div class="col-md-4 market-update-right">
+          <i class="fa fa-list-alt"></i>
+           
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-3 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Doctor Department</h4>
+           <h3>{{doci}}</h3>
+        </div>
+        <div class="col-md-4 market-update-right">
+          <i class="fa fa-calendar-o" aria-hidden="true"></i>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="clearfix"> </div>
+  </div>
+
+
+        <br><br><br>
+        
+        <h2 class="sps">Enter Medicine Details</h2>
         <center>
         <table class="sps">
           <thead>
@@ -178,11 +418,16 @@
                   <td class="sps"><input type="Number" id="quan" ></td>                  
               </tr>
         </table>
+        </center>
+        <br>
+        <br>
+        
+
         <br><br><br>
         <a class="btn btn-primary btn-xs" onclick="add_charge()">Save</a>
         <br><br><br>
         {% if app.4 is None %}
-          <h2>Discharge Patient</h2>
+          <h2 class="sps">Discharge Patient</h2>
           <a class="btn btn-primary btn-xs" href="{% url 'discharge_doc' app.0  %}">Discharge</a>
         {% endif %}
         </center>

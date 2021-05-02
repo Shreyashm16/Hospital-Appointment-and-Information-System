@@ -744,7 +744,7 @@ def appointment_details_particular_doc_view(request,pk):
         db = pat.dob
         today = date.today()
         ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
-        det=[doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description,ad.pk,ad.finished]
+        det=[doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,ad.pk,ad.finished]
         if request.method=="POST" and 'edit' in request.POST:
             p_form = AppointmentEditForm(request.POST,instance=ad)
             if p_form.is_valid():
@@ -753,7 +753,7 @@ def appointment_details_particular_doc_view(request,pk):
                 p_form.save()
                 p_form = AppointmentEditForm()
                 q_form = AdmitRegisterForm()
-                det=[doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description,ad.pk,ad.finished]
+                det=[doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,ad.pk,ad.finished]
                 return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form,'q_form':q_form,'pathi':pathi,'ag':ag})
             else:
                 print(p_form.errors)
@@ -764,7 +764,7 @@ def appointment_details_particular_doc_view(request,pk):
                 adt.save()
                 p_form = AppointmentEditForm()
                 q_form = AdmitRegisterForm()
-                det=[doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description,ad.pk,ad.finished]
+                det=[doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,ad.pk,ad.finished]
                 return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form,'q_form':q_form,'pathi':pathi,'ag':ag})
             else:
                 print(q_form.errors)
@@ -919,13 +919,7 @@ def yourhealth_doc_view(request):
         auth.logout(request)
         return redirect('login_doc.html')
 
-@login_required(login_url='login_doc.html')
-def medicalreport_doc_view(request):
-    if check_doctor(request.user):
-        return render(request,'hospital/Doctor/medicalreport_doc.html')
-    else:
-        auth.logout(request)
-        return redirect('login_doc.html')
+
 
 @login_required(login_url='login_doc.html')
 def admit_details_doc_view(request):
@@ -951,11 +945,13 @@ def admit_details_doc_view(request):
 def admit_details_particular_doc_view(request,pk):
     if check_doctor(request.user):
         ad = PatAdmit.objects.filter(id=pk).first()
+        doci=Doctor.objects.get(user_id=request.user.id)
+        doci=doci.department
         pat=ad.patient
         doc=ad.doctor
         det=[ad.pk,doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description]
 
-        return render(request,'hospital/Doctor/admit_details_particular_doc.html',{'app':det})
+        return render(request,'hospital/Doctor/admit_details_particular_doc.html',{'app':det,'doci':doci})
     else:
         auth.logout(request)
         return redirect('login_doc.html')
