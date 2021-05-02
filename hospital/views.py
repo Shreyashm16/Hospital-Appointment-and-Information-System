@@ -9,7 +9,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges
 from django.contrib import auth
 from django.utils import timezone
-from datetime import date
+from datetime import date,timedelta,time
 from django.http import HttpResponseRedirect
 
 ## For Invoice Function
@@ -275,7 +275,10 @@ def dash_view(request):
         auth.logout(request)
         return redirect('login_pat.html')
 
-
+def add_secs_to_time(timeval, secs_to_add):
+    secs = timeval.hour * 3600 + timeval.minute * 60 + timeval.second
+    secs -= secs_to_add
+    return time(secs // 3600, (secs % 3600) // 60, secs % 60)
 
 @login_required(login_url='login_pat.html')
 def bookapp_view(request):
@@ -286,9 +289,25 @@ def bookapp_view(request):
             if appointmentForm.is_valid():
                 docid=int(appointmentForm.cleaned_data.get('doctor'))
                 doc = Doctor.objects.all().filter(id=docid).first()
+                tm=appointmentForm.cleaned_data.get('calltime')
+                k = Appointment.objects.all().filter(status=True,doctor=doc,calldate=appointmentForm.cleaned_data.get('calldate'),calltime=tm)
+                if k:
+                    appointmentForm.add_error('calltime', 'Slot Unavailable.')
+                    return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm})
+                l=1
+                while l<15:
+                    tmed = add_secs_to_time(tm,60*l)
+                    print(tmed)
+                    l+=1
+                    k = Appointment.objects.all().filter(status=True,doctor=doc,calldate=appointmentForm.cleaned_data.get('calldate'),calltime=tmed)
+                    if k:
+                        appointmentForm.add_error('calltime', 'Slot Unavailable.')
+                        return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm})
                 app = Appointment(patient=pat,doctor=doc,
                                     description=appointmentForm.cleaned_data.get('description'),
-                                    appointmentDate=appointmentForm.cleaned_data.get('appointmentDate'),
+                                    appointmentDate=appointmentForm.cleaned_data.get('calldate'),
+                                    calldate=appointmentForm.cleaned_data.get('calldate'),
+                                    calltime=appointmentForm.cleaned_data.get('calltime'),
                                     status=False)
                 app.save()
                 return redirect('bookapp.html')

@@ -217,15 +217,15 @@ class PatientAppointmentForm(forms.ModelForm):
     #ch = [(c.pk, c.firstname+"("+c.department+")") for c in Doctor.objects.filter(status=True).all()]
     doctor = forms.TypedChoiceField()
     #doctorId=forms.CharField(widget=forms.Select(choices=c))  
-    appointmentDate = forms.DateField(widget=SelectDateWidget(years=range(2021,2024)))
-
+    calldate = forms.DateField(widget=SelectDateWidget(years=range(2021,2024)))
+    calltime = forms.TimeField()
     def __init__(self, *args, **kwargs):
         super(PatientAppointmentForm, self).__init__(*args, **kwargs)
         self.fields['doctor'].choices = [(c.id, c.firstname+"("+c.department+")") for c in Doctor.objects.filter(status=True).all()]
     
     class Meta:
         model=Appointment
-        fields=['description']
+        fields=['description','calldate','calltime']
 
 
 class AdminAppointmentForm(forms.ModelForm):
