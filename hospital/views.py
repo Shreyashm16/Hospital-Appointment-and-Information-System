@@ -626,17 +626,17 @@ def bookapp_doc_view(request):
         for c in Appointment.objects.filter(status=True,doctor=doc.id,link__isnull=True,finished=False).all():
             p=Patient.objects.filter(id=c.patient.id).first()
             if p:
-                det.append([p.firstname,c.description,c.appointmentDate,c.pk])
+                det.append([p.firstname,c.description,c.calldate,c.pk])
         d=[]
         for c in Appointment.objects.filter(status=True,doctor=doc.id,link__isnull=False,finished=False).all():
             p=Patient.objects.filter(id=c.patient.id).first()
             if p:
-                d.append([p.firstname,c.description,c.appointmentDate,c.calldate,c.calltime,c.link,c.pk])
+                d.append([p.firstname,c.description,c.calldate,c.calltime,c.link,c.pk])
         k=[]
         for c in Appointment.objects.filter(doctor=doc.id,finished=True).all():
             p=Patient.objects.filter(id=c.patient.id).first()
             if p:
-                k.append([p.firstname,c.description,c.appointmentDate,c.calldate,c.calltime,c.link,c.pk])
+                k.append([p.firstname,c.description,c.calldate,c.calltime,c.link,c.pk])
         return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det,'sapp':d,'hisapp':k})
     else:
         auth.logout(request)
