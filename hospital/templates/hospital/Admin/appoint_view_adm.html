@@ -245,10 +245,22 @@ td {
             <p>Dashboard</p>
           </a>
         </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'profile_adm.html' %}">
+            <i class="material-icons">dashboard</i>
+            <p>Profile</p>
+          </a>
+        </li>
         <li class="nav-item active">
           <a class="nav-link" href="{% url 'bookapp_adm.html' %}">
             <i class="material-icons">content_paste</i>
             <p>Book Appointment</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'admit_adm.html' %}">
+            <i class="material-icons">content_paste</i>
+            <p>Admit</p>
           </a>
         </li>
         <li class="nav-item">
@@ -263,7 +275,12 @@ td {
             <p>Doctor</p>
           </a>
         </li>
-      
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'admin_adm.html' %}">
+              <i class="material-icons">library_books</i>
+              <p>Admin</p>
+          </a>
+      </li>
          <li class="nav-item ">
           <a class="nav-link" href="{% url 'logout' %}">
             <i class="material-icons">logout</i>
@@ -289,7 +306,8 @@ td {
                                         <th class="sps">Doctor Name</th>
                                         <th class="sps">Patient Name </th>
                                         <th class="sps">Description </th>
-                                        <th class="sps">Date</th>
+                                        <th class="sps">Appointment Date</th>
+                                        <th class="sps">Appointment Time</th>
                                     </tr>
                                     {% for p in app %}
                                     <tr>
@@ -297,6 +315,7 @@ td {
                                         <td class="sps">{{ p.1 }}</td>
                                         <td class="sps">{{ p.2 }}</td>
                                         <td class="sps">{{ p.3 }}</td>
+                                        <td class="sps">{{ p.4 }}</td>
                                     </tr>
                                     {% endfor %}
 

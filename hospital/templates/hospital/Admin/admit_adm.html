@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!--
 =========================================================
 * Material Dashboard Dark Edition - v2.1.0
@@ -26,11 +27,8 @@
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
   <!-- CSS Files -->
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
-  <!-- Place this tag in your head or just before your close body tag. -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
@@ -58,170 +56,6 @@
       });
     });
   </script>
-  <style media="screen">
-    
-    
-    .market-update-block {
-      padding: 2em 2em;
-      background: #999;
-    }
-
-    .market-update-block h3 {
-      color: #fff;
-      font-size: 1.5em;
-      font-family: 'Carrois Gothic', sans-serif;
-    }
-
-    .market-update-block h4 {
-      font-size: 1.2em;
-      color: #fff;
-      margin: 0.3em 0em;
-      font-family: 'Carrois Gothic', sans-serif;
-    }
-
-    .market-update-block p {
-      color: #fff;
-      font-size: 0.8em;
-      line-height: 1.8em;
-    }
-
-    .market-update-block.clr-block-1 {
-      background: #ff0000;
-      margin-right: 0.8em;
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-      transition: 0.5s all;
-      -webkit-transition: 0.5s all;
-      -moz-transition: 0.5s all;
-      -o-transition: 0.5s all;
-    }
-
-    .market-update-block.clr-block-2 {
-      background: #4f5905;
-      margin-right: 0.8em;
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-      transition: 0.5s all;
-      -webkit-transition: 0.5s all;
-      -moz-transition: 0.5s all;
-      -o-transition: 0.5s all;
-    }
-
-    .market-update-block.clr-block-3 {
-      background: #1355f9;
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-      transition: 0.5s all;
-      -webkit-transition: 0.5s all;
-      -moz-transition: 0.5s all;
-      -o-transition: 0.5s all;
-    }
-
-    .market-update-block.clr-block-1:hover {
-      background: #3C3C3C;
-      transition: 0.5s all;
-      -webkit-transition: 0.5s all;
-      -moz-transition: 0.5s all;
-      -o-transition: 0.5s all;
-    }
-
-    .market-update-block.clr-block-2:hover {
-      background: #3C3C3C;
-      transition: 0.5s all;
-      -webkit-transition: 0.5s all;
-      -moz-transition: 0.5s all;
-      -o-transition: 0.5s all;
-    }
-
-    .market-update-block.clr-block-3:hover {
-      background: #3C3C3C;
-      transition: 0.5s all;
-      -webkit-transition: 0.5s all;
-      -moz-transition: 0.5s all;
-      -o-transition: 0.5s all;
-    }
-
-    .market-update-right i.fa.fa-user-o,
-    i.fa.fa-map-marker {
-      font-size: 3em;
-      color: #68AE00;
-      width: 80px;
-      height: 80px;
-      background: #fff;
-      text-align: center;
-      border-radius: 49px;
-      -webkit-border-radius: 49px;
-      -moz-border-radius: 49px;
-      -o-border-radius: 49px;
-      line-height: 1.7em;
-    }
-
-    .market-update-right i.fa.fa-info-circle,
-    i.fa.fa-list-alt {
-      font-size: 3em;
-      color: #FC8213;
-      width: 80px;
-      height: 80px;
-      background: #fff;
-      text-align: center;
-      border-radius: 49px;
-      -webkit-border-radius: 49px;
-      -moz-border-radius: 49px;
-      -o-border-radius: 49px;
-      line-height: 1.7em;
-    }
-
-    .market-update-right i.fa.fa-mobile,
-    i.fa.fa-calendar-o {
-      font-size: 3em;
-      color: #337AB7;
-      width: 80px;
-      height: 80px;
-      background: #fff;
-      text-align: center;
-      border-radius: 49px;
-      -webkit-border-radius: 49px;
-      -moz-border-radius: 49px;
-      -o-border-radius: 49px;
-      line-height: 1.7em;
-    }
-
-
-
-    .market-update-left {
-      padding: 0px;
-    }
-    .column {
-  float: left;
-  width: 25%;
-  padding: 30px;
-}
-
-
-.row {margin: 0 -10px;
-padding-left: 15px;
-padding-right: 15px;}
-
-
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-th {
-    border: 1px solid #ff0066;
-    border-collapse: collapse;
-    padding:10px;
-}
-
-td {
-    border: 1px solid #ff0066;
-    border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
-    padding:10px;
-}
-
-
-    </style>
 </head>
 
 <body id="jhamela" class="darkEdition lightEdition">
@@ -241,7 +75,7 @@ td {
       </a></div>
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <li class="nav-item active  ">
+        <li class="nav-item ">
           <a class="nav-link" href="{% url 'dashboard_adm.html' %}">
             <i class="material-icons">dashboard</i>
             <p>Dashboard</p>
@@ -259,12 +93,12 @@ td {
             <p>Book Appointment</p>
           </a>
         </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'admit_adm.html' %}">
-            <i class="material-icons">content_paste</i>
-            <p>Admit</p>
-          </a>
-        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'admit_adm.html' %}">
+              <i class="material-icons">content_paste</i>
+              <p>Admit</p>
+            </a>
+          </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'patient_adm.html' %}">
             <i class="material-icons">favorite</i>
@@ -293,118 +127,51 @@ td {
     </div>
   </div>
     
+    <div class="main-panel">
+      <!-- Navbar -->
+       <form method="post">
+        {% csrf_token %}
+        <div class="container register-formm sps">
+          <div class="form">
+            <div class="note">
+              <p>Admit Details</p>
+            </div>
+            <div class="form-content">
+              <!--
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    {% render_field appointmentForm.description class="form-control" placeholder="Description" %}
+                  </div>
+                  <div class="form-group">
+                    {% render_field appointmentForm.doctorId class="form-control" placeholder="doctor" %}
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btnSubmit">Book</button>
+            -->
+              <form method="POST">
+                {% csrf_token %}
+        
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Admit Patient</legend>
+                    {{ admitForm.as_p }}
+                </fieldset>
+                <div class="form-group sps"> 
+                      <button type="submit" class="btn btn-primary btn-round btn-lg">Admit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </form>
 
-    <br>
-    <br>
-    <div class="main-panel row">
+      <br>
+      <br>
+      <br>
+      <a class="btn btn-primary btn-round btn-lg"href="{% url 'admit_view_adm.html' %}" target="_blank"><b>View Admit Details</b></a>
+
       
-      
-  <div class="market-updates row">
-    <div class="col-md-4 market-update-gd">
-      <div class="market-update-block clr-block-1 column">
-        <div class="col-md-8 market-update-left">
-          <h4>Total Doctor: {{doctotcount}}</h4>
-          <p>Approval Required {{docapp}}: </p>
-           
-        </div>
-        <div class="col-md-4 market-update-right">
-          <i class="fa fa-user-o"> </i>
-        </div>
-        <div class="clearfix"> </div>
-      </div>
-    </div>
-    <div class="col-md-4 market-update-gd">
-      <div class="market-update-block clr-block-2 column">
-        <div class="col-md-8 market-update-left">
-          <h4>Total Patient {{pattotcount}}</h4>
-          <p>Wants to Admit : {{patapp}} </p>
-          
-        </div>
-        <div class="col-md-4 market-update-right">
-          <i class="fa fa-user-o"></i>
-        </div>
-        <div class="clearfix"> </div>
-      </div>
-    </div>
-    <div class="col-md-4 market-update-gd">
-      <div class="market-update-block clr-block-3 column">
-        <div class="col-md-8 market-update-left">
-           <h4>Total Appointment:  {{appcount}}</h4>
-          <p>Approve Appointments : {{approveapp}} </p>
-        </div>
-        <div class="col-md-4 market-update-right">
-          <i class="fa fa-calendar-o"></i>
-        </div>
-        <div class="clearfix"> </div>
-      </div>
-    </div>
-    <div class="clearfix"> </div>
-  </div>
-  <br>
-  <br>
-  <div class="container sps">
-  <div class="row sps">
-  <center>
-    <div class="sps" style="margin-left:2%;">
-     
-        <h2 class="sps">Recent Doctors</h2>
-      
-      <table class="table sps">
-          <tr class="sps">
-            <th class="sps" >Name</th>
-            <th class="sps">Department</th>
-            <th class="sps">Address</th>
-            <th class="sps">Status</th>
-
-          </tr>
-        {% for d in doc %}
-        <tr class="sps">
-          <td class="sps">{{d.firstname}} {{d.lastname}}</td>
-          <td class="sps">{{d.department}}</td>
-          <td class="sps">{{d.address}}</td>
-          <td class="sps">{{d.status}}</td>
-  
-          
-         
-         <!-- <td> <span class="label label-success">On Hold</span></td>-->
-         
-
-        </tr>
-        {% endfor %}
-  
-      </table>
-    </div>
-
-    <div class="sps">
-      
-        <h2 class="sps">Recent Patients</h2>
-      <table class="sps">
-        <thead>
-          <tr class="sps">
-            <th class="sps">Name</th>
-            <th class="sps">Symptoms</th>
-            <th class="sps">Address</th>
-            <th class="sps">Status</th>
-
-          </tr>
-       
-        {% for p in pat %}
-        <tr>
-          <td class="sps"> {{p.firstname}} {{p.lastname}}</td>
-          <td class="sps">{{p.symptoms}}</td>
-          <td class="sps">{{p.address}}</td>
-          <td class="sps">{{p.status}}</td>
-        </tr>{% endfor %}
-      
-      </table>
-    </div>
-    </center>
-  </div>
-  
-</div>
-
-
-</body>
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
       {% include "hospital/Admin/footer.html" %}

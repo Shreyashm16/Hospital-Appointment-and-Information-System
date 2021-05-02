@@ -4,7 +4,7 @@ from . import forms,models
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
-from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm,AppointmentEditForm,AdmitRegisterForm
+from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm,AppointmentEditForm,AdmitRegisterForm,AdminAdmitRegisterForm
 from django.contrib.auth.forms import AuthenticationForm
 from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges,DoctorProfessional
 from django.contrib import auth
@@ -31,17 +31,46 @@ def bookapp_adm_view(request):
                 patid=appointmentForm.cleaned_data.get('patient')
                 doc = Doctor.objects.all().filter(id=docid).first()
                 pat = Patient.objects.all().filter(id=patid).first()
-                app = Appointment(patient=pat,doctor=doc,
+                if check_avail(doc,appointmentForm.cleaned_data.get('calldate'),appointmentForm.cleaned_data.get('calltime')):
+                    app = Appointment(patient=pat,doctor=doc,
                                     description=appointmentForm.cleaned_data.get('description'),
-                                    appointmentDate=appointmentForm.cleaned_data.get('appointmentDate'),
+                                    calldate=appointmentForm.cleaned_data.get('calldate'),
+                                    calltime=appointmentForm.cleaned_data.get('calltime'),
                                     status=True)
-                app.save()
-                return redirect('bookapp_adm.html')
+                    app.save()
+                    return redirect('bookapp_adm.html')
+                else:
+                    appointmentForm.add_error('calltime', 'Slot Unavailable.')
+                    return render(request,'hospital/Admin/bookapp_adm.html',{'appointmentForm': appointmentForm})
             else:
                 print(appointmentForm.errors)
         else:
             appointmentForm = AdminAppointmentForm()
         return render(request,'hospital/Admin/bookapp_adm.html',{'appointmentForm': appointmentForm})
+    else:
+        auth.logout(request)
+        return redirect('login_adm.html')
+
+
+@login_required(login_url='login_adm.html')
+def admit_adm_view(request):
+    if check_admin(request.user):
+        if request.method=="POST":
+            admitForm = AdminAdmitRegisterForm(request.POST)
+            if admitForm.is_valid():
+                docid=admitForm.cleaned_data.get('doctor')
+                patid=admitForm.cleaned_data.get('patient')
+                doc = Doctor.objects.all().filter(id=docid).first()
+                pat = Patient.objects.all().filter(id=patid).first()
+                adt = PatAdmit(patient=pat,doctor=doc,
+                                description=admitForm.cleaned_data.get('description'),
+                                admitDate=admitForm.cleaned_data.get('admitDate'))
+                adt.save()
+                return redirect('admit_adm.html')
+            else:
+                print(admitForm.errors)
+        admitForm = AdminAdmitRegisterForm()
+        return render(request,'hospital/Admin/admit_adm.html',{'admitForm': admitForm})
     else:
         auth.logout(request)
         return redirect('login_adm.html')
@@ -54,8 +83,23 @@ def admin_appointment_view(request):
             d=c.doctor
             p=c.patient
             if d and p:
-                det.append([d.firstname,p.firstname,c.description,c.appointmentDate])
+                det.append([d.firstname,p.firstname,c.description,c.calldate,c.calltime])
         return render(request,'hospital/Admin/appoint_view_adm.html',{'app':det})
+    else:
+        auth.logout(request)
+        return redirect('login_adm.html')
+
+
+@login_required(login_url='login_adm.html')
+def admin_admit_view(request):
+    if check_admin(request.user):
+        det=[]
+        for c in PatAdmit.objects.all():
+            d=c.doctor
+            p=c.patient
+            if d and p:
+                det.append([d.firstname,p.firstname,c.description,c.admitDate])
+        return render(request,'hospital/Admin/admit_view_adm.html',{'app':det})
     else:
         auth.logout(request)
         return redirect('login_adm.html')
@@ -146,6 +190,18 @@ def patient_adm_view(request):
         auth.logout(request)
         return redirect('login_adm.html')
 
+
+@login_required(login_url='login_adm.html')
+def patient_all_view(request):
+    if check_admin(request.user):
+        det=[]
+        for c in Patient.objects.filter(status=True).all():
+            det.append([c.firstname,c.lastname,c.dob,c.address,c.city,c.country,c.postalcode])
+        return render(request,'hospital/Admin/patient_all_adm.html',{'app':det})
+    else:
+        auth.logout(request)
+        return redirect('login_adm.html')
+
 @login_required(login_url='login_adm.html')
 def doctor_adm_view(request):
     if check_admin(request.user):
@@ -156,6 +212,41 @@ def doctor_adm_view(request):
     else:
         auth.logout(request)
         return redirect('login_adm.html')
+
+@login_required(login_url='login_adm.html')
+def doctor_all_view(request):
+    if check_admin(request.user):
+        det=[]
+        for c in Doctor.objects.filter(status=True).all():
+            k=DoctorProfessional.objects.filter(doctor=c).first()
+            det.append([c.firstname,c.lastname,c.dob,c.address,c.city,c.country,c.postalcode,c.department,k.appfees,k.admfees,k.totalpat])
+        return render(request,'hospital/Admin/doctor_all_adm.html',{'app':det})
+    else:
+        auth.logout(request)
+        return redirect('login_adm.html')
+
+@login_required(login_url='login_adm.html')
+def admin_adm_view(request):
+    if check_admin(request.user):
+        adm = Admin.objects.all().filter()
+        admcount=Admin.objects.all().count()
+        dic={'adm':adm,'admcount':admcount}
+        return render(request,'hospital/Admin/admin_adm.html',context=dic)
+    else:
+        auth.logout(request)
+        return redirect('login_adm.html')
+
+@login_required(login_url='login_adm.html')
+def admin_all_view(request):
+    if check_admin(request.user):
+        det=[]
+        for c in Admin.objects.all():
+            det.append([c.firstname,c.lastname,c.dob,c.address,c.city,c.country,c.postalcode])
+        return render(request,'hospital/Admin/admin_all_adm.html',{'app':det})
+    else:
+        auth.logout(request)
+        return redirect('login_adm.html')
+
 
 @login_required(login_url='login_adm.html')
 def approve_pat_view(request):
@@ -207,7 +298,7 @@ def approve_appoint_view(request):
             d=c.doctor
             p=c.patient
             if d and p:
-                det.append([d.firstname,p.firstname,c.description,c.appointmentDate,c.id])
+                det.append([d.firstname,p.firstname,c.description,c.calldate,c.calltime,c.id])
         return render(request,'hospital/Admin/approve_appoint.html',{'app':det})
     else:
         auth.logout(request)
@@ -241,7 +332,8 @@ def profile_adm_view(request):
             p_form = AdminUpdateForm(instance=adm)
         context = {
             'p_form': p_form,
-            'adm': adm
+            'adm': adm,
+            'ag': ag
         }
         return render(request,'hospital/Admin/profile_adm.html',context)
     else:

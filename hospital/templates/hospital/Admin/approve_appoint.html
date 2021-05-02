@@ -248,9 +248,21 @@ td {
           </a>
         </li>
         <li class="nav-item ">
+          <a class="nav-link" href="{% url 'profile_adm.html' %}">
+            <i class="material-icons">dashboard</i>
+            <p>Profile</p>
+          </a>
+        </li>
+        <li class="nav-item active ">
           <a class="nav-link" href="{% url 'bookapp_adm.html' %}">
             <i class="material-icons">content_paste</i>
             <p>Book Appointment</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'admit_adm.html' %}">
+            <i class="material-icons">content_paste</i>
+            <p>Admit</p>
           </a>
         </li>
         <li class="nav-item ">
@@ -259,13 +271,18 @@ td {
             <p>Patient</p>
           </a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item ">
           <a class="nav-link" href="{% url 'doctor_adm.html' %}">
             <i class="material-icons">library_books</i>
             <p>Doctor</p>
           </a>
         </li>
-      
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'admin_adm.html' %}">
+              <i class="material-icons">library_books</i>
+              <p>Admin</p>
+          </a>
+      </li>
          <li class="nav-item ">
           <a class="nav-link" href="{% url 'logout' %}">
             <i class="material-icons">logout</i>
@@ -301,8 +318,9 @@ td {
             <th class="sps">Doctor Name: </th>
             <th class="sps">Patient Name: </th>
             <th class="sps">Description: </th>
-            <th class="sps">Appointment Date: </th>
-            <th class="sps">Approve /Onhold: </th>
+            <th class="sps">Appointment Date</th>
+            <th class="sps">Appointment Time</th>
+            <th class="sps">Approve /Onhold</th>
 
           </tr>
        
@@ -312,7 +330,8 @@ td {
           <td class="sps">{{p.1}}</td>
           <td class="sps">{{p.2}}</td>
           <td class="sps">{{p.3}}</td>
-         <td><a class="btn btn-primary btn-xs" href="{% url 'approve_app' p.4  %}">Approve</a></td>
+          <td class="sps">{{p.4}}</td>
+         <td><a class="btn btn-primary btn-xs" href="{% url 'approve_app' p.5  %}">Approve</a></td>
           
 
         </tr>

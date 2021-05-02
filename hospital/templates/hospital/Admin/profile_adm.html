@@ -281,7 +281,7 @@
         </li>
         <li class="nav-item active  ">
           <a class="nav-link" href="{% url 'profile_adm.html' %}">
-            <i class="material-icons">person</i>
+            <i class="material-icons">dashboard</i>
             <p>Profile</p>
           </a>
         </li>
@@ -291,24 +291,30 @@
             <p>Book Appointment</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'yourhealth_adm.html' %}">
-            <i class="material-icons">favorite</i>
-            <p>Your Health</p>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'admit_adm.html' %}">
+            <i class="material-icons">content_paste</i>
+            <p>Admit</p>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'calladoc_adm.html' %}">
+          <a class="nav-link" href="{% url 'patient_adm.html' %}">
+            <i class="material-icons">favorite</i>
+            <p>Patient</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'doctor_adm.html' %}">
             <i class="material-icons">library_books</i>
-            <p>Call A Doc</p>
+            <p>Doctor</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="{% url 'medicalreport_adm.html' %}">
-            <i class="material-icons">favorite</i>
-            <p>Medical Reports</p>
+          <a class="nav-link" href="{% url 'admin_adm.html' %}">
+              <i class="material-icons">library_books</i>
+              <p>Admin</p>
           </a>
-        </li>
+      </li>
          <li class="nav-item ">
           <a class="nav-link" href="{% url 'logout' %}">
             <i class="material-icons">logout</i>
@@ -358,7 +364,7 @@
                   </div>
                   <div class="text-center sps">
                     <h3>
-                      {{ adm.firstname }} {{ adm.lastname }}<span class="font-weight-light">, {{ adm.age }}</span>
+                      {{ adm.firstname }} {{ adm.lastname }}<span class="font-weight-light">, {{ ag }}</span>
                     </h3>
                     <div class="h5 font-weight-300">
                       <i class="ni location_pin mr-2"></i>{{ adm.city }}, {{ adm.country }}
@@ -415,8 +421,7 @@
                           <div class="col-lg-6">
                             <div class="form-group focused">
                               <label class="form-control-label" for="input-age" style="color: #fff;">Age</label>
-                              {{ p_form.age|add_class:"form-control form-control-alternative" }}
-                              {{ p_form.age.errors }}
+                              <input readonly type="text" id="input-username" class="form-control form-control-alternative" placeholder="{{ ag }}">
                             </div>
                           </div>
                           <div class="col-lg-6">

@@ -41,7 +41,6 @@ class Admin(models.Model):
     image = models.ImageField(default="default.png",upload_to="profile_pics")
     firstname = models.CharField(max_length=100,default='firstname')
     lastname = models.CharField(max_length=100,default='lastname')
-    age = models.IntegerField(default=0)
     dob = models.DateField(default=datetime.date.today)
     address = models.CharField(max_length=300,default="address")
     city = models.CharField(max_length=100,default="city")

@@ -236,7 +236,7 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="nav-item  ">
+                    <li class="nav-item ">
                         <a class="nav-link" href="{% url 'dashboard_adm.html' %}">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
@@ -260,19 +260,19 @@
                           <p>Admit</p>
                         </a>
                       </li>
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'patient_adm.html' %}">
                             <i class="material-icons">favorite</i>
                             <p>Patient</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item ">
                         <a class="nav-link" href="{% url 'doctor_adm.html' %}">
                             <i class="material-icons">library_books</i>
                             <p>Doctor</p>
                         </a>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item active">
                         <a class="nav-link" href="{% url 'admin_adm.html' %}">
                             <i class="material-icons">library_books</i>
                             <p>Admin</p>
@@ -289,6 +289,7 @@
         </div>
 
 
+
         <br>
         <br>
         <div class="main-panel row">
@@ -297,27 +298,28 @@
                 <div class="col-md-4 market-update-gd">
                     <div class="market-update-block clr-block-3 column">
                         <div class="col-md-8 market-update-left">
-
-                            <h4>Total Patients : {{patcount}}</h4>
+                            <h4>Total Admins : {{admcount}}</h4>
                             
 
                         </div>
                         <div class="col-md-4 market-update-right">
                             <i class="fa fa-calendar-o"></i>
-
                         </div>
-                        <br>
-                        <a href="{% url 'approve_pat.html' %}" style="font-size: large;">Approve Patient</a>
                         <div class="clearfix"> </div>
+                        <br>
+                        <!-- 
+                        <a href="{% url 'approve_doc.html' %}" style="font-size: large;">Approve Doctors</a>
+                        -->
                     </div>
+
                 </div>
                 <div class="clearfix"> </div>
             </div>
-            <br><br>
-            <center>
-            <a class="btn btn-primary btn-xs" href="{% url 'patient_all_view.html' %}">View All Patients</a>
-            </center>
 
+            <center>
+                
+                    <a class="btn btn-primary btn-xs" href="{% url 'admin_all_view.html' %}">View All Admins</a>
+            </center>
             <br>
             <br>
             <div class="container sps">
@@ -328,31 +330,25 @@
 
                         <div class="sps">
 
-                            <h2 class="sps">Recent Patient</h2>
+                            <h2 class="sps">Recent Admins</h2>
                             <table class="sps">
                                 <thead>
                                     <tr class="sps">
                                         <th class="sps">Name: </th>
-                                        <th class="sps">Symptoms: </th>
                                         <th class="sps">Address: </th>
-                                        <th class="sps">Status: </th>
 
 
                                     </tr>
 
-                                    {% for p in pat %}
+                                    {% for p in adm %}
                                     <tr>
-
                                         <td class="sps"> {{p.firstname}} {{p.lastname}}</td>
-                                        <td class="sps">{{p.symptoms}}</td>
                                         <td class="sps">{{p.address}}</td>
-                                        <td class="sps">{{p.status}}</td>
 
 
 
                                     </tr>
                                     {% endfor %}
-
 
                             </table>
                         </div>
