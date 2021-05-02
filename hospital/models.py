@@ -76,6 +76,7 @@ class Appointment(models.Model):
     calldate=models.DateField(null=True)
     calltime=models.TimeField(null=True)
     status=models.BooleanField(default=False)
+    finished=models.BooleanField(default=False)
     def __str__(self):
         return f'{self.description} Appointment Info'
 

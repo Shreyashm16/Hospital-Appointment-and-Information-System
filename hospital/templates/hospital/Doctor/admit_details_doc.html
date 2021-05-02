@@ -123,12 +123,12 @@
     <div class="main-panel">
       <!-- Navbar -->
       <br><br><br>
-      <h2 class="sps">Admit Details</h2>
+      <h2 class="sps">Recent Admit Details</h2>
                     <table class="sps">
                         <thead>
                             <tr class="sps">
                                 <th class="sps">Doctor Name</th>
-                                <th class="sps">Your Name</th>
+                                <th class="sps">Patient Name</th>
                                 <th class="sps">Admit Date</th>
                                 <th class="sps">Discharge Date</th>
                                 <th class="sps">Details</th>
@@ -144,7 +144,29 @@
                             {% endfor %}
 
                     </table>
-      <br><br><br><br><br><br><br><br><br><br><br><br>
+      <br><br><br>
+      <h2 class="sps">Discharged Patient History</h2>
+                    <table class="sps">
+                        <thead>
+                            <tr class="sps">
+                                <th class="sps">Doctor Name</th>
+                                <th class="sps">Patient Name</th>
+                                <th class="sps">Admit Date</th>
+                                <th class="sps">Discharge Date</th>
+                                <th class="sps">Details</th>
+                            </tr>
+                            {% for p in appi %}
+                            <tr>
+                                <td class="sps"> {{p.0}}</td>
+                                <td class="sps">{{p.1}}</td>
+                                <td class="sps">{{p.2}}</td>
+                                <td class="sps">{{p.3}}</td>
+                                <td><a class="btn btn-primary btn-xs" href="{% url 'admit_details_particular_doc.html' p.4  %}">Details</a></td>
+                            </tr>
+                            {% endfor %}
+
+                    </table>
+      <br><br><br><br><br><br><br><br><br>
       {% include "hospital//Doctor/footer.html" %}
     </div>
   </div>

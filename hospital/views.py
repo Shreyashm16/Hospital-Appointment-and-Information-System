@@ -585,17 +585,21 @@ def bookapp_doc_view(request):
     if check_doctor(request.user):
         doc=Doctor.objects.get(user_id=request.user.id)
         det=[]
-        for c in Appointment.objects.filter(status=True,doctor=doc.id,link__isnull=True).all():
+        for c in Appointment.objects.filter(status=True,doctor=doc.id,link__isnull=True,finished=False).all():
             p=Patient.objects.filter(id=c.patient.id).first()
             if p:
                 det.append([p.firstname,c.description,c.appointmentDate,c.pk])
         d=[]
-        for c in Appointment.objects.filter(status=True,doctor=doc.id,link__isnull=False).all():
+        for c in Appointment.objects.filter(status=True,doctor=doc.id,link__isnull=False,finished=False).all():
             p=Patient.objects.filter(id=c.patient.id).first()
             if p:
                 d.append([p.firstname,c.description,c.appointmentDate,c.calldate,c.calltime,c.link,c.pk])
-
-        return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det,'sapp':d})
+        k=[]
+        for c in Appointment.objects.filter(doctor=doc.id,finished=True).all():
+            p=Patient.objects.filter(id=c.patient.id).first()
+            if p:
+                k.append([p.firstname,c.description,c.appointmentDate,c.calldate,c.calltime,c.link,c.pk])
+        return render(request,'hospital/Doctor/bookapp_doc.html',{'app':det,'sapp':d,'hisapp':k})
     else:
         auth.logout(request)
         return redirect('login_doc.html')
@@ -610,7 +614,7 @@ def appointment_details_particular_doc_view(request,pk):
         db = pat.dob
         today = date.today()
         ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
-        det=[doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description]
+        det=[doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description,ad.pk,ad.finished]
         if request.method=="POST" and 'edit' in request.POST:
             p_form = AppointmentEditForm(request.POST,instance=ad)
             if p_form.is_valid():
@@ -619,7 +623,7 @@ def appointment_details_particular_doc_view(request,pk):
                 p_form.save()
                 p_form = AppointmentEditForm()
                 q_form = AdmitRegisterForm()
-                det=[doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description]
+                det=[doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description,ad.pk,ad.finished]
                 return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form,'q_form':q_form,'pathi':pathi,'ag':ag})
             else:
                 print(p_form.errors)
@@ -630,7 +634,7 @@ def appointment_details_particular_doc_view(request,pk):
                 adt.save()
                 p_form = AppointmentEditForm()
                 q_form = AdmitRegisterForm()
-                det=[doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description]
+                det=[doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description,ad.pk,ad.finished]
                 return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form,'q_form':q_form,'pathi':pathi,'ag':ag})
             else:
                 print(q_form.errors)
@@ -638,6 +642,18 @@ def appointment_details_particular_doc_view(request,pk):
         q_form = AdmitRegisterForm()
         return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form,'q_form':q_form,'pathi':pathi,'ag':ag})
     else:
+        auth.logout(request)
+        return redirect('login_doc.html')
+
+@login_required(login_url='login_doc.html')
+def endappointment_doc_view(request,pk):
+    if check_doctor(request.user):
+        ap = Appointment.objects.get(id=pk)
+        ap.finished = True
+        ap.save()
+        return redirect('bookapp_doc.html')
+    else:
+        print("4")
         auth.logout(request)
         return redirect('login_doc.html')
 
@@ -788,9 +804,15 @@ def admit_details_doc_view(request):
         det=[]
         for c in PatAdmit.objects.filter(doctor=doc).all():
             p=c.patient
-            if p:
+            if p and not(c.dischargeDate):
                 det.append([doc.firstname,p.firstname,c.admitDate,c.dischargeDate,c.pk])
-        return render(request,'hospital/Doctor/admit_details_doc.html',{'app':det})
+        
+        d=[]
+        for c in PatAdmit.objects.filter(doctor=doc).all():
+            p=c.patient
+            if p and c.dischargeDate:
+                d.append([doc.firstname,p.firstname,c.admitDate,c.dischargeDate,c.pk])
+        return render(request,'hospital/Doctor/admit_details_doc.html',{'app':det,'appi':d})
     else:
         auth.logout(request)
         return redirect('login_doc.html')
@@ -802,6 +824,7 @@ def admit_details_particular_doc_view(request,pk):
         pat=ad.patient
         doc=ad.doctor
         det=[ad.pk,doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description]
+
         return render(request,'hospital/Doctor/admit_details_particular_doc.html',{'app':det})
     else:
         auth.logout(request)
@@ -822,7 +845,16 @@ def admit_details_particular_doc_add_charge_view(request,pk,comm,price,quan):
         auth.logout(request)
         return redirect('login_doc.html')
 
-
+@login_required(login_url='login_doc.html')
+def discharge_doc_view(request,pk):
+    if check_doctor(request.user):
+        ad = PatAdmit.objects.get(id=pk)
+        ad.dischargeDate=date.today()
+        ad.save()
+        return redirect('admit_details_doc.html')
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
 
 def home_view(request):
     return render(request,'hospital/Home/home.html')

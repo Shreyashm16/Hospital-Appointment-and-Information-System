@@ -157,6 +157,10 @@
           {{ q_form.as_p }}
         <button class="btn btn-sm btn-primary" type="submit" name="admit">Admit</button>
         </form>
+        {% if app.7 is False %}
+        <br><br>
+        <a class="btn btn-primary btn-xs" href="{% url 'endappointment_doc' app.6  %}">Finish Appointment</a>
+        {% endif %}
         <br><br>
         <h2>Patient Health Record</h2>
         <br>

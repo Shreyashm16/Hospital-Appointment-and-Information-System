@@ -301,7 +301,10 @@ td {
 
                         <div class="sps">
 
-                            <h2 class="sps">Appointment Details</h2>
+                            <h1 class="sps">Appointment Details</h1>
+                            <br><br><br>
+                            <h2>Review Appointments</h2>
+                            <br>
                             <table class="sps">
                                 <thead>
                                     <tr class="sps">
@@ -324,7 +327,7 @@ td {
                                         <td class="sps"><input type="Time" id="time_{{ p.3 }}" name="time"></td>
                                         <td class="sps"><input type="text" id="link_{{ p.3 }}" name="link"></td>
                                         <td><a class="btn btn-primary btn-xs" onclick="f_{{p.3}}()">Save</a></td>
-                                        <td><a class="btn btn-primary btn-xs" href="{% url 'bookapp_details_prticular_doc.html' p.3  %}">Details</a></td>
+                                        <td><a class="btn btn-primary btn-xs" href="{% url 'bookapp_details_particular_doc.html' p.3  %}">Details</a></td>
                                         
                                   
                                         
@@ -333,7 +336,9 @@ td {
 
                             </table>
                             <p>*NOTE: Password for the room you create shoud be your firstname</p>
-                            <br><br><br><br>
+                            <br><br><br>
+                            <h2>Upcoming Appointments</h2>
+                            <br>
                             <table class="sps">
                               <thead>
                                   <tr class="sps">
@@ -354,7 +359,38 @@ td {
                                       <td class="sps">{{ q.3 }}</td>
                                       <td class="sps">{{ q.4 }}</td>
                                       <td class="sps">{{ q.5 }}</td>
-                                      <td><a class="btn btn-primary btn-xs" href="{% url 'bookapp_details_prticular_doc.html' q.6  %}">Details</a></td>
+                                      <td><a class="btn btn-primary btn-xs" href="{% url 'bookapp_details_particular_doc.html' q.6  %}">Details</a></td>
+                                      
+                                
+                                      
+                                  </tr>
+                                  {% endfor %}
+
+                          </table>
+                          <br><br><br>
+                          <h2>Finished Appointments</h2>
+                          <br>
+                            <table class="sps">
+                              <thead>
+                                  <tr class="sps">
+                                      <th class="sps">Patient Name </th>
+                                      <th class="sps">Description </th>
+                                      <th class="sps">Appointment Date</th>
+                                      <th class="sps">Call Date</th>
+                                      <th class="sps">Call Time</th>
+                                      <th class="sps">Room Name</th>
+                                      <th class="sps">Details</th>
+                                  </tr>
+                                  {% for q in hisapp %}
+                                  <tr>
+                                      <td class="sps">{{ q.0 }}</td>
+                                      <td class="sps">{{ q.1 }}</td>
+                                      <td class="sps">{{ q.2 }}</td>
+                  
+                                      <td class="sps">{{ q.3 }}</td>
+                                      <td class="sps">{{ q.4 }}</td>
+                                      <td class="sps">{{ q.5 }}</td>
+                                      <td><a class="btn btn-primary btn-xs" href="{% url 'bookapp_details_particular_doc.html' q.6  %}">Details</a></td>
                                       
                                 
                                       

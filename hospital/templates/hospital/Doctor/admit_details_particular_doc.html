@@ -148,19 +148,19 @@
       <div class="container sps">
         <div class="row sps">
             <h3>Doctor Name</h3><br>
-            {{app.0}}
-            <br><br>
-            <h3>Patient Name</h3><br>
             {{app.1}}
             <br><br>
-            <h3>Admit Date</h3><br>
+            <h3>Patient Name</h3><br>
             {{app.2}}
             <br><br>
-            <h3>Discharge Date</h3><br>
+            <h3>Admit Date</h3><br>
             {{app.3}}
             <br><br>
-            <h3>Description</h3><br>
+            <h3>Discharge Date</h3><br>
             {{app.4}}
+            <br><br>
+            <h3>Description</h3><br>
+            {{app.5}}
         </div>
         <br><br><br><br><br>
         <center>
@@ -180,7 +180,13 @@
         </table>
         <br><br><br>
         <a class="btn btn-primary btn-xs" onclick="add_charge()">Save</a>
+        <br><br><br>
+        {% if app.4 is None %}
+          <h2>Discharge Patient</h2>
+          <a class="btn btn-primary btn-xs" href="{% url 'discharge_doc' app.0  %}">Discharge</a>
+        {% endif %}
         </center>
+
     </div>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       {% include "hospital//Doctor/footer.html" %}
