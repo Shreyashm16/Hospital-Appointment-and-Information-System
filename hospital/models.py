@@ -101,19 +101,19 @@ class PatAdmit(models.Model):
     def __str__(self):
         return f'{self.patient} Admit Info'
 
-class Charges(models.Model):
-    Admitinfo=models.ForeignKey(PatAdmit, on_delete=models.CASCADE, related_name="AdmitDetails")
-    commodity=models.TextField()
-    unitprice=models.FloatField(default=0)
-    quantity=models.IntegerField(default=1)
-    def __str__(self):
-        return f'{self.commodity} Info'
-
 class Medicines(models.Model):
     name = models.TextField()
     price = models.FloatField()
     def __str__(self):
         return f'{self.name} Info'
+
+class Charges(models.Model):
+    Admitinfo=models.ForeignKey(PatAdmit, on_delete=models.CASCADE, related_name="AdmitDetails")
+    commodity=models.ForeignKey(Medicines, on_delete=models.CASCADE, related_name="AdmitDetails")
+    quantity=models.IntegerField(default=1)
+    def __str__(self):
+        return f'{self.commodity} Info'
+
 
 class DoctorProfessional(models.Model):
     doctor=models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="DoctorProfessional")
@@ -122,3 +122,11 @@ class DoctorProfessional(models.Model):
     totalpat = models.IntegerField(default=0)
     def __str__(self):
         return f'{self.doctor.firstname} Professional Info'
+
+
+class OperationCosts(models.Model):
+    name=models.TextField()
+    cost=models.FloatField()
+    description=models.TextField(null=True)
+    def __str__(self):
+        return f'{self.name} Cost'

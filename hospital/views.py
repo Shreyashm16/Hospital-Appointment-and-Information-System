@@ -423,7 +423,7 @@ def appointment_details_particular_pat_view(request,pk):
         ad = Appointment.objects.filter(id=pk).first()
         pat = ad.patient
         doc = ad.doctor
-        det = [doc.firstname,pat.firstname,ad.appointmentDate,ad.link,ad.calltime,ad.description]
+        det = [doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description]
         return render(request,'hospital/Patient/bookapp_details_particular_pat.html',{'app':det})
     else:
         auth.logout(request)
@@ -438,7 +438,7 @@ def pat_appointment_view(request):
             d=c.doctor
             p=c.patient
             if d and p:
-                det.append([d.firstname,p.firstname,c.description,c.appointmentDate,c.link,c.calldate,c.calltime,c.pk])
+                det.append([d.firstname,p.firstname,c.description,c.link,c.calldate,c.calltime,c.pk])
         return render(request,'hospital/Patient/appoint_view_pat.html',{'app':det})
     else:
         auth.logout(request)

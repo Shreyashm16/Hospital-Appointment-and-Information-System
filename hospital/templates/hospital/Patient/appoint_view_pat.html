@@ -313,12 +313,10 @@ td {
                                         <th class="sps">Doctor Name</th>
                                         <th class="sps">Your Name </th>
                                         <th class="sps">Description </th>
-                                        <th class="sps">Date</th>
                                          <th class="sps">Call Date</th>
                                          <th class="sps">Call Time</th>
                                          <th class="sps">Room Name</th>
                                          <th class="sps">Details</th>
-
 
                                     </tr>
 
@@ -327,11 +325,10 @@ td {
                                         <td class="sps"> {{p.0}}</td>
                                         <td class="sps">{{p.1}}</td>
                                         <td class="sps">{{p.2}}</td>
-                                        <td class="sps">{{p.3}}</td>
-                                        <td class="sps">{{p.5}}</td>
-                                        <td class="sps">{{p.6}}</td>
                                         <td class="sps">{{p.4}}</td>
-                                        <td><a class="btn btn-primary btn-xs" href="{% url 'bookapp_details_particular_pat.html' p.7  %}">Details</a></td>
+                                        <td class="sps">{{p.5}}</td>
+                                        <td class="sps">{{p.3}}</td>
+                                        <td><a class="btn btn-primary btn-xs" href="{% url 'bookapp_details_particular_pat.html' p.6  %}">Details</a></td>
                                     </tr>
 
                                     {% endfor %}
