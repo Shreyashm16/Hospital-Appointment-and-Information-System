@@ -93,6 +93,12 @@
             <p>Book Appointment</p>
           </a>
         </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="{% url 'admit_details.html' %}">
+            <i class="material-icons">content_paste</i>
+            <p>Admit Details</p>
+          </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'yourhealth.html' %}">
             <i class="material-icons">favorite</i>
@@ -151,6 +157,9 @@
         <br><br>
         <h3>Description</h3><br>
         {{app.5}}
+        <br><br><br>
+        <a class="btn btn-primary btn-round btn-lg" href="#"><b>View Medical Report</b></a>
+        <a class="btn btn-primary btn-round btn-lg" href="#"><b>View Bill</b></a>
     </div>
 
 

@@ -87,10 +87,16 @@
             <p>Profile</p>
           </a>
         </li>
-        <li class="nav-item active  ">
+        <li class="nav-item ">
           <a class="nav-link" href="{% url 'bookapp.html' %}">
             <i class="material-icons">content_paste</i>
             <p>Book Appointment</p>
+          </a>
+        </li>
+        <li class="nav-item active  ">
+          <a class="nav-link" href="{% url 'admit_details.html' %}">
+            <i class="material-icons">content_paste</i>
+            <p>Admit Details</p>
           </a>
         </li>
         <li class="nav-item">
@@ -148,6 +154,9 @@
             <h3>Description</h3><br>
             {{app.4}}
         </div>
+        <br><br><br>
+        <a class="btn btn-primary btn-round btn-lg" href="#"><b>View Medical Report</b></a>
+        <a class="btn btn-primary btn-round btn-lg" href="#"><b>View Bill</b></a>
     </div>
 
 </div>

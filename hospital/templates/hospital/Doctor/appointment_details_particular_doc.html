@@ -143,6 +143,7 @@
         <h3>Description</h3><br>
         {{app.5}}
         <br>
+        {% if app.3 and app.7 is False%}
         <br><br>
         <form method="POST" enctype="multipart/form-data">
           {% csrf_token %}
@@ -160,6 +161,7 @@
         {% if app.7 is False %}
         <br><br>
         <a class="btn btn-primary btn-xs" href="{% url 'endappointment_doc' app.6  %}">Finish Appointment</a>
+        {% endif %}
         {% endif %}
         <br><br>
         <h2>Patient Health Record</h2>
