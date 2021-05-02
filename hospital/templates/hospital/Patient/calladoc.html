@@ -337,7 +337,39 @@ td {
 
                             </table>
                         </div>
-                    </center>
+                    
+
+                    <div class="sps">
+
+                      <h2 class="sps">Explore Doctors</h2>
+                      <table class="sps">
+                          <thead>
+                              <tr class="sps">
+                                  <th class="sps">Doctor Name</th>
+                                  <th class="sps">Department</th>
+                                  <th class="sps">City</th>
+                                  <th class="sps">Age</th>
+                                  <th class="sps">Appointment Fees</th>
+                                  <th class="sps">Admit Fees</th>
+                                  <th class="sps">Total Patients Treated</th>
+                              </tr>
+
+                              {% for p in docs %}
+                              <tr>
+                                  <td class="sps">Dr {{p.0}} {{p.1}}</td>
+                                  <td class="sps">{{p.2}}</td>
+                                  <td class="sps">{{p.3}}</td>
+                                  <td class="sps">{{p.4}}</td>
+                                  <td class="sps">{{p.5}}</td>
+                                  <td class="sps">{{p.6}}</td>
+                                  <td class="sps">{{p.7}}</td>
+                                  
+                              </tr>
+                              {% endfor %}
+
+                      </table>
+                  </div>
+                </center>
                 </div>
 
             </div>

@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
 from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm,AppointmentEditForm,AdmitRegisterForm
 from django.contrib.auth.forms import AuthenticationForm
-from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges
+from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges,DoctorProfessional
 from django.contrib import auth
 from django.utils import timezone
 from datetime import date,timedelta,time
@@ -259,11 +259,11 @@ def dash_view(request):
     if check_patient(request.user):
         pat=Patient.objects.get(user_id=request.user.id)
         det=[]
-        for c in Appointment.objects.filter(status=False,patient=pat).all():
+        for c in Appointment.objects.filter(patient=pat).all():
             d=c.doctor
             # p=Patient.objects.filter(id=c.patientId).first()
             if d:
-                det.append([d.firstname,c.description,d.department,c.appointmentDate])
+                det.append([d.firstname,c.description,d.department,c.calldate,c.calltime,c.status])
         
         admt=[]
         for c in PatAdmit.objects.filter(patient=pat).all():
@@ -280,6 +280,22 @@ def add_secs_to_time(timeval, secs_to_add):
     secs -= secs_to_add
     return time(secs // 3600, (secs % 3600) // 60, secs % 60)
 
+def check_avail(doc,dt,tm):
+    #dp = DoctorProfessional.objects.all().filter(doctor=doc)
+    tm = tm[:-3]
+    hr = tm[:-3]
+    mn = tm[-2:]
+    ftm = time(int(hr),int(mn),0)
+    k = Appointment.objects.all().filter(status=True,doctor=doc,calldate=dt)
+    if ftm<time(9,0,0) or ftm>time(17,0,0):
+        return False
+    if ftm>time(13,0,0) and ftm<time(14,0,0):
+        return False
+    for l in k:
+        if ftm == l.calltime and dt==l.calldate:
+            return False
+    return True
+
 @login_required(login_url='login_pat.html')
 def bookapp_view(request):
     if check_patient(request.user):
@@ -289,28 +305,17 @@ def bookapp_view(request):
             if appointmentForm.is_valid():
                 docid=int(appointmentForm.cleaned_data.get('doctor'))
                 doc = Doctor.objects.all().filter(id=docid).first()
-                tm=appointmentForm.cleaned_data.get('calltime')
-                k = Appointment.objects.all().filter(status=True,doctor=doc,calldate=appointmentForm.cleaned_data.get('calldate'),calltime=tm)
-                if k:
-                    appointmentForm.add_error('calltime', 'Slot Unavailable.')
-                    return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm})
-                l=1
-                while l<15:
-                    tmed = add_secs_to_time(tm,60*l)
-                    print(tmed)
-                    l+=1
-                    k = Appointment.objects.all().filter(status=True,doctor=doc,calldate=appointmentForm.cleaned_data.get('calldate'),calltime=tmed)
-                    if k:
-                        appointmentForm.add_error('calltime', 'Slot Unavailable.')
-                        return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm})
-                app = Appointment(patient=pat,doctor=doc,
+                if check_avail(doc,appointmentForm.cleaned_data.get('calldate'),appointmentForm.cleaned_data.get('calltime')):
+                    app = Appointment(patient=pat,doctor=doc,
                                     description=appointmentForm.cleaned_data.get('description'),
-                                    appointmentDate=appointmentForm.cleaned_data.get('calldate'),
                                     calldate=appointmentForm.cleaned_data.get('calldate'),
                                     calltime=appointmentForm.cleaned_data.get('calltime'),
                                     status=False)
-                app.save()
-                return redirect('bookapp.html')
+                    app.save()
+                    return redirect('bookapp.html')
+                else:
+                    appointmentForm.add_error('calltime', 'Slot Unavailable.')
+                return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm})
             else:
                 print(appointmentForm.errors)
         else:
@@ -356,7 +361,17 @@ def calladoc_view(request):
             d=c.doctor
             if d:
                 det.append([d.firstname,pat.firstname,c.calldate,c.calltime,c.link])
-        return render(request,'hospital/Patient/calladoc.html',{'app':det})
+        
+        l=[]
+        for c in DoctorProfessional.objects.all():
+            d=c.doctor
+            db = d.dob
+            today = date.today()
+            ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
+            if d.status:
+                l.append([d.firstname,d.lastname,d.department,d.city,ag,c.appfees,c.admfees,c.totalpat])
+        
+        return render(request,'hospital/Patient/calladoc.html',{'app':det,'docs':l})
     else:
         auth.logout(request)
         return redirect('login_pat.html')
@@ -576,7 +591,7 @@ def dash_doc_view(request):
         for c in Appointment.objects.filter(status=False,doctor=doc).all():
             p=c.patient
             if p:
-                det.append([p.firstname,c.description,c.appointmentDate,c.link,c.id])
+                det.append([p.firstname,c.description,c.calldate,c.calltime,c.link,c.id])
         
         admt=[]
         for c in PatAdmit.objects.filter(doctor=doc).all():
@@ -594,6 +609,10 @@ def dash_doc_approve_view(request,pk):
         appointment=Appointment.objects.get(id=pk)
         appointment.status=True
         appointment.save()
+        doc=appointment.doctor
+        dp=DoctorProfessional.objects.filter(doctor=doc).first()
+        dp.totalpat+=1
+        dp.save()
         return redirect(reverse('dashboard_doc.html'))
     else:
         auth.logout(request)

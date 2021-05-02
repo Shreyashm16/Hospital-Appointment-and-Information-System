@@ -70,7 +70,6 @@ class Patient(models.Model):
 class Appointment(models.Model):
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="PatientApp")
     doctor=models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="DoctorApp")
-    appointmentDate=models.DateField()
     description=models.TextField(max_length=500)
     link=models.TextField(null=True)
     calldate=models.DateField(null=True)
@@ -116,3 +115,11 @@ class Medicines(models.Model):
     price = models.FloatField()
     def __str__(self):
         return f'{self.name} Info'
+
+class DoctorProfessional(models.Model):
+    doctor=models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="DoctorProfessional")
+    appfees=models.FloatField()
+    admfees=models.FloatField()
+    totalpat = models.IntegerField(default=0)
+    def __str__(self):
+        return f'{self.doctor.firstname} Professional Info'

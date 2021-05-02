@@ -386,7 +386,9 @@ padding-right: 15px;}
             <th class="sps" >Doctor Name</th>
             <th class="sps">Description</th>
             <th class="sps">Department</th>
-            <th class="sps">Appointment</th>
+            <th class="sps">Appointment Date</th>
+            <th class="sps">Appointment Time</th>
+            <th class="sps">Status</th>
             
 
           </tr>
@@ -396,6 +398,12 @@ padding-right: 15px;}
           <td class="sps">{{p.1}}</td>
           <td class="sps">{{p.2}}</td>
           <td class="sps">{{p.3}}</td>
+          <td class="sps">{{p.4}}</td>
+          {% if p.5 %}
+          <td class="sps">Approved</td>
+          {% else %}
+          <td class="sps">On Hold</td>
+          {% endif %}
           
         </tr>
         {% endfor %}

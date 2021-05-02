@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Doctor,Admin,Patient,Appointment,PatHealth,PatAdmit,Charges,Medicines
+from .models import Doctor,Admin,Patient,Appointment,PatHealth,PatAdmit,Charges,Medicines,DoctorProfessional
 
 # Register your models here.
 admin.site.register(Doctor)
@@ -10,3 +10,4 @@ admin.site.register(PatHealth)
 admin.site.register(PatAdmit)
 admin.site.register(Charges)
 admin.site.register(Medicines)
+admin.site.register(DoctorProfessional)

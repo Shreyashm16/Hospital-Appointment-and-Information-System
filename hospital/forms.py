@@ -218,10 +218,12 @@ class PatientAppointmentForm(forms.ModelForm):
     doctor = forms.TypedChoiceField()
     #doctorId=forms.CharField(widget=forms.Select(choices=c))  
     calldate = forms.DateField(widget=SelectDateWidget(years=range(2021,2024)))
-    calltime = forms.TimeField()
+    calltime = forms.TypedChoiceField()
     def __init__(self, *args, **kwargs):
         super(PatientAppointmentForm, self).__init__(*args, **kwargs)
         self.fields['doctor'].choices = [(c.id, c.firstname+"("+c.department+")") for c in Doctor.objects.filter(status=True).all()]
+        self.fields['calltime'].choices = [('9:00 AM','9:00 AM'),('9:15 AM','9:15 AM'),('9:30 AM','9:30 AM'),('9:45 AM','9:45 AM'),('10:00 AM','10:00 AM'),('10:15 AM','10:15 AM'),('10:30 AM','10:30 AM'),('10:45 AM','10:45 AM'),('11:00 AM','11:00 AM'),('11:15 AM','11:15 AM'),('11:30 AM','11:30 AM'),('11:45 AM','11:45 AM'),('12:00 PM','12:00 PM'),('12:P5 PM','12:15 PM'),('12:30 PM','12:30 PM'),('12:45 PM','12:45 PM'),
+                                            ('14:00 PM','14:00 PM'),('14:15 PM','14:15 PM'),('14:30 PM','14:30 PM'),('14:45 PM','14:45 PM'),('15:00 PM','15:00 PM'),('15:15 PM','15:15 PM'),('15:30 PM','15:30 PM'),('15:45 PM','15:45 PM'),('16:00 PM','16:00 PM'),('16:15 PM','16:15 PM'),('16:30 PM','16:30 PM'),('16:45 PM','16:45 PM'),('17:00 PM','17:00 PM')]
     
     class Meta:
         model=Appointment
