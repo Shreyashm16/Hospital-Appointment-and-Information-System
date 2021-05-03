@@ -167,12 +167,9 @@
       <div class="container" style="margin-bottom: 200px;">
         <div class="left">
           <ul class="options">
-            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'bill.html' %}" target="_blank"><b>Date 1</b></a></li><br><br>
-            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'bill.html' %}" target="_blank"><b>Date 2</b></a></li><br><br>
-            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'bill.html' %}" target="_blank"><b>Date 3</b></a></li><br><br>
-            <li><a class="btn btn-primary btn-round btn-lg"href="{% static 'assets/pdf/dummy.pdf' %}" target="pdfdisplay"><b>Date 4</b></a></li><br><br>
-            <li><a class="btn btn-primary btn-round btn-lg"href="{% static 'assets/pdf/dummy.pdf' %}" target="pdfdisplay"><b>Date 5</b></a></li><br><br>
-            <li><a class="btn btn-primary btn-round btn-lg"href="{% static 'assets/pdf/dummy.pdf' %}" target="pdfdisplay"><b>Date 6</b></a></li><br><br>
+            {% for i in padm %}
+              <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'bill.html' i.1 %}" target="_blank"><b>{{ i.0 }}</b></a></li><br><br>
+            {% endfor %}
         </ul>
         </div>
         <div class="right">

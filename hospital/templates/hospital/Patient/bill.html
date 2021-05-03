@@ -260,10 +260,16 @@
               <td class="title sps">
                 <h4 style="color:skyblue;">Hospital Information Management System</h4>
               </td>
-                <br>
+                <br><br>
 
              
             </tr>
+            <tr>
+            <td class="title sps" style="text-align: center">
+              <h5 style="color: rgb(222, 135, 235);">Admit Bill</h5>
+            </td>
+          </tr>
+          <br><br>
           </table>
         </td>
       </tr>
@@ -313,24 +319,23 @@
 
 
 
-      <tr class="information sps">
-        <td colspan="2">
+      <tr class="sps">
+        <td>
           <table>
-            <tr>
-              <td>
-                Charges Per Day : {{roomCharge}} <br><br>
-                Room Charge of {{days}} Days : ₹ {{tc}}<br>
-                Doctor Fee : {{doctorFee}}<br>
-                Medicine Cost : {{medicineCost}}<br>
-                Other Charge : {{OtherCharge}} <br>
-                <br>
-                 Total Due : ₹ {{tot }}
-              </td>
-            </tr>
-            <tr>
-            
-            
-            </tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total Price</th>
+            <tr><td>Room Charges</td><td style="text-align: left;">{{days}} Days</td><td>₹ {{roomcharges}}</td><td>₹ {{tc}}</td></tr>
+            <tr><td>Doctor Fee</td><td style="text-align: left;"> - </td><td>₹ {{doctorFee}}</td><td>₹ {{doctorFee}}</td></tr>
+            {% for m in med %}
+              <tr><td>{{ m.0 }}</td><td style="text-align: left;">{{ m.1 }}</td><td>₹ {{ m.2 }}</td><td>₹ {{ m.3 }}</td></tr>
+            {% endfor %}
+            <tr><td>Hospital Charges</td><td style="text-align: left;"> - </td><td>₹ {{hospfee}}</td><td>₹ {{hospfee}}</td></tr>
+            <tr><td>Maintenence Charges</td><td style="text-align: left;"> - </td><td>₹ {{mainp}}</td><td>₹ {{mainp}}</td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td>Total Due :</td><td></td><td></td><td>₹ {{tot }}</td></tr>
+
           </table>
         </td>
       </tr>
@@ -340,7 +345,7 @@
     </table>
     
   
-   <input type="submit" value="Download Invoice" href="{% url 'bill.html' %}" class='btn btn-primary btn-lg' style="margin-top: 30px" >
+   <input type="submit" value="Download Invoice" href="{% url 'bill.html' 1 %}" class='btn btn-primary btn-lg' style="margin-top: 30px" >
   </div>
    </div>
   

@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
 from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm,AppointmentEditForm,AdmitRegisterForm,AdminAdmitRegisterForm
 from django.contrib.auth.forms import AuthenticationForm
-from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges,DoctorProfessional
+from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges,DoctorProfessional,Medicines,OperationCosts
 from django.contrib import auth
 from django.utils import timezone
 from datetime import date,timedelta,time
@@ -469,7 +469,12 @@ def feedback_view(request):
 @login_required(login_url='login_pat.html')
 def medicalreport_view(request):
     if check_patient(request.user):
-        return render(request,'hospital/Patient/medicalreport.html')
+        pat=Patient.objects.get(user_id=request.user.id)
+        padm = PatAdmit.objects.all().filter(patient=pat)
+        det=[]
+        for p in padm:
+            det.append([p.admitDate,p.pk])
+        return render(request,'hospital/Patient/medicalreport.html',{'padm':det})
     else:
         auth.logout(request)
         return redirect('login_pat.html')
@@ -975,26 +980,50 @@ def login_view(request):
     return render(request,'hospital/Home/login.html')
 
 @login_required(login_url='login_pat.html')
-def bill_view(request):
+def bill_view(request,pk):
     if check_patient(request.user):
         pat=Patient.objects.get(user_id=request.user.id)
-        discharge=PatAdmit.objects.all().filter(patient=pat).order_by('-id')[:1]
-        d1=discharge[0].admitDate
-        d2=discharge[0].dischargeDate
+        padm=PatAdmit.objects.all().filter(id=pk).first()
+        doc=padm.doctor
+        d1=padm.admitDate
+        if padm.dischargeDate:
+            d2=padm.dischargeDate
+        else:
+            d2=date.today()
         days=(d2-d1).days
-        roomcharges=10
-        total=roomcharges
+        room=OperationCosts.objects.all().filter(name='Room').first()
+        roomcharges=room.cost
         total_room_charge=roomcharges*days
+        docpro=DoctorProfessional.objects.all().filter(doctor=doc).first()
+        docfee=docpro.admfees
+        hosp=OperationCosts.objects.all().filter(name='Hospital Fee').first()
+        hospfee=hosp.cost
+        mainp=OperationCosts.objects.all().filter(name='Maintenance').first()
+        mainfee=mainp.cost
+        OtherCharge=mainfee+hospfee
+        tot=OtherCharge+docfee+total_room_charge
+        det=[]
+        for i in Charges.objects.all().filter(Admitinfo=padm):
+            for k in Medicines.objects.all():
+                if k==i.commodity:
+                    tot+=i.quantity*k.price
+                    det.append([k.name,i.quantity,k.price,i.quantity*k.price])
         dict={
-            'patientName':discharge[0].patient.firstname,
-            'doctorName':discharge[0].doctor.firstname,
-            'admitDate':discharge[0].admitDate,
-            'releaseDate':discharge[0].dischargeDate,
-            'desc':discharge[0].description,
-            'pat_add':discharge[0].patient.address,
+            'patientName':pat.firstname,
+            'doctorName':doc.firstname,
+            'admitDate':d1,
+            'releaseDate':d2,
+            'roomCharge':roomcharges,
+            'desc':padm.description,
+            'pat_add':pat.address,
             'days':days,
-            'tot':total,
-            'tc':total_room_charge
+            'tot':tot,
+            'tc':total_room_charge,
+            'doctorFee': docfee,
+            'OtherCharge': OtherCharge,
+            'mainp': mainfee,
+            'hospfee': hospfee,
+            'med': det
             }
         return render(request,'hospital/Patient/bill.html',dict)
     else:

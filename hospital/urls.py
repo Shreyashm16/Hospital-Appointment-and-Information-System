@@ -55,7 +55,7 @@ urlpatterns = [
     path('pat_appointment_view',views.pat_appointment_view,name='appoint_view_pat.html'),
     path('home/',views.home_view,name='home.html'),
     path('login/',views.login_view,name='login.html'),
-    path('bill/',views.bill_view,name='bill.html'),
+    path('bill/<int:pk>',views.bill_view,name='bill.html'),
     path('logout/',auth_views.LogoutView.as_view(template_name='hospital/logout.html'),name='logout'),
     path('password_reset/',auth_views.PasswordResetView.as_view(template_name='hospital/password_reset.html'),name='password_reset'),
     path('password_reset/done/',auth_views.PasswordResetDoneView.as_view(template_name='hospital/password_reset_done.html'),name='password_reset_done'),
