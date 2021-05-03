@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
 from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm,AppointmentEditForm,AdmitRegisterForm,AdminAdmitRegisterForm
 from django.contrib.auth.forms import AuthenticationForm
-from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges,DoctorProfessional,Medicines,OperationCosts
+from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges,DoctorProfessional,Medicines,OperationCosts,ChargesApt
 from django.contrib import auth
 from django.utils import timezone
 from datetime import date,timedelta,time
@@ -470,11 +470,15 @@ def feedback_view(request):
 def medicalreport_view(request):
     if check_patient(request.user):
         pat=Patient.objects.get(user_id=request.user.id)
-        padm = PatAdmit.objects.all().filter(patient=pat)
+        padm = PatAdmit.objects.all().filter(patient=pat).order_by('admitDate')
         det=[]
         for p in padm:
             det.append([p.admitDate,p.pk])
-        return render(request,'hospital/Patient/medicalreport.html',{'padm':det})
+        papt = Appointment.objects.all().filter(patient=pat,status=True).order_by('calldate')
+        d=[]
+        for p in papt:
+            d.append([p.calldate,p.pk])
+        return render(request,'hospital/Patient/medicalreport.html',{'padm':det,'papt':d})
     else:
         auth.logout(request)
         return redirect('login_pat.html')
@@ -1026,6 +1030,49 @@ def bill_view(request,pk):
             'med': det
             }
         return render(request,'hospital/Patient/bill.html',dict)
+    else:
+        auth.logout(request)
+        return redirect('logout_pat.html')
+
+
+@login_required(login_url='login_pat.html')
+def bill_apt_view(request,pk):
+    if check_patient(request.user):
+        pat=Patient.objects.get(user_id=request.user.id)
+        apt=Appointment.objects.all().filter(id=pk).first()
+        doc=apt.doctor
+        d=apt.calldate
+        t=apt.calltime
+        docpro=DoctorProfessional.objects.all().filter(doctor=doc).first()
+        docfee=docpro.appfees
+        hosp=OperationCosts.objects.all().filter(name='Hospital Fee').first()
+        hospfee=hosp.cost
+        mainp=OperationCosts.objects.all().filter(name='Maintenance').first()
+        mainfee=mainp.cost
+        OtherCharge=mainfee+hospfee
+        tot=OtherCharge+docfee
+        det=[]
+        for i in ChargesApt.objects.all().filter(Aptinfo=apt):
+            for k in Medicines.objects.all():
+                #check med
+                if k==i.commodity:
+                    tot+=i.quantity*k.price
+                    det.append([k.name,i.quantity,k.price,i.quantity*k.price])
+        dict={
+            'patientName':pat.firstname,
+            'doctorName':doc.firstname,
+            'aptDate':d,
+            'aptTime':t,
+            'desc':apt.description,
+            'pat_add':pat.address,
+            'tot':tot,
+            'doctorFee': docfee,
+            'OtherCharge': OtherCharge,
+            'mainp': mainfee,
+            'hospfee': hospfee,
+            'med': det
+            }
+        return render(request,'hospital/Patient/bill_apt.html',dict)
     else:
         auth.logout(request)
         return redirect('logout_pat.html')

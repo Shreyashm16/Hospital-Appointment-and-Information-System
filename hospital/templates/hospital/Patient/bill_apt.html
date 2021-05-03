@@ -266,7 +266,7 @@
             </tr>
             <tr>
             <td class="title sps" style="text-align: center">
-              <h5 style="color: rgb(222, 135, 235);">Admit Bill</h5>
+              <h5 style="color: rgb(222, 135, 235);">Appointment Bill</h5>
             </td>
           </tr>
           <br><br>
@@ -280,9 +280,8 @@
             <tr>
              <td>
 
-                Admit Date: {{admitDate}}<br>
-                Release Date: {{releaseDate}}<br>
-                Days Spent: {{days}} days
+                Appointment Date: {{aptDate}}<br>
+                Appointment Time: {{aptTime}}<br>
     
               </td>
               </tr>
@@ -326,7 +325,6 @@
             <th>Quantity</th>
             <th>Price</th>
             <th>Total Price</th>
-            <tr><td>Room Charges</td><td style="text-align: left;">{{days}} Days</td><td>Rs. {{roomcharges}}</td><td>Rs. {{tc}}</td></tr>
             <tr><td>Doctor Fee</td><td style="text-align: left;"> - </td><td>Rs. {{doctorFee}}</td><td>Rs. {{doctorFee}}</td></tr>
             {% for m in med %}
               <tr><td>{{ m.0 }}</td><td style="text-align: left;">{{ m.1 }}</td><td>Rs. {{ m.2 }}</td><td>Rs. {{ m.3 }}</td></tr>

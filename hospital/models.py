@@ -114,6 +114,13 @@ class Charges(models.Model):
     def __str__(self):
         return f'{self.commodity} Info'
 
+class ChargesApt(models.Model):
+    Aptinfo=models.ForeignKey(Appointment, on_delete=models.CASCADE, related_name="AptDetails")
+    commodity=models.ForeignKey(Medicines, on_delete=models.CASCADE, related_name="AptDetails")
+    quantity=models.IntegerField(default=1)
+    def __str__(self):
+        return f'{self.commodity} Info'
+
 
 class DoctorProfessional(models.Model):
     doctor=models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="DoctorProfessional")
