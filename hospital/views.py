@@ -508,7 +508,7 @@ def admit_details_particular_view(request,pk):
         ad = PatAdmit.objects.filter(id=pk).first()
         pat=ad.patient
         doc=ad.doctor
-        det=[doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description]
+        det=[doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description,pk]
         return render(request,'hospital/Patient/admit_details_particular.html',{'app':det})
     else:
         auth.logout(request)
@@ -983,36 +983,35 @@ def home_view(request):
 def login_view(request):
     return render(request,'hospital/Home/login.html')
 
-@login_required(login_url='login_pat.html')
+
 def bill_view(request,pk):
-    if check_patient(request.user):
-        pat=Patient.objects.get(user_id=request.user.id)
-        padm=PatAdmit.objects.all().filter(id=pk).first()
-        doc=padm.doctor
-        d1=padm.admitDate
-        if padm.dischargeDate:
-            d2=padm.dischargeDate
-        else:
-            d2=date.today()
-        days=(d2-d1).days
-        room=OperationCosts.objects.all().filter(name='Room').first()
-        roomcharges=room.cost
-        total_room_charge=roomcharges*days
-        docpro=DoctorProfessional.objects.all().filter(doctor=doc).first()
-        docfee=docpro.admfees
-        hosp=OperationCosts.objects.all().filter(name='Hospital Fee').first()
-        hospfee=hosp.cost
-        mainp=OperationCosts.objects.all().filter(name='Maintenance').first()
-        mainfee=mainp.cost
-        OtherCharge=mainfee+hospfee
-        tot=OtherCharge+docfee+total_room_charge
-        det=[]
-        for i in Charges.objects.all().filter(Admitinfo=padm):
-            for k in Medicines.objects.all():
-                if k==i.commodity:
-                    tot+=i.quantity*k.price
-                    det.append([k.name,i.quantity,k.price,i.quantity*k.price])
-        dict={
+    padm=PatAdmit.objects.all().filter(id=pk).first()
+    pat=padm.patient
+    doc=padm.doctor
+    d1=padm.admitDate
+    if padm.dischargeDate:
+        d2=padm.dischargeDate
+    else:
+        d2=date.today()
+    days=(d2-d1).days
+    room=OperationCosts.objects.all().filter(name='Room').first()
+    roomcharges=room.cost
+    total_room_charge=roomcharges*days
+    docpro=DoctorProfessional.objects.all().filter(doctor=doc).first()
+    docfee=docpro.admfees
+    hosp=OperationCosts.objects.all().filter(name='Hospital Fee').first()
+    hospfee=hosp.cost
+    mainp=OperationCosts.objects.all().filter(name='Maintenance').first()
+    mainfee=mainp.cost
+    OtherCharge=mainfee+hospfee
+    tot=OtherCharge+docfee+total_room_charge
+    det=[]
+    for i in Charges.objects.all().filter(Admitinfo=padm):
+        for k in Medicines.objects.all():
+            if k==i.commodity:
+                tot+=i.quantity*k.price
+                det.append([k.name,i.quantity,k.price,i.quantity*k.price])
+    dict={
             'patientName':pat.firstname,
             'doctorName':doc.firstname,
             'admitDate':d1,
@@ -1028,37 +1027,38 @@ def bill_view(request,pk):
             'mainp': mainfee,
             'hospfee': hospfee,
             'med': det
-            }
-        return render(request,'hospital/Patient/bill.html',dict)
-    else:
-        auth.logout(request)
-        return redirect('logout_pat.html')
-
-
-@login_required(login_url='login_pat.html')
-def bill_apt_view(request,pk):
+        }
     if check_patient(request.user):
-        pat=Patient.objects.get(user_id=request.user.id)
-        apt=Appointment.objects.all().filter(id=pk).first()
-        doc=apt.doctor
-        d=apt.calldate
-        t=apt.calltime
-        docpro=DoctorProfessional.objects.all().filter(doctor=doc).first()
-        docfee=docpro.appfees
-        hosp=OperationCosts.objects.all().filter(name='Hospital Fee').first()
-        hospfee=hosp.cost
-        mainp=OperationCosts.objects.all().filter(name='Maintenance').first()
-        mainfee=mainp.cost
-        OtherCharge=mainfee+hospfee
-        tot=OtherCharge+docfee
-        det=[]
-        for i in ChargesApt.objects.all().filter(Aptinfo=apt):
-            for k in Medicines.objects.all():
-                #check med
-                if k==i.commodity:
-                    tot+=i.quantity*k.price
-                    det.append([k.name,i.quantity,k.price,i.quantity*k.price])
-        dict={
+        return render(request,'hospital/Patient/bill.html',dict)
+    elif check_doctor(request.user):
+        return render(request,'hospital/Doctor/bill.html',dict)
+    elif check_admin(request.user):
+        return render(request,'hospital/Admin/bill.html',dict)
+    else:
+        return render(request,'hospital/Home/login.html')
+
+
+def bill_apt_view(request,pk):
+    apt=Appointment.objects.all().filter(id=pk).first()
+    pat=apt.patient
+    doc=apt.doctor
+    d=apt.calldate
+    t=apt.calltime
+    docpro=DoctorProfessional.objects.all().filter(doctor=doc).first()
+    docfee=docpro.appfees
+    hosp=OperationCosts.objects.all().filter(name='Hospital Fee').first()
+    hospfee=hosp.cost
+    mainp=OperationCosts.objects.all().filter(name='Maintenance').first()
+    mainfee=mainp.cost
+    OtherCharge=mainfee+hospfee
+    tot=OtherCharge+docfee
+    det=[]
+    for i in ChargesApt.objects.all().filter(Aptinfo=apt):
+        for k in Medicines.objects.all():
+            if k==i.commodity:
+                tot+=i.quantity*k.price
+                det.append([k.name,i.quantity,k.price,i.quantity*k.price])
+    dict={
             'patientName':pat.firstname,
             'doctorName':doc.firstname,
             'aptDate':d,
@@ -1071,11 +1071,15 @@ def bill_apt_view(request,pk):
             'mainp': mainfee,
             'hospfee': hospfee,
             'med': det
-            }
+        }
+    if check_patient(request.user):
         return render(request,'hospital/Patient/bill_apt.html',dict)
+    elif check_doctor(request.user):
+        return render(request,'hospital/Doctor/bill_apt.html',dict)
+    elif check_admin(request.user):
+        return render(request,'hospital/Admin/bill_apt.html',dict)
     else:
-        auth.logout(request)
-        return redirect('logout_pat.html')
+        return render(request,'hospital/Home/login.html')
     
 
 
