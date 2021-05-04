@@ -172,20 +172,38 @@
               <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'bill.html' i.1 %}" target="_blank"><b>{{ i.0 }}</b></a></li><br><br>
             {% endfor %}
           </ul>
-          <br><h3 style="color: #ff0066"><b>Appointment Bills</b></h3><br>
+        </div>
+        <div class="right">
+          <br><br><br><br>
+          <h3 style="color: #ff0066"><b>Admit Reports</b></h3><br>
           <ul class="options">
-            {% for i in papt %}
-              <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'bill_apt.html' i.1 %}" target="_blank"><b>{{ i.0 }}</b></a></li><br><br>
+            {% for i in padm %}
+              <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'report.html' i.1 %}" target="_blank"><b>{{ i.0 }}</b></a></li><br><br>
             {% endfor %}
           </ul>
         </div>
-        <div class="right">
-          <div class="if">
-            <iframe name="pdfdisplay"src="{% static 'assets/pdf/dummy.pdf' %}" frameborder="0" width="90%" height="600px" style="border-radius: 10px;border: none"></iframe>
-          </div>
-        </div>
     </div>
-      <br><br><br>
+    <hr>
+    <div class="container" style="margin-bottom: 200px;">
+      <div class="left">
+        <h3 style="color: #ff0066"><b>Appointment Bills</b></h3><br>
+        <ul class="options">
+          {% for i in papt %}
+            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'bill_apt.html' i.1 %}" target="_blank"><b>{{ i.0 }}</b></a></li><br><br>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="right">
+        <br><br><br><br>
+        <h3 style="color: #ff0066"><b>Appointment Reports</b></h3><br>
+        <ul class="options">
+          {% for i in papt %}
+            <li><a class="btn btn-primary btn-round btn-lg"href="{% url 'report_apt.html' i.1 %}" target="_blank"><b>{{ i.0 }}</b></a></li><br><br>
+          {% endfor %}
+        </ul>
+      </div>
+  </div>
+    <br><br><br><br><br><br>
       {% include "hospital/Patient/footer.html" %}
     </div>
   </div>

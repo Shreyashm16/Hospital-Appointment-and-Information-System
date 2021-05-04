@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!--
 =========================================================
 * Material Dashboard Dark Edition - v2.1.0
@@ -29,7 +30,7 @@
   <!-- CSS Files -->
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
   <link href="{% static 'assets/css/form.css'%}" rel="stylesheet" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
       var dragTheme = window.localStorage.getItem('checkbox');
@@ -56,6 +57,122 @@
       });
     });
   </script>
+  <style>
+  @page {
+      size: A4;
+      margin: 1cm;
+
+      @frame footer {
+        -pdf-frame-content: footerContent;
+        bottom: 0cm;
+        margin-left: 9cm;
+        margin-right: 9cm;
+        height: 1cm;
+      }
+    }
+
+    .invoice-box {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      border: 1px solid #eee;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+      font-size: 16px;
+      line-height: 24px;
+      font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+      color: #555;
+    }
+
+    .invoice-box table {
+      width: 100%;
+      line-height: inherit;
+      text-align: left;
+    }
+
+    .invoice-box table td {
+      padding: 5px;
+      vertical-align: top;
+    }
+
+    .invoice-box table tr td:nth-child(2) {
+      text-align: right;
+    }
+
+    .invoice-box table tr.top table td {
+      padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.top table td.title {
+      font-size: 45px;
+      line-height: 45px;
+      color: #333;
+    }
+
+    .invoice-box table tr.information table td {
+      padding-bottom: 40px;
+    }
+
+    .invoice-box table tr.heading td {
+      background: #eee;
+      border-bottom: 1px solid #ddd;
+      font-weight: bold;
+    }
+
+    .invoice-box table tr.details td {
+      padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.item td {
+      border-bottom: 1px solid #eee;
+    }
+
+    .invoice-box table tr.item.last td {
+      border-bottom: none;
+    }
+
+    .invoice-box table tr.total td:nth-child(2) {
+      border-top: 2px solid #eee;
+      font-weight: bold;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .invoice-box table tr.top table td {
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+
+      .invoice-box table tr.information table td {
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+    }
+
+    /** RTL **/
+    .rtl {
+      direction: rtl;
+      font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    }
+
+    .rtl table {
+      text-align: right;
+    }
+
+    .rtl table tr td:nth-child(2) {
+      text-align: left;
+    }
+  </style>
+  <script>
+  admitDate="03/04/2021";
+  releaseDate="09/04/2021";
+  daySpent="7";
+  patientName="Patient 1";
+  symptoms="Fever";
+
+
+  </script>
+
 </head>
 
 <body id="jhamela" class="darkEdition lightEdition">
@@ -76,115 +193,148 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <li class="nav-item ">
-          <a class="nav-link" href="{% url 'dashboard_doc.html' %}">
-            <i class="material-icons">dashboard</i>
-            <p>Dashboard</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'profile_doc.html' %}">
-            <i class="material-icons">person</i>
-            <p>Profile</p>
-          </a>
-        </li>
-        <li class="nav-item active  ">
-          <a class="nav-link" href="{% url 'bookapp_doc.html' %}">
-            <i class="material-icons">content_paste</i>
-            <p>Your Appointments</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'admit_details_doc.html' %}">
-            <i class="material-icons">favorite</i>
-            <p>Admitted Patients</p>
-          </a>
-        </li>
-        
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'feedback_doc.html' %}">
-            <i class="material-icons">bubble_chart</i>
-            <p>Feedback</p>
-          </a>
-        </li>
-         <li class="nav-item ">
-          <a class="nav-link" href="{% url 'logout' %}">
-            <i class="material-icons">logout</i>
-            <p>Logout</p>
-          </a>
-        </li>
+            <a class="nav-link" href="{% url 'dashboard_doc.html' %}">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'profile_doc.html' %}">
+              <i class="material-icons">person</i>
+              <p>Profile</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'bookapp_doc.html' %}">
+              <i class="material-icons">content_paste</i>
+              <p>Your Appointments</p>
+            </a>
+          </li>
+          <li class="nav-item active ">
+            <a class="nav-link" href="{% url 'admit_details_doc.html' %}">
+              <i class="material-icons">favorite</i>
+              <p>Admitted Patients</p>
+            </a>
+          </li>
+          
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'feedback_doc.html' %}">
+              <i class="material-icons">bubble_chart</i>
+              <p>Feedback</p>
+            </a>
+          </li>
+           <li class="nav-item ">
+            <a class="nav-link" href="{% url 'logout' %}">
+              <i class="material-icons">logout</i>
+              <p>Logout</p>
+            </a>
+          </li>
       </ul>
     </div>
   </div>
     <div class="main-panel">
-      <!-- Navbar -->
-      <br><br><br>
-      <h2 class="sps">Appointment Details</h2>
-      <div class="row sps">
-        <h3>Doctor Name</h3><br>
-        {{app.0}}
-        <br><br>
-        <h3>Patient Name</h3><br>
-        {{app.1}}
-        <br><br>
-        <h3>Appointment Date</h3><br>
-        {{app.2}}
-        <br><br>
-        <h3>Link</h3><br>
-        {{app.3}}
-        <br><br>
-        <h3>Call Time</h3><br>
-        {{app.4}}
-        <br><br>
-        <h3>Description</h3><br>
-        {{app.5}}
-        <br>
-        {% if app.3 and app.7 is False%}
-        <br><br>
-        <form method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          {{ p_form.as_p }}
-        <button class="btn btn-sm btn-primary" type="submit" name="edit">Update</button>
-        </form>
-        <br><br>
-        <h2>Admit Patient</h2>
-        <br><br>
-        <form method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          {{ q_form.as_p }}
-        <button class="btn btn-sm btn-primary" type="submit" name="admit">Admit</button>
-        </form>
-        {% if app.7 is False %}
-        <br><br>
-        <a class="btn btn-primary btn-xs" href="{% url 'endappointment_doc' app.6  %}">Finish Appointment</a>
-        {% endif %}
-        <a class="btn btn-primary btn-round btn-lg" href="{% url 'report_apt.html' app.6 %}" target="_blank"><b>View Medical Report</b></a>
-        <a class="btn btn-primary btn-round btn-lg" href="{% url 'bill_apt.html' app.6 %}" target="_blank"><b>View Bill</b></a>
-        {% endif %}
-        <br><br>
-        <h2>Patient Health Record</h2>
-        <br>
-        <h3>Patient Height</h3><br>
-        {{pathi.height}} cm
-        <br><br>
-        <h3>Patient Weight</h3><br>
-        {{pathi.weight}} kg
-        <br><br>
-        <h3>Patient Age</h3><br>
-        {{ ag }} years
-        <br><br>
-        <h3>Patient Diseases</h3><br>
-        {{pathi.diseases}}
-        <br><br>
-        <h3>Patient Medicines</h3><br>
-        {{pathi.medicines}}
-        <br><br>
-        <h3>Patient Treatments/Surgeries</h3><br>
-        {{pathi.ts}}
-        <br><br><br>
+      
+      <br><br><br><br>
+      
+         
+<!--Rendered function have not been created yet-->
 
-    </div>
-      <br><br><br><br><br><br><br><br><br><br><br><br>
-      {% include "hospital//Doctor/footer.html" %}
+<div class="invoice-box sps">
+    <table cellpadding="0" cellspacing="0">
+      <tr class="top">
+        <td colspan="3">
+          <table>
+            <tr>
+              <td class="title sps">
+                <h4 style="color:skyblue;">Hospital Information Management System</h4>
+              </td>
+                <br><br>
+
+             
+            </tr>
+            <tr>
+            <td class="title sps" style="text-align: center">
+              <h5 style="color: rgb(222, 135, 235);">Admit Report</h5>
+            </td>
+          </tr>
+          <br><br>
+          </table>
+        </td>
+      </tr>
+
+      <tr class="information sps">
+        <td colspan="2">
+          <table>
+            <tr>
+             <td>
+
+                Admit Date: {{admitDate}}<br>
+                Release Date: {{releaseDate}}<br>
+                Days Spent: {{days}} days
+    
+              </td>
+              </tr>
+              <tr>
+              <td>
+                Patient Name : {{patientName}}<br>
+                Patient Address : {{pat_add}}<br>
+              </td>
+              <br>
+              <td>
+                Doctor Name :<br>
+                {{doctorName}}<br>
+
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+
+      <tr class="information sps">
+        <td colspan="2">
+          <table>
+            <tr>
+              <td>
+                Disease and Symptoms :<br>
+                {{desc}}
+              </td>
+
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+
+
+      <tr class="sps">
+        <td colspan="2">
+            <table>
+              <tr>
+                <td>
+                  Medicines :<br>
+                  {% for m in med %}
+                    <tr><td>{{ m.0 }}</td></tr>
+                  {% endfor %}
+                </td>
+              </tr>
+            </table>
+          </td>
+        <td>
+        </td>
+      </tr>
+      
+
+
+    </table>
+    
+  
+   <input type="submit" value="Download Invoice" href="{% url 'bill.html' 1 %}" class='btn btn-primary btn-lg' style="margin-top: 30px" >
+  </div>
+   </div>
+  
+  <br><br><br><br><br><br><br><br>
+      {% include "hospital/Patient/footer.html" %}
     </div>
   </div>
   <!--   Core JS Files   -->

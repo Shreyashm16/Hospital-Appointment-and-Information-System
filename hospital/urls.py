@@ -67,6 +67,8 @@ urlpatterns = [
     path('patient_all_view', views.patient_all_view,name='patient_all_view.html'),
     path('doctor_all_view', views.doctor_all_view,name='doctor_all_view.html'),
     path('admin_all_view', views.admin_all_view,name='admin_all_view.html'),
+    path('report/<int:pk>',views.report_view,name='report.html'),
+    path('report_apt/<int:pk>',views.report_apt_view,name='report_apt.html'),
     #path('hospital/', include('hospital.urls')),
     
     

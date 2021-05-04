@@ -316,8 +316,8 @@ td {
         <h3>Description</h3><br>
         {{app.5}}
         <br><br><br>
-        <a class="btn btn-primary btn-round btn-lg" href="#"><b>View Medical Report</b></a>
-        <a class="btn btn-primary btn-round btn-lg" href="#"><b>View Bill</b></a>
+        <a class="btn btn-primary btn-round btn-lg" href="{% url 'report_apt.html' app.6 %}" target="_blank"><b>View Medical Report</b></a>
+        <a class="btn btn-primary btn-round btn-lg" href="{% url 'bill_apt.html' app.6 %}" target="_blank"><b>View Bill</b></a>
     </div>
 
 

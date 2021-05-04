@@ -409,7 +409,7 @@ def appointment_details_particular_pat_view(request,pk):
         ad = Appointment.objects.filter(id=pk).first()
         pat = ad.patient
         doc = ad.doctor
-        det = [doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description]
+        det = [doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,pk]
         return render(request,'hospital/Patient/bookapp_details_particular_pat.html',{'app':det})
     else:
         auth.logout(request)
@@ -951,7 +951,7 @@ def admit_details_particular_doc_view(request,pk):
         doci=doci.department
         pat=ad.patient
         doc=ad.doctor
-        det=[ad.pk,doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description]
+        det=[ad.pk,doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description,pk]
         med = Medicines.objects.all()
         return render(request,'hospital/Doctor/admit_details_particular_doc.html',{'app':det,'doci':doci,'med':med})
     else:
@@ -1087,6 +1087,71 @@ def bill_apt_view(request,pk):
         return render(request,'hospital/Doctor/bill_apt.html',dict)
     elif check_admin(request.user):
         return render(request,'hospital/Admin/bill_apt.html',dict)
+    else:
+        return render(request,'hospital/Home/login.html')
+
+
+def report_view(request,pk):
+    padm=PatAdmit.objects.all().filter(id=pk).first()
+    pat=padm.patient
+    doc=padm.doctor
+    d1=padm.admitDate
+    if padm.dischargeDate:
+        d2=padm.dischargeDate
+    else:
+        d2=date.today()
+    days=(d2-d1).days
+    det=[]
+    for i in Charges.objects.all().filter(Admitinfo=padm):
+        for k in Medicines.objects.all():
+            if k==i.commodity:
+                det.append([k.name])
+    dict={
+            'patientName':pat.firstname,
+            'doctorName':doc.firstname,
+            'admitDate':d1,
+            'releaseDate':d2,
+            'desc':padm.description,
+            'pat_add':pat.address,
+            'days':days,
+            'med': det
+        }
+    if check_patient(request.user):
+        return render(request,'hospital/Patient/report.html',dict)
+    elif check_doctor(request.user):
+        return render(request,'hospital/Doctor/report.html',dict)
+    elif check_admin(request.user):
+        return render(request,'hospital/Admin/report.html',dict)
+    else:
+        return render(request,'hospital/Home/login.html')
+
+
+def report_apt_view(request,pk):
+    apt=Appointment.objects.all().filter(id=pk).first()
+    pat=apt.patient
+    doc=apt.doctor
+    d=apt.calldate
+    t=apt.calltime
+    det=[]
+    for i in ChargesApt.objects.all().filter(Aptinfo=apt):
+        for k in Medicines.objects.all():
+            if k==i.commodity:
+                det.append([k.name])
+    dict={
+            'patientName':pat.firstname,
+            'doctorName':doc.firstname,
+            'aptDate':d,
+            'aptTime':t,
+            'desc':apt.description,
+            'pat_add':pat.address,
+            'med': det
+        }
+    if check_patient(request.user):
+        return render(request,'hospital/Patient/report_apt.html',dict)
+    elif check_doctor(request.user):
+        return render(request,'hospital/Doctor/report_apt.html',dict)
+    elif check_admin(request.user):
+        return render(request,'hospital/Admin/report_apt.html',dict)
     else:
         return render(request,'hospital/Home/login.html')
     
