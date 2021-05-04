@@ -944,18 +944,19 @@ def admit_details_particular_doc_view(request,pk):
         pat=ad.patient
         doc=ad.doctor
         det=[ad.pk,doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description]
-
-        return render(request,'hospital/Doctor/admit_details_particular_doc.html',{'app':det,'doci':doci})
+        med = Medicines.objects.all()
+        return render(request,'hospital/Doctor/admit_details_particular_doc.html',{'app':det,'doci':doci,'med':med})
     else:
         auth.logout(request)
         return redirect('login_doc.html')
 
 
 @login_required(login_url='login_doc.html')
-def admit_details_particular_doc_add_charge_view(request,pk,comm,price,quan):
+def admit_details_particular_doc_add_charge_view(request,pk,comm,quan):
     if check_doctor(request.user):
         ad = PatAdmit.objects.get(id=pk)
-        Charges.objects.create(Admitinfo=ad,commodity=comm,unitprice=float(price),quantity=quan)
+        money = Medicines.objects.get(name=comm)
+        Charges.objects.create(Admitinfo=ad,commodity=money,quantity=quan)
         #return redirect('admit_details_particular_doc_add_charge')
         pat=ad.patient
         doc=ad.doctor

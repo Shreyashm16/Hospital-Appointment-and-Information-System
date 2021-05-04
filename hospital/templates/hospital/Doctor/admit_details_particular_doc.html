@@ -223,21 +223,16 @@ td {
   <script>
       function add_charge() {
         var v1 = document.getElementById('comm');
-        var v2 = document.getElementById('price');
-        var v3 = document.getElementById('quan');
+        var v2 = document.getElementById('quan');
         var comm = String(v1.value);
-        var price = String(v2.value);
-        var quan = v3.value;
+        var quan = v2.value;
         console.log(comm);
-        console.log(price);
         console.log(quan);
-        var finhref = "{% url 'admit_details_particular_doc_add_charge' app.0 app.1 app.2 0 %}".replace(/{{ app.1 }}/, comm);
-        finhref = finhref.replace(/{{ app.2 }}/, price);
+        var finhref = "{% url 'admit_details_particular_doc_add_charge' app.0 app.1 0 %}".replace(/{{ app.1 }}/, comm);
         finhref = finhref.replace(/0/, quan);
         console.log(finhref);
         window.location.href = finhref;
         document.getElementById('comm').value='';
-        document.getElementById('price').value='';
         document.getElementById('quan').value='';   
       }  
   </script>
@@ -408,13 +403,17 @@ td {
           <thead>
               <tr class="sps">
                   <th class="sps">Commodity Name </th>
-                  <th class="sps"> Unit Price</th>
                   <th class="sps">Quantity</th>
               </tr>
           </thead>
               <tr>
-                  <td class="sps"><input type="Text" id="comm" ></td>
-                  <td class="sps"><input type="Float" id="price" ></td>
+                  <td class="sps">
+                    <select id="comm">
+                      {% for k in med %}
+                      <option value="{{ k.name }}">{{ k.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </td>
                   <td class="sps"><input type="Number" id="quan" ></td>                  
               </tr>
         </table>
