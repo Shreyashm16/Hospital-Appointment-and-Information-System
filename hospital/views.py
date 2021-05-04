@@ -372,6 +372,12 @@ def check_avail(doc,dt,tm):
 @login_required(login_url='login_pat.html')
 def bookapp_view(request):
     if check_patient(request.user):
+        pat=Patient.objects.get(user_id=request.user.id)
+        app_det=[]
+        for a in Appointment.objects.filter(patient=pat,status=False).all():
+            k=a.doctor
+            if k:
+                app_det.append([k.firstname,a.description,k.department,a.calldate,a.calltime,a.status])
         if request.method=="POST":
             appointmentForm = PatientAppointmentForm(request.POST)
             if appointmentForm.is_valid():
@@ -387,12 +393,12 @@ def bookapp_view(request):
                     return redirect('bookapp.html')
                 else:
                     appointmentForm.add_error('calltime', 'Slot Unavailable.')
-                return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm})
+                return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm,'p1':app_det})
             else:
                 print(appointmentForm.errors)
         else:
             appointmentForm = PatientAppointmentForm()
-        return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm})
+        return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm,'p1':app_det})
     else:
         auth.logout(request)
         return redirect('login_pat.html')
@@ -497,7 +503,7 @@ def admit_details_view(request):
             d=c.doctor
             if d:
                 det.append([d.firstname,pat.firstname,c.admitDate,c.dischargeDate,c.pk])
-        return render(request,'hospital/Patient/admit_details.html',{'app':det,'p1':app_det})
+        return render(request,'hospital/Patient/admit_details.html',{'app':det})
     else:
         auth.logout(request)
         return redirect('login_pat.html')
