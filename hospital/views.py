@@ -488,7 +488,7 @@ def admit_details_view(request):
     if check_patient(request.user):
         pat=Patient.objects.get(user_id=request.user.id)
         app_det=[]
-        for a in Appointment.objects.filter(patient=pat).all():
+        for a in Appointment.objects.filter(patient=pat,status=False).all():
             k=a.doctor
             if k:
                 app_det.append([k.firstname,a.description,k.department,a.calldate,a.calltime,a.status])
