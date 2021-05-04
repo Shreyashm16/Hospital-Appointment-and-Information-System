@@ -121,6 +121,8 @@ Module 4: Deployment & Hosting on a Web Server.
 ## Drawbacks/LoopHoles
 
 * There is no Approval required for admin account. So you can disable admin signup process and use any logic like creating superuser.
+* Unsupported display feature in Safari Browser
+* User need Agora app for accessing the video calling facility through mobile/ IOS Device.
 
 ## Feedback
 
@@ -128,8 +130,8 @@ For any queries, reach out to the Developers :
 * [Siddharth Pandey](mailto:siddharth25pandey@gmail.com) (**Front End & Back End**)
 * [Shreyash Mishra](mailto:shreyashm1601@gmail.com) (**Front End & Back End**)
 * [Priyam Bajpai](mailto:priyambajpai@yahoo.in) (**Front End & Back End**)
-* [Naveen Kumar](mailto:naveenkumar.k19@gmail.com) (**Front End**)
-* [Yaduraj Deshmukh](mailto:yadurajdeshmukh2.303@gmail.com) (**Front End**)
+* [Naveen Kumar](mailto:naveenkumar.k19@gmail.com) (**Front End & Back End**)
+* [Yaduraj Deshmukh](mailto:yadurajdeshmukh2.303@gmail.com) (**Front End & Back End**)
  
  
     
