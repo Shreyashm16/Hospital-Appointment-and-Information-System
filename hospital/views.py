@@ -671,8 +671,10 @@ def edityourhealth_view(request):
 def dash_doc_view(request):
     if check_doctor(request.user):
         doc=Doctor.objects.get(user_id=request.user.id)
-        patcount=models.Appointment.objects.all().filter(status=True,doctor=request.user.id).count()
-        appcount=models.Appointment.objects.all().filter(status=True,doctor=request.user.id).count()
+        patcount=PatAdmit.objects.all().filter(doctor=doc,dischargeDate=None).count()
+        patcountdis=PatAdmit.objects.all().filter(doctor=doc).count()
+        patcountdis=patcountdis-patcount
+        appcount=models.Appointment.objects.all().filter(status=True,doctor=doc).count()
         det=[]
         for c in Appointment.objects.filter(status=False,doctor=doc).all():
             p=c.patient
@@ -684,7 +686,7 @@ def dash_doc_view(request):
             p=c.patient
             if p:
                 admt.append([doc.firstname,p.firstname,c.admitDate,c.dischargeDate,c.pk])
-        return render(request,'hospital/Doctor/dashboard_doc.html',{'app':det,'patcount':patcount,'appcount':appcount,'admt':admt})
+        return render(request,'hospital/Doctor/dashboard_doc.html',{'app':det,'patcount':patcount,'appcount':appcount,'admt':admt,'patcountdis':patcountdis})
     else:
         auth.logout(request)
         return redirect('login_doc.html')
