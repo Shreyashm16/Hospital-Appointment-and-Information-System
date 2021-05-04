@@ -315,6 +315,7 @@ def approve_app_view(request,pk):
         auth.logout(request)
         return redirect('login_adm.html')
 
+
 @login_required(login_url='login_adm.html')
 def profile_adm_view(request):
     if check_admin(request.user):
@@ -892,6 +893,10 @@ def profile_doc_view(request):
                     p_form.save()
                     doc.age=ag
                     doc.save()
+                    dp = DoctorProfessional.objects.all().filter(doctor=doc).first()
+                    dp.appfees = p_form.cleaned_data.get('appfees')
+                    dp.admfees = p_form.cleaned_data.get('admfees')
+                    dp.save()
                     return redirect('profile_doc.html')
                 else:
                     p_form.add_error('dob', 'Invalid date of birth.')
@@ -902,13 +907,17 @@ def profile_doc_view(request):
                     }
                     return render(request,'hospital/Doctor/profile_doc.html',context)
         else:
+            doc.refresh_from_db()
+            dp = DoctorProfessional.objects.all().filter(doctor=doc).first()
             p_form = DoctorUpdateForm(instance=doc)
-        context = {
-            'p_form': p_form,
-            'doc': doc,
-            'age': ag
-        }
-        return render(request,'hospital/Doctor/profile_doc.html',context)
+            p_form.fields['appfees'].initial = dp.appfees
+            p_form.fields['admfees'].initial = dp.admfees
+            context = {
+                'p_form': p_form,
+                'doc': doc,
+                'age': ag
+            }
+            return render(request,'hospital/Doctor/profile_doc.html',context)
     else:
         auth.logout(request)
         return redirect('login_doc.html')

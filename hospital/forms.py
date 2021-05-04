@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from . import models
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
-from .models import Doctor,Admin,Patient,Appointment,PatHealth,PatAdmit
+from .models import Doctor,Admin,Patient,Appointment,PatHealth,PatAdmit,DoctorProfessional
 import datetime
 from django.forms.widgets import SelectDateWidget
 from django.utils import timezone
@@ -94,9 +94,11 @@ class DoctorUpdateForm(forms.ModelForm):
     country = forms.CharField()
     postalcode = forms.IntegerField()
     image = forms.ImageField(widget=forms.FileInput)
+    appfees = forms.FloatField()
+    admfees = forms.FloatField()
     class Meta:
         model = Doctor
-        fields = ['firstname', 'lastname', 'dob', 'address', 'city', 'country', 'postalcode', 'image']
+        fields = ['firstname', 'lastname', 'dob', 'address', 'city', 'country', 'postalcode', 'image','appfees','admfees']
 
 
 class AdminRegisterForm(UserCreationForm):
@@ -289,3 +291,11 @@ class AdminAdmitRegisterForm(forms.ModelForm):
     class Meta:
         model = PatAdmit
         fields = ['description','admitDate']
+
+
+class DoctorProfessionalUpdateForm(forms.ModelForm):
+    appfees = forms.FloatField()
+    admfees = forms.FloatField()
+    class Meta:
+        model = DoctorProfessional
+        fields = ['appfees','admfees']
