@@ -137,34 +137,38 @@
               <p>Admit Details</p>
             </div>
             <div class="form-content">
-              <!--
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    {% render_field appointmentForm.description class="form-control" placeholder="Description" %}
-                  </div>
-                  <div class="form-group">
-                    {% render_field appointmentForm.doctorId class="form-control" placeholder="doctor" %}
-                  </div>
+              
+      <div class="container">
+          <div
+            class="screen"
+            style="width: 70%; margin-left: auto; margin-right: auto"
+          >
+            <div class="screen-header">
+              <div class="screen-header-left">
+                <img src="{% static 'assets/img/btn.png' %}" height="20px" />
+              </div>
+            </div>
+            <div class="screen-body">
+              <div class="screen-body-item left">
+                <div class="app-title" style="text-align: left; color: #ff0066">
+                  <center><span>Admit Patient</span></center>
                 </div>
               </div>
-              <button type="submit" class="btnSubmit">Book</button>
-            -->
-              <form method="POST">
-                {% csrf_token %}
-        
-                <fieldset class="form-group">
-                    <legend class="border-bottom mb-4">Admit Patient</legend>
-                    {{ admitForm.as_p }}
-                </fieldset>
-                <div class="form-group sps"> 
-                      <button type="submit" class="btn btn-primary btn-round btn-lg">Admit</button>
-                </div>
-              </form>
+              <div class="screen-body-item">
+                <form class="app-form" method="POST">
+                  <!-- Very Important csrf Token -->
+                  {% csrf_token %} {{  admitForm.as_p }}
+                  <input
+                    type="submit"
+                    value="Admit"
+                    class="btn btn-primary btn-lg"
+                    style="margin-top: 30px"
+                  />
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </form>
 
       <br>
       <br>
