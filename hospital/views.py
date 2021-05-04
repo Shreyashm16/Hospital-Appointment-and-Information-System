@@ -784,6 +784,12 @@ def endappointment_doc_view(request,pk):
         ap = Appointment.objects.get(id=pk)
         ap.finished = True
         ap.save()
+        pat=ap.patient
+        yh = PatHealth.objects.all().filter(patient=pat).first()
+        yh.diseases = yh.diseases + "\n" + ap.description
+        for i in ChargesApt.objects.all().filter(Aptinfo=ap):
+            yh.medicines = yh.medicines + "\n" + i.commodity + "-" + i.quantity
+        yh.save()
         return redirect('bookapp_doc.html')
     else:
         print("4")
@@ -989,6 +995,12 @@ def discharge_doc_view(request,pk):
         ad = PatAdmit.objects.get(id=pk)
         ad.dischargeDate=date.today()
         ad.save()
+        pat=ad.patient
+        yh = PatHealth.objects.all().filter(patient=pat).first()
+        yh.diseases = yh.diseases + "\n" + ad.description
+        for i in Charges.objects.all().filter(Aptinfo=ap):
+            yh.medicines = yh.medicines + "\n" + i.commodity + "-" + i.quantity
+        yh.save()
         return redirect('admit_details_doc.html')
     else:
         auth.logout(request)
