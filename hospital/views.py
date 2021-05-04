@@ -51,6 +51,18 @@ def bookapp_adm_view(request):
         auth.logout(request)
         return redirect('login_adm.html')
 
+@login_required(login_url='login_adm.html')
+def appointment_particular_adm_view(request,pk):
+    if check_admin(request.user):
+        ad = Appointment.objects.filter(id=pk).first()
+        pat = ad.patient
+        doc = ad.doctor
+        det = [doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,pk]
+        return render(request,'hospital/Admin/appointment_particular_adm.html',{'app':det})
+    else:
+        auth.logout(request)
+        return redirect('login_adm.html')
+
 
 @login_required(login_url='login_adm.html')
 def admit_adm_view(request):
@@ -83,7 +95,7 @@ def admin_appointment_view(request):
             d=c.doctor
             p=c.patient
             if d and p:
-                det.append([d.firstname,p.firstname,c.description,c.calldate,c.calltime])
+                det.append([d.firstname,p.firstname,c.description,c.calldate,c.calltime,c.pk])
         return render(request,'hospital/Admin/appoint_view_adm.html',{'app':det})
     else:
         auth.logout(request)
@@ -98,7 +110,7 @@ def admin_admit_view(request):
             d=c.doctor
             p=c.patient
             if d and p:
-                det.append([d.firstname,p.firstname,c.description,c.admitDate])
+                det.append([d.firstname,p.firstname,c.description,c.admitDate,c.pk])
         return render(request,'hospital/Admin/admit_view_adm.html',{'app':det})
     else:
         auth.logout(request)
@@ -243,6 +255,21 @@ def admin_all_view(request):
         for c in Admin.objects.all():
             det.append([c.firstname,c.lastname,c.dob,c.address,c.city,c.country,c.postalcode])
         return render(request,'hospital/Admin/admin_all_adm.html',{'app':det})
+    else:
+        auth.logout(request)
+        return redirect('login_adm.html')
+
+
+@login_required(login_url='login_adm.html')
+def admit_particular_adm_view(request,pk):
+    if check_admin(request.user):
+        ad = PatAdmit.objects.filter(id=pk).first()
+        doc=ad.doctor
+        doci=doc.department
+        pat=ad.patient
+        det=[ad.pk,doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description,pk]
+        med = Medicines.objects.all()
+        return render(request,'hospital/Admin/admit_particular_adm.html',{'app':det,'doci':doci,'med':med})
     else:
         auth.logout(request)
         return redirect('login_adm.html')
@@ -858,7 +885,6 @@ def register_doc_view(request):
                 doc = Doctor(user=nu,firstname=form.cleaned_data.get('firstname'),
                         lastname=form.cleaned_data.get('lastname'),
                         department=form.cleaned_data.get('department'),
-                        age=ag,
                         dob=form.cleaned_data.get('dob'),
                         address=form.cleaned_data.get('address'),
                         city=form.cleaned_data.get('city'),
@@ -867,6 +893,8 @@ def register_doc_view(request):
                         image=request.FILES['image']
                         )
                 doc.save()
+                dp = DoctorProfessional(doctor=doc,appfees=200,admfees=2000)
+                dp.save()
                 mpg = Group.objects.get_or_create(name='DOCTOR')
                 mpg[0].user_set.add(nu)
                 return redirect('login_doc.html')

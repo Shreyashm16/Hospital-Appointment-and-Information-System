@@ -29,171 +29,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<style media="screen">
-    
-    
-    .market-update-block {
-      padding: 2em 2em;
-      background: #999;
-    }
-
-    .market-update-block h3 {
-      color: #fff;
-      font-size: 1.5em;
-      font-family: 'Carrois Gothic', sans-serif;
-    }
-
-    .market-update-block h4 {
-      font-size: 1.2em;
-      color: #fff;
-      margin: 0.3em 0em;
-      font-family: 'Carrois Gothic', sans-serif;
-    }
-
-    .market-update-block p {
-      color: #fff;
-      font-size: 0.8em;
-      line-height: 1.8em;
-    }
-
-    .market-update-block.clr-block-1 {
-      background: #ff0000;
-      margin-right: 0.8em;
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-      transition: 0.5s all;
-      -webkit-transition: 0.5s all;
-      -moz-transition: 0.5s all;
-      -o-transition: 0.5s all;
-    }
-
-    .market-update-block.clr-block-2 {
-      background: #4f5905;
-      margin-right: 0.8em;
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-      transition: 0.5s all;
-      -webkit-transition: 0.5s all;
-      -moz-transition: 0.5s all;
-      -o-transition: 0.5s all;
-    }
-
-    .market-update-block.clr-block-3 {
-      background: #1355f9;
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-      transition: 0.5s all;
-      -webkit-transition: 0.5s all;
-      -moz-transition: 0.5s all;
-      -o-transition: 0.5s all;
-    }
-
-    .market-update-block.clr-block-1:hover {
-      background: #3C3C3C;
-      transition: 0.5s all;
-      -webkit-transition: 0.5s all;
-      -moz-transition: 0.5s all;
-      -o-transition: 0.5s all;
-    }
-
-    .market-update-block.clr-block-2:hover {
-      background: #3C3C3C;
-      transition: 0.5s all;
-      -webkit-transition: 0.5s all;
-      -moz-transition: 0.5s all;
-      -o-transition: 0.5s all;
-    }
-
-    .market-update-block.clr-block-3:hover {
-      background: #3C3C3C;
-      transition: 0.5s all;
-      -webkit-transition: 0.5s all;
-      -moz-transition: 0.5s all;
-      -o-transition: 0.5s all;
-    }
-
-    .market-update-right i.fa.fa-user-o,
-    i.fa.fa-map-marker {
-      font-size: 3em;
-      color: #68AE00;
-      width: 80px;
-      height: 80px;
-      background: #fff;
-      text-align: center;
-      border-radius: 49px;
-      -webkit-border-radius: 49px;
-      -moz-border-radius: 49px;
-      -o-border-radius: 49px;
-      line-height: 1.7em;
-    }
-
-    .market-update-right i.fa.fa-info-circle,
-    i.fa.fa-list-alt {
-      font-size: 3em;
-      color: #FC8213;
-      width: 80px;
-      height: 80px;
-      background: #fff;
-      text-align: center;
-      border-radius: 49px;
-      -webkit-border-radius: 49px;
-      -moz-border-radius: 49px;
-      -o-border-radius: 49px;
-      line-height: 1.7em;
-    }
-
-    .market-update-right i.fa.fa-mobile,
-    i.fa.fa-calendar-o {
-      font-size: 3em;
-      color: #337AB7;
-      width: 80px;
-      height: 80px;
-      background: #fff;
-      text-align: center;
-      border-radius: 49px;
-      -webkit-border-radius: 49px;
-      -moz-border-radius: 49px;
-      -o-border-radius: 49px;
-      line-height: 1.7em;
-    }
-
-
-
-    .market-update-left {
-      padding: 0px;
-    }
-    .column {
-  float: left;
-  width: 25%;
-  padding: 30px;
-}
-
-
-.row {margin: 0 -10px;
-padding-left: 15px;
-padding-right: 15px;}
-
-
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-th {
-    border: 1px solid #ff0066;
-    border-collapse: collapse;
-    padding:10px;
-}
-
-td {
-    border: 1px solid #ff0066;
-    border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
-    padding:10px;
-}
-
-
-    </style>
+  <link href="{% static 'assets/css/form.css'%}" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
       var dragTheme = window.localStorage.getItem('checkbox');
@@ -220,13 +57,129 @@ td {
       });
     });
   </script>
+  <style>
+  @page {
+      size: A4;
+      margin: 1cm;
+
+      @frame footer {
+        -pdf-frame-content: footerContent;
+        bottom: 0cm;
+        margin-left: 9cm;
+        margin-right: 9cm;
+        height: 1cm;
+      }
+    }
+
+    .invoice-box {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      border: 1px solid #eee;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+      font-size: 16px;
+      line-height: 24px;
+      font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+      color: #555;
+    }
+
+    .invoice-box table {
+      width: 100%;
+      line-height: inherit;
+      text-align: left;
+    }
+
+    .invoice-box table td {
+      padding: 5px;
+      vertical-align: top;
+    }
+
+    .invoice-box table tr td:nth-child(2) {
+      text-align: right;
+    }
+
+    .invoice-box table tr.top table td {
+      padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.top table td.title {
+      font-size: 45px;
+      line-height: 45px;
+      color: #333;
+    }
+
+    .invoice-box table tr.information table td {
+      padding-bottom: 40px;
+    }
+
+    .invoice-box table tr.heading td {
+      background: #eee;
+      border-bottom: 1px solid #ddd;
+      font-weight: bold;
+    }
+
+    .invoice-box table tr.details td {
+      padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.item td {
+      border-bottom: 1px solid #eee;
+    }
+
+    .invoice-box table tr.item.last td {
+      border-bottom: none;
+    }
+
+    .invoice-box table tr.total td:nth-child(2) {
+      border-top: 2px solid #eee;
+      font-weight: bold;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .invoice-box table tr.top table td {
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+
+      .invoice-box table tr.information table td {
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+    }
+
+    /** RTL **/
+    .rtl {
+      direction: rtl;
+      font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    }
+
+    .rtl table {
+      text-align: right;
+    }
+
+    .rtl table tr td:nth-child(2) {
+      text-align: left;
+    }
+  </style>
+  <script>
+  admitDate="03/04/2021";
+  releaseDate="09/04/2021";
+  daySpent="7";
+  patientName="Patient 1";
+  symptoms="Fever";
+
+
+  </script>
+
 </head>
 
 <body id="jhamela" class="darkEdition lightEdition">
   {% include "hospital/Home/preloader.html" %}
 
   <div id="myDiv" class="animate-bottom wrapper" style="display:none;text-align: center;position: relative;">
-    <div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static 'assets/img/sidebar-2.jpg'%}">
+    <div class="sidebar" data-color="azure" data-background-color="black" data-image="{% static 'assets/img/sidebar-1.jpg'%}">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
@@ -240,99 +193,159 @@ td {
     <div class="sidebar-wrapper">
       <ul class="nav">
         <li class="nav-item ">
-          <a class="nav-link" href="{% url 'dashboard_adm.html' %}">
-            <i class="material-icons">dashboard</i>
-            <p>Dashboard</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'profile_adm.html' %}">
-            <i class="material-icons">dashboard</i>
-            <p>Profile</p>
-          </a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'bookapp_adm.html' %}">
-            <i class="material-icons">content_paste</i>
-            <p>Book Appointment</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'admit_adm.html' %}">
-            <i class="material-icons">content_paste</i>
-            <p>Admit</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'patient_adm.html' %}">
-            <i class="material-icons">favorite</i>
-            <p>Patient</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'doctor_adm.html' %}">
-            <i class="material-icons">library_books</i>
-            <p>Doctor</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="{% url 'admin_adm.html' %}">
+            <a class="nav-link" href="{% url 'dashboard_adm.html' %}">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'profile_adm.html' %}">
+              <i class="material-icons">dashboard</i>
+              <p>Profile</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'bookapp_adm.html' %}">
+              <i class="material-icons">content_paste</i>
+              <p>Book Appointment</p>
+            </a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'admit_adm.html' %}">
+                <i class="material-icons">content_paste</i>
+                <p>Admit</p>
+              </a>
+            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'patient_adm.html' %}">
+              <i class="material-icons">favorite</i>
+              <p>Patient</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'doctor_adm.html' %}">
               <i class="material-icons">library_books</i>
-              <p>Admin</p>
-          </a>
-      </li>
-         <li class="nav-item ">
-          <a class="nav-link" href="{% url 'logout' %}">
-            <i class="material-icons">logout</i>
-            <p>Logout</p>
-          </a>
+              <p>Doctor</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'admin_adm.html' %}">
+                <i class="material-icons">library_books</i>
+                <p>Admin</p>
+            </a>
         </li>
+           <li class="nav-item ">
+            <a class="nav-link" href="{% url 'logout' %}">
+              <i class="material-icons">logout</i>
+              <p>Logout</p>
+            </a>
+          </li>
       </ul>
     </div>
   </div>
-    
-    <div class="container sps">
-                <div class="row sps">
-                    <center>
-
-
-
-                        <div class="sps">
-
-                            <h2 class="sps">Appointment Details</h2>
-                            <table class="sps">
-                                <thead>
-                                    <tr class="sps">
-                                        <th class="sps">Doctor Name</th>
-                                        <th class="sps">Patient Name </th>
-                                        <th class="sps">Description </th>
-                                        <th class="sps">Appointment Date</th>
-                                        <th class="sps">Appointment Time</th>
-                                        <th class="sps">Details/th>
-                                    </tr>
-                                    {% for p in app %}
-                                    <tr>
-                                        <td class="sps"> {{ p.0 }}</td>
-                                        <td class="sps">{{ p.1 }}</td>
-                                        <td class="sps">{{ p.2 }}</td>
-                                        <td class="sps">{{ p.3 }}</td>
-                                        <td class="sps">{{ p.4 }}</td>
-                                        <td class="sps"><a class="btn btn-primary btn-xs" href="{% url 'appoint_particular_adm.html' p.5  %}">Details</a></td>
-                                    </tr>
-                                    {% endfor %}
-
-                            </table>
-                        </div>
-                    </center>
-                </div>
-
-            </div>
-
-        </div>
+    <div class="main-panel">
       
-      <!-- End Navbar -->
-      <br><br><br><br><br><br><br><br><br><br><br><br>
-      {% include "hospital/Admin/footer.html" %}
+      <br><br><br><br>
+      
+         
+<!--Rendered function have not been created yet-->
+
+<div class="invoice-box sps">
+    <table cellpadding="0" cellspacing="0">
+      <tr class="top">
+        <td colspan="3">
+          <table>
+            <tr>
+              <td class="title sps">
+                <h4 style="color:skyblue;">Hospital Information Management System</h4>
+              </td>
+                <br><br>
+
+             
+            </tr>
+            <tr>
+            <td class="title sps" style="text-align: center">
+              <h5 style="color: rgb(222, 135, 235);">Admit Report</h5>
+            </td>
+          </tr>
+          <br><br>
+          </table>
+        </td>
+      </tr>
+
+      <tr class="information sps">
+        <td colspan="2">
+          <table>
+            <tr>
+             <td>
+
+                Admit Date: {{admitDate}}<br>
+                Release Date: {{releaseDate}}<br>
+                Days Spent: {{days}} days
+    
+              </td>
+              </tr>
+              <tr>
+              <td>
+                Patient Name : {{patientName}}<br>
+                Patient Address : {{pat_add}}<br>
+              </td>
+              <br>
+              <td>
+                Doctor Name :<br>
+                {{doctorName}}<br>
+
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+
+      <tr class="information sps">
+        <td colspan="2">
+          <table>
+            <tr>
+              <td>
+                Disease and Symptoms :<br>
+                {{desc}}
+              </td>
+
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+
+
+      <tr class="sps">
+        <td colspan="2">
+            <table>
+              <tr>
+                <td>
+                  Medicines :<br>
+                  {% for m in med %}
+                    <tr><td>{{ m.0 }}</td></tr>
+                  {% endfor %}
+                </td>
+              </tr>
+            </table>
+          </td>
+        <td>
+        </td>
+      </tr>
+      
+
+
+    </table>
+    
+  
+   <input type="submit" value="Download Invoice" href="{% url 'bill.html' 1 %}" class='btn btn-primary btn-lg' style="margin-top: 30px" >
+  </div>
+   </div>
+  
+  <br><br><br><br><br><br><br><br>
+      {% include "hospital/Patient/footer.html" %}
     </div>
   </div>
   <!--   Core JS Files   -->
