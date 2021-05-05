@@ -1043,7 +1043,7 @@ def admit_details_particular_doc_view(request,pk):
         doci=doci.department
         pat=ad.patient
         doc=ad.doctor
-        det=[ad.pk,doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description,pk]
+        det=[ad.pk,doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description]
         med = Medicines.objects.all()
         return render(request,'hospital/Doctor/admit_details_particular_doc.html',{'app':det,'doci':doci,'med':med})
     else:
