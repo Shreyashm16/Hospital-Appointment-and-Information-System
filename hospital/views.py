@@ -257,7 +257,7 @@ def patient_all_view(request):
     if check_admin(request.user):
         det=[]
         for c in Patient.objects.filter(status=True).all():
-            det.append([c.firstname,c.lastname,c.dob,c.address,c.city,c.country,c.postalcode])
+            det.append([c.firstname,c.lastname,c.dob,c.address,c.city,c.country,c.postalcode,c.image.url])
         return render(request,'hospital/Admin/patient_all_adm.html',{'app':det})
     else:
         auth.logout(request)
@@ -460,13 +460,17 @@ def bookapp_view(request):
                 docid=int(appointmentForm.cleaned_data.get('doctor'))
                 doc = Doctor.objects.all().filter(id=docid).first()
                 if check_avail(doc,appointmentForm.cleaned_data.get('calldate'),appointmentForm.cleaned_data.get('calltime')):
-                    app = Appointment(patient=pat,doctor=doc,
+                    dt = appointmentForm.cleaned_data.get('calldate')
+                    if timezone.now().date() < dt:
+                        app = Appointment(patient=pat,doctor=doc,
                                     description=appointmentForm.cleaned_data.get('description'),
                                     calldate=appointmentForm.cleaned_data.get('calldate'),
                                     calltime=appointmentForm.cleaned_data.get('calltime'),
                                     status=False)
-                    app.save()
-                    return redirect('bookapp.html')
+                        app.save()
+                        return redirect('bookapp.html')
+                    else:
+                        appointmentForm.add_error('calldate', 'Invalid date.')
                 else:
                     appointmentForm.add_error('calltime', 'Slot Unavailable.')
                 return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm,'p1':app_det})
@@ -622,13 +626,10 @@ def register_pat_view(request):
         form = PatientRegisterForm(request.POST, request.FILES)
         if form.is_valid():
             db = form.cleaned_data.get('dob')
-            today = date.today()
-            ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
             if db < timezone.now().date():
                 nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))
                 p = Patient(user=nu,firstname=form.cleaned_data.get('firstname'),
                             lastname=form.cleaned_data.get('lastname'),
-                            age=ag,
                             dob=form.cleaned_data.get('dob'),
                             address=form.cleaned_data.get('address'),
                             city=form.cleaned_data.get('city'),

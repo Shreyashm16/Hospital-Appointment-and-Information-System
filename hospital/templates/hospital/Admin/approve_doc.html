@@ -315,20 +315,22 @@ td {
       <table class="sps">
         <thead>
           <tr class="sps">
-            <th class="sps">Name: </th>
-            <th class="sps">Department: </th>
-            <th class="sps">Address: </th>
-            <th class="sps">Status: </th>
-            <th class="sps">Approve /Onhold: </th>
+            <th class="sps">User </th>
+            <th class="sps">Name </th>
+            <th class="sps">Department </th>
+            <th class="sps">Address </th>
+            <th class="sps">Date of Birth </th>
+            <th class="sps">Approve/Onhold </th>
 
           </tr>
        
         {% for p in doc %}
         <tr>
+          <td class="sps"><img src="{{ p.image.url }}" width="60 px" height="60 px" class="rounded-circle"></td>
           <td class="sps"> {{p.firstname}} {{p.lastname}}</td>
           <td class="sps">{{p.department}}</td>
-          <td class="sps">{{p.address}}</td>
-          <td class="sps">{{p.status}}</td>
+          <td class="sps">{{p.address}}, {{p.city}}, {{p.country}}</td>
+          <td class="sps">{{p.dob}}</td>
          <td><a class="btn btn-primary btn-xs" href="{% url 'approve_doctor' p.id  %}">Approve</a></td>
           
 

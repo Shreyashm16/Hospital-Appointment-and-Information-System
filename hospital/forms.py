@@ -172,7 +172,7 @@ class PatientRegisterForm(UserCreationForm):
     lastname = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'LASTNAME'}))
     lastname.widget.attrs.update({'class' : 'app-form-control'})
       
-    dob = forms.DateField(label="",widget=SelectDateWidget(years=range(1960, 2021)))
+    dob = forms.DateField(label="",widget=SelectDateWidget(years=range(1960, 2022)))
     dob.widget.attrs.update({'class' : 'app-form-control-date'})
     
     address = forms.CharField(label="",widget=forms.TextInput(attrs={'placeholder': 'ADDRESS'}))

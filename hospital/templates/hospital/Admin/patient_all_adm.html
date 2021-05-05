@@ -303,6 +303,7 @@ td {
                             <table class="sps">
                                 <thead>
                                     <tr class="sps">
+                                        <th class="sps">Patient Profile</th>
                                         <th class="sps">Patient Name</th>
                                         <th class="sps">Date of Birth </th>
                                         <th class="sps">Address</th>
@@ -312,6 +313,7 @@ td {
                                     </tr>
                                     {% for p in app %}
                                     <tr>
+                                      <td class="sps"><img src="{{ p.7 }}" width="60 px" height="60 px" class="rounded-circle"></td>
                                         <td class="sps"> {{ p.0 }} {{ p.1 }}</td>
                                         <td class="sps">{{ p.2 }}</td>
                                         <td class="sps">{{ p.3 }}</td>
