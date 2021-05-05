@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+      <div class="invoice-box sps">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="3">
+              <table>
+                <tr>
+                  <td class="title sps">
+                    <h4 style="color:skyblue;">Hospital Information Management System</h4>
+                  </td>
+                    <br><br>
+    
+                 
+                </tr>
+                <tr>
+                <td class="title sps" style="text-align: center">
+                  <h5 style="color: rgb(222, 135, 235);">Admit Report</h5>
+                </td>
+              </tr>
+              <br><br>
+              </table>
+            </td>
+          </tr>
+    
+          <tr class="information sps">
+            <td colspan="2">
+              <table>
+                <tr>
+                 <td>
+    
+                    Admit Date: {{admitDate}}<br>
+                    Release Date: {{releaseDate}}<br>
+                    Days Spent: {{days}} days
+        
+                  </td>
+                  </tr>
+                  <tr>
+                  <td>
+                    Patient Name : {{patientName}}<br>
+                    Patient Address : {{pat_add}}<br>
+                  </td>
+                  <br>
+                  <td>
+                    Doctor Name :<br>
+                    {{doctorName}}<br>
+    
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+    
+    
+          <tr class="information sps">
+            <td colspan="2">
+              <table>
+                <tr>
+                  <td>
+                    Disease and Symptoms :<br>
+                    {{desc}}
+                  </td>
+    
+                </tr>
+              </table>
+            </td>
+          </tr>
+    
+    
+    
+          <tr class="sps">
+            <td colspan="2">
+                <table>
+                  <tr>
+                    <td>
+                      Medicines :<br>
+                      {% for m in med %}
+                        <tr><td>{{ m.0 }}</td></tr>
+                      {% endfor %}
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            <td>
+            </td>
+          </tr>
+          
+    
+    
+        </table>
+        
+      
+
+      </div>
+    </body>
+</html>

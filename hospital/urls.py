@@ -74,6 +74,10 @@ urlpatterns = [
     path('opcost',views.opcost_adm_view,name='opcost.html'),
     #path('hospital/', include('hospital.urls')),
     
-    
+
+    path('downloadreport/<int:pk>',views.render_pdf_report_view,name="downloadreport"),
+    path('downloadbill/<int:pk>',views.render_pdf_bill_view,name="downloadbill"), 
+    path('downloadreport_apt/<int:pk>',views.render_pdf_report_apt_view,name="downloadreport_apt"),
+    path('downloadbill_apt/<int:pk>',views.render_pdf_bill_apt_view,name="downloadbill_apt"),    
     
 ]

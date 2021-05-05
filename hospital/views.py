@@ -1133,7 +1133,8 @@ def bill_view(request,pk):
             'OtherCharge': OtherCharge,
             'mainp': mainfee,
             'hospfee': hospfee,
-            'med': det
+            'med': det,
+            'pk': pk
         }
     if check_patient(request.user):
         return render(request,'hospital/Patient/bill.html',dict)
@@ -1177,7 +1178,8 @@ def bill_apt_view(request,pk):
             'OtherCharge': OtherCharge,
             'mainp': mainfee,
             'hospfee': hospfee,
-            'med': det
+            'med': det,
+            'pk': pk
         }
     if check_patient(request.user):
         return render(request,'hospital/Patient/bill_apt.html',dict)
@@ -1212,7 +1214,8 @@ def report_view(request,pk):
             'desc':padm.description,
             'pat_add':pat.address,
             'days':days,
-            'med': det
+            'med': det,
+            'pk': pk
         }
     if check_patient(request.user):
         return render(request,'hospital/Patient/report.html',dict)
@@ -1242,7 +1245,8 @@ def report_apt_view(request,pk):
             'aptTime':t,
             'desc':apt.description,
             'pat_add':pat.address,
-            'med': det
+            'med': det,
+            'pk': pk
         }
     if check_patient(request.user):
         return render(request,'hospital/Patient/report_apt.html',dict)
@@ -1266,14 +1270,206 @@ def check_patient(user):
 
 
 
-def render_to_pdf(template_src, context_dict):
-    template = get_template(template_src)
-    html  = template.render(context_dict)
-    result = io.BytesIO()
-    pdf = pisa.pisaDocument(io.BytesIO(html.encode("ISO-8859-1")), result)
-    if not pdf.err:
-        return HttpResponse(result.getvalue(), content_type='application/pdf')
-    return
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
+def render_pdf_report_view(request,pk):
+    template_path = 'hospital/report_pdf.html'
+    padm=PatAdmit.objects.all().filter(id=pk).first()
+    pat=padm.patient
+    doc=padm.doctor
+    d1=padm.admitDate
+    if padm.dischargeDate:
+        d2=padm.dischargeDate
+    else:
+        d2=date.today()
+    days=(d2-d1).days
+    det=[]
+    for i in Charges.objects.all().filter(Admitinfo=padm):
+        for k in Medicines.objects.all():
+            if k==i.commodity:
+                det.append([k.name])
+    context={
+            'patientName':pat.firstname,
+            'doctorName':doc.firstname,
+            'admitDate':d1,
+            'releaseDate':d2,
+            'desc':padm.description,
+            'pat_add':pat.address,
+            'days':days,
+            'med': det
+        }
+    #context = {'myvar': 'this is your template context'}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+def render_pdf_bill_view(request,pk):
+    template_path = 'hospital/bill_pdf.html'
+    padm=PatAdmit.objects.all().filter(id=pk).first()
+    pat=padm.patient
+    doc=padm.doctor
+    d1=padm.admitDate
+    if padm.dischargeDate:
+        d2=padm.dischargeDate
+    else:
+        d2=date.today()
+    days=(d2-d1).days
+    room=OperationCosts.objects.all().filter(name='Room').first()
+    roomcharges=room.cost
+    total_room_charge=roomcharges*days
+    docpro=DoctorProfessional.objects.all().filter(doctor=doc).first()
+    docfee=docpro.admfees
+    hosp=OperationCosts.objects.all().filter(name='Hospital Fee').first()
+    hospfee=hosp.cost
+    mainp=OperationCosts.objects.all().filter(name='Maintenance').first()
+    mainfee=mainp.cost
+    OtherCharge=mainfee+hospfee
+    tot=OtherCharge+docfee+total_room_charge
+    det=[]
+    for i in Charges.objects.all().filter(Admitinfo=padm):
+        for k in Medicines.objects.all():
+            if k==i.commodity:
+                tot+=i.quantity*k.price
+                det.append([k.name,i.quantity,k.price,i.quantity*k.price])
+    context={
+            'patientName':pat.firstname,
+            'doctorName':doc.firstname,
+            'admitDate':d1,
+            'releaseDate':d2,
+            'roomCharge':roomcharges,
+            'desc':padm.description,
+            'pat_add':pat.address,
+            'days':days,
+            'tot':tot,
+            'tc':total_room_charge,
+            'doctorFee': docfee,
+            'OtherCharge': OtherCharge,
+            'mainp': mainfee,
+            'hospfee': hospfee,
+            'med': det
+        }
+    #context = {'myvar': 'this is your template context'}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+######apt
+
+def render_pdf_report_apt_view(request,pk):
+    template_path = 'hospital/report_apt_pdf.html'
+    apt=Appointment.objects.all().filter(id=pk).first()
+    pat=apt.patient
+    doc=apt.doctor
+    d=apt.calldate
+    t=apt.calltime
+    det=[]
+    for i in ChargesApt.objects.all().filter(Aptinfo=apt):
+        for k in Medicines.objects.all():
+            if k==i.commodity:
+                det.append([k.name])
+    context={
+            'patientName':pat.firstname,
+            'doctorName':doc.firstname,
+            'aptDate':d,
+            'aptTime':t,
+            'desc':apt.description,
+            'pat_add':pat.address,
+            'med': det
+        }
+    #context = {'myvar': 'this is your template context'}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+def render_pdf_bill_apt_view(request,pk):
+    template_path = 'hospital/bill_apt_pdf.html'
+    apt=Appointment.objects.all().filter(id=pk).first()
+    pat=apt.patient
+    doc=apt.doctor
+    d=apt.calldate
+    t=apt.calltime
+    docpro=DoctorProfessional.objects.all().filter(doctor=doc).first()
+    docfee=docpro.appfees
+    hosp=OperationCosts.objects.all().filter(name='Hospital Fee').first()
+    hospfee=hosp.cost
+    mainp=OperationCosts.objects.all().filter(name='Maintenance').first()
+    mainfee=mainp.cost
+    OtherCharge=mainfee+hospfee
+    tot=OtherCharge+docfee
+    det=[]
+    for i in ChargesApt.objects.all().filter(Aptinfo=apt):
+        for k in Medicines.objects.all():
+            if k==i.commodity:
+                tot+=i.quantity*k.price
+                det.append([k.name,i.quantity,k.price,i.quantity*k.price])
+    context={
+            'patientName':pat.firstname,
+            'doctorName':doc.firstname,
+            'aptDate':d,
+            'aptTime':t,
+            'desc':apt.description,
+            'pat_add':pat.address,
+            'tot':tot,
+            'doctorFee': docfee,
+            'OtherCharge': OtherCharge,
+            'mainp': mainfee,
+            'hospfee': hospfee,
+            'med': det
+        }
+    #context = {'myvar': 'this is your template context'}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
 
 
 ## Discharge Details have not created yet
