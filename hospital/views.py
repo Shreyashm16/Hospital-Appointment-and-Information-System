@@ -57,7 +57,7 @@ def appointment_particular_adm_view(request,pk):
         ad = Appointment.objects.filter(id=pk).first()
         pat = ad.patient
         doc = ad.doctor
-        det = [doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,pk]
+        det = [doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,pk,ad.finished]
         return render(request,'hospital/Admin/appointment_particular_adm.html',{'app':det})
     else:
         auth.logout(request)
