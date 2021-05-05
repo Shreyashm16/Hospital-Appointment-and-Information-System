@@ -798,7 +798,7 @@ def bookapp_doc_view(request):
         for c in Appointment.objects.filter(status=True,doctor=doc.id,link__isnull=True,finished=False).all():
             p=Patient.objects.filter(id=c.patient.id).first()
             if p:
-                det.append([p.firstname,c.description,c.calldate,c.pk])
+                det.append([p.firstname,c.description,c.calldate,c.pk,c.calltime])
         d=[]
         for c in Appointment.objects.filter(status=True,doctor=doc.id,link__isnull=False,finished=False).all():
             p=Patient.objects.filter(id=c.patient.id).first()
@@ -863,9 +863,8 @@ def appointment_details_particular_doc_add_charge_view(request,pk,comm,quan):
         ad = Appointment.objects.get(id=pk)
         money = Medicines.objects.get(name=comm)
         ChargesApt.objects.create(Aptinfo=ad,commodity=money,quantity=quan)
-        #
-        #   SHREYASH MISHRA WILL ADD CODE FOR RETURN/RENDER HERE
-        #
+        adr = '/hospital/bookapp_doc/'+str(ad.pk)
+        return redirect(adr)
     else:
         auth.logout(request)
         return redirect('login_doc.html')
@@ -1074,11 +1073,8 @@ def admit_details_particular_doc_add_charge_view(request,pk,comm,quan):
         ad = PatAdmit.objects.get(id=pk)
         money = Medicines.objects.get(name=comm)
         Charges.objects.create(Admitinfo=ad,commodity=money,quantity=quan)
-        #return redirect('admit_details_particular_doc_add_charge')
-        pat=ad.patient
-        doc=ad.doctor
-        det=[ad.pk,doc.firstname,pat.firstname,ad.admitDate,ad.dischargeDate,ad.description]
-        return render(request,'hospital/Doctor/admit_details_particular_doc.html',{'app':det})
+        adr = '/hospital/admit_details_doc/'+str(ad.pk)
+        return redirect(adr)
     else:
         auth.logout(request)
         return redirect('login_doc.html')

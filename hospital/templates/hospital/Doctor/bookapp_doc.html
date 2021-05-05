@@ -306,8 +306,7 @@ td {
                                         <th class="sps">Patient Name </th>
                                         <th class="sps">Description </th>
                                         <th class="sps">Appointment Date</th>
-                                        <th class="sps">Call Date</th>
-                                        <th class="sps">Call Time</th>
+                                        <th class="sps">Appointmen Time</th>
                                         <th class="sps">Room Name</th>
                                         <th class="sps">Save Details</th>
                                         <th class="sps">Details</th>
@@ -318,8 +317,7 @@ td {
                                         <td class="sps">{{ p.1 }}</td>
                                         <td class="sps">{{ p.2 }}</td>
                     
-                                        <td class="sps"><input type="Date" id="date_{{ p.3 }}" name="date"></td>
-                                        <td class="sps"><input type="Time" id="time_{{ p.3 }}" name="time"></td>
+                                        <td class="sps">{{p.4}}</td>
                                         <td class="sps"><input type="text" id="link_{{ p.3 }}" name="link"></td>
                                         <td><a class="btn btn-primary btn-xs" onclick="f_{{p.3}}()">Save</a></td>
                                         <td><a class="btn btn-primary btn-xs" href="{% url 'bookapp_details_particular_doc.html' p.3  %}">Details</a></td>
