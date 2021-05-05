@@ -486,8 +486,9 @@ def appointment_details_particular_pat_view(request,pk):
         ad = Appointment.objects.filter(id=pk).first()
         pat = ad.patient
         doc = ad.doctor
-        det = [doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,pk]
-        return render(request,'hospital/Patient/bookapp_details_particular_pat.html',{'app':det})
+        det = [doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,ad.pk]
+        med = Medicines.objects.all()
+        return render(request,'hospital/Patient/bookapp_details_particular_pat.html',{'app':det,'med':med})
     else:
         auth.logout(request)
         return redirect('login_pat.html')
@@ -821,6 +822,7 @@ def appointment_details_particular_doc_view(request,pk):
         doc=ad.doctor
         pathi = PatHealth.objects.filter(patient=pat).first()
         db = pat.dob
+        med = Medicines.objects.all()
         today = date.today()
         ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
         det=[doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,ad.pk,ad.finished]
@@ -833,7 +835,7 @@ def appointment_details_particular_doc_view(request,pk):
                 p_form = AppointmentEditForm()
                 q_form = AdmitRegisterForm()
                 det=[doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,ad.pk,ad.finished]
-                return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form,'q_form':q_form,'pathi':pathi,'ag':ag})
+                return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form,'q_form':q_form,'pathi':pathi,'ag':ag,'med':med})
             else:
                 print(p_form.errors)
         elif request.method=="POST" and 'admit' in request.POST:
@@ -844,15 +846,30 @@ def appointment_details_particular_doc_view(request,pk):
                 p_form = AppointmentEditForm()
                 q_form = AdmitRegisterForm()
                 det=[doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,ad.pk,ad.finished]
-                return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form,'q_form':q_form,'pathi':pathi,'ag':ag})
+                return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form,'q_form':q_form,'pathi':pathi,'ag':ag,'med':med})
             else:
                 print(q_form.errors)
         p_form = AppointmentEditForm()
         q_form = AdmitRegisterForm()
-        return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form,'q_form':q_form,'pathi':pathi,'ag':ag})
+        return render(request,'hospital/Doctor/appointment_details_particular_doc.html',{'app':det,'p_form':p_form,'q_form':q_form,'pathi':pathi,'ag':ag,'med':med})
     else:
         auth.logout(request)
         return redirect('login_doc.html')
+
+
+@login_required(login_url='login_doc.html')
+def appointment_details_particular_doc_add_charge_view(request,pk,comm,quan):
+    if check_doctor(request.user):
+        ad = Appointment.objects.get(id=pk)
+        money = Medicines.objects.get(name=comm)
+        ChargesApt.objects.create(Aptinfo=ad,commodity=money,quantity=quan)
+        #
+        #   SHREYASH MISHRA WILL ADD CODE FOR RETURN/RENDER HERE
+        #
+    else:
+        auth.logout(request)
+        return redirect('login_doc.html')
+
 
 @login_required(login_url='login_doc.html')
 def endappointment_doc_view(request,pk):

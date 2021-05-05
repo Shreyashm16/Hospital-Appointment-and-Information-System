@@ -30,6 +30,7 @@ urlpatterns = [
     path('bookapp_doc/',views.bookapp_doc_view,name='bookapp_doc.html'),
     path('bookapp_doc/<int:pk>/<str:date>/<str:time>/<str:link>',views.bookapp_doc_link_view,name='add_link'),
     path('bookapp_doc/<int:pk>',views.appointment_details_particular_doc_view,name='bookapp_details_particular_doc.html'),
+    path('bookapp_doc/<int:pk>/<str:comm>/<int:quan>',views.appointment_details_particular_doc_add_charge_view,name='appointment_details_particular_doc_add_charge'),
     path('feedback_doc/',views.feedback_doc_view,name='feedback_doc.html'),
     path('register_doc/',views.register_doc_view,name='register_doc.html'),
     path('login_doc/',views.login_doc_view,name='login_doc.html'),

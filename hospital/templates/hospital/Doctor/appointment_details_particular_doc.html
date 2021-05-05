@@ -56,6 +56,22 @@
       });
     });
   </script>
+  <script>
+      function add_charge() {
+        var v1 = document.getElementById('comm');
+        var v2 = document.getElementById('quan');
+        var comm = String(v1.value);
+        var quan = v2.value;
+        console.log(comm);
+        console.log(quan);
+        var finhref = "{% url 'appointment_details_particular_doc_add_charge' app.6 app.1 0 %}".replace(/{{ app.1 }}/, comm);
+        finhref = finhref.replace(/0/, quan);
+        console.log(finhref);
+        window.location.href = finhref;
+        document.getElementById('comm').value='';
+        document.getElementById('quan').value='';   
+      }  
+  </script>
 </head>
 
 <body id="jhamela" class="darkEdition lightEdition">
@@ -183,6 +199,29 @@
         <br><br><br>
 
     </div>
+    <h2 class="sps">Enter Medicine Details</h2>
+        <center>
+        <table class="sps">
+          <thead>
+              <tr class="sps">
+                  <th class="sps">Commodity Name </th>
+                  <th class="sps">Quantity</th>
+              </tr>
+          </thead>
+              <tr>
+                  <td class="sps">
+                    <select id="comm">
+                      {% for k in med %}
+                      <option value="{{ k.name }}">{{ k.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </td>
+                  <td class="sps"><input type="Number" id="quan" ></td>                  
+              </tr>
+        </table>
+        <br><br><br>
+        <a class="btn btn-primary btn-xs" onclick="add_charge()">Save</a>
+        </center>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       {% include "hospital//Doctor/footer.html" %}
     </div>
