@@ -199,6 +199,12 @@ def login_adm_view(request):
             user = auth.authenticate(username=username, password=password)
             if user is not None and check_admin(user):
                 auth.login(request, user)
+                accountapproval=Admin.objects.all().filter(status=True,user_id=request.user.id)
+                if accountapproval:
+                    return redirect('profile_adm.html')
+                else:
+                    auth.logout(request)
+                    return render(request,'hospital/Home/wait_approval.html')
                 return redirect('dashboard_adm.html')
         return render(request, 'hospital/Admin/login_adm.html', {'form': form})
     else: 
@@ -302,7 +308,7 @@ def admin_all_view(request):
     if check_admin(request.user):
         det=[]
         for c in Admin.objects.all():
-            det.append([c.firstname,c.lastname,c.dob,c.address,c.city,c.country,c.postalcode])
+            det.append([c.firstname,c.lastname,c.dob,c.address,c.city,c.country,c.postalcode,c.image.url])
         return render(request,'hospital/Admin/admin_all_adm.html',{'app':det})
     else:
         auth.logout(request)
@@ -343,6 +349,15 @@ def approve_doc_view(request):
         return redirect('login_adm.html')
 
 @login_required(login_url='login_adm.html')
+def approve_adm_view(request):
+    if check_admin(request.user):
+        adm = Admin.objects.all().filter(status=False)
+        return render(request,'hospital/Admin/approve_adm.html',{'adm':adm})
+    else:
+        auth.logout(request)
+        return redirect('login_adm.html')
+
+@login_required(login_url='login_adm.html')
 def approve_patient_view(request,pk):
     if check_admin(request.user):
         patient=Patient.objects.get(id=pk)
@@ -364,6 +379,16 @@ def approve_doctor_view(request,pk):
         auth.logout(request)
         return redirect('login_adm.html')
 
+@login_required(login_url='login_adm.html')
+def approve_admin_view(request,pk):
+    if check_admin(request.user):
+        admin=Admin.objects.get(id=pk)
+        admin.status=True
+        admin.save()
+        return redirect(reverse('approve_adm.html'))
+    else:
+        auth.logout(request)
+        return redirect('login_adm.html')
 
 @login_required(login_url='login_adm.html')
 def approve_appoint_view(request):

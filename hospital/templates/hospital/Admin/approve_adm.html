@@ -1,5 +1,4 @@
 {% load static %}
-{% load widget_tweaks %}
 <!--
 =========================================================
 * Material Dashboard Dark Edition - v2.1.0
@@ -27,10 +26,39 @@
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
   <!-- CSS Files -->
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<style media="screen">
+  <script>
+    $(document).ready(function(){
+      var dragTheme = window.localStorage.getItem('checkbox');
+      if(dragTheme==="true"){
+        $("#jhamela").removeClass("darkEdition");
+          window.localStorage.setItem('checkbox', true);
+          var dragTheme = window.localStorage.getItem('checkbox');
+          console.log(dragTheme);
+          $("#checkbox").click();
+      }
+      $("#checkbox").click(function(){
+        if($('#checkbox').prop("checked")){
+          $("#jhamela").removeClass("darkEdition");
+          window.localStorage.setItem('checkbox', true);
+          var dragTheme = window.localStorage.getItem('checkbox');
+          console.log(dragTheme); 
+        }
+        else{
+          $("#jhamela").addClass("darkEdition");
+          window.localStorage.setItem('checkbox', false);
+          var dragTheme = window.localStorage.getItem('checkbox');
+          console.log(dragTheme); 
+        }
+      });
+    });
+  </script>
+  <style media="screen">
     
     
     .market-update-block {
@@ -194,32 +222,6 @@ td {
 
 
     </style>
-  <script>
-    $(document).ready(function(){
-      var dragTheme = window.localStorage.getItem('checkbox');
-      if(dragTheme==="true"){
-        $("#jhamela").removeClass("darkEdition");
-          window.localStorage.setItem('checkbox', true);
-          var dragTheme = window.localStorage.getItem('checkbox');
-          console.log(dragTheme);
-          $("#checkbox").click();
-      }
-      $("#checkbox").click(function(){
-        if($('#checkbox').prop("checked")){
-          $("#jhamela").removeClass("darkEdition");
-          window.localStorage.setItem('checkbox', true);
-          var dragTheme = window.localStorage.getItem('checkbox');
-          console.log(dragTheme); 
-        }
-        else{
-          $("#jhamela").addClass("darkEdition");
-          window.localStorage.setItem('checkbox', false);
-          var dragTheme = window.localStorage.getItem('checkbox');
-          console.log(dragTheme); 
-        }
-      });
-    });
-  </script>
 </head>
 
 <body id="jhamela" class="darkEdition lightEdition">
@@ -239,7 +241,7 @@ td {
       </a></div>
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <li class="nav-item ">
+        <li class="nav-item  ">
           <a class="nav-link" href="{% url 'dashboard_adm.html' %}">
             <i class="material-icons">dashboard</i>
             <p>Dashboard</p>
@@ -269,18 +271,18 @@ td {
             <p>Patient</p>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item ">
           <a class="nav-link" href="{% url 'doctor_adm.html' %}">
             <i class="material-icons">library_books</i>
             <p>Doctor</p>
           </a>
         </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="{% url 'admin_adm.html' %}">
-                <i class="material-icons">library_books</i>
-                <p>Admin</p>
-            </a>
-        </li>
+        <li class="nav-item active ">
+          <a class="nav-link" href="{% url 'admin_adm.html' %}">
+              <i class="material-icons">library_books</i>
+              <p>Admin</p>
+          </a>
+      </li>
          <li class="nav-item ">
           <a class="nav-link" href="{% url 'logout' %}">
             <i class="material-icons">logout</i>
@@ -291,47 +293,57 @@ td {
     </div>
   </div>
     
-    <div class="container sps">
-                <div class="row sps">
-                    <center>
 
-
-
-                        <div class="sps">
-
-                            <h2 class="sps">Admin Details</h2>
-                            <table class="sps">
-                                <thead>
-                                    <tr class="sps">
-                                        <th class="sps">Patient Profile</th>
-                                        <th class="sps">Name</th>
-                                        <th class="sps">Date of Birth </th>
-                                        <th class="sps">Address</th>
-                                        <th class="sps">City</th>
-                                        <th class="sps">Country</th>
-                                        <th class="sps">Postal Code</th>
-                                    </tr>
-                                    {% for p in app %}
-                                    <tr>
-                                        <td class="sps"><img src="{{ p.7 }}" width="60 px" height="60 px" class="rounded-circle"></td>
-                                        <td class="sps"> {{ p.0 }} {{ p.1 }}</td>
-                                        <td class="sps">{{ p.2 }}</td>
-                                        <td class="sps">{{ p.3 }}</td>
-                                        <td class="sps">{{ p.4 }}</td>
-                                        <td class="sps">{{ p.5 }}</td>
-                                        <td class="sps">{{ p.6 }}</td>
-                                    </tr>
-                                    {% endfor %}
-
-                            </table>
-                        </div>
-                    </center>
-                </div>
-
-            </div>
-
-        </div>
+    
       
+    <br>
+    <br>
+    <div class="main-panel row">
+      
+  
+  <br>
+  <br>
+  <div class="container sps">
+  <div class="row sps">
+  <center>
+    
+    
+
+    <div class="sps">
+      
+        <h2 class="sps">Recent Admins</h2>
+      <table class="sps">
+        <thead>
+          <tr class="sps">
+            <th class="sps">User </th>
+            <th class="sps">Name </th>
+            <th class="sps">Address </th>
+            <th class="sps">Date of Birth </th>
+            <th class="sps">Approve/Onhold </th>
+
+          </tr>
+       
+        {% for p in adm %}
+        <tr>
+          <td class="sps"><img src="{{ p.image.url }}" width="60 px" height="60 px" class="rounded-circle"></td>
+          <td class="sps"> {{p.firstname}} {{p.lastname}}</td>
+          <td class="sps">{{p.address}}, {{p.city}}, {{p.country}}</td>
+          <td class="sps">{{p.dob}}</td>
+         <td><a class="btn btn-primary btn-xs" href="{% url 'approve_admin' p.id  %}">Approve</a></td>
+          
+
+        </tr>
+        {% endfor %}
+      
+      </table>
+    </div>
+    </center>
+  </div>
+  
+</div>
+
+
+</body>
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
       {% include "hospital/Admin/footer.html" %}
@@ -527,3 +539,7 @@ td {
 </body>
 
 </html>
+
+
+
+
