@@ -299,108 +299,60 @@ td {
     <div class="main-panel row">
       
       
-  <div class="market-updates row">
-    <div class="col-md-4 market-update-gd">
-      <div class="market-update-block clr-block-1 column">
-        <div class="col-md-8 market-update-left">
-          <h4>Total Doctor: {{doctotcount}}</h4>
-          <p>Approval Required {{docapp}}: </p>
-           
-        </div>
-        <div class="col-md-4 market-update-right">
-          <i class="fa fa-user-o"> </i>
-        </div>
-        <div class="clearfix"> </div>
-      </div>
-    </div>
-    <div class="col-md-4 market-update-gd">
-      <div class="market-update-block clr-block-2 column">
-        <div class="col-md-8 market-update-left">
-          <h4>Total Patient {{pattotcount}}</h4>
-          <p>Wants to Admit : {{patapp}} </p>
-          
-        </div>
-        <div class="col-md-4 market-update-right">
-          <i class="fa fa-user-o"></i>
-        </div>
-        <div class="clearfix"> </div>
-      </div>
-    </div>
-    <div class="col-md-4 market-update-gd">
-      <div class="market-update-block clr-block-3 column">
-        <div class="col-md-8 market-update-left">
-           <h4>Total Appointment:  {{appcount}}</h4>
-          <p>Approve Appointments : {{approveapp}} </p>
-        </div>
-        <div class="col-md-4 market-update-right">
-          <i class="fa fa-calendar-o"></i>
-        </div>
-        <div class="clearfix"> </div>
-      </div>
-    </div>
-    <div class="clearfix"> </div>
-  </div>
-  <br>
-  <br>
-  <a class="btn btn-primary btn-xs" href="{% url 'opcost.html'  %}">Operation Details</a>
   <br>
   <br>
   <div class="container sps">
   <div class="row sps">
   <center>
-    <div class="sps" style="margin-left:2%;">
-     
-        <h2 class="sps">Recent Doctors</h2>
-      
-      <table class="table sps">
-          <tr class="sps">
-            <th class="sps" >Name</th>
-            <th class="sps">Department</th>
-            <th class="sps">Address</th>
-            <th class="sps">Status</th>
-
-          </tr>
-        {% for d in doc %}
-        <tr class="sps">
-          <td class="sps">{{d.firstname}} {{d.lastname}}</td>
-          <td class="sps">{{d.department}}</td>
-          <td class="sps">{{d.address}}</td>
-          <td class="sps">{{d.status}}</td>
-  
-          
-         
-         <!-- <td> <span class="label label-success">On Hold</span></td>-->
-         
-
-        </tr>
-        {% endfor %}
-  
-      </table>
-    </div>
-
-    <div class="sps">
-      
-        <h2 class="sps">Recent Patients</h2>
-      <table class="sps">
+      <h2>Add Medicines</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ medform.as_p }}
+        <button class="btn btn-sm btn-primary" type="submit" name="addmeds">Add</button>
+    </form>
+    <br><br><br>
+    <h2>All Medicines</h2>
+    <table class="sps">
         <thead>
-          <tr class="sps">
-            <th class="sps">Name</th>
-            <th class="sps">Symptoms</th>
-            <th class="sps">Address</th>
-            <th class="sps">Status</th>
-
-          </tr>
-       
-        {% for p in pat %}
+        <tr class="sps">
+        <th class="sps">Name</th>
+        <th class="sps">Price</th>
+        </tr>
+        {% for med in meds %}
+            <tr>
+            <td class="sps"> {{ med.name }}</td>
+            <td class="sps">{{ med.price }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br><br><br>
+    <h2>Edit Operation Costs</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ opf.as_p }}
+        <button class="btn btn-sm btn-primary" type="submit" name="opcost">Save</button>
+    </form>
+    <br><br><br>
+    <h2>Operation Costs</h2>
+    <table class="sps">
+        <thead>
+        <tr class="sps">
+        <th class="sps">Service</th>
+        <th class="sps">Price</th>
+        </tr>
         <tr>
-          <td class="sps"> {{p.firstname}} {{p.lastname}}</td>
-          <td class="sps">{{p.symptoms}}</td>
-          <td class="sps">{{p.address}}</td>
-          <td class="sps">{{p.status}}</td>
-        </tr>{% endfor %}
-      
-      </table>
-    </div>
+        <td class="sps"> Maintenance </td>
+        <td class="sps">Rs. {{ mnc.cost }}</td>
+        </tr>
+        <tr>
+            <td class="sps"> Hospital </td>
+            <td class="sps">Rs. {{ hp.cost }}</td>
+        </tr>
+        <tr>
+            <td class="sps"> Room </td>
+            <td class="sps">Rs. {{ r.cost }}</td>
+        </tr>
+    </table>
     </center>
   </div>
   

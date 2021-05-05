@@ -4,7 +4,7 @@ from . import forms,models
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
-from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm,AppointmentEditForm,AdmitRegisterForm,AdminAdmitRegisterForm
+from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm,AppointmentEditForm,AdmitRegisterForm,AdminAdmitRegisterForm,AddMedForm,OpcostsForm
 from django.contrib.auth.forms import AuthenticationForm
 from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges,DoctorProfessional,Medicines,OperationCosts,ChargesApt
 from django.contrib import auth
@@ -20,6 +20,55 @@ from django.template import Context
 from django.http import HttpResponse
 
 #Admin Related Views
+@login_required(login_url='login_adm.html')
+def opcost_adm_view(request):
+    if check_admin(request.user):
+        if request.method=="POST" and 'addmeds' in request.POST:
+            f = AddMedForm(request.POST)
+            if f.is_valid():
+                name = f.cleaned_data.get('name')
+                price = f.cleaned_data.get('price')
+                med = Medicines(name=name,price=price)
+                med.save()
+                return redirect('opcost.html')
+            else:
+                print(f.errors)
+        else:
+            f = AddMedForm()
+        if request.method=="POST" and 'opcost' in request.POST:
+            opf = OpcostsForm(request.POST)
+            if opf.is_valid():
+                main = opf.cleaned_data.get('maintenance')
+                hosp = opf.cleaned_data.get('hospfee')
+                rf = opf.cleaned_data.get('roomfee')
+                print(main,hosp,rf)
+                mnc = OperationCosts.objects.all().filter(name="Maintenance").first()
+                mnc.cost=main
+                mnc.save()
+                hp = OperationCosts.objects.all().filter(name="Hospital Fee").first()
+                hp.cost=hosp
+                hp.save()
+                r = OperationCosts.objects.all().filter(name="Room").first()
+                r.cost=rf
+                r.save()
+                return redirect('opcost.html')
+            else:
+                print(opf.errors)
+        else:
+            f = AddMedForm()
+            opf = OpcostsForm()
+            mnc = OperationCosts.objects.all().filter(name="Maintenance").first()
+            hp = OperationCosts.objects.all().filter(name="Hospital Fee").first()
+            r = OperationCosts.objects.all().filter(name="Room").first()
+            opf.fields['maintenance'].initial=mnc.cost
+            opf.fields['hospfee'].initial=hp.cost
+            opf.fields['roomfee'].initial=r.cost
+        meds = Medicines.objects.all()
+        return render(request,'hospital/Admin/opcost.html',{'medform': f,'opf': opf,'meds': meds,'mnc':mnc,'hp':hp,'r':r})
+    else:
+        auth.logout(request)
+        return redirect('login_adm.html')
+
 
 @login_required(login_url='login_adm.html')
 def bookapp_adm_view(request):

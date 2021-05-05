@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from . import models
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
-from .models import Doctor,Admin,Patient,Appointment,PatHealth,PatAdmit,DoctorProfessional
+from .models import Doctor,Admin,Patient,Appointment,PatHealth,PatAdmit,DoctorProfessional,Medicines
 import datetime
 from django.forms.widgets import SelectDateWidget
 from django.utils import timezone
@@ -299,3 +299,16 @@ class DoctorProfessionalUpdateForm(forms.ModelForm):
     class Meta:
         model = DoctorProfessional
         fields = ['appfees','admfees']
+
+
+class AddMedForm(forms.ModelForm):
+    name = forms.CharField()
+    price = forms.FloatField()
+    class Meta:
+        model = Medicines
+        fields = ['name','price']
+
+class OpcostsForm(forms.Form):
+    maintenance = forms.FloatField()
+    hospfee = forms.FloatField()
+    roomfee = forms.FloatField()
