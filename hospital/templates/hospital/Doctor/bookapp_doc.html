@@ -21,19 +21,19 @@
         var v2 = document.getElementById('date_{{ p.3 }}');
         var v3 = document.getElementById('time_{{ p.3 }}');
         var link = String(v1.value);
-        var date = String(v2.value);
-        var time = String(v3.value);
+       // var date = String(v2.value);
+        // var time = String(v3.value);
         console.log(v1.value);
-        console.log(v2.value);
-        console.log(v3.value);
-        var finhref = "{% url 'add_link' p.3 p.2 '06:00:00' p.0 %}".replace(/{{ p.0 }}/, link);
-        finhref = finhref.replace(/{{ p.2 }}/, date);
-        finhref = finhref.replace(/06:00:00/, time);
-        console.log(finhref);
+        //console.log(v2.value);
+        //console.log(v3.value);
+        var finhref = "{% url 'add_link' p.3 p.0 %}".replace(/{{ p.0 }}/, link);
+        //finhref = finhref.replace(/{{ p.2 }}/, date);
+        //finhref = finhref.replace(/06:00:00/, time);
+        //console.log(finhref);
         window.location.href = finhref;
         document.getElementById('link_{{ p.3 }}').value='';
-        document.getElementById('date_{{ p.3 }}').value='';
-        document.getElementById('time_{{ p.3 }}').value='';   
+        //document.getElementById('date_{{ p.3 }}').value='';
+        //document.getElementById('time_{{ p.3 }}').value='';   
       }
       {% endfor %}    
   </script>

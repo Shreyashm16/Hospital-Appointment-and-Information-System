@@ -890,11 +890,11 @@ def endappointment_doc_view(request,pk):
         return redirect('login_doc.html')
 
 @login_required(login_url='login_doc.html')
-def bookapp_doc_link_view(request,pk,date,time,link):
+def bookapp_doc_link_view(request,pk,link):
     if check_doctor(request.user):
         appointment=Appointment.objects.get(id=pk)
-        appointment.calldate=date
-        appointment.calltime=time
+        #appointment.calldate=date
+        #appointment.calltime=time
         appointment.link=link
         appointment.save()
         return redirect(reverse('bookapp_doc.html'))
