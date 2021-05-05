@@ -272,7 +272,7 @@ class AppointmentEditForm(forms.ModelForm):
 
 class AdmitRegisterForm(forms.ModelForm):
     description = forms.TextInput()
-    admitDate = forms.DateField()
+    admitDate = forms.DateField(widget=SelectDateWidget)
     class Meta:
         model = PatAdmit
         fields = ['description','admitDate']
@@ -281,7 +281,7 @@ class AdminAdmitRegisterForm(forms.ModelForm):
     doctor = forms.TypedChoiceField()
     patient = forms.TypedChoiceField()
     description = forms.TextInput()
-    admitDate = forms.DateField()
+    admitDate = forms.DateField(widget=SelectDateWidget)
     
     def __init__(self, *args, **kwargs):
         super(AdminAdmitRegisterForm, self).__init__(*args, **kwargs)

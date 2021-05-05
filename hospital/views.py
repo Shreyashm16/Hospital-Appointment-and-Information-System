@@ -431,7 +431,6 @@ def add_secs_to_time(timeval, secs_to_add):
     return time(secs // 3600, (secs % 3600) // 60, secs % 60)
 
 def check_avail(doc,dt,tm):
-    #dp = DoctorProfessional.objects.all().filter(doctor=doc)
     tm = tm[:-3]
     hr = tm[:-3]
     mn = tm[-2:]
@@ -1485,25 +1484,6 @@ def render_pdf_bill_apt_view(request,pk):
 
 
 
-## Discharge Details have not created yet
-
-def download_pdf_view(request,pk):
-    dischargeDetails=models.PatientDischargeDetails.objects.all().filter(patientId=pk).order_by('-id')[:1]
-    dict={
-        'patientName':dischargeDetails[0].patientName,
-        'assignedDoctorName':dischargeDetails[0].assignedDoctorName,
-        'address':dischargeDetails[0].address,
-        'symptoms':dischargeDetails[0].symptoms,
-        'admitDate':dischargeDetails[0].admitDate,
-        'releaseDate':dischargeDetails[0].releaseDate,
-        'daySpent':dischargeDetails[0].daySpent,
-        'medicineCost':dischargeDetails[0].medicineCost,
-        'roomCharge':dischargeDetails[0].roomCharge,
-        'doctorFee':dischargeDetails[0].doctorFee,
-        'OtherCharge':dischargeDetails[0].OtherCharge,
-        'total':dischargeDetails[0].total,
-    }
-    return render_to_pdf('hospital/download_bill.html',dict)
 
 
 
