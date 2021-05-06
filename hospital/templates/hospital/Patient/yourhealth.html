@@ -68,7 +68,7 @@
  .box {
    background-color: azure;
   border-radius: 25px;
-  border: 5px solid #ff0066;
+  border: 5px solid #28acea;
   padding: 10px;  
   margin-left: 10%;
   margin-right: 20%;
@@ -150,29 +150,29 @@
   </div>
     <div class="main-panel">
       <br><br>
-      <h1 style="color: #ff0066">Your Health</h1>
+      <h1 style="color: #28acea">Your Health</h1>
       <br><br><br>
       <a class="btn btn-primary btn-round btn-lg"href="{% url 'edityourhealth.html' %}"><b>Edit</b></a>
       <div class="container">
         <div class="box">
-          <h1 style="font-size: 30px; color: #ff0066">Basic Information</h1><hr><br>
+          <h1 style="font-size: 30px; color: #28acea">Basic Information</h1><hr><br>
           <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> <b><u>Height:</u> {{ info.height }} cm</b></p>
           <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> <b><u>Weight:</u> {{ info.weight}} kg</b></p>
           <p class="list"><img src="https://img.icons8.com/color/26/000000/christmas-star.png" class="mr-1 " width="19" height="19" id="star" style="align-self: left;"> <b><u>Age:</u> {{ age }} years</b></p>
         </div>
         <br><br>
         <div class="box">
-          <h1 style="font-size: 30px; color: #ff0066">Diseases</h1><hr><br>
+          <h1 style="font-size: 30px; color: #28acea">Diseases</h1><hr><br>
             <p><b>{{ info.diseases }}</b></p>
         </div>
         <br><br>
         <div class="box">
-          <h1 style="font-size: 30px; color: #ff0066">Medicines</h1><hr><br>
+          <h1 style="font-size: 30px; color: #28acea">Medicines</h1><hr><br>
           <p><b>{{ info.medicines }}</b></p>
         </div>
         <br><br>
         <div class="box">
-          <h1 style="font-size: 30px; color: #ff0066">Treatments/Surgery</h1><hr><br>
+          <h1 style="font-size: 30px; color: #28acea">Treatments/Surgery</h1><hr><br>
           <p><b>{{ info.ts }}</b></p>
         </div>
       </div>
