@@ -128,7 +128,7 @@
     .market-update-right i.fa.fa-info-circle,
     i.fa.fa-list-alt {
       font-size: 3em;
-      color: #FC8213;
+      color: #112240;
       width: 80px;
       height: 80px;
       background: #fff;
@@ -143,7 +143,7 @@
     .market-update-right i.fa.fa-mobile,
     i.fa.fa-calendar-o {
       font-size: 3em;
-      color: #337AB7;
+      color: #112240;
       width: 80px;
       height: 80px;
       background: #fff;
@@ -301,7 +301,7 @@ td {
       <div>
       
     
-     <div class="market-updates">
+     <div class="market-updates" style="margin-left: 15%">
       <div class="col-md-4 market-update-gd">
       <div class="market-update-block clr-block-1 column">
         <div class="col-md-8 market-update-left">
@@ -349,7 +349,7 @@ td {
 
 
 
-  <div class="market-updates">
+  <div class="market-updates" style="margin-left: 15%">
     <div class="col-md-4 market-update-gd">
       <div class="market-update-block clr-block-1 column">
         <div class="col-md-8 market-update-left">
@@ -409,10 +409,10 @@ td {
               <div class="screen-body">
                 <div class="screen-body-item left">
                   <div class="app-title" style="text-align: left;color: #28acea">
-                    <span>Update</span>
+                    <span>UPDATE</span>
                   </div>
                 </div>
-                <div class="screen-body-item">
+                <div class="screen-body-item" style="width: 80%;margin-left:auto;margin-right: auto">
                   <form class="app-form" method="POST" enctype="multipart/form-data">
                   <!-- Very Important csrf Token -->
                   {% csrf_token %}
@@ -438,10 +438,10 @@ td {
               <div class="screen-body">
                 <div class="screen-body-item left">
                   <div class="app-title" style="text-align: left;color: #28acea">
-                    <span>Admit</span>
+                    <span>ADMIT</span>
                   </div>
                 </div>
-                <div class="screen-body-item">
+                <div class="screen-body-item" style="width: 80%;margin-left:auto;margin-right: auto">
                   <form class="app-form" method="POST" enctype="multipart/form-data">
                   <!-- Very Important csrf Token -->
                   {% csrf_token %}
@@ -453,8 +453,8 @@ td {
             </div>
           </div>
         {% if app.7 is False %}
-        <br><br>
-        <a class="btn btn-primary btn-xs sps" href="{% url 'endappointment_doc' app.6  %}">Finish Appointment</a>
+        <br><br><br><br>
+        <a class="btn btn-primary btn-round btn-lg sps" href="{% url 'endappointment_doc' app.6  %}">Finish Appointment</a>
         {% endif %}
         <a class="btn btn-primary btn-round btn-lg sps" href="{% url 'report_apt.html' app.6 %}" target="_blank"><b>View Medical Report</b></a>
         <a class="btn btn-primary btn-round btn-lg sps" href="{% url 'bill_apt.html' app.6 %}" target="_blank"><b>View Bill</b></a>
@@ -466,7 +466,7 @@ td {
          <div>
       
     
-  <div class="market-updates">
+  <div class="market-updates" style="margin-left: 15%">
     <div class="col-md-4 market-update-gd">
       <div class="market-update-block clr-block-1 column">
         <div class="col-md-8 market-update-left">
@@ -514,7 +514,7 @@ td {
 
 
 
-  <div class="market-updates">
+  <div class="market-updates" style="margin-left: 15%">
     <div class="col-md-4 market-update-gd">
       <div class="market-update-block clr-block-1 column">
         <div class="col-md-8 market-update-left">
@@ -533,7 +533,7 @@ td {
         <div class="col-md-8 market-update-left">
           <h3></h3>
           <h4>Patient Medicines</h4>
-           <h3>{{pathi.medicines}}</h3>
+           <h4>{{pathi.medicines}}</h4>
         </div>
         <div class="col-md-4 market-update-right">
           <i class="fa fa-list-alt"></i>
@@ -547,7 +547,7 @@ td {
         <div class="col-md-8 market-update-left">
           <h3></h3>
           <h4>Patient Treatments/Surgeries</h4>
-           <h3>{{pathi.ts}}</h3>
+           <h4>{{pathi.ts}}</h4>
         </div>
         <div class="col-md-4 market-update-right">
           <i class="fa fa-calendar-o" aria-hidden="true"></i>
@@ -583,7 +583,7 @@ td {
               </tr>
         </table>
         <br><br><br>
-        <a class="btn btn-primary btn-xs" onclick="add_charge()">Save</a>
+        <a class="btn btn-primary btn-round btn-lg" onclick="add_charge()">Save</a>
         </center>
       <br><br><br><br><br><br><br><br><br><br><br><br>
       {% include "hospital//Doctor/footer.html" %}
