@@ -48,6 +48,7 @@
       href="{% static 'assets/css/material-dashboard.css'%}"
       rel="stylesheet"
     />
+    <link href="{% static 'assets/css/form.css'%}" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
       $(document).ready(function () {
@@ -121,7 +122,7 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'admit_details.html' %}">
                 <i class="material-icons">content_paste</i>
-                <p>Admit &amp Appointment Details</p>
+                <p>Admit Details</p>
               </a>
             </li>
             <li class="nav-item">
@@ -177,10 +178,10 @@
             <div class="screen-body">
               <div class="screen-body-item left">
                 <div class="app-title" style="text-align: left; color: #28acea">
-                  <center><span>Book Appointment</span></center>
+                  <span>Book Appointment</span>
                 </div>
               </div>
-              <div class="screen-body-item">
+              <div class="screen-body-item" style="width: 80%;margin-right: auto;margin-left: auto;">
                 <form class="app-form" method="POST">
                   <!-- Very Important csrf Token -->
                   {% csrf_token %} {{ appointmentForm.as_p }}
@@ -248,13 +249,13 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
     <!-- Chartist JS -->
     <script src="{% static 'assets/js/plugins/chartist.min.js' %}"></script>
     <!--  Notifications Plugin    -->
     <script src="{% static 'assets/js/plugins/bootstrap-notify.js' %}"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="{% static 'assets/js/material-dashboard.js?v=2.1.0' %}"></script>
+    <!-- <script src="{% static 'assets/js/material-dashboard.js?v=2.1.0' %}"></script> -->
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     <script src="{% static 'assets/demo/demo.js' %}"></script>
     <script>

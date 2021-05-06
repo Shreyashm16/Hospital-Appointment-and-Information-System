@@ -217,10 +217,15 @@ class PatientUpdateForm(forms.ModelForm):
 
 class PatientAppointmentForm(forms.ModelForm):   
     #ch = [(c.pk, c.firstname+"("+c.department+")") for c in Doctor.objects.filter(status=True).all()]
-    doctor = forms.TypedChoiceField()
+    doctor = forms.TypedChoiceField(label='')
+    doctor.widget.attrs.update({'class' : 'app-form-control'})
     #doctorId=forms.CharField(widget=forms.Select(choices=c))  
-    calldate = forms.DateField(widget=SelectDateWidget(years=range(2021,2024)))
-    calltime = forms.TypedChoiceField()
+    calldate = forms.DateField(label='',widget=SelectDateWidget(years=range(2021,2024)))
+    calldate.widget.attrs.update({'class' : 'app-form-control-date'})
+    calltime = forms.TypedChoiceField(label='')
+    calltime.widget.attrs.update({'class' : 'app-form-control'})
+    description = forms.CharField(max_length=300,label='',widget=forms.TextInput(attrs={'placeholder': 'Description'}))
+    description.widget.attrs.update({'class' : 'app-form-control'}) 
     def __init__(self, *args, **kwargs):
         super(PatientAppointmentForm, self).__init__(*args, **kwargs)
         self.fields['doctor'].choices = [(c.id, c.firstname+"("+c.department+")") for c in Doctor.objects.filter(status=True).all()]
