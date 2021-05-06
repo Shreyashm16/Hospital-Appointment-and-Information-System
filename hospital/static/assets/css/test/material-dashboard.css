@@ -64,7 +64,7 @@ body {
 }
 
 a {
-  color: #9c27b0;
+  color: #28acea;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
@@ -1811,12 +1811,12 @@ h2, .h2 {
 
 .nav-tabs .nav-link.active {
   color: #333333;
-  border-color: #9c27b0;
+  border-color: #28acea;
 }
 
 .nav-tabs .nav-link.active:hover,
 .nav-tabs .nav-link.active:focus {
-  border-color: #9c27b0;
+  border-color: #28acea;
 }
 
 /**/
