@@ -290,35 +290,113 @@ td {
       </ul>
     </div>
   </div>
-    <div class="main-panel sps">
+    <h2 class="sps">Appointment Details</h2>
       <!-- Navbar -->
      
       <!-- End Navbar -->
       <br><br><br><br><br>
+       <div class="main-panel row">
       
-      <h2 class="sps">Appointment Details</h2>
-      <div class="row sps">
-        <h3>Doctor Name</h3><br>
-        {{app.0}}
-        <br><br>
-        <h3>Patient Name</h3><br>
-        {{app.1}}
-        <br><br>
-        <h3>Appointment Date</h3><br>
-        {{app.2}}
-        <br><br>
-        <h3>Link</h3><br>
-        {{app.3}}
-        <br><br>
-        <h3>Call Time</h3><br>
-        {{app.4}}
-        <br><br>
-        <h3>Description</h3><br>
-        {{app.5}}
+    
+  <div class="market-updates row">
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-1 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Doctor Name</h4>
+           <h3>{{app.0}}</h3>
+        </div>
+        <div class="col-md-4 market-update-right">
+          <i class="fa fa-user-o"> </i>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-2 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Appointment Date</h4>
+           <h3>{{app.2}}</h3>
+        </div>
+        <div class="col-md-4 market-update-right">
+         <i class="fa fa-calendar-o" aria-hidden="true"></i>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-3 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Link</h4>
+           <h3>{{app.3}}</h3>
+        </div>
+        <div class="col-md-4 market-update-right">
+          <i class="fa fa-calendar-o" aria-hidden="true"></i>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="clearfix"> </div>
+  </div>
+
+
+  <br><br><br>
+
+
+
+  <div class="market-updates row">
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-1 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Patient Name</h4>
+           <h3>{{app.1}}</h3>
+        </div>
+        <div class="col-md-4 market-update-right">
+           <i class="fa fa-user-o"> </i>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-2 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Description</h4>
+           <h3>{{app.5}}</h3>
+        </div>
+        <div class="col-md-4 market-update-right">
+          <i class="fa fa-list-alt"></i>
+           
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="col-md-4 market-update-gd">
+      <div class="market-update-block clr-block-3 column">
+        <div class="col-md-8 market-update-left">
+          <h3></h3>
+          <h4>Call Time</h4>
+           <h3>{{app.4}}</h3>
+        </div>
+        <div class="col-md-4 market-update-right">
+          <i class="fa fa-calendar-o" aria-hidden="true"></i>
+        </div>
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+    <div class="clearfix"> </div>
+  </div>
+
+      
+      
+    
         <br><br><br>
         <a class="btn btn-primary btn-round btn-lg" href="{% url 'report_apt.html' app.6 %}" target="_blank"><b>View Medical Report</b></a>
         <a class="btn btn-primary btn-round btn-lg" href="{% url 'bill_apt.html' app.6 %}" target="_blank"><b>View Bill</b></a>
-    </div>
+    
 
 
 
