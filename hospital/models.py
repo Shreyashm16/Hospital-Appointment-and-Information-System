@@ -71,9 +71,9 @@ class Appointment(models.Model):
     patient=models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="PatientApp")
     doctor=models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="DoctorApp")
     description=models.TextField(max_length=500)
-    link=models.TextField(null=True)
-    calldate=models.DateField(null=True)
-    calltime=models.TimeField(null=True)
+    link=models.TextField(null=True, blank=True)
+    calldate=models.DateField(null=True, blank=True)
+    calltime=models.TimeField(null=True, blank=True)
     status=models.BooleanField(default=False)
     finished=models.BooleanField(default=False)
     def __str__(self):
@@ -97,7 +97,7 @@ class PatAdmit(models.Model):
     doctor=models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="DoctorAdmit")
     admitDate=models.DateField()
     description=models.TextField()
-    dischargeDate=models.DateField(null=True)
+    dischargeDate=models.DateField(null=True, blank=True)
     #roomcharges=models.FloatField()
     def __str__(self):
         return f'{self.patient} Admit Info'
@@ -135,6 +135,6 @@ class DoctorProfessional(models.Model):
 class OperationCosts(models.Model):
     name=models.TextField()
     cost=models.FloatField()
-    description=models.TextField(null=True)
+    description=models.TextField(null=True, blank=True)
     def __str__(self):
         return f'{self.name} Cost'
