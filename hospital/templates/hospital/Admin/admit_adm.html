@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="{% static 'assets/css/material-dashboard.css'%}" rel="stylesheet" />
+  <link href="{% static 'assets/css/form.css'%}" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
@@ -151,10 +152,10 @@
             <div class="screen-body">
               <div class="screen-body-item left">
                 <div class="app-title" style="text-align: left; color: #28acea">
-                  <center><span>Admit Patient</span></center>
+                  <span>Admit Patient</span>
                 </div>
               </div>
-              <div class="screen-body-item">
+              <div class="screen-body-item" style="width: 80%;margin-right: auto;margin-left: auto;">
                 <form class="app-form" method="POST">
                   <!-- Very Important csrf Token -->
                   {% csrf_token %} {{  admitForm.as_p }}

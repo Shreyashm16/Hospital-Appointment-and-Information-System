@@ -240,11 +240,16 @@ class PatientAppointmentForm(forms.ModelForm):
 class AdminAppointmentForm(forms.ModelForm):
     #patientId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname) for c in Patient.objects.all().filter(status=True)])) 
     #doctorId=forms.CharField(widget=forms.Select(choices=[(c.pk, c.firstname+"("+c.department+")") for c in Doctor.objects.all().filter(status=True)])) 
-    doctor = forms.TypedChoiceField()
-    patient = forms.TypedChoiceField()
-    calldate = forms.DateField(widget=SelectDateWidget(years=range(2021,2024)))
-    calltime = forms.TypedChoiceField()
-
+    doctor = forms.TypedChoiceField(label='')
+    doctor.widget.attrs.update({'class' : 'app-form-control'})
+    patient = forms.TypedChoiceField(label='')
+    patient.widget.attrs.update({'class' : 'app-form-control-date'})
+    calldate = forms.DateField(label='',widget=SelectDateWidget(years=range(2021,2024)))
+    calldate.widget.attrs.update({'class' : 'app-form-control-date'})
+    calltime = forms.TypedChoiceField(label='')
+    calltime.widget.attrs.update({'class' : 'app-form-control'})
+    description = forms.CharField(max_length=300,label='',widget=forms.TextInput(attrs={'placeholder': 'Description'}))
+    description.widget.attrs.update({'class' : 'app-form-control'}) 
     def __init__(self, *args, **kwargs):
         super(AdminAppointmentForm, self).__init__(*args, **kwargs)
         self.fields['doctor'].choices = [(c.id, c.firstname+"("+c.department+")") for c in Doctor.objects.filter(status=True).all()]
@@ -270,23 +275,30 @@ class YourHealthEditForm(forms.ModelForm):
     
         
 class AppointmentEditForm(forms.ModelForm):
-    description = forms.TextInput()
+    description = forms.CharField(max_length=300,label='',widget=forms.TextInput(attrs={'placeholder': 'Description'}))
+    description.widget.attrs.update({'class' : 'app-form-control'}) 
     class Meta:
         model = Appointment
         fields = ['description']
 
 class AdmitRegisterForm(forms.ModelForm):
-    description = forms.TextInput()
-    admitDate = forms.DateField(widget=SelectDateWidget)
+    description = forms.CharField(max_length=300,label='',widget=forms.TextInput(attrs={'placeholder': 'Description'}))
+    description.widget.attrs.update({'class' : 'app-form-control'}) 
+    admitDate = forms.DateField(label='',widget=SelectDateWidget)
+    admitDate.widget.attrs.update({'class' : 'app-form-control-date'})
     class Meta:
         model = PatAdmit
         fields = ['description','admitDate']
 
 class AdminAdmitRegisterForm(forms.ModelForm):
-    doctor = forms.TypedChoiceField()
-    patient = forms.TypedChoiceField()
-    description = forms.TextInput()
-    admitDate = forms.DateField(widget=SelectDateWidget)
+    doctor = forms.TypedChoiceField(label='')
+    doctor.widget.attrs.update({'class' : 'app-form-control'})
+    patient = forms.TypedChoiceField(label='')
+    patient.widget.attrs.update({'class' : 'app-form-control'})
+    description = forms.CharField(max_length=300,label='',widget=forms.TextInput(attrs={'placeholder': 'Description'}))
+    description.widget.attrs.update({'class' : 'app-form-control'}) 
+    admitDate = forms.DateField(label='',widget=SelectDateWidget)
+    admitDate.widget.attrs.update({'class' : 'app-form-control-date'})
     
     def __init__(self, *args, **kwargs):
         super(AdminAdmitRegisterForm, self).__init__(*args, **kwargs)
@@ -299,21 +311,28 @@ class AdminAdmitRegisterForm(forms.ModelForm):
 
 
 class DoctorProfessionalUpdateForm(forms.ModelForm):
-    appfees = forms.FloatField()
-    admfees = forms.FloatField()
+    appfees = forms.FloatField(label='')
+    appfees.widget.attrs.update({'class' : 'app-form-control'})
+    admfees = forms.FloatField(label='')
+    admfees.widget.attrs.update({'class' : 'app-form-control'})
     class Meta:
         model = DoctorProfessional
         fields = ['appfees','admfees']
 
 
 class AddMedForm(forms.ModelForm):
-    name = forms.CharField()
-    price = forms.FloatField()
+    name = forms.CharField(label='')
+    name.widget.attrs.update({'class' : 'app-form-control'})
+    price = forms.FloatField(label='')
+    price.widget.attrs.update({'class' : 'app-form-control'})
     class Meta:
         model = Medicines
         fields = ['name','price']
 
 class OpcostsForm(forms.Form):
-    maintenance = forms.FloatField()
-    hospfee = forms.FloatField()
-    roomfee = forms.FloatField()
+    maintenance = forms.FloatField(label='')
+    maintenance.widget.attrs.update({'class' : 'app-form-control'})
+    hospfee = forms.FloatField(label='')
+    hospfee.widget.attrs.update({'class' : 'app-form-control'})
+    roomfee = forms.FloatField(label='')
+    roomfee.widget.attrs.update({'class' : 'app-form-control'})
