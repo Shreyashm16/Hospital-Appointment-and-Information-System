@@ -210,7 +210,22 @@ td {
               <div class="screen-body-item" style="width: 80%;margin-right: auto;margin-left: auto;">
                 <form class="app-form" method="POST">
                   <!-- Very Important csrf Token -->
-                  {% csrf_token %} {{ appointmentForm.as_p }}
+                  {% csrf_token %} 
+                  {{ appointmentForm.description|add_class:"form-control form-control-alternative" }}
+                  {{ appointmentForm.description.errors }}
+                  <br>
+                  <label class="form-control-label" for="input-first-name" style="color: #28acea;"><b>Call Date</b></label><br>
+                  {{ appointmentForm.calldate|add_class:"form-control form-control-alternative" }}
+                  {{ appointmentForm.calldate.errors }}
+                  <br>
+                  <label class="form-control-label" for="input-first-name" style="color: #28acea;"><b>Call Time</b></label><br>
+                  {{ appointmentForm.calltime|add_class:"form-control form-control-alternative" }}
+                  {{ appointmentForm.calltime.errors }}
+                  <br>
+                  <label class="form-control-label" for="input-first-name" style="color: #28acea"><b>Doctor</b></label><br>
+                  {{ appointmentForm.doctor|add_class:"form-control form-control-alternative" }}
+                  {{ appointmentForm.doctor.errors }}
+                  <br>
                   <input
                     type="submit"
                     value="Book"
