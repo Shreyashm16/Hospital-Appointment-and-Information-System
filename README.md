@@ -19,13 +19,14 @@ As demands of an automatic system in the healthcare sector are high, we need to 
 ![login snap](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/login_page.PNG)
 
 ### Admin Dashboard
-
+![Admin snap](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/adm.PNG)
 
 ### Patient Dashboard
 
-
+![Patient snap](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/pat.PNG)
 ### Doctor Dashboard
 
+![Docor snap](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/doc.PNG)
 
 ## Functional Description
 
@@ -77,10 +78,10 @@ As demands of an automatic system in the healthcare sector are high, we need to 
 
 ## Problem Modules
 
-Module 1 : Creation of Basic outline structure of the Project (Static files generation, linking with Backend,etc)
-Module 2 : Almost completion of front-end part, Form Creations,etc.
-Module 3: Database linking of app & completion of left-over Backend Functionalities.
-Module 4: Deployment & Hosting on a Web Server.
+* Module 1 : Creation of Basic outline structure of the Project (Static files generation, linking with Backend,etc)
+* Module 2 : Almost completion of front-end part, Form Creations,etc.
+* Module 3: Database linking of app & completion of left-over Backend Functionalities.
+* Module 4: Deployment & Hosting on a Web Server.
 
 ## HOW TO RUN THIS PROJECT
 
