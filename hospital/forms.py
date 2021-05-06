@@ -243,7 +243,7 @@ class AdminAppointmentForm(forms.ModelForm):
     doctor = forms.TypedChoiceField(label='')
     doctor.widget.attrs.update({'class' : 'app-form-control'})
     patient = forms.TypedChoiceField(label='')
-    patient.widget.attrs.update({'class' : 'app-form-control-date'})
+    patient.widget.attrs.update({'class' : 'app-form-control'})
     calldate = forms.DateField(label='',widget=SelectDateWidget(years=range(2021,2024)))
     calldate.widget.attrs.update({'class' : 'app-form-control-date'})
     calltime = forms.TypedChoiceField(label='')

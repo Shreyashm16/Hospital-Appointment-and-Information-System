@@ -130,7 +130,7 @@
       <!-- Navbar -->
       <br><br><br>
       <h2 class="sps">Appointment Details</h2>
-      <div class="row sps">
+      <div class="sps">
         <h3>Doctor Name</h3><br>
         {{app.0}}
         <br><br>
@@ -149,6 +149,7 @@
         <h3>Description</h3><br>
         {{app.5}}
         <br>
+        <br><br><br><br>
         {% if app.7 %}
         <a class="btn btn-primary btn-round btn-lg" href="{% url 'report_apt.html' app.6 %}" target="_blank"><b>View Medical Report</b></a>
         <a class="btn btn-primary btn-round btn-lg" href="{% url 'bill_apt.html' app.6 %}" target="_blank"><b>View Bill</b></a>
