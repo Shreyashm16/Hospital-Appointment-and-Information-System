@@ -572,7 +572,7 @@ def feedback_view(request):
                 name=sub.cleaned_data['Name']
                 message = sub.cleaned_data['Message']
                 send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
-                return render(request, 'hospital/Home/home.html')
+                return redirect('feedback.html')
         return render(request, 'hospital/Patient/feedback.html', {'form':sub})
     else:
         auth.logout(request)
@@ -937,7 +937,7 @@ def feedback_doc_view(request):
                 name=sub.cleaned_data['Name']
                 message = sub.cleaned_data['Message']
                 send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
-                return render(request, 'hospital/Home/home.html')
+                return redirect('feedback_doc.html')
         return render(request, 'hospital/Doctor/feedback_doc.html', {'form':sub})
     else:
         auth.logout(request)
