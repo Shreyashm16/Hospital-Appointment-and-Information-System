@@ -275,14 +275,14 @@ class YourHealthEditForm(forms.ModelForm):
     
         
 class AppointmentEditForm(forms.ModelForm):
-    description = forms.CharField(max_length=300,label='',widget=forms.TextInput(attrs={'placeholder': 'Description'}))
+    description = forms.CharField(max_length=300,label='',widget=forms.TextInput(attrs={'placeholder': 'DESCRIPTION'}))
     description.widget.attrs.update({'class' : 'app-form-control'}) 
     class Meta:
         model = Appointment
         fields = ['description']
 
 class AdmitRegisterForm(forms.ModelForm):
-    description = forms.CharField(max_length=300,label='',widget=forms.TextInput(attrs={'placeholder': 'Description'}))
+    description = forms.CharField(max_length=300,label='',widget=forms.TextInput(attrs={'placeholder': 'DESCRIPTION'}))
     description.widget.attrs.update({'class' : 'app-form-control'}) 
     admitDate = forms.DateField(label='',widget=SelectDateWidget)
     admitDate.widget.attrs.update({'class' : 'app-form-control-date'})
@@ -295,7 +295,7 @@ class AdminAdmitRegisterForm(forms.ModelForm):
     doctor.widget.attrs.update({'class' : 'app-form-control'})
     patient = forms.TypedChoiceField(label='')
     patient.widget.attrs.update({'class' : 'app-form-control'})
-    description = forms.CharField(max_length=300,label='',widget=forms.TextInput(attrs={'placeholder': 'Description'}))
+    description = forms.CharField(max_length=300,label='',widget=forms.TextInput(attrs={'placeholder': 'DESCRIPTION'}))
     description.widget.attrs.update({'class' : 'app-form-control'}) 
     admitDate = forms.DateField(label='',widget=SelectDateWidget)
     admitDate.widget.attrs.update({'class' : 'app-form-control-date'})
@@ -311,9 +311,9 @@ class AdminAdmitRegisterForm(forms.ModelForm):
 
 
 class DoctorProfessionalUpdateForm(forms.ModelForm):
-    appfees = forms.FloatField(label='')
+    appfees = forms.FloatField(label='',widget=forms.TextInput(attrs={'placeholder': 'APPOINTMENT FEES'}))
     appfees.widget.attrs.update({'class' : 'app-form-control'})
-    admfees = forms.FloatField(label='')
+    admfees = forms.FloatField(label='',widget=forms.TextInput(attrs={'placeholder': 'ADMIT FEES'}))
     admfees.widget.attrs.update({'class' : 'app-form-control'})
     class Meta:
         model = DoctorProfessional
@@ -321,18 +321,18 @@ class DoctorProfessionalUpdateForm(forms.ModelForm):
 
 
 class AddMedForm(forms.ModelForm):
-    name = forms.CharField(label='')
+    name = forms.CharField(label='',widget=forms.TextInput(attrs={'placeholder': 'NAME'}))
     name.widget.attrs.update({'class' : 'app-form-control'})
-    price = forms.FloatField(label='')
+    price = forms.FloatField(label='',widget=forms.TextInput(attrs={'placeholder': 'PRICE'}))
     price.widget.attrs.update({'class' : 'app-form-control'})
     class Meta:
         model = Medicines
         fields = ['name','price']
 
 class OpcostsForm(forms.Form):
-    maintenance = forms.FloatField(label='')
+    maintenance = forms.FloatField(label='',widget=forms.TextInput(attrs={'placeholder':'MAINTAINANCE CHARGE'}))
     maintenance.widget.attrs.update({'class' : 'app-form-control'})
-    hospfee = forms.FloatField(label='')
+    hospfee = forms.FloatField(label='',widget=forms.TextInput(attrs={'placeholder': 'HOSPITAL FEE'}))
     hospfee.widget.attrs.update({'class' : 'app-form-control'})
-    roomfee = forms.FloatField(label='')
+    roomfee = forms.FloatField(label='',widget=forms.TextInput(attrs={'placeholder': 'ROOM FEE'}))
     roomfee.widget.attrs.update({'class' : 'app-form-control'})
