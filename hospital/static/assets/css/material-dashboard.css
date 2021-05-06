@@ -2418,3 +2418,59 @@ input:checked + .slider:before {
   box-shadow: 0 20px 40px rgba(0, 0, 0, .4);
 }
 
+.lightEdition .market-update-block.clr-block-1 {
+      background-color: #28acea;
+    }
+
+.lightEdition .market-update-block.clr-block-2 {
+      background-color: #28acea;
+    }
+
+.lightEdition .market-update-block.clr-block-3 {
+      background-color: #28acea; 
+    }
+
+.lightEdition .market-update-block.clr-block-1:hover {
+      background-color: #3C3C3C;
+      
+    }
+
+.lightEdition .market-update-block.clr-block-2:hover {
+      background-color: #3C3C3C;
+      
+    }
+
+.lightEdition .market-update-block.clr-block-3:hover {
+      background-color: #3C3C3C;
+      
+    }
+
+
+
+.darkEdition .market-update-block.clr-block-1 {
+      background-color: #112240 !important;
+    }
+
+.darkEdition .market-update-block.clr-block-2 {
+      background-color: #112240 !important;
+    }
+
+.darkEdition .market-update-block.clr-block-3 {
+      background-color: #112240 !important;
+      
+    }
+
+.darkEdition .market-update-block.clr-block-1:hover {
+      background-color: #3C3C3C !important;
+      
+    }
+
+.darkEdition .market-update-block.clr-block-2:hover {
+      background-color: #3C3C3C !important;
+      
+    }
+
+.darkEdition .market-update-block.clr-block-3:hover {
+      background-color: #3C3C3C !important;
+      
+    }
