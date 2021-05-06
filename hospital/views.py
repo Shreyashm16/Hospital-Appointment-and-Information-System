@@ -1161,7 +1161,7 @@ def bill_view(request,pk):
             'doctorName':doc.firstname,
             'admitDate':d1,
             'releaseDate':d2,
-            'roomCharge':roomcharges,
+            'roomcharges':roomcharges,
             'desc':padm.description,
             'pat_add':pat.address,
             'days':days,
