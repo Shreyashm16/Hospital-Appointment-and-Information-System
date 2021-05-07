@@ -108,7 +108,6 @@
   border: none;
   border-bottom: 1px solid #666;
   font-size: 14px;
-  text-transform: uppercase;
   outline: none;
   transition: border-color .2s;
 }
@@ -121,7 +120,6 @@
   border: none;
   border-bottom: 1px solid #666;
   font-size: 14px;
-  text-transform: uppercase;
   outline: none;
   transition: border-color .2s;
 }
