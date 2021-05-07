@@ -41,7 +41,6 @@ def opcost_adm_view(request):
                 main = opf.cleaned_data.get('maintenance')
                 hosp = opf.cleaned_data.get('hospfee')
                 rf = opf.cleaned_data.get('roomfee')
-                print(main,hosp,rf)
                 mnc = OperationCosts.objects.all().filter(name="Maintenance").first()
                 mnc.cost=main
                 mnc.save()

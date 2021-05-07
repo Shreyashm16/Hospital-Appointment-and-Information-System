@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!--
 =========================================================
 * Material Dashboard Dark Edition - v2.1.0
@@ -307,29 +308,29 @@ td {
   <center>
       
       <div class="container">
-    <div class="screen" style="width: 70%;margin-left: auto;margin-right: auto;">
-              <div class="screen-header">
-                <div class="screen-header-left">
-                  <img src="{% static 'assets/img/btn.png' %}" height="20px">
+        <div class="screen" style="width: 70%;margin-left: auto;margin-right: auto;">
+          <div class="screen-header">
+            <div class="screen-header-left">
+              <img src="{% static 'assets/img/btn.png' %}" height="20px">
+              </div>
+            </div>
+            <div class="screen-body">
+              <div class="screen-body-item left">
+                <div class="app-title" style="text-align: left;color: #28acea">
+                 <span>ADD MEDICINES</span>
                 </div>
               </div>
-              <div class="screen-body">
-                <div class="screen-body-item left">
-                  <div class="app-title" style="text-align: left;color: #28acea">
-                   <span>ADD MEDICINES</span>
-                  </div>
-                </div>
-                <div class="screen-body-item">
-                  <form class="app-form" method="POST" enctype="multipart/form-data">
+              <div class="screen-body-item">
+                <form class="app-form" method="POST" enctype="multipart/form-data">
                   <!-- Very Important csrf Token -->
                   {% csrf_token %}
-                    {{ medform.as_p }}
-                    <input type="submit" value="Add" class='btn btn-primary btn-lg' style="margin-top: 30px">
-                  </form>
-                </div>
+                  {{ medform.as_p }}
+                  <input type="submit" name="addmeds" value="Add" class='btn btn-primary btn-lg' style="margin-top: 30px">                 
+                </form>
               </div>
             </div>
           </div>
+        </div>
    
     <br><br><br>
     <h2>All Medicines</h2>
@@ -365,8 +366,18 @@ td {
                   <form class="app-form" method="POST" enctype="multipart/form-data">
                   <!-- Very Important csrf Token -->
                   {% csrf_token %}
-                    {{ opf.as_p  }}
-                    <input type="submit" value="Save" class='btn btn-primary btn-lg' style="margin-top: 30px">
+                  <label class="form-control-label" for="input-date" style="color: #28acea;"><b>Maintenence Cost</b></label>
+                  {{ opf.maintenance|add_class:"form-control form-control-alternative" }}
+                  {{ opf.maintenance.errors }}
+                    
+                  <label class="form-control-label" for="input-date" style="color: #28acea;"><b>Hospital Fees</b></label>
+                  {{ opf.hospfee|add_class:"form-control form-control-alternative" }}
+                  {{ opf.hospfee.errors }}
+
+                  <label class="form-control-label" for="input-date" style="color: #28acea;"><b>Room Cost(per day)</b></label>
+                  {{ opf.roomfee|add_class:"form-control form-control-alternative" }}
+                  {{ opf.roomfee.errors }}
+                    <input name="opcost" type="submit" value="Save" class='btn btn-primary btn-lg' style="margin-top: 30px">
                   </form>
                 </div>
               </div>
