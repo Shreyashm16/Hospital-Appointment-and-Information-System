@@ -1629,7 +1629,7 @@ button.bg-dark:focus {
 
 .navbar.bg-dark {
   color: #fff;
-  background-color: #212121 !important;
+  background-color: #020c1b !important;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 12px -5px rgba(33, 33, 33, 0.46);
 }
 
@@ -2133,7 +2133,7 @@ h2, .h2 {
 
 
 .darkEdition {
-  background-color: #212121;
+  background-color: #020c1b;
 }
 
 .lightEdition .sidebar[data-color="azure"] li.active>a {
@@ -2162,7 +2162,7 @@ h2, .h2 {
 }
 
 .darkEdition .footer{
-  background-color: #212121;
+  background-color: #020c1b;
 }
 
 .lightEdition .sidebar .sidebar-background:after,
@@ -2173,7 +2173,7 @@ h2, .h2 {
 
 .darkEdition .sidebar .sidebar-background:after,
 .darkEdition .sidebar {
-  background: #282828;
+  background: #0a192f;
   opacity: .90;
 }
 
@@ -2300,7 +2300,7 @@ input:checked + .slider:before {
 
 
 #loader .darkEdition {
-	border: 5px solid #212121 !important;
+	border: 5px solid #020c1b !important;
 }
 
 #loader .lightEdition {
@@ -2326,7 +2326,7 @@ input:checked + .slider:before {
     }
 
 .darkEdition .screen-header {
-  background: #4d4d4f !important ;
+  background: #233554 !important ;
 }
 
 .lightEdition .screen-header {
@@ -2334,7 +2334,7 @@ input:checked + .slider:before {
 }
 
 .darkEdition .screen {
-  background: #282828 !important ;
+  background: #0a192f !important ;
 }
 
 .lightEdition .screen {
@@ -2409,8 +2409,8 @@ input:checked + .slider:before {
 }
 
 .darkEdition .logincards{
-  background-color: rgba(255,255,255,0.3) !important;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, .4) !important;
+  background-color: rgba(17,34,64,0.8) !important;
+  box-shadow: 0 20px 40px rgba(10,25,47,0.9) !important;
 }
 
 .lightEdition .logincards{
