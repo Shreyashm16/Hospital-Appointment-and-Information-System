@@ -58,7 +58,6 @@ urlpatterns = [
     path('admin_admit_view',views.admin_admit_view,name='admit_view_adm.html'),
     path('admin_admit_view/<int:pk>',views.admit_particular_adm_view,name='admit_particular_adm.html'),
     path('pat_appointment_view',views.pat_appointment_view,name='appoint_view_pat.html'),
-    path('home/',views.home_view,name='home.html'),
     path('login/',views.login_view,name='login.html'),
     path('bill/<int:pk>',views.bill_view,name='bill.html'),
     path('bill_apt/<int:pk>',views.bill_apt_view,name='bill_apt.html'),
@@ -75,9 +74,6 @@ urlpatterns = [
     path('report/<int:pk>',views.report_view,name='report.html'),
     path('report_apt/<int:pk>',views.report_apt_view,name='report_apt.html'),
     path('opcost',views.opcost_adm_view,name='opcost.html'),
-    #path('hospital/', include('hospital.urls')),
-    
-
     path('downloadreport/<int:pk>',views.render_pdf_report_view,name="downloadreport"),
     path('downloadbill/<int:pk>',views.render_pdf_bill_view,name="downloadbill"), 
     path('downloadreport_apt/<int:pk>',views.render_pdf_report_apt_view,name="downloadreport_apt"),
