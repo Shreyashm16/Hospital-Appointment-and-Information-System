@@ -47,12 +47,8 @@ class TestViews(TestCase):
     
     def test_GET_bookapp_adm_view(self):
         client = Client()
-        #appointmentForm = AdminAppointmentForm()
-
-        #response = client.get(reverse('bookapp_adm.html',args=[appointmentForm]))
         response = client.get(reverse('bookapp_adm.html'))
         self.assertEquals(response.status_code,302)
-        #self.assertTemplateUsed(response,'hospital/Admin/bookapp_adm.html')
     
     def test_POST_bookapp_adm_view(self):
         client = Client()

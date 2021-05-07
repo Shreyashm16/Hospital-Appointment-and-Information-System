@@ -53,7 +53,7 @@ class Admin(models.Model):
 
 class Patient(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="Patient")
-    image = models.ImageField(default="default.png",upload_to="profile_pics")
+    image = models.ImageField(default="default.png",upload_to="profile_pics",null=True, blank=True)
     firstname = models.CharField(max_length=100,default='firstname')
     lastname = models.CharField(max_length=100,default='lastname')
     dob = models.DateField(default=datetime.date.today)
