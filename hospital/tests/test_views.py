@@ -47,7 +47,7 @@ class TestViews(TestCase):
     
     def test_GET_bookapp_adm_view(self):
         client = Client()
-        appointmentForm = AdminAppointmentForm()
+        #appointmentForm = AdminAppointmentForm()
 
         #response = client.get(reverse('bookapp_adm.html',args=[appointmentForm]))
         response = client.get(reverse('bookapp_adm.html'))
