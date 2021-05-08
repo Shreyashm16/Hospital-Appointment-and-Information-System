@@ -9,15 +9,17 @@ This is in accordance with a problem raised by the AYUSH ministry in SIH (Smart 
 As demand of an automatic system in the healthcare sector are high, we need to develop a unique web app for online OPD Appointment , Registration and Hospital Information System. We have focused on creating an integrated platform that can assimilate patients and doctors under a single roof which is under admin supervision. This would bring transparency and decentralization in the hospital management which is really uncommon as of now.
 
 ## Use Case Diagram for this Project
-![homepage snap 1](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/Usecase_diagram.png)
+![Usecase snap 1](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/Usecase_diagram.png)
 ## Screenshots
 ### Homepage
 ![homepage snap 1](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/home_1.PNG)
 
 ![homepage snap 2](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/home_2.PNG)
 
+![homepage snap 3](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/home_3.PNG)
+
 ### Loginpage
-![login snap](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/login_page.PNG)
+![login snap](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/login.PNG)
 
 ### Admin Dashboard
 ![Admin snap](https://github.com/Shreyashm16/Hospital-Appointment-and-Information-System/blob/main/Screenshot/adm.PNG)
