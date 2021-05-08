@@ -1,5 +1,5 @@
 from django.test import TestCase
-from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges,DoctorProfessional,Medicines,OperationCosts,ChargesApt
+from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges,DoctorProfessional,Medicines,OperationCosts,ChargesApt,CovidVaccination
 from django.utils import timezone
 
 class ModelTest(TestCase):
@@ -82,3 +82,11 @@ class ModelTest(TestCase):
     def test_operationcostscreation(self):
         oc = OperationCosts(name="test name",cost=123,description="testing description")
         self.assertEquals(str(oc),"test name Cost")
+    
+    def test_covidvaccinationcreation(self):
+        self.nu.save()
+        self.pat.save()
+        m = Medicines(name="test name",price=120)
+        m.save()
+        cv = CovidVaccination(patient=self.pat,vaccine=m)
+        self.assertEquals(str(cv),"firstname Covid Vaccination")

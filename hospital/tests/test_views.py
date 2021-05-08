@@ -184,6 +184,23 @@ class TestViews(TestCase):
         response = client.get(reverse('admit_details_particular_doc_add_charge',args=[1,"test comm",2]))
         self.assertEquals(response.status_code,302)
     
+    def test_GET_track_med_view(self):
+        client = Client()
+        response = client.get(reverse('particular_medtrack.html',args=["name"]))
+        self.assertEquals(response.status_code,302)
+
+    def test_GET_covid_vaccine_adm_view(self):
+        client = Client()
+        response = client.get(reverse('covid_vaccine_adm.html'))
+        self.assertEquals(response.status_code,302)    
+    
+    def test_POST_covidvaccine_pat_view(self):
+        client = Client()
+        response = client.post(reverse('covidvaccine.html'),{
+            'commodity': 1
+        })
+        self.assertEquals(response.status_code,302)
+
     def test_POST_edityourhealth_view(self):
         client = Client()
         response = client.post(reverse('edityourhealth.html'),{

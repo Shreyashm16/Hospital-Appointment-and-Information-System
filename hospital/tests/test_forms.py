@@ -1,5 +1,5 @@
 from django.test import TestCase
-from hospital.forms import YourHealthEditForm,DoctorUpdateForm,PatientUpdateForm,AdminUpdateForm,PatientAppointmentForm,AdminAppointmentForm,AppointmentEditForm,AdmitRegisterForm,AdminAdmitRegisterForm,AddMedForm,OpcostsForm
+from hospital.forms import YourHealthEditForm,DoctorUpdateForm,PatientUpdateForm,AdminUpdateForm,PatientAppointmentForm,AdminAppointmentForm,AppointmentEditForm,AdmitRegisterForm,AdminAdmitRegisterForm,AddMedForm,OpcostsForm,CovidVaccinationApplicationForm
 from django.utils import timezone
 from datetime import date,timedelta,time
 from hospital.models import Patient,Admin,Doctor,User,Appointment,PatHealth
@@ -161,5 +161,7 @@ class FormTest(TestCase):
         })
         print(form.errors)
         self.assertTrue(form.is_valid())
+    
+    
     
     

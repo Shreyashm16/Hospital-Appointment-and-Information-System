@@ -370,4 +370,18 @@ class TestUrls(SimpleTestCase):
         url = reverse('downloadbill_apt',args=[1])
         #print(resolve(url))
         self.assertEquals(resolve(url).func,render_pdf_bill_apt_view)
-
+    
+    def test_urls_is_resolved_render_covidvaccine_pat(self):
+        url = reverse('covidvaccine.html')
+        #print(resolve(url))
+        self.assertEquals(resolve(url).func,covidvaccine_pat_view)
+    
+    def test_urls_is_resolved_render_covid_vaccine_adm(self):
+        url = reverse('covid_vaccine_adm.html')
+        #print(resolve(url))
+        self.assertEquals(resolve(url).func,covid_vaccine_adm_view) 
+    
+    def test_urls_is_resolved_render_track_med(self):
+        url = reverse('particular_medtrack.html',args=["test"])
+        #print(resolve(url))
+        self.assertEquals(resolve(url).func,track_med_view) 

@@ -5,7 +5,6 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls import include, url
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
     path('',views.home_view,name=''),
     path('bookapp_pat/',views.bookapp_view,name='bookapp.html'),
     path('bookvaccine_pat/',views.covidvaccine_pat_view,name='covidvaccine.html'),
