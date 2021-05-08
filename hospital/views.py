@@ -1540,3 +1540,25 @@ def track_med_view(request,name):
     else:
         auth.logout(request)
         return redirect('login_adm.html')
+    
+@login_required(login_url='login_adm.html')
+def covid_vaccine_adm_view(request):
+    if check_admin(request.user):
+        #get information from database and render in html webpage
+        det=[]
+        meds = Charges.objects.filter(commodity__name="covaxin").all()
+        for med in meds:
+            det.append([med.Admitinfo.patient.firstname,med.Admitinfo.patient.lastname,med.quantity,med.Admitinfo.doctor.firstname,med.Admitinfo.doctor.lastname,med.Admitinfo.admitDate,"covaxin"])
+        admeds = ChargesApt.objects.filter(commodity__name="covaxin").all()
+        for med in admeds:
+            det.append([med.Aptinfo.patient.firstname,med.Aptinfo.patient.lastname,med.quantity,med.Aptinfo.doctor.firstname,med.Aptinfo.doctor.lastname,med.Aptinfo.calldate,"covaxin"])
+        meds = Charges.objects.filter(commodity__name="covishield").all()
+        for med in meds:
+            det.append([med.Admitinfo.patient.firstname,med.Admitinfo.patient.lastname,med.quantity,med.Admitinfo.doctor.firstname,med.Admitinfo.doctor.lastname,med.Admitinfo.admitDate,"covishield"])
+        admeds = ChargesApt.objects.filter(commodity__name="covishield").all()
+        for med in admeds:
+            det.append([med.Aptinfo.patient.firstname,med.Aptinfo.patient.lastname,med.quantity,med.Aptinfo.doctor.firstname,med.Aptinfo.doctor.lastname,med.Aptinfo.calldate,"covishield"])    
+        return render(request,'hospital/Admin/covid_vaccine_adm.html',{'app':det})
+    else:
+        auth.logout(request)
+        return redirect('login_adm.html')
