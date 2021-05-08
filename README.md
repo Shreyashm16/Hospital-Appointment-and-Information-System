@@ -115,8 +115,6 @@ As demand of an automatic system in the healthcare sector are high, we need to d
  
  
 ## Drawbacks/LoopHoles
-
-* There is no Approval required for admin account. So you can disable admin signup process and use any logic like creating superuser.
 * Unsupported display feature in Safari Browser
 * User need Agora app for accessing the video calling facility through mobile/ IOS Device.
 
