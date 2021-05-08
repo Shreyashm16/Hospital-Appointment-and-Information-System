@@ -1525,18 +1525,3 @@ def render_pdf_bill_apt_view(request,pk):
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
-@login_required(login_url='login_adm.html')
-def track_med_view(request,name):
-    if check_admin(request.user):
-        #get information from database and render in html webpage
-        det=[]
-        meds = Charges.objects.filter(commodity__name=name).all()
-        for med in meds:
-            det.append([med.Admitinfo.patient.firstname,med.Admitinfo.patient.lastname,med.quantity,med.Admitinfo.doctor.firstname,med.Admitinfo.doctor.lastname,med.Admitinfo.admitDate])
-        admeds = ChargesApt.objects.filter(commodity__name=name).all()
-        for med in admeds:
-            det.append([med.Aptinfo.patient.firstname,med.Aptinfo.patient.lastname,med.quantity,med.Aptinfo.doctor.firstname,med.Aptinfo.doctor.lastname,med.Aptinfo.calldate])
-        return render(request,'hospital/Admin/particular_medtrack.html',{'app':det})
-    else:
-        auth.logout(request)
-        return redirect('login_adm.html')
