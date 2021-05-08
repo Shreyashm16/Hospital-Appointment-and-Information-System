@@ -336,3 +336,13 @@ class OpcostsForm(forms.Form):
     hospfee.widget.attrs.update({'class' : 'app-form-control'})
     roomfee = forms.FloatField(label='',widget=forms.TextInput(attrs={'placeholder': 'ROOM FEE'}))
     roomfee.widget.attrs.update({'class' : 'app-form-control'})
+
+class CovidVaccinationApplicationForm(forms.Form):
+    commodity = forms.TypedChoiceField(label='')
+    commodity.widget.attrs.update({'class' : 'app-form-control'})
+    
+    def __init__(self, *args, **kwargs):
+        super(CovidVaccinationApplicationForm, self).__init__(*args, **kwargs)
+        covaxin = Medicines.objects.all().filter(name="covaxin").first()
+        covishield = Medicines.objects.all().filter(name="covishield").first()
+        self.fields['commodity'].choices = [(covaxin.id, covaxin.name), (covishield.id, covishield.name)]

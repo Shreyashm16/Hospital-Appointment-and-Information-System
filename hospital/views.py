@@ -4,9 +4,9 @@ from . import forms,models
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
-from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm,AppointmentEditForm,AdmitRegisterForm,AdminAdmitRegisterForm,AddMedForm,OpcostsForm
+from .forms import DoctorRegisterForm,DoctorUpdateForm, AdminRegisterForm,AdminUpdateForm, PatientRegisterForm,PatientUpdateForm,PatientAppointmentForm,AdminAppointmentForm,YourHealthEditForm,AppointmentEditForm,AdmitRegisterForm,AdminAdmitRegisterForm,AddMedForm,OpcostsForm,CovidVaccinationApplicationForm
 from django.contrib.auth.forms import AuthenticationForm
-from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges,DoctorProfessional,Medicines,OperationCosts,ChargesApt
+from hospital.models import Doctor,Admin,Patient,Appointment,User,PatHealth,PatAdmit,Charges,DoctorProfessional,Medicines,OperationCosts,ChargesApt,CovidVaccination
 from django.contrib import auth
 from django.utils import timezone
 from datetime import date,timedelta,time
@@ -512,6 +512,35 @@ def bookapp_view(request):
         else:
             appointmentForm = PatientAppointmentForm()
         return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm,'p1':app_det})
+    else:
+        auth.logout(request)
+        return redirect('login_pat.html')
+
+@login_required(login_url='login_pat.html')
+def covidvaccine_pat_view(request):
+    if check_patient(request.user):
+        pat=Patient.objects.get(user_id=request.user.id)   #get patient from logged in user
+        #get information from database and render in html webpage
+        covaxin = Medicines.objects.all().filter(name="covaxin").first()
+        covishield = Medicines.objects.all().filter(name="covishield").first()
+        tot = CovidVaccination.objects.all().count()
+        t1 = Charges.objects.filter(commodity__name="covaxin").all().count()
+        t2 = ChargesApt.objects.filter(commodity__name="covaxin").all().count()
+        t3 = Charges.objects.filter(commodity__name="covishield").all().count()
+        t4 = ChargesApt.objects.filter(commodity__name="covishield").all().count()
+        det=[covaxin.name,covaxin.price,covishield.name,covishield.price,tot,t1+t2,t3+t4]
+        if request.method=="POST":  #if patient books an appointment
+            vacForm = CovidVaccinationApplicationForm(request.POST)
+            if vacForm.is_valid():  #if form is valid
+                vacid=vacForm.cleaned_data.get('commodity')
+                med = Medicines.objects.all().filter(id=vacid).first()
+                cv = CovidVaccination(patient=pat,vaccine=med)
+                cv.save()
+            else:   #if form is invalid
+                print(vacForm.errors)
+        else:
+            vacForm = CovidVaccinationApplicationForm()
+        return render(request,'hospital/Patient/bookvaccine.html',{'form': vacForm,'app':det})
     else:
         auth.logout(request)
         return redirect('login_pat.html')
@@ -1558,7 +1587,16 @@ def covid_vaccine_adm_view(request):
         admeds = ChargesApt.objects.filter(commodity__name="covishield").all()
         for med in admeds:
             det.append([med.Aptinfo.patient.firstname,med.Aptinfo.patient.lastname,med.quantity,med.Aptinfo.doctor.firstname,med.Aptinfo.doctor.lastname,med.Aptinfo.calldate,"covishield"])    
-        return render(request,'hospital/Admin/covid_vaccine_adm.html',{'app':det})
+        covaxin = Medicines.objects.all().filter(name="covaxin").first()
+        covishield = Medicines.objects.all().filter(name="covishield").first()
+        tot = CovidVaccination.objects.all().count()
+        t1 = Charges.objects.filter(commodity__name="covaxin").all().count()
+        t2 = ChargesApt.objects.filter(commodity__name="covaxin").all().count()
+        t3 = Charges.objects.filter(commodity__name="covishield").all().count()
+        t4 = ChargesApt.objects.filter(commodity__name="covishield").all().count()
+        d=[covaxin.name,covaxin.price,covishield.name,covishield.price,tot,t1+t2,t3+t4]
+        cv = CovidVaccination.objects.all()
+        return render(request,'hospital/Admin/covid_vaccine_adm.html',{'app':det,'info':d,'cvv':cv})
     else:
         auth.logout(request)
         return redirect('login_adm.html')

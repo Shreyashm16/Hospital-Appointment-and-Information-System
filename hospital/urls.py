@@ -8,6 +8,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path('',views.home_view,name=''),
     path('bookapp_pat/',views.bookapp_view,name='bookapp.html'),
+    path('bookvaccine_pat/',views.covidvaccine_pat_view,name='covidvaccine.html'),
     path('calladoc_pat/',views.calladoc_view,name='calladoc.html'),
     path('feedback_pat/',views.feedback_view,name='feedback.html'),
     path('medicalreport_pat/',views.medicalreport_view,name='medicalreport.html'),

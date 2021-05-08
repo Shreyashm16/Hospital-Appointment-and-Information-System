@@ -138,3 +138,9 @@ class OperationCosts(models.Model):
     description=models.TextField(null=True, blank=True)
     def __str__(self):
         return f'{self.name} Cost'
+
+class CovidVaccination(models.Model):
+    patient=models.ForeignKey(Patient, on_delete=models.CASCADE, related_name="PatientVaccination")
+    vaccine=models.ForeignKey(Medicines, on_delete=models.CASCADE, related_name="Vaccine")
+    def __str__(self):
+        return f'{self.patient.firstname} Covid Vaccination'

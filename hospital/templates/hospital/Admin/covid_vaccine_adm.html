@@ -286,7 +286,7 @@ td {
 
                         <div class="sps">
 
-                            <h2 class="sps">Medicine Details</h2>
+                            <h2 class="sps">Vaccine Details</h2>
                             <table class="sps">
                                 <thead>
                                     <tr class="sps">
@@ -310,10 +310,97 @@ td {
                     </center>
                 </div>
 
-            </div>
+            
+          
+            <br />
+            <br />
+            <br />
+            <div class="market-update" style="margin-left: 10%">
+        
+                <div class="col-md-4 market-update-gd">
+                  <div class="market-update-block clr-block-1 column">
+                    <div class="col-md-8 market-update-left">
+                      <h4>Total Applications Recieved: {{info.4}}</h4>  
+                    </div>
+                    <div class="col-md-4 market-update-right">
+                      <i class="fa fa-calendar-o"> </i>
+                    </div>
+                    <div class="clearfix"> </div>
+                  </div>
+                </div>
+            
+                <div class="col-md-4 market-update-gd">
+                  <div class="market-update-block clr-block-2 column">
+                    <div class="col-md-8 market-update-left">
+                      <h4>Total Patients Vaccinated (Covaxin): {{info.5}}</h4>
+                    </div>
+                    <div class="col-md-4 market-update-right">
+                      <i class="fa fa-user-o"></i>
+                    </div>
+                    <div class="clearfix"> </div>
+                  </div>
+                </div>
+            
+                <div class="col-md-4 market-update-gd">
+                  <div class="market-update-block clr-block-3 column">
+                    <div class="col-md-8 market-update-left">
+                       <h4>Total Patients Vaccinated (Covishield):  {{info.6}}</h4>
+                    </div>
+                    <div class="col-md-4 market-update-right">
+                      <i class="fa fa-user-o"></i>
+                    </div>
+                    <div class="clearfix"> </div>
+                  </div>
+                </div>
+                <div class="clearfix"> </div>
+              </div>
+            <br />
+            <br />
+            <br />
+            <center>
+            <table class="table sps">
+                   <h2 class="sps">Vaccine Details</h2>
+              <tr class="sps">
+                <th class="sps" >Vaccine Name</th>
+                <th class="sps">Price</th>
+                <th class="sps">Details</th>
+              </tr>
+              <tr class="sps">
+                <td class="sps">{{info.0}}</td>
+                <td class="sps">{{info.1}}</td>
+                <td class="sps"><a class="btn btn-primary btn-xs" href="https://www.bharatbiotech.com/covaxin.html" target="_blank">Details</a></td>
+              </tr>
+              <tr class="sps">
+                <td class="sps">{{info.2}}</td>
+                <td class="sps">{{info.3}}</td>
+                <td class="sps"><a class="btn btn-primary btn-xs" href="https://www.seruminstitute.com/product_covishield.php" target="_blank">Details</a></td>
+              </tr>
+            </tr>
+          </table>
+          <br />
+          <br />
+          <br />
+          <table class="table sps">
+            <h2 class="sps">Applications</h2>
+            <tr class="sps">
+              <th class="sps" >Patient Name</th>
+              <th class="sps">Vaccine Name</th>
+              <th class="sps">Patient City</th>
+              <th class="sps">Patient Postal Code</th>
+            </tr>
+            {% for cv in cvv %}
+            <tr class="sps">
+              <td class="sps">{{cv.patient.firstname}} {{cv.patient.lastname}}</td>
+              <td class="sps">{{cv.vaccine.name}}</td>
+              <td class="sps">{{cv.patient.city}}</td>
+              <td class="sps">{{cv.patient.postalcode}}</td>
+            </tr>
+            {% endfor %}
+          </table>
+          </center>
 
         </div>
-      
+      </div>
       <!-- End Navbar -->
       <br><br><br><br><br><br><br><br><br><br><br><br>
       {% include "hospital/Admin/footer.html" %}
