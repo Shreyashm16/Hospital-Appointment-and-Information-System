@@ -339,11 +339,13 @@ td {
         <tr class="sps">
         <th class="sps">Name</th>
         <th class="sps">Price</th>
+        <th class="sps">Track</th>
         </tr>
         {% for med in meds %}
             <tr>
             <td class="sps"> {{ med.name }}</td>
             <td class="sps">{{ med.price }}</td>
+            <td><a class="btn btn-primary btn-xs" href="{% url 'particular_medtrack.html' med.name %}">Track</a></td>
             </tr>
         {% endfor %}
     </table>
