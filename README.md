@@ -1,4 +1,4 @@
-# Hospital-Appointment-and-Information-System
+# Hospital Appointment and Information System
 
 ## Problem Statement
 At present, there is no platform which can have all virtual functionalities such as video call diagnosis help, online emergency facility & online monitoring patients, One-to-one communication in between patient & doctor virtually, etc.
