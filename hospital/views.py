@@ -13,34 +13,33 @@ from datetime import date,timedelta,time
 from django.http import HttpResponseRedirect
 
 ## For Invoice Function
-import io
-from xhtml2pdf import pisa
-from django.template.loader import get_template
-from django.template import Context
 from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 
 #Admin Related Views
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')     #if user is not logged in, redirect to login page
 def opcost_adm_view(request):
     if check_admin(request.user):
-        if request.method=="POST" and 'addmeds' in request.POST:
+        if request.method=="POST" and 'addmeds' in request.POST:    #form for adding medicines
             f = AddMedForm(request.POST)
             if f.is_valid():
-                name = f.cleaned_data.get('name')
-                price = f.cleaned_data.get('price')
-                med = Medicines(name=name,price=price)
+                name = f.cleaned_data.get('name')   #get name from form
+                price = f.cleaned_data.get('price') #get price from form
+                med = Medicines(name=name,price=price)  #create new medicine
                 med.save()
                 return redirect('opcost.html')
             else:
                 print(f.errors)
         else:
             f = AddMedForm()
-        if request.method=="POST" and 'opcost' in request.POST:
+        if request.method=="POST" and 'opcost' in request.POST: #form for editing operational costs
             opf = OpcostsForm(request.POST)
             if opf.is_valid():
-                main = opf.cleaned_data.get('maintenance')
-                hosp = opf.cleaned_data.get('hospfee')
-                rf = opf.cleaned_data.get('roomfee')
+                main = opf.cleaned_data.get('maintenance')  #get maintenance charges from form
+                hosp = opf.cleaned_data.get('hospfee')  #get hospital fees from form
+                rf = opf.cleaned_data.get('roomfee')    #get room fee from form
+                #edit, then save records
                 mnc = OperationCosts.objects.all().filter(name="Maintenance").first()
                 mnc.cost=main
                 mnc.save()
@@ -59,7 +58,8 @@ def opcost_adm_view(request):
             mnc = OperationCosts.objects.all().filter(name="Maintenance").first()
             hp = OperationCosts.objects.all().filter(name="Hospital Fee").first()
             r = OperationCosts.objects.all().filter(name="Room").first()
-            opf.fields['maintenance'].initial=mnc.cost
+            #setting initial placeholders for operational costs form
+            opf.fields['maintenance'].initial=mnc.cost  
             opf.fields['hospfee'].initial=hp.cost
             opf.fields['roomfee'].initial=r.cost
         meds = Medicines.objects.all()
@@ -69,25 +69,25 @@ def opcost_adm_view(request):
         return redirect('login_adm.html')
 
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')         #if user is not logged in, redirect to login page
 def bookapp_adm_view(request):
     if check_admin(request.user):
-        if request.method=="POST":
+        if request.method=="POST":  #if form is submitted
             appointmentForm = AdminAppointmentForm(request.POST)
             if appointmentForm.is_valid():
-                docid=appointmentForm.cleaned_data.get('doctor')
-                patid=appointmentForm.cleaned_data.get('patient')
-                doc = Doctor.objects.all().filter(id=docid).first()
-                pat = Patient.objects.all().filter(id=patid).first()
-                if check_avail(doc,appointmentForm.cleaned_data.get('calldate'),appointmentForm.cleaned_data.get('calltime')):
+                docid=appointmentForm.cleaned_data.get('doctor')    #get doctor id
+                patid=appointmentForm.cleaned_data.get('patient')   #get patient id
+                doc = Doctor.objects.all().filter(id=docid).first() #get doctor
+                pat = Patient.objects.all().filter(id=patid).first()#get patient
+                if check_avail(doc,appointmentForm.cleaned_data.get('calldate'),appointmentForm.cleaned_data.get('calltime')):  #check if appointment is available during that slot
                     app = Appointment(patient=pat,doctor=doc,
                                     description=appointmentForm.cleaned_data.get('description'),
                                     calldate=appointmentForm.cleaned_data.get('calldate'),
                                     calltime=appointmentForm.cleaned_data.get('calltime'),
-                                    status=True)
+                                    status=True)    #create new appointment
                     app.save()
                     return redirect('bookapp_adm.html')
-                else:
+                else:   #if slot is not available, display error
                     appointmentForm.add_error('calltime', 'Slot Unavailable.')
                     return render(request,'hospital/Admin/bookapp_adm.html',{'appointmentForm': appointmentForm})
             else:
@@ -99,30 +99,30 @@ def bookapp_adm_view(request):
         auth.logout(request)
         return redirect('login_adm.html')
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')      #if user is not logged in, redirect to login page
 def appointment_particular_adm_view(request,pk):
     if check_admin(request.user):
-        ad = Appointment.objects.filter(id=pk).first()
+        ad = Appointment.objects.filter(id=pk).first()  #get appointment 
         pat = ad.patient
         doc = ad.doctor
-        det = [doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,pk,ad.finished]
+        det = [doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,pk,ad.finished]   #render fields
         return render(request,'hospital/Admin/appointment_particular_adm.html',{'app':det})
     else:
         auth.logout(request)
         return redirect('login_adm.html')
 
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')      #if user is not logged in, redirect to login page
 def admit_adm_view(request):
     if check_admin(request.user):
         if request.method=="POST":
             admitForm = AdminAdmitRegisterForm(request.POST)
             if admitForm.is_valid():
-                docid=admitForm.cleaned_data.get('doctor')
-                patid=admitForm.cleaned_data.get('patient')
-                doc = Doctor.objects.all().filter(id=docid).first()
-                pat = Patient.objects.all().filter(id=patid).first()
-                adt = PatAdmit(patient=pat,doctor=doc,
+                docid=admitForm.cleaned_data.get('doctor')  #get doctor id
+                patid=admitForm.cleaned_data.get('patient') #get patient id
+                doc = Doctor.objects.all().filter(id=docid).first() #get doctor
+                pat = Patient.objects.all().filter(id=patid).first()    #get patient
+                adt = PatAdmit(patient=pat,doctor=doc,  #create new admit record 
                                 description=admitForm.cleaned_data.get('description'),
                                 admitDate=admitForm.cleaned_data.get('admitDate'))
                 adt.save()
@@ -135,47 +135,47 @@ def admit_adm_view(request):
         auth.logout(request)
         return redirect('login_adm.html')
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def admin_appointment_view(request):
     if check_admin(request.user):
         det=[]
-        for c in Appointment.objects.filter(status=True).all():
-            d=c.doctor
-            p=c.patient
+        for c in Appointment.objects.filter(status=True).all(): #get approved appointments 
+            d=c.doctor  #get doctor
+            p=c.patient #get patient
             if d and p:
-                det.append([d.firstname,p.firstname,c.description,c.calldate,c.calltime,c.pk])
+                det.append([d.firstname,p.firstname,c.description,c.calldate,c.calltime,c.pk])  #render information
         return render(request,'hospital/Admin/appoint_view_adm.html',{'app':det})
     else:
         auth.logout(request)
         return redirect('login_adm.html')
 
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def admin_admit_view(request):
     if check_admin(request.user):
         det=[]
-        for c in PatAdmit.objects.all():
-            d=c.doctor
-            p=c.patient
+        for c in PatAdmit.objects.all():    #get all admit records
+            d=c.doctor  #get doctor
+            p=c.patient #get patient
             if d and p:
-                det.append([d.firstname,p.firstname,c.description,c.admitDate,c.pk])
+                det.append([d.firstname,p.firstname,c.description,c.admitDate,c.pk])    #render information
         return render(request,'hospital/Admin/admit_view_adm.html',{'app':det})
     else:
         auth.logout(request)
         return redirect('login_adm.html')
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def dash_adm_view(request):
     if check_admin(request.user):
-        doc = Doctor.objects.all().filter(status=False)
-        pat = Patient.objects.all().filter(status=False)
-        pattotcount=Patient.objects.all().count()
-        doctotcount=Doctor.objects.all().count()
-        appcount=Appointment.objects.all().count()
-        patapp = Patient.objects.all().filter(status=False).count()
-        docapp = Doctor.objects.all().filter(status=False).count()
-        approveapp = Appointment.objects.all().filter(status=False).count()
-        dic={'doc':doc,'pat':pat,'pattotcount':pattotcount,'doctotcount':doctotcount,'patapp':patapp,'docapp':docapp,'appcount':appcount,'approveapp':approveapp}
+        doc = Doctor.objects.all().filter(status=False) #get all onhold doctors
+        pat = Patient.objects.all().filter(status=False)#get all onhold patients
+        pattotcount=Patient.objects.all().count()   #get total patients
+        doctotcount=Doctor.objects.all().count()    #get total doctors
+        appcount=Appointment.objects.all().count()  #get total appointments
+        patapp = Patient.objects.all().filter(status=False).count() #get total onhold patients
+        docapp = Doctor.objects.all().filter(status=False).count()  #get total onhold doctors
+        approveapp = Appointment.objects.all().filter(status=False).count() #get total onhold appointments
+        dic={'doc':doc,'pat':pat,'pattotcount':pattotcount,'doctotcount':doctotcount,'patapp':patapp,'docapp':docapp,'appcount':appcount,'approveapp':approveapp}   #render information
         return render(request,'hospital/Admin/dashboard_adm.html',context=dic)
     else:
         auth.logout(request)
@@ -193,15 +193,15 @@ def login_adm_view(request):
     if request.method=="POST":
         form = AuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = auth.authenticate(username=username, password=password)
-            if user is not None and check_admin(user):
-                auth.login(request, user)
-                accountapproval=Admin.objects.all().filter(status=True,user_id=request.user.id)
+            username = form.cleaned_data.get('username')    #get username
+            password = form.cleaned_data.get('password')    #get password
+            user = auth.authenticate(username=username, password=password)  #authenticate user
+            if user is not None and check_admin(user):  #if user exists and is admin
+                auth.login(request, user)   #login user
+                accountapproval=Admin.objects.all().filter(status=True,user_id=request.user.id) #if account is approved
                 if accountapproval:
                     return redirect('profile_adm.html')
-                else:
+                else:   #if account is not yet approved
                     auth.logout(request)
                     return render(request,'hospital/Home/wait_approval.html')
                 return redirect('dashboard_adm.html')
@@ -214,12 +214,12 @@ def login_adm_view(request):
 def register_adm_view(request):
     if request.method=="POST":
         form = AdminRegisterForm(request.POST, request.FILES)
-        if form.is_valid():
-            db = form.cleaned_data.get('dob')
+        if form.is_valid():     #get data from form (if it is valid)
+            db = form.cleaned_data.get('dob')   #get date of birth from form
             today = date.today()
-            ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
-            if db < timezone.now().date():
-                nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))
+            ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))    #calculate age from dob
+            if db < timezone.now().date():  #check if date of birth is valid (happened the previous day or even back)
+                nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))  #create user
                 adm = Admin(user=nu,firstname=form.cleaned_data.get('firstname'),
                             lastname=form.cleaned_data.get('lastname'),
                             age=ag,
@@ -229,9 +229,9 @@ def register_adm_view(request):
                             country=form.cleaned_data.get('country'),
                             postalcode=form.cleaned_data.get('postalcode'),
                             image=request.FILES['image']
-                            )
+                            )   #create admin
                 adm.save()
-                mpg = Group.objects.get_or_create(name='ADMIN')
+                mpg = Group.objects.get_or_create(name='ADMIN') #add user to admin group
                 mpg[0].user_set.add(nu)
                 return redirect('login_adm.html')
             else:
@@ -244,10 +244,11 @@ def register_adm_view(request):
     
     return render(request,'hospital/Admin/register_adm.html',{'form': form})
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def patient_adm_view(request):
     if check_admin(request.user):
-        pat = Patient.objects.all().filter(status=False)
+        #get information from database and render in html webpage
+        pat = Patient.objects.all().filter(status=False)   
         patapp = Patient.objects.all().filter(status=False).count()
         patcount=Patient.objects.all().count()
         dic={'pat':pat,'patcount':patcount,'patapp':patapp}
@@ -257,9 +258,10 @@ def patient_adm_view(request):
         return redirect('login_adm.html')
 
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')             #if user is not logged in, redirect to login page
 def patient_all_view(request):
     if check_admin(request.user):
+        #get information from database and render in html webpage
         det=[]
         for c in Patient.objects.filter(status=True).all():
             det.append([c.firstname,c.lastname,c.dob,c.address,c.city,c.country,c.postalcode,c.image.url])
@@ -268,9 +270,10 @@ def patient_all_view(request):
         auth.logout(request)
         return redirect('login_adm.html')
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def doctor_adm_view(request):
     if check_admin(request.user):
+        #get information from database and render in html webpage
         doc = Doctor.objects.all().filter(status=False)
         doccount=Doctor.objects.all().count()
         dic={'doc':doc,'doccount':doccount}
@@ -279,8 +282,9 @@ def doctor_adm_view(request):
         auth.logout(request)
         return redirect('login_adm.html')
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def doctor_all_view(request):
+    #get information from database and render in html webpage
     if check_admin(request.user):
         det=[]
         for c in Doctor.objects.filter(status=True).all():
@@ -291,8 +295,9 @@ def doctor_all_view(request):
         auth.logout(request)
         return redirect('login_adm.html')
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def admin_adm_view(request):
+    #get information from database and render in html webpage
     if check_admin(request.user):
         adm = Admin.objects.all().filter()
         admcount=Admin.objects.all().count()
@@ -302,9 +307,10 @@ def admin_adm_view(request):
         auth.logout(request)
         return redirect('login_adm.html')
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def admin_all_view(request):
     if check_admin(request.user):
+        #get information from database and render in html webpage
         det=[]
         for c in Admin.objects.all():
             det.append([c.firstname,c.lastname,c.dob,c.address,c.city,c.country,c.postalcode,c.image.url])
@@ -314,9 +320,10 @@ def admin_all_view(request):
         return redirect('login_adm.html')
 
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def admit_particular_adm_view(request,pk):
     if check_admin(request.user):
+        #get information from database and render in html webpage
         ad = PatAdmit.objects.filter(id=pk).first()
         doc=ad.doctor
         doci=doc.department
@@ -329,8 +336,9 @@ def admit_particular_adm_view(request,pk):
         return redirect('login_adm.html')
 
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def approve_pat_view(request):
+    #get information from database and render in html webpage
     if check_admin(request.user):
         pat = Patient.objects.all().filter(status=False)
         return render(request,'hospital/Admin/approve_pat.html',{'pat':pat})
@@ -338,58 +346,63 @@ def approve_pat_view(request):
         auth.logout(request)
         return redirect('login_adm.html')
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def approve_doc_view(request):
     if check_admin(request.user):
+        #get information from database and render in html webpage
         doc = Doctor.objects.all().filter(status=False)
         return render(request,'hospital/Admin/approve_doc.html',{'doc':doc})
     else:
         auth.logout(request)
         return redirect('login_adm.html')
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def approve_adm_view(request):
     if check_admin(request.user):
+        #get information from database and render in html webpage
         adm = Admin.objects.all().filter(status=False)
         return render(request,'hospital/Admin/approve_adm.html',{'adm':adm})
     else:
         auth.logout(request)
         return redirect('login_adm.html')
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def approve_patient_view(request,pk):
     if check_admin(request.user):
+        #get information from database
         patient=Patient.objects.get(id=pk)
-        patient.status=True
+        patient.status=True #approve patient
         patient.save()
         return redirect(reverse('approve_pat.html'))
     else:
         auth.logout(request)
         return redirect('login_adm.html')
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def approve_doctor_view(request,pk):
     if check_admin(request.user):
+        #get information from database
         doctor=Doctor.objects.get(id=pk)
-        doctor.status=True
+        doctor.status=True  #approve doctor
         doctor.save()
         return redirect(reverse('approve_doc.html'))
     else:
         auth.logout(request)
         return redirect('login_adm.html')
 
-@login_required(login_url='login_adm.html')
-def approve_admin_view(request,pk):
+@login_required(login_url='login_adm.html')              #if user is not logged in, redirect to login page
+def approve_admin_view(request,pk): 
     if check_admin(request.user):
+        #get information from database
         admin=Admin.objects.get(id=pk)
-        admin.status=True
+        admin.status=True   #approve admin
         admin.save()
         return redirect(reverse('approve_adm.html'))
     else:
         auth.logout(request)
         return redirect('login_adm.html')
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')              #if user is not logged in, redirect to login page
 def approve_appoint_view(request):
     if check_admin(request.user):
         #those whose approval are needed
@@ -398,17 +411,18 @@ def approve_appoint_view(request):
             d=c.doctor
             p=c.patient
             if d and p:
-                det.append([d.firstname,p.firstname,c.description,c.calldate,c.calltime,c.id])
+                det.append([d.firstname,p.firstname,c.description,c.calldate,c.calltime,c.id])  #render information on webpage
         return render(request,'hospital/Admin/approve_appoint.html',{'app':det})
     else:
         auth.logout(request)
         return redirect('login_adm.html')
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')             #if user is not logged in, redirect to login page
 def approve_app_view(request,pk):
     if check_admin(request.user):
+        #get information from database
         appointment=Appointment.objects.get(id=pk)
-        appointment.status=True
+        appointment.status=True #approve appointment
         appointment.save()
         return redirect(reverse('approve_appoint.html'))
     else:
@@ -416,22 +430,23 @@ def approve_app_view(request,pk):
         return redirect('login_adm.html')
 
 
-@login_required(login_url='login_adm.html')
+@login_required(login_url='login_adm.html')          #if user is not logged in, redirect to login page
 def profile_adm_view(request):
     if check_admin(request.user):
+        #get information from database
         adm = Admin.objects.filter(user_id=request.user.id).first()
         db=adm.dob
         today = date.today()
         ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
         #return render(request,'hospital/Doctor/profile_doc.html',{'doc':doc})
-        if request.method=="POST":
+        if request.method=="POST":  #profile is updated
             p_form = AdminUpdateForm(request.POST, request.FILES, instance=adm)
             if p_form.is_valid():
-                p_form.save()
+                p_form.save()   #save changes in profile
                 return redirect('profile_adm.html')
         else:
             p_form = AdminUpdateForm(instance=adm)
-        context = {
+        context = {     #render information on webpage
             'p_form': p_form,
             'adm': adm,
             'ag': ag
@@ -442,63 +457,57 @@ def profile_adm_view(request):
         return redirect('login_adm.html')
 
 
+#===============================================================
+#         #         Paitent Related Views         #            #
+#===============================================================
 
 
-# Paitent Related Views
-
-
-
-
-def add_secs_to_time(timeval, secs_to_add):
-    secs = timeval.hour * 3600 + timeval.minute * 60 + timeval.second
-    secs -= secs_to_add
-    return time(secs // 3600, (secs % 3600) // 60, secs % 60)
-
-def check_avail(doc,dt,tm):
-    tm = tm[:-3]
-    hr = tm[:-3]
-    mn = tm[-2:]
-    ftm = time(int(hr),int(mn),0)
-    k = Appointment.objects.all().filter(status=True,doctor=doc,calldate=dt)
-    if ftm<time(9,0,0) or ftm>time(17,0,0):
+def check_avail(doc,dt,tm):     #check if doctor is available in a given slot
+    tm = tm[:-3]    #separate AM/PM
+    hr = tm[:-3]    #get hour reading
+    mn = tm[-2:]    #get minute reading
+    ftm = time(int(hr),int(mn),0)   #create a time object
+    k = Appointment.objects.all().filter(status=True,doctor=doc,calldate=dt)    #get all appointments for a given doc and the given date
+    if ftm<time(9,0,0) or ftm>time(17,0,0): #if time is not in between 9AM to 5PM, reject
         return False
-    if ftm>time(13,0,0) and ftm<time(14,0,0):
+    if ftm>time(13,0,0) and ftm<time(14,0,0): #if time is in between 1PM to 2PM, reject
         return False
     for l in k:
-        if ftm == l.calltime and dt==l.calldate:
+        if ftm == l.calltime and dt==l.calldate:   #if some other appointment has the same slot, reject
             return False
     return True
 
 @login_required(login_url='login_pat.html')
 def bookapp_view(request):
     if check_patient(request.user):
-        pat=Patient.objects.get(user_id=request.user.id)
+        pat=Patient.objects.get(user_id=request.user.id)   #get patient from logged in user
+        #get information from database and render in html webpage
         app_det=[]
         for a in Appointment.objects.filter(patient=pat,status=False).all():
             k=a.doctor
             if k:
                 app_det.append([k.firstname,a.description,k.department,a.calldate,a.calltime,a.status])
-        if request.method=="POST":
+        if request.method=="POST":  #if patient books an appointment
             appointmentForm = PatientAppointmentForm(request.POST)
-            if appointmentForm.is_valid():
-                docid=int(appointmentForm.cleaned_data.get('doctor'))
-                doc = Doctor.objects.all().filter(id=docid).first()
-                if check_avail(doc,appointmentForm.cleaned_data.get('calldate'),appointmentForm.cleaned_data.get('calltime')):
-                    dt = appointmentForm.cleaned_data.get('calldate')
-                    if timezone.now().date() < dt:
+            if appointmentForm.is_valid():  #if form is valid
+                docid=int(appointmentForm.cleaned_data.get('doctor'))   #get doctor id from form
+                doc = Doctor.objects.all().filter(id=docid).first() #get doctor from form
+                if check_avail(doc,appointmentForm.cleaned_data.get('calldate'),appointmentForm.cleaned_data.get('calltime')):  #check if doctor is available during that slor
+                    dt = appointmentForm.cleaned_data.get('calldate')   #get call date
+                    if timezone.now().date() < dt:  #check if call date is vaid
                         app = Appointment(patient=pat,doctor=doc,
                                     description=appointmentForm.cleaned_data.get('description'),
                                     calldate=appointmentForm.cleaned_data.get('calldate'),
                                     calltime=appointmentForm.cleaned_data.get('calltime'),
-                                    status=False)
+                                    status=False)   #create appointment instance, which is unapproved
                         app.save()
                         return redirect('bookapp.html')
                     else:
                         appointmentForm.add_error('calldate', 'Invalid date.')
-                else:
+                else:   #if doctor is busy
                     appointmentForm.add_error('calltime', 'Slot Unavailable.')
                 return render(request,'hospital/Patient/bookapp.html',{'appointmentForm': appointmentForm,'p1':app_det})
-            else:
+            else:   #if form is invalid
                 print(appointmentForm.errors)
         else:
             appointmentForm = PatientAppointmentForm()
@@ -1307,9 +1316,6 @@ def check_patient(user):
 
 
 
-from django.http import HttpResponse
-from django.template.loader import get_template
-from xhtml2pdf import pisa
 
 def render_pdf_report_view(request,pk):
     template_path = 'hospital/report_pdf.html'
