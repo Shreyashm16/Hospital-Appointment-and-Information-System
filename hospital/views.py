@@ -519,6 +519,7 @@ def bookapp_view(request):
 @login_required(login_url='login_pat.html')
 def appointment_details_particular_pat_view(request,pk):
     if check_patient(request.user):
+        #get information from database and render in html webpage
         ad = Appointment.objects.filter(id=pk).first()
         pat = ad.patient
         doc = ad.doctor
@@ -532,9 +533,10 @@ def appointment_details_particular_pat_view(request,pk):
 @login_required(login_url='login_pat.html')
 def pat_appointment_view(request):
     if check_patient(request.user):
+        #get information from database and render in html webpage
         pat=Patient.objects.get(user_id=request.user.id)
         det=[]
-        for c in Appointment.objects.filter(status=True,patient=pat).all():
+        for c in Appointment.objects.filter(status=True,patient=pat).all(): #get all approved appointments 
             d=c.doctor
             p=c.patient
             if d and p:
@@ -547,15 +549,16 @@ def pat_appointment_view(request):
 @login_required(login_url='login_pat.html')
 def calladoc_view(request):
     if check_patient(request.user):
+        #get information from database and render in html webpage
         pat=Patient.objects.get(user_id=request.user.id)
         det=[]
-        for c in Appointment.objects.filter(status=True,patient=pat).all():
+        for c in Appointment.objects.filter(status=True,patient=pat).all(): #get all approved appointments 
             d=c.doctor
             if d:
                 det.append([d.firstname,pat.firstname,c.calldate,c.calltime,c.link])
         
         l=[]
-        for c in DoctorProfessional.objects.all():
+        for c in DoctorProfessional.objects.all():  #get all Doctor Professional Instances
             d=c.doctor
             db = d.dob
             today = date.today()
@@ -573,13 +576,13 @@ def calladoc_view(request):
 def feedback_view(request):
     if check_patient(request.user):
         sub = forms.ContactusForm()
-        if request.method == 'POST':
+        if request.method == 'POST':    
             sub = forms.ContactusForm(request.POST)
-            if sub.is_valid():
-                email = sub.cleaned_data['Email']
-                name=sub.cleaned_data['Name']
-                message = sub.cleaned_data['Message']
-                send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
+            if sub.is_valid():  #if form is valid
+                email = sub.cleaned_data['Email']   #get email from forms
+                name=sub.cleaned_data['Name']   #get name from form
+                message = sub.cleaned_data['Message']   #get meesage from form
+                send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)   #send mail
                 return redirect('feedback.html')
         return render(request, 'hospital/Patient/feedback.html', {'form':sub})
     else:
@@ -589,6 +592,7 @@ def feedback_view(request):
 @login_required(login_url='login_pat.html')
 def medicalreport_view(request):
     if check_patient(request.user):
+        #get information from database and render in html webpage
         pat=Patient.objects.get(user_id=request.user.id)
         padm = PatAdmit.objects.all().filter(patient=pat).order_by('admitDate')
         det=[]
@@ -606,6 +610,7 @@ def medicalreport_view(request):
 @login_required(login_url='login_pat.html')
 def admit_details_view(request):
     if check_patient(request.user):
+        #get information from database and render in html webpage
         pat=Patient.objects.get(user_id=request.user.id)
         app_det=[]
         for a in Appointment.objects.filter(patient=pat,status=False).all():
@@ -625,6 +630,7 @@ def admit_details_view(request):
 @login_required(login_url='login_pat.html')
 def admit_details_particular_view(request,pk):
     if check_patient(request.user):
+        #get information from database and render in html webpage
         ad = PatAdmit.objects.filter(id=pk).first()
         pat=ad.patient
         doc=ad.doctor
@@ -637,16 +643,16 @@ def admit_details_particular_view(request,pk):
 def login_pat_view(request):
     if request.method=="POST":
         form = AuthenticationForm(request=request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = auth.authenticate(username=username, password=password)
-            if user is not None and check_patient(user):
-                auth.login(request, user)
+        if form.is_valid():     #if form is valid
+            username = form.cleaned_data.get('username')    #get username from form
+            password = form.cleaned_data.get('password')    #get password from form
+            user = auth.authenticate(username=username, password=password)  #get user
+            if user is not None and check_patient(user):    #if user exists and is a patient
+                auth.login(request, user)   #login
                 accountapproval=Patient.objects.all().filter(status=True,user_id=request.user.id)
-                if accountapproval:
+                if accountapproval: #if account is approved
                     return redirect('profile_pat.html')
-                else:
+                else:   #if not approved, redirect to wait_approval webpage
                     return render(request,'hospital/Home/wait_approval.html')
         return render(request, 'hospital/Patient/login_pat.html', {'form': form})
     else: 
@@ -657,11 +663,11 @@ def login_pat_view(request):
 def register_pat_view(request):
     if request.method=="POST":
         form = PatientRegisterForm(request.POST, request.FILES)
-        if form.is_valid():
-            db = form.cleaned_data.get('dob')
-            if db < timezone.now().date():
-                nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))
-                p = Patient(user=nu,firstname=form.cleaned_data.get('firstname'),
+        if form.is_valid(): #if form is valid
+            db = form.cleaned_data.get('dob')   #ger date of birth from form
+            if db < timezone.now().date():  #check if date is valid
+                nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))  #create use
+                p = Patient(user=nu,firstname=form.cleaned_data.get('firstname'),   
                             lastname=form.cleaned_data.get('lastname'),
                             dob=form.cleaned_data.get('dob'),
                             address=form.cleaned_data.get('address'),
@@ -669,40 +675,39 @@ def register_pat_view(request):
                             country=form.cleaned_data.get('country'),
                             postalcode=form.cleaned_data.get('postalcode'),
                             image=request.FILES['image']
-                            )
+                            )   #create patient
                 p.save()
-                path = PatHealth(patient=p,status=False)
+                path = PatHealth(patient=p,status=False)    #create patient health instance for newly registered patient
                 path.save()
-                mpg = Group.objects.get_or_create(name='PATIENT')
+                mpg = Group.objects.get_or_create(name='PATIENT')   #add user to patient group
                 mpg[0].user_set.add(nu)
                 return redirect('login_pat.html')
-            else:
+            else:   #if date of birth is invalid
                 form.add_error('dob', 'Invalid date of birth.')
                 return render(request,'hospital/Patient/register_pat.html',{'form': form})
         else:
             print(form.errors)
     else: 
         form = PatientRegisterForm()
-    
     return render(request,'hospital/Patient/register_pat.html',{'form': form})
 
 @login_required(login_url='login_pat.html')
 def profile_pat_view(request):
     if check_patient(request.user):
+        #get information from database and render in html webpage
         pat = Patient.objects.filter(user_id=request.user.id).first()
         db=pat.dob
         today = date.today()
-        ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
-        #return render(request,'hospital/Doctor/profile_doc.html',{'doc':doc})
+        ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))    #calculate age
         if request.method=="POST":
             p_form = PatientUpdateForm(request.POST, request.FILES, instance=pat)
-            if p_form.is_valid():
-                db = p_form.cleaned_data.get('dob')
+            if p_form.is_valid():   #if form is valid
+                db = p_form.cleaned_data.get('dob') #get date of birth from form
                 today = date.today()
                 ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
-                if db < timezone.now().date():
-                    p_form.save()
-                    pat.age=ag
+                if db < timezone.now().date():  #if date of birth is valid
+                    p_form.save()   #save details
+                    pat.age=ag      #save age
                     pat.save()
                     return redirect('profile_pat.html')
                 else:
@@ -730,8 +735,10 @@ def profile_pat_view(request):
 @login_required(login_url='login_pat.html')
 def yourhealth_view(request):
     if check_patient(request.user):
+        #get information from database and render in html webpage
         pat = Patient.objects.filter(user_id=request.user.id).first()
         info=PatHealth.objects.filter(patient=pat).first()
+        #calculate age
         db=pat.dob
         today = date.today()
         ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
@@ -751,7 +758,8 @@ def edityourhealth_view(request):
         info = PatHealth.objects.filter(patient=pat).first()
         if request.method=="POST":
             p_form = YourHealthEditForm(request.POST, instance=pat)
-            if p_form.is_valid():
+            if p_form.is_valid():   #if form is valid
+                #save pathealth details from form
                 info.height=p_form.cleaned_data.get('height')
                 info.weight=p_form.cleaned_data.get('weight')
                 info.diseases=p_form.cleaned_data.get('diseases')
@@ -762,6 +770,7 @@ def edityourhealth_view(request):
                 p_form.save()
                 return render(request,'hospital/Patient/yourhealth.html',{'info':info,'pat':pat})
         else:
+            #get information from database and set placeholder to each form field
             info.refresh_from_db()
             p_form = YourHealthEditForm(instance=pat)
             p_form.fields['height'].initial = info.height
@@ -787,19 +796,20 @@ def edityourhealth_view(request):
 @login_required(login_url='login_doc.html')
 def dash_doc_view(request):
     if check_doctor(request.user):
+        #get information from database and render in html webpage
         doc=Doctor.objects.get(user_id=request.user.id)
         patcount=PatAdmit.objects.all().filter(doctor=doc,dischargeDate=None).count()
         patcountdis=PatAdmit.objects.all().filter(doctor=doc).count()
         patcountdis=patcountdis-patcount
         appcount=models.Appointment.objects.all().filter(status=True,doctor=doc).count()
         det=[]
-        for c in Appointment.objects.filter(status=False,doctor=doc).all():
+        for c in Appointment.objects.filter(status=False,doctor=doc).all(): #get all onhold appointments of a given doctor
             p=c.patient
             if p:
                 det.append([p.firstname,c.description,c.calldate,c.calltime,c.link,c.id])
         
         admt=[]
-        for c in PatAdmit.objects.filter(doctor=doc).all():
+        for c in PatAdmit.objects.filter(doctor=doc).all(): #get all admit details of a given doctor
             p=c.patient
             if p:
                 admt.append([doc.firstname,p.firstname,c.admitDate,c.dischargeDate,c.pk])
@@ -811,12 +821,13 @@ def dash_doc_view(request):
 @login_required(login_url='login_doc.html')
 def dash_doc_approve_view(request,pk):
     if check_doctor(request.user):
+        #get information from database
         appointment=Appointment.objects.get(id=pk)
-        appointment.status=True
+        appointment.status=True #approve appointment
         appointment.save()
         doc=appointment.doctor
         dp=DoctorProfessional.objects.filter(doctor=doc).first()
-        dp.totalpat+=1
+        dp.totalpat+=1  #add patient to doctor's patient count
         dp.save()
         return redirect(reverse('dashboard_doc.html'))
     else:
@@ -826,19 +837,20 @@ def dash_doc_approve_view(request,pk):
 @login_required(login_url='login_doc.html')
 def bookapp_doc_view(request):
     if check_doctor(request.user):
+        #get information from database and render in html webpage
         doc=Doctor.objects.get(user_id=request.user.id)
         det=[]
-        for c in Appointment.objects.filter(status=True,doctor=doc.id,link__isnull=True,finished=False).all():
+        for c in Appointment.objects.filter(status=True,doctor=doc.id,link__isnull=True,finished=False).all():  #get approved appointments which have links not set and are not yet finished for a given doctor
             p=Patient.objects.filter(id=c.patient.id).first()
             if p:
                 det.append([p.firstname,c.description,c.calldate,c.pk,c.calltime])
         d=[]
-        for c in Appointment.objects.filter(status=True,doctor=doc.id,link__isnull=False,finished=False).all():
+        for c in Appointment.objects.filter(status=True,doctor=doc.id,link__isnull=False,finished=False).all(): #get approved appointments which have links not set and are not yet finished for a given doctor
             p=Patient.objects.filter(id=c.patient.id).first()
             if p:
                 d.append([p.firstname,c.description,c.calldate,c.calltime,c.link,c.pk])
         k=[]
-        for c in Appointment.objects.filter(doctor=doc.id,finished=True).all():
+        for c in Appointment.objects.filter(doctor=doc.id,finished=True).all(): #get finished appointments for a given doctor
             p=Patient.objects.filter(id=c.patient.id).first()
             if p:
                 k.append([p.firstname,c.description,c.calldate,c.calltime,c.link,c.pk])
@@ -850,19 +862,19 @@ def bookapp_doc_view(request):
 @login_required(login_url='login_doc.html')
 def appointment_details_particular_doc_view(request,pk):
     if check_doctor(request.user):
-        ad = Appointment.objects.filter(id=pk).first()
+        ad = Appointment.objects.filter(id=pk).first()  #get appointment
         pat=ad.patient
         doc=ad.doctor
-        pathi = PatHealth.objects.filter(patient=pat).first()
+        pathi = PatHealth.objects.filter(patient=pat).first()   #get patient health
         db = pat.dob
         med = Medicines.objects.all()
         today = date.today()
-        ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
-        det=[doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,ad.pk,ad.finished]
+        ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))    #get age
+        det=[doc.firstname,pat.firstname,ad.calldate,ad.link,ad.calltime,ad.description,ad.pk,ad.finished]  
         if request.method=="POST" and 'edit' in request.POST:
             p_form = AppointmentEditForm(request.POST,instance=ad)
-            if p_form.is_valid():
-                ad.description=p_form.cleaned_data.get('description')
+            if p_form.is_valid():   #if form is valid
+                ad.description=p_form.cleaned_data.get('description')   #get description from form
                 ad.save()
                 p_form.save()
                 p_form = AppointmentEditForm()
@@ -893,6 +905,7 @@ def appointment_details_particular_doc_view(request,pk):
 @login_required(login_url='login_doc.html')
 def appointment_details_particular_doc_add_charge_view(request,pk,comm,quan):
     if check_doctor(request.user):
+        #get information from database and render in html webpage
         ad = Appointment.objects.get(id=pk)
         money = Medicines.objects.get(name=comm)
         ChargesApt.objects.create(Aptinfo=ad,commodity=money,quantity=quan)
@@ -906,6 +919,7 @@ def appointment_details_particular_doc_add_charge_view(request,pk,comm,quan):
 @login_required(login_url='login_doc.html')
 def endappointment_doc_view(request,pk):
     if check_doctor(request.user):
+        #get information from database and render in html webpage
         ap = Appointment.objects.get(id=pk)
         ap.finished = True
         ap.save()
@@ -924,9 +938,8 @@ def endappointment_doc_view(request,pk):
 @login_required(login_url='login_doc.html')
 def bookapp_doc_link_view(request,pk,link):
     if check_doctor(request.user):
+        #get information from database and render in html webpage
         appointment=Appointment.objects.get(id=pk)
-        #appointment.calldate=date
-        #appointment.calltime=time
         appointment.link=link
         appointment.save()
         return redirect(reverse('bookapp_doc.html'))
@@ -940,11 +953,11 @@ def feedback_doc_view(request):
         sub = forms.ContactusForm()
         if request.method == 'POST':
             sub = forms.ContactusForm(request.POST)
-            if sub.is_valid():
-                email = sub.cleaned_data['Email']
-                name=sub.cleaned_data['Name']
-                message = sub.cleaned_data['Message']
-                send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
+            if sub.is_valid():  #if form is valid
+                email = sub.cleaned_data['Email']   #get email from form
+                name=sub.cleaned_data['Name']   #get name from form
+                message = sub.cleaned_data['Message']   #get message from form
+                send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)   #send email
                 return redirect('feedback_doc.html')
         return render(request, 'hospital/Doctor/feedback_doc.html', {'form':sub})
     else:
@@ -974,12 +987,10 @@ def login_doc_view(request):
 def register_doc_view(request):
     if request.method=="POST":
         form = DoctorRegisterForm(request.POST, request.FILES)
-        if form.is_valid():
-            db = form.cleaned_data.get('dob')
-            today = date.today()
-            ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
-            if db < timezone.now().date():
-                nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))
+        if form.is_valid(): #if form is valid
+            db = form.cleaned_data.get('dob')   #get date of birth from form
+            if db < timezone.now().date():  #if date of birth is valid
+                nu = User.objects.create_user(username=form.cleaned_data.get('username'),email=form.cleaned_data.get('email'),password=form.cleaned_data.get('password1'))  #create new user
                 doc = Doctor(user=nu,firstname=form.cleaned_data.get('firstname'),
                         lastname=form.cleaned_data.get('lastname'),
                         department=form.cleaned_data.get('department'),
@@ -988,15 +999,14 @@ def register_doc_view(request):
                         city=form.cleaned_data.get('city'),
                         country=form.cleaned_data.get('country'),
                         postalcode=form.cleaned_data.get('postalcode'),
-                        image=request.FILES['image']
-                        )
+                        image=request.FILES['image'])   #create new doctor
                 doc.save()
-                dp = DoctorProfessional(doctor=doc,appfees=200,admfees=2000)
+                dp = DoctorProfessional(doctor=doc,appfees=200,admfees=2000)    #ccreate doctor professional model instance using default prices
                 dp.save()
-                mpg = Group.objects.get_or_create(name='DOCTOR')
+                mpg = Group.objects.get_or_create(name='DOCTOR')    #add user to doctor group
                 mpg[0].user_set.add(nu)
                 return redirect('login_doc.html')
-            else:
+            else:   #if date of birth is invalid
                 form.add_error('dob', 'Invalid date of birth.')
                 return render(request,'hospital/Doctor/register_doc.html',{'form': form})
         else:
@@ -1011,24 +1021,23 @@ def register_doc_view(request):
 @login_required(login_url='login_doc.html')
 def profile_doc_view(request):
     if check_doctor(request.user):
+        #get information from database and render in html webpage
         doc = Doctor.objects.filter(user_id=request.user.id).first()
         db = doc.dob
         today = date.today()
-        ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
+        ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))    #calculate age
         if request.method=="POST":
             p_form = DoctorUpdateForm(request.POST, request.FILES, instance=doc)
-            if p_form.is_valid():
+            if p_form.is_valid():   #if form is valid
                 db = p_form.cleaned_data.get('dob')
                 today = date.today()
-                ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))
-                if db < timezone.now().date():
+                ag =  today.year - db.year - ((today.month, today.day) < (db.month, db.day))    #calculate age
+                if db < timezone.now().date():  #if date of birth is valid
                     p_form.save()
-                    doc.age=ag
-                    doc.save()
-                    dp = DoctorProfessional.objects.all().filter(doctor=doc).first()
+                    dp = DoctorProfessional.objects.all().filter(doctor=doc).first()    #get doctor professional details
                     dp.appfees = p_form.cleaned_data.get('appfees')
                     dp.admfees = p_form.cleaned_data.get('admfees')
-                    dp.save()
+                    dp.save()   #save doctor professional data
                     return redirect('profile_doc.html')
                 else:
                     p_form.add_error('dob', 'Invalid date of birth.')
@@ -1039,6 +1048,7 @@ def profile_doc_view(request):
                     }
                     return render(request,'hospital/Doctor/profile_doc.html',context)
         else:
+            #get data from database and put initial values in form
             doc.refresh_from_db()
             dp = DoctorProfessional.objects.all().filter(doctor=doc).first()
             p_form = DoctorUpdateForm(instance=doc)
@@ -1054,28 +1064,20 @@ def profile_doc_view(request):
         auth.logout(request)
         return redirect('login_doc.html')
     
-@login_required(login_url='login_doc.html')
-def yourhealth_doc_view(request):
-    if check_doctor(request.user):
-        return render(request,'hospital/Doctor/yourhealth_doc.html')
-    else:
-        auth.logout(request)
-        return redirect('login_doc.html')
 
 
 
 @login_required(login_url='login_doc.html')
 def admit_details_doc_view(request):
     if check_doctor(request.user):
-        doc=Doctor.objects.get(user_id=request.user.id)
+        doc=Doctor.objects.get(user_id=request.user.id) #get doctor
         det=[]
-        for c in PatAdmit.objects.filter(doctor=doc).all():
+        for c in PatAdmit.objects.filter(doctor=doc).all(): #get all patients admitted under given doctor
             p=c.patient
             if p and not(c.dischargeDate):
                 det.append([doc.firstname,p.firstname,c.admitDate,c.dischargeDate,c.pk])
-        
         d=[]
-        for c in PatAdmit.objects.filter(doctor=doc).all():
+        for c in PatAdmit.objects.filter(doctor=doc).all(): #get all patients admitted under given doctor
             p=c.patient
             if p and c.dischargeDate:
                 d.append([doc.firstname,p.firstname,c.admitDate,c.dischargeDate,c.pk])
@@ -1087,6 +1089,7 @@ def admit_details_doc_view(request):
 @login_required(login_url='login_doc.html')
 def admit_details_particular_doc_view(request,pk):
     if check_doctor(request.user):
+        #get information from database and render in html webpage
         ad = PatAdmit.objects.filter(id=pk).first()
         doci=Doctor.objects.get(user_id=request.user.id)
         doci=doci.department
@@ -1103,6 +1106,7 @@ def admit_details_particular_doc_view(request,pk):
 @login_required(login_url='login_doc.html')
 def admit_details_particular_doc_add_charge_view(request,pk,comm,quan):
     if check_doctor(request.user):
+        #get information from database and render in html webpage
         ad = PatAdmit.objects.get(id=pk)
         money = Medicines.objects.get(name=comm)
         Charges.objects.create(Admitinfo=ad,commodity=money,quantity=quan)
@@ -1115,6 +1119,7 @@ def admit_details_particular_doc_add_charge_view(request,pk,comm,quan):
 @login_required(login_url='login_doc.html')
 def discharge_doc_view(request,pk):
     if check_doctor(request.user):
+        #get information from database and render in html webpage
         ad = PatAdmit.objects.get(id=pk)
         ad.dischargeDate=date.today()
         ad.save()
@@ -1138,6 +1143,7 @@ def login_view(request):
 
 
 def bill_view(request,pk):
+    #get information from database and render in html webpage
     padm=PatAdmit.objects.all().filter(id=pk).first()
     pat=padm.patient
     doc=padm.doctor
@@ -1193,6 +1199,7 @@ def bill_view(request,pk):
 
 
 def bill_apt_view(request,pk):
+    #get information from database and render in html webpage
     apt=Appointment.objects.all().filter(id=pk).first()
     pat=apt.patient
     doc=apt.doctor
@@ -1238,6 +1245,7 @@ def bill_apt_view(request,pk):
 
 
 def report_view(request,pk):
+    #get information from database and render in html webpage
     padm=PatAdmit.objects.all().filter(id=pk).first()
     pat=padm.patient
     doc=padm.doctor
@@ -1274,6 +1282,7 @@ def report_view(request,pk):
 
 
 def report_apt_view(request,pk):
+    #get information from database and render in html webpage
     apt=Appointment.objects.all().filter(id=pk).first()
     pat=apt.patient
     doc=apt.doctor
@@ -1306,11 +1315,11 @@ def report_apt_view(request,pk):
 
 
 
-def check_admin(user):
+def check_admin(user):  #check if user is admin
     return user.groups.filter(name='ADMIN').exists()
-def check_doctor(user):
+def check_doctor(user): #check if user is doctor
     return user.groups.filter(name='DOCTOR').exists()
-def check_patient(user):
+def check_patient(user):#check if user is patient
     return user.groups.filter(name='PATIENT').exists()
 
 
@@ -1318,6 +1327,7 @@ def check_patient(user):
 
 
 def render_pdf_report_view(request,pk):
+    #get information from database
     template_path = 'hospital/report_pdf.html'
     padm=PatAdmit.objects.all().filter(id=pk).first()
     pat=padm.patient
@@ -1361,6 +1371,7 @@ def render_pdf_report_view(request,pk):
 
 
 def render_pdf_bill_view(request,pk):
+    #get information from database
     template_path = 'hospital/bill_pdf.html'
     padm=PatAdmit.objects.all().filter(id=pk).first()
     pat=padm.patient
@@ -1424,6 +1435,7 @@ def render_pdf_bill_view(request,pk):
 ######apt
 
 def render_pdf_report_apt_view(request,pk):
+    #get information from database
     template_path = 'hospital/report_apt_pdf.html'
     apt=Appointment.objects.all().filter(id=pk).first()
     pat=apt.patient
@@ -1462,6 +1474,7 @@ def render_pdf_report_apt_view(request,pk):
 
 
 def render_pdf_bill_apt_view(request,pk):
+    #get information from database
     template_path = 'hospital/bill_apt_pdf.html'
     apt=Appointment.objects.all().filter(id=pk).first()
     pat=apt.patient
@@ -1511,11 +1524,3 @@ def render_pdf_bill_apt_view(request,pk):
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
-
-
-
-
-
-
-
-
