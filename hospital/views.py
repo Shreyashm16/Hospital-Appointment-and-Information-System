@@ -611,8 +611,12 @@ def feedback_view(request):
                 email = sub.cleaned_data['Email']   #get email from forms
                 name=sub.cleaned_data['Name']   #get name from form
                 message = sub.cleaned_data['Message']   #get meesage from form
-                send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)   #send mail
-                return redirect('feedback.html')
+                try:
+                    send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)   #send mail
+                    return redirect('feedback.html')
+                except:
+                    sub.add_error('Email','please turn on access to less secured apps from your gmail account')
+                    return render(request, 'hospital/Patient/feedback.html', {'form':sub})
         return render(request, 'hospital/Patient/feedback.html', {'form':sub})
     else:
         auth.logout(request)
@@ -986,8 +990,12 @@ def feedback_doc_view(request):
                 email = sub.cleaned_data['Email']   #get email from form
                 name=sub.cleaned_data['Name']   #get name from form
                 message = sub.cleaned_data['Message']   #get message from form
-                send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)   #send email
-                return redirect('feedback_doc.html')
+                try:
+                    send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)   #send email
+                    return redirect('feedback_doc.html')
+                except:
+                    sub.add_error('Email','please turn on access to less secured apps from your gmail account')
+                    return render(request, 'hospital/Doctor/feedback_doc.html', {'form':sub})
         return render(request, 'hospital/Doctor/feedback_doc.html', {'form':sub})
     else:
         auth.logout(request)

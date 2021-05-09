@@ -137,7 +137,7 @@ EMAIL_HOST_PASSWORD = '20hospital' # host email password required
 # https://myaccount.google.com/lesssecureapps
 # otherwise you will get SMTPAuthenticationError at /contactus
 # this process is required because google blocks apps authentication by default
-EMAIL_RECEIVING_USER = ['siddharth25pandey@gmail.com'] # email on which you will receive messages sent from website
+EMAIL_RECEIVING_USER = ['shreyashm1601@gmail.com'] # email on which you will receive messages sent from website
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
