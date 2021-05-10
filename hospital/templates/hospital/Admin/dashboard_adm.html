@@ -389,7 +389,6 @@ td {
         <thead>
           <tr class="sps">
             <th class="sps">Name</th>
-            <th class="sps">Symptoms</th>
             <th class="sps">Address</th>
             <th class="sps">Status</th>
 
@@ -398,7 +397,6 @@ td {
         {% for p in pat %}
         <tr>
           <td class="sps"> {{p.firstname}} {{p.lastname}}</td>
-          <td class="sps">{{p.symptoms}}</td>
           <td class="sps">{{p.address}}</td>
           <td class="sps">{{p.status}}</td>
         </tr>{% endfor %}
