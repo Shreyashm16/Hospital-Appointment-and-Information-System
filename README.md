@@ -80,6 +80,9 @@ As demand of an automatic system in the healthcare sector are high, we need to d
 
 ## HOW TO RUN THIS PROJECT
 
+The website has bee hosted as http://g20hospital.pythonanywhere.com.
+
+To run the program offline, follow the following steps:
 * Install Python(3.7.6) (Don't Forget to Tick Add to Path while installing Python).
 * Open Terminal and Execute Following Commands :
     ```
